@@ -1,0 +1,22 @@
+{
+  "harbormaster_intro": {
+    "description": "You are shown into a cramped office. The harbormaster eyes your crew...",
+    "choices": {
+      "1": {
+        "text": "Pay the docking fee (10 gold × local price modifier).",
+        "effects": {"gold": -10, "relation:+Malacca Harbor": 5},
+        "result": "You pay promptly. The harbormaster warms a touch."
+      },
+      "2": {
+        "text": "Negotiate a reduced fee (chance based on Omar’s mood).",
+        "effects": {"relation:+Malacca Harbor": 0},
+        "result": "You try to reason with him..."
+      },
+      "3": {
+        "text": "Refuse and anchor offshore.",
+        "effects": {"relation:+Malacca Harbor": -10, "ship_condition": -2},
+        "result": "You anchor beyond the harbor. Supplies will be harder to get."
+      }
+    }
+  }
+}
