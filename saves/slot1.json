@@ -1,0 +1,27 @@
+{
+  "faction": "Arab Muslim Dāʿī",
+  "ship": "Dhow",
+  "year": 1515,
+  "day": 2,
+  "party_size": 6,
+  "gold": 97,
+  "food": 52,
+  "ship_condition": 75,
+  "first_mate_rel": 4,
+  "locations": [
+    "Malacca Harbor",
+    "Coastal Village"
+  ],
+  "location_idx": 1,
+  "relations": {
+    "Malacca Harbor": 40,
+    "Coastal Village": 71
+  },
+  "market_mod": {
+    "Malacca Harbor": 1.0,
+    "Coastal Village": 1.3
+  },
+  "fired_once": [
+    "harbormaster_intro"
+  ]
+}

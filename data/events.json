@@ -1,84 +1,162 @@
 {
-  "harbormaster_intro": {
-    "description": "You are shown into a cramped office. The harbormaster eyes your crew, counting quietly. 'Fees are due if you want to dock here. Storm season makes space tight.'",
-    "when": { "location": ["Malacca Harbor"], "once": true },
-    "choices": {
-      "1": {
-        "text": "Pay the docking fee (10 gold × local price modifier).",
-        "effects": { "gold": -10, "relation:+Malacca Harbor": 5 },
-        "result": "You pay promptly. The harbormaster warms a touch."
+  "special_events": [
+    {
+      "id": "harbormaster_intro",
+      "description": "You are shown into a cramped office. {harbormaster_name} eyes your crew, counting quietly. \"Fees are due if you want to berth in {current_port}. Storm season makes space tight.\"",
+      "when": {
+        "type": "major_port",
+        "once": true
       },
-      "2": {
-        "text": "Negotiate a reduced fee (chance based on Omar’s mood).",
-        "effects": {},
-        "result": "You try to reason with him..."
+      "text_vars": ["harbormaster_name", "current_port", "harbor_fee"],
+      "options": {
+        "1": {
+          "text": "Pay the standard fee ({harbor_fee} gold) and request berthing.",
+          "effect": { "gold": -8, "morale": 2 }
+        },
+        "2": {
+          "text": "Offer a small gift of spices to soften the fee.",
+          "effect": { "gold": -4, "spices": -1, "morale": 1 }
+        },
+        "3": {
+          "text": "Refuse and return to anchorage to think.",
+          "effect": { "morale": -2 }
+        }
       },
-      "3": {
-        "text": "Refuse and anchor offshore.",
-        "effects": { "relation:+Malacca Harbor": -10, "ship_condition": -2 },
-        "result": "You anchor beyond the harbor. Supplies will be harder to get."
+      "variants": {
+        "Portuguese Conquistador": {
+          "description": "{harbormaster_name} lingers on the banner at your stern. \"We mind powder and pride here, Captain.\"",
+          "options": {
+            "2": {
+              "text": "Hint at martial protection for reduced fees.",
+              "effect": { "gold": -3, "morale": 2 }
+            }
+          }
+        },
+        "Arab Muslim Dāʿī": {
+          "description": "{harbormaster_name} nods at your greeting. \"Peace upon you. Traders and callers alike find room—if ledger and conscience agree.\"",
+          "options": {
+            "2": {
+              "text": "Invoke pious hospitality and offer a token gift.",
+              "effect": { "gold": -2, "spices": -1, "morale": 2 }
+            }
+          }
+        },
+        "Chinese Trader": {
+          "description": "{harbormaster_name} weighs your account books with interest. \"Paper straight, cargo sealed, fee proper.\"",
+          "options": {
+            "2": {
+              "text": "Present neat manifests to negotiate a merchant’s rate.",
+              "effect": { "gold": -3, "morale": 1 }
+            }
+          }
+        }
       }
     }
-  },
-
-  "village_trade": {
-    "description": "At the village longhouse, baskets of dried fish and rice are stacked high. The headwoman greets you with a careful smile.",
-    "when": { "location": ["Coastal Village"] },
-    "choices": {
-      "1": {
-        "text": "Buy provisions (5 gold → +12 food).",
-        "effects": { "gold": -5, "food": 12, "relation:+Coastal Village": 2 },
-        "result": "Trade is swift; your crew’s spirits lift."
-      },
-      "2": {
-        "text": "Offer to repair fishing nets (no gold, +relation).",
-        "effects": { "relation:+Coastal Village": 6 },
-        "result": "You spend the afternoon mending nets and swapping stories."
-      },
-      "3": {
-        "text": "Press for a better price (risky).",
-        "effects": {},
-        "result": "You test their patience..."
+  ],
+  "harbor_events": [
+    {
+      "id": "harbor_trade_opportunity",
+      "description": "You dock at a bustling harbor. Merchants call out, offering exotic goods for trade.",
+      "options": {
+        "1": {
+          "text": "Trade some of your goods for spices.",
+          "effect": { "gold": -10, "spices": 5 }
+        },
+        "2": {
+          "text": "Sell some of your spices for gold.",
+          "effect": { "gold": 15, "spices": -5 }
+        },
+        "3": {
+          "text": "Ignore the merchants and set sail.",
+          "effect": {}
+        }
+      }
+    },
+    {
+      "id": "harbor_dock_repair",
+      "description": "The harbor master offers to repair your ship for a fee.",
+      "options": {
+        "1": {
+          "text": "Pay for repairs.",
+          "effect": { "gold": -20, "ship_health": 20 }
+        },
+        "2": {
+          "text": "Decline repairs and save your gold.",
+          "effect": {}
+        }
       }
     }
-  },
-
-  "storm_at_sea": {
-    "description": "Dark anvils build on the horizon. The wind shifts and the swells rise. A squall bears down on your ship.",
-    "when": { "once": false },
-    "choices": {
-      "1": {
-        "text": "Reef sails early (safe).",
-        "effects": { "ship_condition": -2, "food": -2 },
-        "result": "You ride it out—battered, but intact."
-      },
-      "2": {
-        "text": "Run before the wind (fast but risky).",
-        "effects": {},
-        "result": "White water roars across the deck..."
+  ],
+  "village_events": [
+    {
+      "id": "village_festival",
+      "description": "A village festival is underway. Music, dancing, and food fill the air.",
+      "options": {
+        "1": {
+          "text": "Join the celebration.",
+          "effect": { "morale": 10, "gold": -5 }
+        },
+        "2": {
+          "text": "Trade goods at the festival market.",
+          "effect": { "gold": 10, "spices": -2 }
+        },
+        "3": {
+          "text": "Leave quietly.",
+          "effect": {}
+        }
+      }
+    },
+    {
+      "id": "village_request",
+      "description": "Villagers ask for help repairing their fishing boats.",
+      "options": {
+        "1": {
+          "text": "Help them for free.",
+          "effect": { "morale": 5 }
+        },
+        "2": {
+          "text": "Ask for payment.",
+          "effect": { "gold": 10 }
+        },
+        "3": {
+          "text": "Refuse and move on.",
+          "effect": {}
+        }
       }
     }
-  },
-
-  "crew_conflict": {
-    "description": "Raised voices below deck. Two sailors are at each other’s throats over unpaid shares and stale rations.",
-    "when": { "min_relation": 0, "max_relation": 70 },
-    "choices": {
-      "1": {
-        "text": "Mediate fairly.",
-        "effects": { "food": -3 },
-        "result": "You parcel out a little extra food and settle the quarrel."
-      },
-      "2": {
-        "text": "Back your first mate publicly.",
-        "effects": {},
-        "result": "Your authority is clear, but a few faces darken."
-      },
-      "3": {
-        "text": "Promise a bonus after the next profitable run.",
-        "effects": {},
-        "result": "Grumbling fades—for now."
+  ],
+  "sea_events": [
+    {
+      "id": "storm_at_sea",
+      "description": "Dark clouds gather. A storm batters your ship.",
+      "options": {
+        "1": {
+          "text": "Order the crew to secure the sails.",
+          "effect": { "ship_health": -10, "morale": -5 }
+        },
+        "2": {
+          "text": "Attempt to ride out the storm.",
+          "effect": { "ship_health": -20 }
+        }
+      }
+    },
+    {
+      "id": "crew_conflict",
+      "description": "Two crew members are fighting over stolen rations.",
+      "options": {
+        "1": {
+          "text": "Break up the fight and mediate.",
+          "effect": { "morale": 5 }
+        },
+        "2": {
+          "text": "Punish the instigator.",
+          "effect": { "morale": -5 }
+        },
+        "3": {
+          "text": "Ignore it.",
+          "effect": {}
+        }
       }
     }
-  }
+  ]
 }

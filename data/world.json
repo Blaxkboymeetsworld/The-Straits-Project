@@ -1,0 +1,56 @@
+{
+  "major_ports": [
+    { "name": "Malacca Harbor", "region": "Straits of Malacca" },
+    { "name": "Aceh", "region": "Sumatra" },
+    { "name": "Makassar", "region": "Sulawesi" },
+    { "name": "Brunei Harbor", "region": "Borneo" },
+    { "name": "Ternate", "region": "Maluku" },
+    { "name": "Patani", "region": "Siam" }
+  ],
+  "villages": [
+    { "name": "Kampung Laut", "region": "Malacca Coast" },
+    { "name": "Banda Village", "region": "Banda Islands" },
+    { "name": "Sungai Settlement", "region": "Sumatra Coast" },
+    { "name": "Tidore Hamlet", "region": "Maluku" },
+    { "name": "Kudat Village", "region": "Borneo" },
+    { "name": "Bugis Outpost", "region": "Sulawesi" }
+  ],
+  "harbor_masters": [
+    {
+      "port": "Malacca Harbor",
+      "name": "Haji Iskandar",
+      "traits": ["meticulous", "pious"],
+      "fees": 8
+    },
+    {
+      "port": "Aceh",
+      "name": "Cut Muda",
+      "traits": ["pragmatic", "stern"],
+      "fees": 7
+    },
+    {
+      "port": "Makassar",
+      "name": "Daeng Parani",
+      "traits": ["ambitious", "dealer"],
+      "fees": 9
+    },
+    {
+      "port": "Brunei Harbor",
+      "name": "Awang Sulaiman",
+      "traits": ["formal", "careful"],
+      "fees": 8
+    },
+    {
+      "port": "Ternate",
+      "name": "Kelana Jafar",
+      "traits": ["watchful", "spice-savvy"],
+      "fees": 10
+    },
+    {
+      "port": "Patani",
+      "name": "Sa-ib Dara",
+      "traits": ["welcoming", "calculating"],
+      "fees": 6
+    }
+  ]
+}
