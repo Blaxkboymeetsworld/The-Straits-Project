@@ -1,21 +1,83 @@
 {
   "harbormaster_intro": {
-    "description": "You are shown into a cramped office. The harbormaster eyes your crew...",
+    "description": "You are shown into a cramped office. The harbormaster eyes your crew, counting quietly. 'Fees are due if you want to dock here. Storm season makes space tight.'",
+    "when": { "location": ["Malacca Harbor"], "once": true },
     "choices": {
       "1": {
         "text": "Pay the docking fee (10 gold × local price modifier).",
-        "effects": {"gold": -10, "relation:+Malacca Harbor": 5},
+        "effects": { "gold": -10, "relation:+Malacca Harbor": 5 },
         "result": "You pay promptly. The harbormaster warms a touch."
       },
       "2": {
         "text": "Negotiate a reduced fee (chance based on Omar’s mood).",
-        "effects": {"relation:+Malacca Harbor": 0},
+        "effects": {},
         "result": "You try to reason with him..."
       },
       "3": {
         "text": "Refuse and anchor offshore.",
-        "effects": {"relation:+Malacca Harbor": -10, "ship_condition": -2},
+        "effects": { "relation:+Malacca Harbor": -10, "ship_condition": -2 },
         "result": "You anchor beyond the harbor. Supplies will be harder to get."
+      }
+    }
+  },
+
+  "village_trade": {
+    "description": "At the village longhouse, baskets of dried fish and rice are stacked high. The headwoman greets you with a careful smile.",
+    "when": { "location": ["Coastal Village"] },
+    "choices": {
+      "1": {
+        "text": "Buy provisions (5 gold → +12 food).",
+        "effects": { "gold": -5, "food": 12, "relation:+Coastal Village": 2 },
+        "result": "Trade is swift; your crew’s spirits lift."
+      },
+      "2": {
+        "text": "Offer to repair fishing nets (no gold, +relation).",
+        "effects": { "relation:+Coastal Village": 6 },
+        "result": "You spend the afternoon mending nets and swapping stories."
+      },
+      "3": {
+        "text": "Press for a better price (risky).",
+        "effects": {},
+        "result": "You test their patience..."
+      }
+    }
+  },
+
+  "storm_at_sea": {
+    "description": "Dark anvils build on the horizon. The wind shifts and the swells rise. A squall bears down on your ship.",
+    "when": { "once": false },
+    "choices": {
+      "1": {
+        "text": "Reef sails early (safe).",
+        "effects": { "ship_condition": -2, "food": -2 },
+        "result": "You ride it out—battered, but intact."
+      },
+      "2": {
+        "text": "Run before the wind (fast but risky).",
+        "effects": {},
+        "result": "White water roars across the deck..."
+      }
+    }
+  },
+
+  "crew_conflict": {
+    "description": "Raised voices below deck. Two sailors are at each other’s throats over unpaid shares and stale rations.",
+    "when": { "min_relation": 0, "max_relation": 70 },
+    "choices": {
+      "1": {
+        "text": "Mediate fairly.",
+        "effects": { "food": -3 },
+        "result": "You parcel out a little extra food and settle the quarrel."
+      },
+      "2": {
+        "text": "Back your first mate publicly.",
+        "effects": {},
+        "result": "Your authority is clear, but a few faces darken."
+      },
+      "3": {
+        "text": "Promise a bonus after the next profitable run.",
+        "effects": {},
+        "result": "Grumbling fades—for now."
       }
     }
   }
