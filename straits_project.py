@@ -333,6 +333,15 @@ class EventEngine:
         for key, opt in list(opts.items()):
             if "text" in opt and isinstance(opt["text"], str):
                 opt["text"] = self._format_text(opt["text"], ctx)
+            effect = opt.get("effect")
+            if isinstance(effect, dict):
+                new_effect: Dict[str, Any] = {}
+                for eff_key, eff_val in effect.items():
+                    if isinstance(eff_val, str):
+                        new_effect[eff_key] = self._format_text(eff_val, ctx)
+                    else:
+                        new_effect[eff_key] = eff_val
+                opt["effect"] = new_effect
         return out
 
     def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None):
@@ -354,8 +363,22 @@ class EventEngine:
         if choice not in options:
             print("You hesitate, and time slips by...")
         else:
-            effect = options[choice].get("effect", {})
-            state.apply_effect(effect)
+            raw_effect = options[choice].get("effect", {})
+            effect_clean: Dict[str, Any] = {}
+            if isinstance(raw_effect, dict):
+                for stat, delta in raw_effect.items():
+                    if isinstance(delta, str):
+                        delta_str = delta.strip()
+                        try:
+                            effect_clean[stat] = int(delta_str)
+                        except ValueError:
+                            try:
+                                effect_clean[stat] = int(float(delta_str))
+                            except ValueError:
+                                effect_clean[stat] = 0
+                    else:
+                        effect_clean[stat] = delta
+            state.apply_effect(effect_clean)
             print("\nOutcome applied.")
         if once_key:
             state.once_flags.append(once_key)
@@ -368,6 +391,10 @@ class EventEngine:
             "harbormaster_name": hm["name"] if hm else "the harbormaster",
             "harbor_fee": hm["fees"] if hm else 8
         }
+        fee = ctx["harbor_fee"]
+        if isinstance(fee, (int, float)):
+            for discount in range(1, 6):
+                ctx[f"harbor_fee_minus_{discount}"] = max(int(fee) - discount, 0)
         return ctx
 
     def trigger_random(self, pool_name: str, state: GameState):
