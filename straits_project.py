@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-The Straits Project — text RPG core loop
-Locations + named harbor masters + role variants + Pygame title screen (uses your PNG)
-
-Adds:
-- Named harbor masters per major port via world.json.
-- Role-specific variants for "harbormaster_intro" (description/options overrides).
-- Lightweight templating: {harbormaster_name}, {current_port}, {harbor_fee}.
-- Once-per-port behavior for harbormaster_intro (scoped by location).
-- Full-color Pygame title screen that displays your provided PNG with centered title overlay.
+The Straits Project — v0.2.0
+Full expanded core loop integrating:
+ - Sea encounters (gated until first port visit)
+ - Crew system (traits, occupations, languages, morale)
+ - Fluctuating economy
+ - Timed quest system
+ - Day/night cycle
+ - Slave cargo + recruit mechanic
+ - Port weapons, characters, dispositions
 """
 
 import json
@@ -19,22 +19,31 @@ import sys
 from copy import deepcopy
 from typing import Dict, Any, List, Optional, Tuple
 
-# -------------------------
-# Paths / constants
-# -------------------------
-ROOT_DIR = os.path.dirname(__file__)
-DATA_DIR = os.path.join(ROOT_DIR, "data")
-SAVE_DIR = os.path.join(ROOT_DIR, "saves")
+# ─────────────────────────────────────────
+# Module imports (same directory)
+# ─────────────────────────────────────────
+from crew import CrewManager, CrewMember, load_crew_data, recruitment_menu, slave_recruit_event
+from economy import Economy, GOODS_CATALOG, MAX_CARGO
+from quests import QuestManager, load_quests
+from time_system import TimeSystem
 
+# ─────────────────────────────────────────
+# Paths
+# ─────────────────────────────────────────
+ROOT_DIR  = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR  = os.path.join(ROOT_DIR, "data")
+SAVE_DIR  = os.path.join(ROOT_DIR, "saves")
 EVENTS_PATH = os.path.join(DATA_DIR, "events.json")
-WORLD_PATH = os.path.join(DATA_DIR, "world.json")
-SAVE_PATH = os.path.join(SAVE_DIR, "slot1.json")
+WORLD_PATH  = os.path.join(DATA_DIR, "world.json")
+SAVE_PATH   = os.path.join(SAVE_DIR, "slot1.json")
 
 VALID_EVENT_POOLS = {"sea_events", "harbor_events", "village_events", "special_events"}
 
-# -------------------------
+
+# ─────────────────────────────────────────
 # Utility
-# -------------------------
+# ─────────────────────────────────────────
+
 def clear():
     try:
         os.system("cls" if os.name == "nt" else "clear")
@@ -42,7 +51,7 @@ def clear():
         pass
 
 def press_enter():
-    input("\n[Enter] to continue...")
+    input("\n  [Enter] to continue...")
 
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -59,143 +68,60 @@ def load_events(path: str) -> Dict[str, Any]:
             data[key] = []
     return data
 
-def load_world(path: str) -> Dict[str, List[Dict[str, Any]]]:
+def load_world(path: str) -> Dict[str, Any]:
     data = load_json(path)
     data.setdefault("major_ports", [])
     data.setdefault("villages", [])
-    data.setdefault("harbor_masters", [])
     return data
 
-def harbor_master_for(port: str, world: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    for hm in world.get("harbor_masters", []):
-        if hm.get("port") == port:
-            return hm
+def find_port(name: str, world: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    for p in world["major_ports"] + world["villages"]:
+        if p["name"] == name:
+            return p
     return None
 
-# -------------------------
-# Pygame title screen (PNG background)
-# -------------------------
-def title_screen_graphics_image(img_path: str, window_size=(1280, 720), show_centered_title=True):
-    try:
-        import pygame, os
-    except ModuleNotFoundError:
-        print("Pygame not installed. Run: pip install pygame"); press_enter(); return
 
-    # Resolve path
-    abspath = os.path.abspath(img_path)
-    if not os.path.isfile(abspath):
-        print("\n⚠️  Title image not found at:", abspath); press_enter(); return
-
-    pygame.init()
-
-    # Try native pygame loader first
-    bg = None
-    load_err = None
-    try:
-        bg = pygame.image.load(abspath).convert_alpha()
-    except Exception as e:
-        load_err = e
-
-    # Fallback: Pillow -> RGBA -> pygame Surface
-    if bg is None:
-        try:
-            from PIL import Image
-            im = Image.open(abspath).convert("RGBA")   # strips weird modes/bit depths
-            mode = im.mode  # "RGBA"
-            data = im.tobytes()
-            size = im.size
-            bg = pygame.image.fromstring(data, size, mode)  # already alpha-capable
-        except Exception as e2:
-            print("\n⚠️  Could not load title image with pygame or Pillow.")
-            print("Pygame error:", load_err)
-            print("Pillow error:", e2)
-            press_enter()
-            return
-
-    # Optionally resize window to image size
-    if window_size is None:
-        W, H = bg.get_width(), bg.get_height()
-    else:
-        W, H = window_size
-
-    screen = pygame.display.set_mode((W, H))
-    pygame.display.set_caption("The Straits Project — Title")
-
-    # Letterbox
-    bw, bh = bg.get_width(), bg.get_height()
-    r = min(W / bw, H / bh)
-    scaled = pygame.transform.smoothscale(bg, (int(bw*r), int(bh*r)))
-    sx, sy = scaled.get_width(), scaled.get_height()
-    ox = (W - sx) // 2
-    oy = (H - sy) // 2
-
-    # Fonts/colors
-    TITLE_GOLD = (220, 170, 60)
-    SHADOW     = (0, 0, 0)
-    PROMPT_G   = (220, 170, 60)
-
-    def get_font(name, size, bold=False):
-        try: return pygame.font.SysFont(name, size, bold=bold)
-        except Exception: return pygame.font.Font(None, size)
-
-    title_font  = get_font("Georgia", 72, bold=True)
-    prompt_font = get_font("Verdana", 28)
-
-    title_surface = title_font.render("THE STRAITS PROJECT", True, TITLE_GOLD)
-    title_shadow  = title_font.render("THE STRAITS PROJECT", True, SHADOW)
-    title_rect    = title_surface.get_rect(center=(W//2, int(H*0.18)))
-
-    prompt = prompt_font.render("[ Press Enter ]", True, PROMPT_G)
-    prompt_rect = prompt.get_rect(midbottom=(W//2, H - 28))
-
-    # Show
-    clock = pygame.time.Clock()
-    running = True
-    print("\n✅ Loaded title image:", abspath)
-
-    while running:
-        screen.fill((0,0,0))
-        screen.blit(scaled, (ox, oy))
-        # Centered title overlay (disable if your PNG already has perfect title)
-        if show_centered_title:
-            screen.blit(title_shadow, (title_rect.x + 2, title_rect.y + 3))
-            screen.blit(title_surface, title_rect)
-        screen.blit(prompt, prompt_rect)
-        pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit(); sys.exit(0)
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    pygame.quit(); sys.exit(0)
-                if event.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    running = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                running = False
-
-        clock.tick(60)
-
-    pygame.quit()
-
-# -------------------------
+# ─────────────────────────────────────────
 # Game State
-# -------------------------
+# ─────────────────────────────────────────
+
 class GameState:
+
     def __init__(self, role: str, world: Dict[str, Any]):
         self.role = role
         self.gold = 30
-        self.spices = 0
+        self.spices = 0             # legacy field (spices still in cargo too)
         self.ship_health = 100
         self.morale = 50
-        self.day = 1
-
         self.world = world
+
+        # Time system
+        self.time = TimeSystem(day=1, hour=8)
+
+        # Location
         self.current_location: str = "At Sea"
         self.current_location_type: str = "sea"
 
-        # One-time event flags (e.g., "harbormaster_intro|Malacca Harbor")
+        # First port gate — sea events only fire after visiting one port
+        self.has_visited_port: bool = False
+
+        # Cargo: {good_id: qty}
+        self.cargo: Dict[str, int] = {}
+
+        # Slave cargo (separate ledger)
+        self.slave_cargo: int = 0
+
+        # Inventory items (quest rewards, cartaz, etc.)
+        self.items: List[str] = []
+
+        # One-time event flags
         self.once_flags: List[str] = []
+
+        # Crew
+        self.crew = CrewManager()
+
+        # Quests
+        self.quests = QuestManager()
 
         # Role adjustments
         if role == "Portuguese Conquistador":
@@ -204,9 +130,16 @@ class GameState:
         elif role == "Arab Muslim Dāʿī":
             self.spices += 2
             self.morale += 10
+            self.cargo["pepper"] = 2
         elif role == "Chinese Trader":
             self.gold += 15
             self.spices += 5
+            self.cargo["silk"] = 3
+            self.cargo["porcelain"] = 2
+
+    @property
+    def day(self) -> int:
+        return self.time.day
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -215,73 +148,144 @@ class GameState:
             "spices": self.spices,
             "ship_health": self.ship_health,
             "morale": self.morale,
-            "day": self.day,
+            "time": self.time.to_dict(),
             "current_location": self.current_location,
             "current_location_type": self.current_location_type,
-            "once_flags": self.once_flags
+            "has_visited_port": self.has_visited_port,
+            "cargo": self.cargo,
+            "slave_cargo": self.slave_cargo,
+            "items": self.items,
+            "once_flags": self.once_flags,
+            "crew": self.crew.to_list(),
+            "quests": self.quests.to_dict(),
         }
 
     @classmethod
     def from_dict(cls, d: Dict[str, Any], world: Dict[str, Any]) -> "GameState":
-        obj = cls(d.get("role", "Portuguese Conquistador"), world)
+        obj = cls.__new__(cls)
+        obj.role = d.get("role", "Portuguese Conquistador")
         obj.gold = int(d.get("gold", 0))
         obj.spices = int(d.get("spices", 0))
         obj.ship_health = int(d.get("ship_health", 100))
         obj.morale = int(d.get("morale", 50))
-        obj.day = int(d.get("day", 1))
+        obj.world = world
+        obj.time = TimeSystem.from_dict(d.get("time", {}))
         obj.current_location = d.get("current_location", "At Sea")
         obj.current_location_type = d.get("current_location_type", "sea")
-        obj.once_flags = list(d.get("once_flags", []))
+        obj.has_visited_port = d.get("has_visited_port", False)
+        obj.cargo = d.get("cargo", {})
+        obj.slave_cargo = int(d.get("slave_cargo", 0))
+        obj.items = d.get("items", [])
+        obj.once_flags = d.get("once_flags", [])
+        obj.crew = CrewManager.from_list(d.get("crew", []))
+        obj.quests = QuestManager.from_dict(d.get("quests", {}))
         return obj
 
     def apply_effect(self, effect: Dict[str, Any]):
-        self.gold = max(0, self.gold + int(effect.get("gold", 0)))
-        self.spices = max(0, self.spices + int(effect.get("spices", 0)))
+        self.gold        = max(0, self.gold        + int(effect.get("gold", 0)))
+        self.spices      = max(0, self.spices      + int(effect.get("spices", 0)))
         self.ship_health = max(0, min(100, self.ship_health + int(effect.get("ship_health", 0))))
-        self.morale = max(0, min(100, self.morale + int(effect.get("morale", 0))))
+        self.morale      = max(0, min(100, self.morale      + int(effect.get("morale", 0))))
 
     def is_game_over(self) -> bool:
         if self.ship_health <= 0:
-            print("\n⚓ Your ship has been wrecked by misfortune at sea.")
+            print("\n  ⚓ Your ship has been wrecked. The sea keeps its debts.")
             return True
         if self.morale <= 0:
-            print("\n⚓ Your crew has lost all spirit and deserted you.")
+            print("\n  ⚓ Your crew has deserted. The voyage ends here.")
             return True
         return False
 
+    def apply_daily_crew_effects(self):
+        """Called each time a day passes at sea."""
+        self.morale = min(100, self.morale + self.crew.morale_per_day_bonus())
+        drain = self.crew.daily_morale_drain()
+        if drain:
+            self.morale = max(0, self.morale - drain)
+
+    def pay_crew_wages(self):
+        """Pay wages when entering a port."""
+        wages = self.crew.total_wages()
+        if wages > 0:
+            if self.gold >= wages:
+                self.gold -= wages
+                print(f"\n  ⚖  Crew wages paid: {wages} gold.")
+            else:
+                short = wages - self.gold
+                self.gold = 0
+                self.morale = max(0, self.morale - 10)
+                print(f"\n  ⚠  Could not fully pay wages. Short by {short} gold. Crew morale falls.")
+
+    def check_port_incidents(self):
+        """Check for crew negative trait incidents at port."""
+        incidents = self.crew.check_for_incidents()
+        for inc in incidents:
+            print(f"\n  {inc}")
+            # Small gold and morale costs for incidents
+            self.gold = max(0, self.gold - random.randint(3, 8))
+            self.morale = max(0, self.morale - 2)
+
     def status_text(self) -> str:
+        cargo_used = sum(self.cargo.values())
+        active_q = len([q for q in self.quests.active if not q.completed and not q.failed])
         return (
-            f"Day {self.day}\n"
-            f"Role: {self.role}\n"
-            f"Location: {self.current_location} ({self.current_location_type})\n"
-            f"Gold: {self.gold} | Spices: {self.spices}\n"
-            f"Ship Health: {self.ship_health} | Morale: {self.morale}"
+            f"  {self.time.display}\n"
+            f"  Role: {self.role}\n"
+            f"  Location: {self.current_location} ({self.current_location_type.replace('_',' ')})\n"
+            f"  Gold: {self.gold}  |  Cargo: {cargo_used}/{MAX_CARGO}  |  Slave cargo: {self.slave_cargo}\n"
+            f"  Ship Health: {self.ship_health}  |  Morale: {self.morale}\n"
+            f"  Crew: {self.crew.count()} aboard  |  Active quests: {active_q}"
         )
 
-# -------------------------
-# IO: Save / Load
-# -------------------------
+
+# ─────────────────────────────────────────
+# Save / Load
+# ─────────────────────────────────────────
+
 def save_game(state: GameState):
     ensure_dirs()
     with open(SAVE_PATH, "w", encoding="utf-8") as f:
         json.dump(state.to_dict(), f, ensure_ascii=False, indent=2)
-    print("\n💾 Game saved to slot 1.")
+    print("\n  💾 Game saved to slot 1.")
 
 def load_game(world: Dict[str, Any]) -> Optional[GameState]:
     if not os.path.exists(SAVE_PATH):
-        print("\nNo save found in slot 1.")
+        print("\n  No save found in slot 1.")
         return None
     with open(SAVE_PATH, "r", encoding="utf-8") as f:
         d = json.load(f)
-    print("\n📂 Loaded save from slot 1.")
+    print("\n  📂 Loaded save from slot 1.")
     return GameState.from_dict(d, world)
 
-# -------------------------
+
+# ─────────────────────────────────────────
 # Event Engine
-# -------------------------
+# ─────────────────────────────────────────
+
 class EventEngine:
+
     def __init__(self, events_data: Dict[str, Any]):
         self.events = events_data
+
+    def _check_requirement(self, req: Dict[str, Any], state: GameState) -> bool:
+        """Check whether an option's requirements are satisfied."""
+        if not req:
+            return True
+        if "gold" in req and state.gold < req["gold"]:
+            return False
+        if "crew_language" in req and not state.crew.has_language(req["crew_language"]):
+            return False
+        if "crew_occupation" in req and not state.crew.has_occupation(req["crew_occupation"]):
+            return False
+        if "crew_trait" in req and not state.crew.has_trait(req["crew_trait"]):
+            return False
+        if "crew_region" in req and not state.crew.has_region(req["crew_region"]):
+            return False
+        if "player_role" in req and state.role != req["player_role"]:
+            return False
+        if "item" in req and req["item"] not in state.items:
+            return False
+        return True
 
     def _match_when(self, event: Dict[str, Any], state: GameState) -> Tuple[bool, Optional[str]]:
         when = event.get("when", {})
@@ -335,45 +339,59 @@ class EventEngine:
                 opt["text"] = self._format_text(opt["text"], ctx)
         return out
 
+    def _context_for_event(self, state: GameState) -> Dict[str, Any]:
+        port_data = find_port(state.current_location, state.world)
+        hm = None
+        harbor_fee = 10
+        if port_data:
+            hm = port_data.get("harbor_master")
+            harbor_fee = hm["fees"] if hm else 10
+        return {
+            "current_port": state.current_location,
+            "harbormaster_name": hm["name"] if hm else "the harbor master",
+            "harbor_fee": harbor_fee,
+        }
+
     def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None):
         clear()
         title = event.get("id", "Event").replace("_", " ").title()
-        print(f"— {title} —\n")
-        print(event.get("description", "An event occurs.") + "\n")
+        print(f"\n  ── {title} ──\n")
+        print(f"  {event.get('description', 'An event occurs.')}\n")
 
         options = event.get("options", {})
         if not options:
-            print("[DEV] Event missing options; skipping.]")
+            press_enter()
             return
 
         keys_sorted = sorted(options.keys(), key=lambda k: str(k))
-        for k in keys_sorted:
-            print(f"{k}) {options[k].get('text', '...')}")
 
-        choice = input("\n> ").strip()
-        if choice not in options:
-            print("You hesitate, and time slips by...")
+        # Only show options the player can actually take
+        available_keys = [k for k in keys_sorted if self._check_requirement(options[k].get("requires", {}), state)]
+        unavailable_keys = [k for k in keys_sorted if k not in available_keys]
+
+        for k in available_keys:
+            print(f"  {k}) {options[k].get('text', '...')}")
+        if unavailable_keys:
+            print(f"\n  (Some options unavailable — crew lacks the required skill, item, or gold)")
+
+        print()
+        choice = input("  > ").strip()
+
+        if choice not in available_keys:
+            print("\n  You hesitate. Time passes.")
         else:
             effect = options[choice].get("effect", {})
             state.apply_effect(effect)
-            print("\nOutcome applied.")
+            print("\n  Your choice is made.")
+
         if once_key:
             state.once_flags.append(once_key)
-        press_enter()
 
-    def _context_for_event(self, state: GameState) -> Dict[str, Any]:
-        hm = harbor_master_for(state.current_location, state.world) if state.current_location_type == "major_port" else None
-        ctx = {
-            "current_port": state.current_location,
-            "harbormaster_name": hm["name"] if hm else "the harbormaster",
-            "harbor_fee": hm["fees"] if hm else 8
-        }
-        return ctx
+        press_enter()
 
     def trigger_random(self, pool_name: str, state: GameState):
         pool = self.events.get(pool_name, [])
         if not pool:
-            print(f"\n(No events available for {pool_name.replace('_', ' ')})")
             return
         ev = random.choice(pool)
         ctx = self._context_for_event(state)
@@ -396,38 +414,391 @@ class EventEngine:
         self._resolve_event(ev, state, once_key=once_key)
         return True
 
-# -------------------------
-# Menus
-# -------------------------
-def main_menu() -> str:
-    clear()
-    print("=" * 35)
-    print("       THE STRAITS PROJECT")
-    print("=" * 35)
-    print("\n1) Start")
-    print("2) Load (slot 1)")
-    print("3) Quit")
-    return input("\n> ").strip()
 
-def choose_role() -> str:
-    clear()
-    print("Choose your background:\n")
-    print("1) Portuguese Conquistador")
-    print("2) Arab Muslim Dāʿī")
-    print("3) Chinese Trader")
-    mapping = {"1": "Portuguese Conquistador", "2": "Arab Muslim Dāʿī", "3": "Chinese Trader"}
-    return mapping.get(input("\n> ").strip(), "Portuguese Conquistador")
+# ─────────────────────────────────────────
+# Port UI
+# ─────────────────────────────────────────
 
-def list_destinations(world: Dict[str, Any], kind: str) -> List[str]:
-    return [entry["name"] for entry in world.get(kind, [])]
+def port_action_menu(
+    state: GameState,
+    port_data: Dict[str, Any],
+    engine: EventEngine,
+    crew_data: Dict[str, Any],
+    all_quests: List[Dict[str, Any]],
+):
+    """Full port interaction hub."""
+    access = state.time.port_access_status()
+    econ = Economy(port_data)
+
+    # On arrival: pay wages, check incidents, quest logic
+    state.pay_crew_wages()
+    state.check_port_incidents()
+    state.quests.check_port_arrival(
+        port_data["name"], state.day, state, clear, press_enter
+    )
+    state.quests.check_return_to_giver(
+        port_data["name"], state.day, state, clear, press_enter
+    )
+
+    # Check for quest expirations
+    failed = state.quests.check_expirations(state.day)
+    if failed:
+        for fq in failed:
+            print(f"\n  ✗ Quest expired: '{fq.title}'. {port_data.get('ruler',{}).get('name','The ruler')} is displeased.")
+        press_enter()
+
+    while True:
+        clear()
+        print("═" * 52)
+        print(f"  ⚓ {port_data['name'].upper()}")
+        disp_label = state.quests.disposition_label(port_data["name"])
+        disp_val   = state.quests.get_disposition(port_data["name"])
+        ruler      = port_data.get("ruler", {})
+        print(f"  Ruler: {ruler.get('name','Unknown')}, {ruler.get('title','')}  |  Disposition: {disp_label} ({disp_val})")
+        print(f"  {state.time.display}")
+        print(f"  Culture: {port_data.get('culture','')}  |  Language: {port_data.get('language','')}")
+        print(f"  Religion: {port_data.get('religion','')}")
+        print("═" * 52)
+        print(state.status_text())
+        print()
+
+        options = []
+        def opt(key, label, available=True, reason=None):
+            options.append((key, label, available, reason))
+
+        opt("1", "Market (buy/sell goods)",   access["market_open"],  "Market closes at dusk.")
+        opt("2", "Recruit crew",              access["recruitment"],   "Docks quiet — come back at dawn.")
+        opt("3", "Seek missions (rulers & lords)", access["quest_board"], "Officials not available now.")
+        opt("4", "Weapons shop")
+        opt("5", "Ship repair",               access["ship_repair"],   "Shipwrights rest at night.")
+        opt("6", "Tavern & rumors",           access["tavern"],        None)
+        opt("7", "Rest until dawn")
+        opt("8", "View crew roster")
+        opt("9", "View active quests")
+        opt("S", "Set sail (leave port)")
+        opt("V", "Save game")
+
+        for key, label, avail, _ in options:
+            marker = "  " if avail else "░ "
+            print(f"  {marker}[{key}] {label}")
+
+        print()
+        choice = input("  > ").strip().upper()
+
+        # ── Market ──
+        if choice == "1":
+            warning = state.time.access_warning("market_open")
+            if warning:
+                print(f"\n  {warning}")
+                press_enter()
+            else:
+                econ.trade_menu(state, state.crew, clear, press_enter)
+
+        # ── Recruit ──
+        elif choice == "2":
+            warning = state.time.access_warning("recruitment")
+            if warning:
+                print(f"\n  {warning}")
+                press_enter()
+            else:
+                recruitment_menu(port_data, crew_data, state.crew, state, clear, press_enter)
+
+        # ── Quests ──
+        elif choice == "3":
+            warning = state.time.access_warning("quest_board")
+            if warning:
+                print(f"\n  {warning}")
+                press_enter()
+            else:
+                state.quests.quest_board_menu(
+                    port_data["name"], all_quests, state.day,
+                    state, clear, press_enter
+                )
+
+        # ── Weapons shop ──
+        elif choice == "4":
+            weapons_shop(port_data, state, crew_data, clear, press_enter)
+
+        # ── Ship repair ──
+        elif choice == "5":
+            warning = state.time.access_warning("ship_repair")
+            if warning:
+                print(f"\n  {warning}")
+                press_enter()
+            else:
+                ship_repair_menu(state, port_data, clear, press_enter)
+
+        # ── Tavern ──
+        elif choice == "6":
+            if not access["tavern"]:
+                print("\n  The tavern doesn't open until late afternoon.")
+                press_enter()
+            else:
+                tavern_menu(state, port_data, engine, clear, press_enter)
+
+        # ── Rest ──
+        elif choice == "7":
+            clear()
+            print("\n  You order the crew to rest. The ship settles in the anchorage.")
+            state.time.rest_until_dawn()
+            state.morale = min(100, state.morale + 5)
+            print(f"\n  Dawn comes. {state.time.display}")
+            print(f"  Morale +5. Current morale: {state.morale}")
+            press_enter()
+
+        # ── Crew roster ──
+        elif choice == "8":
+            clear()
+            print("═" * 52)
+            print("  CREW ROSTER")
+            print("═" * 52)
+            state.crew.roster_display()
+            print(f"\n  Total wages per port call: {state.crew.total_wages()} gold")
+            press_enter()
+
+        # ── Active quests ──
+        elif choice == "9":
+            clear()
+            print("═" * 52)
+            print("  ACTIVE QUESTS")
+            print("═" * 52)
+            if not state.quests.active:
+                print("\n  No active quests.")
+            for q in state.quests.active:
+                print(q.status_line(state.day))
+                print(f"    {q.description[:100]}...")
+                print()
+            press_enter()
+
+        # ── Set sail ──
+        elif choice == "S":
+            break
+
+        # ── Save ──
+        elif choice == "V":
+            save_game(state)
+            press_enter()
+
+        else:
+            print("\n  Unknown option.")
+            press_enter()
+
+
+# ─────────────────────────────────────────
+# Weapons Shop
+# ─────────────────────────────────────────
+
+def weapons_shop(
+    port_data: Dict[str, Any],
+    state: GameState,
+    crew_data: Dict[str, Any],
+    clear_fn,
+    press_enter_fn
+):
+    available_weapon_ids = port_data.get("weapons_available", [])
+    all_weapons = crew_data.get("weapons", {})
+
+    if not available_weapon_ids:
+        print("\n  No weapons dealer operating here.")
+        press_enter_fn()
+        return
+
+    while True:
+        clear_fn()
+        print("═" * 52)
+        print(f"  WEAPONS — {port_data['name']}")
+        print(f"  Your gold: {state.gold}")
+        print("═" * 52)
+        print()
+
+        weapons_list = [(wid, all_weapons[wid]) for wid in available_weapon_ids if wid in all_weapons]
+        for i, (wid, w) in enumerate(weapons_list, 1):
+            in_inv = state.items.count(wid)
+            print(f"  [{i}] {w['name']:<28} {w['cost']:>4} gold")
+            print(f"       {w['description']}")
+            print(f"       Type: {w['type'].title()}  |  Damage: {w['damage']}  |  In inventory: {in_inv}")
+            print()
+
+        print("  [Q] Leave\n")
+        choice = input("  Buy which? > ").strip().upper()
+
+        if choice == "Q":
+            break
+        elif choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(weapons_list):
+                wid, w = weapons_list[idx]
+                if state.gold >= w["cost"]:
+                    state.gold -= w["cost"]
+                    state.items.append(wid)
+                    print(f"\n  Purchased: {w['name']}")
+                    press_enter_fn()
+                else:
+                    print(f"\n  Not enough gold. Need {w['cost']}.")
+                    press_enter_fn()
+
+
+# ─────────────────────────────────────────
+# Ship Repair
+# ─────────────────────────────────────────
+
+def ship_repair_menu(state: GameState, port_data: Dict[str, Any], clear_fn, press_enter_fn):
+    clear_fn()
+    print("═" * 52)
+    print(f"  SHIP REPAIR — {port_data['name']}")
+    print(f"  Current ship health: {state.ship_health}/100")
+    print("═" * 52)
+
+    damage = 100 - state.ship_health
+    if damage == 0:
+        print("\n  Your hull is sound. No repairs needed.")
+        press_enter_fn()
+        return
+
+    # Cost scales with damage and whether player has a carpenter
+    base_cost = damage * 2
+    if state.crew.has_occupation("carpenter"):
+        effective_cost = int(base_cost * 0.5)
+        print(f"\n  Your ship's carpenter will lead the work. Reduced cost.")
+    else:
+        effective_cost = base_cost
+        print(f"\n  Local shipwrights will do the work.")
+
+    print(f"\n  Damage to repair: {damage} points")
+    print(f"  Estimated cost: {effective_cost} gold\n")
+    print("  [F] Full repair")
+    print("  [P] Partial repair (specify gold)")
+    print("  [Q] Cancel\n")
+
+    choice = input("  > ").strip().upper()
+
+    if choice == "F":
+        if state.gold >= effective_cost:
+            state.gold -= effective_cost
+            state.ship_health = 100
+            print(f"\n  Full repairs completed. Spent {effective_cost} gold.")
+        else:
+            print(f"\n  Not enough gold. Have {state.gold}, need {effective_cost}.")
+        press_enter_fn()
+
+    elif choice == "P":
+        amt_str = input(f"  Spend how much? (max {state.gold}): ").strip()
+        if amt_str.isdigit():
+            amt = min(int(amt_str), state.gold)
+            # Each gold buys 0.5 health (roughly)
+            rate = 0.5 if state.crew.has_occupation("carpenter") else 0.25
+            health_gain = min(damage, int(amt * rate / (effective_cost / damage)))
+            state.gold -= amt
+            state.ship_health = min(100, state.ship_health + health_gain)
+            print(f"\n  Spent {amt} gold. Ship health restored by {health_gain}.")
+        press_enter_fn()
+
+
+# ─────────────────────────────────────────
+# Tavern
+# ─────────────────────────────────────────
+
+def tavern_menu(state: GameState, port_data: Dict[str, Any], engine: EventEngine, clear_fn, press_enter_fn):
+    clear_fn()
+    print("═" * 52)
+    print(f"  TAVERN — {port_data['name']}")
+    print("═" * 52)
+    print(
+        "\n  The place is a low-ceilinged room smelling of fish oil and cheap rice wine.\n"
+        "  Your crew mingles with sailors from a dozen nations. News travels faster\n"
+        "  than any ship in places like this.\n"
+    )
+
+    print("  [1] Buy a round for the crew (Cost: 5 gold, +8 morale)")
+    print("  [2] Listen for rumors (free)")
+    print("  [3] Ask about a specific port or route")
+    print("  [4] Trigger a random harbor event (stay a while)")
+    print("  [Q] Leave\n")
+
+    choice = input("  > ").strip().upper()
+
+    if choice == "1":
+        if state.gold >= 5:
+            state.gold -= 5
+            state.morale = min(100, state.morale + 8)
+            print("\n  The crew raises their cups. Morale +8.")
+        else:
+            print("\n  Not enough gold.")
+        press_enter_fn()
+
+    elif choice == "2":
+        _tavern_rumor(state, port_data, clear_fn, press_enter_fn)
+
+    elif choice == "3":
+        loc = input("\n  Which port do you ask about? ").strip()
+        p = find_port(loc, state.world)
+        if p:
+            ruler = p.get("ruler", {})
+            disp = state.quests.disposition_label(p["name"])
+            print(f"\n  {p['name']} ({p['culture']}, {p['religion']})")
+            print(f"  Ruler: {ruler.get('name','Unknown')}, {ruler.get('title','')}")
+            print(f"  Specialty goods: {', '.join(p.get('specialty_goods',[]))}")
+            print(f"  Your reputation there: {disp}")
+        else:
+            print(f"\n  No one here knows much about {loc}.")
+        press_enter_fn()
+
+    elif choice == "4":
+        state.time.advance_hours(2)
+        engine.trigger_random("harbor_events", state)
+
+    elif choice == "Q":
+        return
+
+
+def _tavern_rumor(state: GameState, port_data: Dict[str, Any], clear_fn, press_enter_fn):
+    """Random rumor system — gives hints about economy, events, quests."""
+    rumors = [
+        "A merchant whispers that nutmeg prices in Hormuz are sky-high — the Portuguese have disrupted the Aden route again.",
+        "Someone claims a Chinese junk carrying silk went down off Pulau Tioman last month. The wreck hasn't been salvaged.",
+        "A Bugis navigator says the passage east of Bantam is clear — the pirate fleet that usually lurks there has moved north.",
+        "Word from Calicut: the Zamorin is furious with the Portuguese. Relations are at their worst in years.",
+        "A Tamil trader mentions that cloves from Ternate are scarce — inter-island warfare has disrupted the harvest.",
+        "An old Arab sailor talks about a route east that cuts four days off the Malacca-Quanzhou run, if you know the stars.",
+        "The harbor master's son was seen counting coin with a Javanese factor. Something moves through this port that doesn't appear on any manifest.",
+        "A freed African sailor mentions that there are men here who make cartazes — passes — that look Portuguese enough to fool anyone but the Portuguese themselves.",
+        "Fever in the interior has killed three Chinese merchant factors this month. Their goods sit unclaimed in a warehouse.",
+        "A drunken Portuguese soldier claims he knows where a Portuguese carrack laden with pepper went aground — and the Estado da India hasn't found it.",
+    ]
+    print(f"\n  ─ Rumor ─\n  {random.choice(rumors)}\n")
+    press_enter_fn()
+
+
+# ─────────────────────────────────────────
+# Travel & Sea Passage
+# ─────────────────────────────────────────
+
+def travel_menu(world: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
+    clear()
+    print("  Make landfall:\n")
+    print("  [1] Major Ports")
+    print("  [2] Villages & Anchorages")
+    print("  [3] Cancel\n")
+    top = input("  > ").strip()
+
+    if top == "1":
+        return choose_from_list(
+            [p["name"] for p in world["major_ports"]], "major_port"
+        )
+    if top == "2":
+        return choose_from_list(
+            [v["name"] for v in world["villages"]], "village"
+        )
+    return None, None
 
 def choose_from_list(names: List[str], loc_type: str) -> Tuple[Optional[str], Optional[str]]:
     clear()
-    print(f"Choose destination ({loc_type.replace('_',' ')}):\n")
-    for idx, n in enumerate(names, start=1):
-        print(f"{idx}) {n}")
-    print(f"{len(names)+1}) Cancel")
-    sel = input("\n> ").strip()
+    label = loc_type.replace("_", " ").title()
+    print(f"  Choose destination ({label}):\n")
+    for idx, n in enumerate(names, 1):
+        print(f"  {idx}) {n}")
+    print(f"  {len(names)+1}) Cancel\n")
+    sel = input("  > ").strip()
     try:
         k = int(sel)
     except ValueError:
@@ -436,117 +807,356 @@ def choose_from_list(names: List[str], loc_type: str) -> Tuple[Optional[str], Op
         return names[k-1], loc_type
     return None, None
 
-def travel_menu(world: Dict[str, Any]) -> Tuple[Optional[str], Optional[str]]:
-    clear()
-    print("Make landfall:\n")
-    print("1) Major Ports")
-    print("2) Villages")
-    print("3) Cancel")
-    top = input("\n> ").strip()
-    if top == "1":
-        return choose_from_list(list_destinations(world, "major_ports"), "major_port")
-    if top == "2":
-        return choose_from_list(list_destinations(world, "villages"), "village")
-    return None, None
 
-def action_menu(state: GameState) -> str:
+# ─────────────────────────────────────────
+# Main Action Menu (at sea)
+# ─────────────────────────────────────────
+
+def sea_action_menu(state: GameState) -> str:
     clear()
+    print("═" * 52)
+    print("  ⛵  AT SEA")
+    print("═" * 52)
     print(state.status_text())
-    print("\nWhat will you do?\n")
-    print("1) Sail on (at sea)")
-    print("2) Make landfall (travel to port/village)")
-    print("3) Check status")
-    print("4) Save (slot 1)")
-    print("5) Quit")
-    return input("\n> ").strip()
+    print()
+    print("  [1] Sail on (roll for sea encounter)")
+    print("  [2] Make landfall (travel to port or village)")
+    print("  [3] Check detailed status")
+    print("  [4] View crew roster")
+    print("  [5] View active quests")
+    print("  [6] Save game")
+    print("  [Q] Quit\n")
+    return input("  > ").strip().upper()
 
-# -------------------------
-# Loop
-# -------------------------
-def handle_landfall(state: GameState, engine: EventEngine):
-    if engine.trigger_special_if_any(state):
-        return
-    if state.current_location_type == "major_port":
-        engine.trigger_random("harbor_events", state)
-    elif state.current_location_type == "village":
-        engine.trigger_random("village_events", state)
+
+# ─────────────────────────────────────────
+# Handle Landfall
+# ─────────────────────────────────────────
+
+def handle_landfall(
+    state: GameState,
+    engine: EventEngine,
+    crew_data: Dict[str, Any],
+    all_quests: List[Dict[str, Any]],
+):
+    port_data = find_port(state.current_location, state.world)
+
+    # First-time port flag
+    if state.current_location_type in ("major_port", "village"):
+        state.has_visited_port = True
+
+    if port_data:
+        # Special events (once-per-port narrative beats)
+        engine.trigger_special_if_any(state)
+
+        if state.current_location_type == "major_port":
+            port_action_menu(state, port_data, engine, crew_data, all_quests)
+        else:
+            # Village: simpler interaction
+            engine.trigger_random("village_events", state)
     else:
         engine.trigger_random("harbor_events", state)
 
-def run_game(state: GameState, engine: EventEngine):
+
+# ─────────────────────────────────────────
+# Main Game Loop
+# ─────────────────────────────────────────
+
+def run_game(
+    state: GameState,
+    engine: EventEngine,
+    crew_data: Dict[str, Any],
+    all_quests: List[Dict[str, Any]],
+):
     while True:
         if state.is_game_over():
             press_enter()
             break
-        selection = action_menu(state)
+
+        # Check quest expirations while at sea
+        failed = state.quests.check_expirations(state.day)
+        if failed:
+            clear()
+            for fq in failed:
+                print(f"\n  ✗ Quest failed (time expired): '{fq.title}'")
+                print(f"    {fq.giver_name} will remember this.")
+            press_enter()
+
+        if state.current_location_type == "sea":
+            selection = sea_action_menu(state)
+        else:
+            # We've arrived — but returning to this loop means leaving port
+            selection = "2"  # force travel menu
+
         if selection == "1":
-            state.current_location, state.current_location_type = "At Sea", "sea"
-            engine.trigger_random("sea_events", state)
-            state.day += 1
+            # Sail on — sea event if player has been to port
+            state.time.advance_hours(random.randint(18, 30))
+            state.apply_daily_crew_effects()
+            if state.has_visited_port:
+                if random.random() < 0.65:  # 65% chance per "day" of a sea encounter
+                    engine.trigger_random("sea_events", state)
+                else:
+                    clear()
+                    print("\n  The sea is quiet. The crew keeps to their duties. A day passes.")
+                    press_enter()
+            else:
+                clear()
+                print("\n  You sail calm waters. The horizon holds nothing unusual yet.")
+                print("  (Sea encounters begin once you have made your first landfall.)")
+                press_enter()
+
         elif selection == "2":
             dest, dest_type = travel_menu(state.world)
             if dest and dest_type:
-                state.current_location, state.current_location_type = dest, dest_type
-                handle_landfall(state, engine)
-                state.day += 1
-            else:
-                print("\nYou remain at sea.")
+                clear()
+                from time_system import TRAVEL_TIMES, DEFAULT_TRAVEL_TIME
+                travel_key = (state.current_location, dest)
+                raw_days = TRAVEL_TIMES.get(travel_key, DEFAULT_TRAVEL_TIME)
+                speed_bonus = state.crew.travel_speed_bonus()
+                actual_days = state.time.travel(state.current_location, dest, speed_bonus)
+                # Apply sea events during travel proportionally
+                for _ in range(actual_days):
+                    state.apply_daily_crew_effects()
+                    if state.has_visited_port and random.random() < 0.40:
+                        engine.trigger_random("sea_events", state)
+                        if state.is_game_over():
+                            press_enter()
+                            return
+
+                print(f"\n  You arrive at {dest} after {actual_days} day(s).")
+                if speed_bonus:
+                    print(f"  (Your navigator's skill saved {speed_bonus} day(s))")
                 press_enter()
+
+                state.current_location = dest
+                state.current_location_type = dest_type
+                handle_landfall(state, engine, crew_data, all_quests)
+                # After leaving port, go back to sea
+                state.current_location = "At Sea"
+                state.current_location_type = "sea"
+            else:
+                print("\n  You remain where you are.")
+                press_enter()
+
         elif selection == "3":
             clear()
             print(state.status_text())
             press_enter()
+
         elif selection == "4":
-            save_game(state)
-            press_enter()
-        elif selection == "5":
-            print("\nFarewell, Captain. Until next voyage.")
-            break
-        else:
-            print("\nI didn’t catch that.")
+            clear()
+            print("═" * 52)
+            print("  CREW ROSTER")
+            print("═" * 52)
+            state.crew.roster_display()
+            print(f"\n  Total wages per port: {state.crew.total_wages()} gold")
+            print(f"  Trade bonus (current location): {int(state.crew.trade_bonus('', '')*100)}%")
             press_enter()
 
-# -------------------------
-# Entry
-# -------------------------
-def start_new_game(engine: EventEngine, world: Dict[str, Any]):
+        elif selection == "5":
+            clear()
+            print("═" * 52)
+            print("  ACTIVE QUESTS")
+            print("═" * 52)
+            if not state.quests.active:
+                print("\n  No active quests.")
+            for q in state.quests.active:
+                print(q.status_line(state.day))
+            press_enter()
+
+        elif selection == "6":
+            save_game(state)
+            press_enter()
+
+        elif selection == "Q":
+            print("\n  Farewell, Captain. Until the next voyage.")
+            break
+
+        else:
+            print("\n  Unknown option.")
+            press_enter()
+
+
+# ─────────────────────────────────────────
+# Role Selection
+# ─────────────────────────────────────────
+
+def choose_role() -> str:
+    clear()
+    print("═" * 52)
+    print("  THE STRAITS PROJECT")
+    print("═" * 52)
+    print("\n  Choose your background:\n")
+    print("  [1] Portuguese Conquistador")
+    print("       +10 gold, +5 morale. Starts with rapier.")
+    print("       Carries the weight of the Estado da India.")
+    print()
+    print("  [2] Arab Muslim Dāʿī")
+    print("       +10 morale, 2 pepper. Network of Muslim ports.")
+    print("       Better received in Islamic polities.")
+    print()
+    print("  [3] Chinese Trader")
+    print("       +15 gold, silk & porcelain cargo. Quanzhou contacts.")
+    print("       The diaspora knows your name before you arrive.")
+    print()
+    mapping = {"1": "Portuguese Conquistador", "2": "Arab Muslim Dāʿī", "3": "Chinese Trader"}
+    return mapping.get(input("\n  > ").strip(), "Portuguese Conquistador")
+
+
+# ─────────────────────────────────────────
+# Title Screen
+# ─────────────────────────────────────────
+
+def title_screen_text():
+    clear()
+    print()
+    print("  ╔══════════════════════════════════════════════════╗")
+    print("  ║          T H E   S T R A I T S   P R O J E C T  ║")
+    print("  ║      A Historical Text RPG — Age of Discovery    ║")
+    print("  ╚══════════════════════════════════════════════════╝")
+    print()
+    print("       Southeast Asia  •  Indian Ocean  •  East Africa")
+    print()
+
+
+def title_screen_pygame(img_path: str):
+    try:
+        import pygame
+    except ModuleNotFoundError:
+        return False
+    abspath = os.path.abspath(img_path)
+    if not os.path.isfile(abspath):
+        return False
+
+    pygame.init()
+    W, H = 1280, 720
+    screen = pygame.display.set_mode((W, H))
+    pygame.display.set_caption("The Straits Project")
+
+    bg = None
+    try:
+        bg = pygame.image.load(abspath).convert_alpha()
+    except Exception:
+        try:
+            from PIL import Image
+            im = Image.open(abspath).convert("RGBA")
+            bg = pygame.image.fromstring(im.tobytes(), im.size, im.mode)
+        except Exception:
+            return False
+
+    bw, bh = bg.get_width(), bg.get_height()
+    r = min(W / bw, H / bh)
+    scaled = pygame.transform.smoothscale(bg, (int(bw*r), int(bh*r)))
+    ox = (W - scaled.get_width()) // 2
+    oy = (H - scaled.get_height()) // 2
+
+    GOLD = (220, 170, 60)
+    BLACK = (0, 0, 0)
+    font_t = pygame.font.SysFont("Georgia", 72, bold=True)
+    font_p = pygame.font.SysFont("Verdana", 28)
+    ts = font_t.render("THE STRAITS PROJECT", True, GOLD)
+    sh = font_t.render("THE STRAITS PROJECT", True, BLACK)
+    tr = ts.get_rect(center=(W//2, int(H*0.18)))
+    pr = font_p.render("[ Press Enter ]", True, GOLD)
+    prt = pr.get_rect(midbottom=(W//2, H - 28))
+
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        screen.fill((0, 0, 0))
+        screen.blit(scaled, (ox, oy))
+        screen.blit(sh, (tr.x + 2, tr.y + 3))
+        screen.blit(ts, tr)
+        screen.blit(pr, prt)
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit(); sys.exit(0)
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.quit(); sys.exit(0)
+                if event.key in (pygame.K_RETURN, pygame.K_SPACE):
+                    running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                running = False
+        clock.tick(60)
+    pygame.quit()
+    return True
+
+
+# ─────────────────────────────────────────
+# Main Menu
+# ─────────────────────────────────────────
+
+def main_menu() -> str:
+    clear()
+    title_screen_text()
+    print("  [1] New Voyage")
+    print("  [2] Load (slot 1)")
+    print("  [3] Quit\n")
+    return input("  > ").strip()
+
+
+def start_new_game(
+    engine: EventEngine,
+    world: Dict[str, Any],
+    crew_data: Dict[str, Any],
+    all_quests: List[Dict[str, Any]],
+):
     role = choose_role()
     state = GameState(role, world)
-    print(f"\nYou set sail as a {role}.")
+    clear()
+    print(f"\n  You set sail as a {role}.")
+    print(f"\n  The year is 1511. The Strait of Malacca is the center of the world.\n"
+          f"  Spice, silk, faith, and iron move through these waters in all directions.\n"
+          f"  You are one more captain with an ambition and a leaking hull.\n")
     press_enter()
-    run_game(state, engine)
+    run_game(state, engine, crew_data, all_quests)
+
+
+# ─────────────────────────────────────────
+# Entry Point
+# ─────────────────────────────────────────
 
 def main():
     ensure_dirs()
+
     try:
         events_data = load_events(EVENTS_PATH)
-        world = load_world(WORLD_PATH)
+        world       = load_world(WORLD_PATH)
+        crew_data   = load_crew_data()
+        all_quests  = load_quests()
     except FileNotFoundError as e:
-        print(f"Missing data file: {e}")
+        print(f"\n  Missing data file: {e}")
         sys.exit(1)
 
-    # Use the generated PNG exactly; centered overlay title
-    title_screen_graphics_image(os.path.join(ROOT_DIR, "assets", "title_straits.png"))
+    # Try pygame title screen, fall back to text
+    img_path = os.path.join(ROOT_DIR, "assets", "title_straits.png")
+    if not title_screen_pygame(img_path):
+        clear()
+        title_screen_text()
+        press_enter()
 
     engine = EventEngine(events_data)
 
     while True:
         choice = main_menu()
         if choice == "1":
-            start_new_game(engine, world)
+            start_new_game(engine, world, crew_data, all_quests)
         elif choice == "2":
             state = load_game(world)
             if state:
                 press_enter()
-                run_game(state, engine)
+                run_game(state, engine, crew_data, all_quests)
             else:
                 press_enter()
         elif choice == "3":
-            print("\nGoodbye.")
+            print("\n  Goodbye.")
             break
         else:
-            print("\nInvalid option.")
+            print("\n  Invalid option.")
             press_enter()
+
 
 if __name__ == "__main__":
     main()

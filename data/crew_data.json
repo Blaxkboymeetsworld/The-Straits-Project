@@ -1,0 +1,468 @@
+{
+  "positive_traits": [
+    { "id": "worldly", "name": "Worldly", "description": "Has traveled broadly; reduces price penalties at foreign ports by 10%.", "stat_mods": { "trade_bonus": 0.10 } },
+    { "id": "polyglot", "name": "Polyglot", "description": "Picks up languages quickly; functions as partial translator even in unknown tongues.", "stat_mods": { "trade_bonus": 0.08, "diplomacy": 5 } },
+    { "id": "navigator", "name": "Skilled Navigator", "description": "Reduces travel time between ports by 1 day.", "stat_mods": { "travel_speed": 1 } },
+    { "id": "iron_constitution", "name": "Iron Constitution", "description": "Rarely falls ill; reduces crew sickness events.", "stat_mods": { "health_bonus": 15 } },
+    { "id": "veteran_sailor", "name": "Veteran Sailor", "description": "Adds +5 to ship handling in storms.", "stat_mods": { "storm_bonus": 5 } },
+    { "id": "inspiring", "name": "Inspiring", "description": "Passively adds +2 morale per day at sea.", "stat_mods": { "morale_per_day": 2 } },
+    { "id": "sharp_eye", "name": "Sharp Eye", "description": "Spots threats early; reduces chance of being surprised at sea by 20%.", "stat_mods": { "ambush_resist": 0.20 } },
+    { "id": "strong", "name": "Strong", "description": "+3 combat effectiveness in boarding actions.", "stat_mods": { "combat": 3 } },
+    { "id": "quick", "name": "Quick", "description": "+2 combat effectiveness, first strike advantage.", "stat_mods": { "combat": 2, "first_strike": true } },
+    { "id": "intimidating", "name": "Intimidating", "description": "Reduces pirate boarding attempts by 10%.", "stat_mods": { "pirate_deter": 0.10 } },
+    { "id": "pious", "name": "Pious", "description": "Boosts morale among crew of matching religion by 5.", "stat_mods": { "religion_morale": 5 } },
+    { "id": "healer", "name": "Healer", "description": "Reduces crew casualties from combat and disease.", "stat_mods": { "casualty_reduce": 0.20 } },
+    { "id": "sharp_trader", "name": "Sharp Trader", "description": "Gets an additional 5% on all sell prices.", "stat_mods": { "sell_bonus": 0.05 } },
+    { "id": "calm_under_fire", "name": "Calm Under Fire", "description": "Prevents morale drop during combat.", "stat_mods": { "combat_morale_immune": true } },
+    { "id": "storyteller", "name": "Storyteller", "description": "Boosts morale at port; reduces time needed to recruit.", "stat_mods": { "recruit_speed": 1 } }
+  ],
+  "negative_traits": [
+    { "id": "drunk", "name": "Drunkard", "description": "At port, has a 20% chance to cause a brawl, costing gold.", "stat_mods": { "port_incident_chance": 0.20 } },
+    { "id": "coward", "name": "Coward", "description": "Flees during combat; reduces combat effectiveness of adjacent crew.", "stat_mods": { "combat": -3 } },
+    { "id": "greedy", "name": "Greedy", "description": "Demands double wages or morale drops.", "stat_mods": { "wage_multiplier": 2 } },
+    { "id": "superstitious", "name": "Superstitious", "description": "Loses 3 morale when unusual events occur at sea.", "stat_mods": { "sea_event_morale": -3 } },
+    { "id": "seasick", "name": "Chronically Seasick", "description": "Loses effectiveness at sea; -2 morale per 2 days.", "stat_mods": { "sea_morale_drain": 2 } },
+    { "id": "violent", "name": "Violent Temper", "description": "10% chance per port of starting a fight.", "stat_mods": { "port_incident_chance": 0.10 } },
+    { "id": "slow", "name": "Slow-Witted", "description": "Fumbles under pressure; -2 in emergencies.", "stat_mods": { "emergency_penalty": -2 } },
+    { "id": "gossip", "name": "Gossip", "description": "Spreads rumors; -5 diplomacy with port rulers.", "stat_mods": { "diplomacy": -5 } },
+    { "id": "kleptomaniac", "name": "Kleptomaniac", "description": "Has a 10% chance to steal small amounts from cargo each port.", "stat_mods": { "cargo_theft_chance": 0.10 } },
+    { "id": "sickly", "name": "Sickly", "description": "Prone to illness; risks spreading disease to crew.", "stat_mods": { "disease_risk": 0.15 } },
+    { "id": "insubordinate", "name": "Insubordinate", "description": "Refuses orders 15% of the time; causes crew friction.", "stat_mods": { "order_fail_chance": 0.15 } },
+    { "id": "unlucky", "name": "Unlucky", "description": "Increases bad sea event probability by 10%.", "stat_mods": { "bad_event_chance": 0.10 } },
+    { "id": "bigoted", "name": "Bigoted", "description": "Reduces morale among crew of different religion/ethnicity by 3.", "stat_mods": { "diversity_morale": -3 } },
+    { "id": "gambler", "name": "Compulsive Gambler", "description": "Loses gold at port dice games; 15% chance to drain party funds.", "stat_mods": { "gambling_loss_chance": 0.15 } },
+    { "id": "crude", "name": "Crude", "description": "Offends local dignitaries; -10 to ruler disposition on first meeting.", "stat_mods": { "first_impression": -10 } }
+  ],
+  "occupations": [
+    {
+      "id": "sailor", "name": "Sailor",
+      "description": "The backbone of any crew. Does a bit of everything.",
+      "base_combat": 3, "base_navigation": 4, "base_trade": 1,
+      "special": null
+    },
+    {
+      "id": "navigator", "name": "Navigator",
+      "description": "Reads stars, currents, and coastlines. Reduces travel time.",
+      "base_combat": 1, "base_navigation": 8, "base_trade": 2,
+      "special": "travel_speed_bonus"
+    },
+    {
+      "id": "merchant", "name": "Merchant",
+      "description": "Knows the value of things. Better prices when trading.",
+      "base_combat": 1, "base_navigation": 2, "base_trade": 8,
+      "special": "trade_price_bonus"
+    },
+    {
+      "id": "soldier", "name": "Soldier",
+      "description": "Trained for combat. Crucial in boarding actions and pirate encounters.",
+      "base_combat": 8, "base_navigation": 1, "base_trade": 1,
+      "special": "boarding_bonus"
+    },
+    {
+      "id": "gunner", "name": "Gunner",
+      "description": "Manages ship artillery. Improves cannon effectiveness.",
+      "base_combat": 6, "base_navigation": 2, "base_trade": 1,
+      "special": "cannon_bonus"
+    },
+    {
+      "id": "physician", "name": "Physician",
+      "description": "Reduces crew casualties from disease and combat wounds.",
+      "base_combat": 1, "base_navigation": 1, "base_trade": 2,
+      "special": "healing_bonus"
+    },
+    {
+      "id": "interpreter", "name": "Interpreter",
+      "description": "Fluent in multiple tongues. Unlocks better prices and diplomatic options.",
+      "base_combat": 1, "base_navigation": 2, "base_trade": 6,
+      "special": "language_trade_bonus"
+    },
+    {
+      "id": "carpenter", "name": "Ship's Carpenter",
+      "description": "Repairs hull damage. Invaluable after storms or battles.",
+      "base_combat": 2, "base_navigation": 1, "base_trade": 1,
+      "special": "repair_bonus"
+    },
+    {
+      "id": "priest", "name": "Priest/Imam/Monk",
+      "description": "Religious figure aboard. Boosts morale among faithful crew.",
+      "base_combat": 1, "base_navigation": 1, "base_trade": 2,
+      "special": "morale_religion_bonus"
+    },
+    {
+      "id": "cook", "name": "Ship's Cook",
+      "description": "Good food keeps a crew alive. Reduces morale loss on long voyages.",
+      "base_combat": 1, "base_navigation": 1, "base_trade": 1,
+      "special": "morale_passive_bonus"
+    },
+    {
+      "id": "diver", "name": "Pearl Diver",
+      "description": "Skilled underwater. Unlocks unique salvage options at sea.",
+      "base_combat": 2, "base_navigation": 3, "base_trade": 3,
+      "special": "salvage_bonus"
+    },
+    {
+      "id": "scout", "name": "Scout",
+      "description": "Eyes and ears. Reduces chance of ambush and reveals port rumors.",
+      "base_combat": 4, "base_navigation": 4, "base_trade": 2,
+      "special": "ambush_resist"
+    },
+    {
+      "id": "mercenary", "name": "Mercenary",
+      "description": "Fights for gold. High combat, demands premium pay.",
+      "base_combat": 9, "base_navigation": 1, "base_trade": 1,
+      "special": "high_wage"
+    },
+    {
+      "id": "former_pirate", "name": "Former Pirate",
+      "description": "Knows pirate tactics from the inside. Mixed blessing.",
+      "base_combat": 7, "base_navigation": 5, "base_trade": 3,
+      "special": "pirate_knowledge"
+    },
+    {
+      "id": "herbalist", "name": "Herbalist",
+      "description": "Knowledge of local plants. Reduces disease risk; can trade remedies.",
+      "base_combat": 1, "base_navigation": 2, "base_trade": 4,
+      "special": "disease_resist"
+    }
+  ],
+  "recruitable_archetypes": {
+    "malay_sailor": {
+      "ethnicity": "Malay", "native_tongue": "Malay",
+      "other_languages": ["Javanese"],
+      "typical_occupations": ["sailor", "navigator", "former_pirate"],
+      "typical_religions": ["Islam"],
+      "world_region": "Southeast Asia",
+      "wage_range": [2, 4]
+    },
+    "javanese_fighter": {
+      "ethnicity": "Javanese", "native_tongue": "Javanese",
+      "other_languages": ["Malay"],
+      "typical_occupations": ["soldier", "mercenary", "sailor"],
+      "typical_religions": ["Islam", "Hinduism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [3, 6]
+    },
+    "tamil_merchant": {
+      "ethnicity": "Tamil", "native_tongue": "Tamil",
+      "other_languages": ["Malay", "Malayalam"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Hinduism", "Islam"],
+      "world_region": "Indian Ocean",
+      "wage_range": [3, 7]
+    },
+    "gujarati_trader": {
+      "ethnicity": "Gujarati", "native_tongue": "Gujarati",
+      "other_languages": ["Persian", "Arabic", "Malay"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Islam", "Hinduism", "Jainism"],
+      "world_region": "Indian Ocean",
+      "wage_range": [4, 8]
+    },
+    "portuguese_soldier": {
+      "ethnicity": "Portuguese", "native_tongue": "Portuguese",
+      "other_languages": ["Spanish"],
+      "typical_occupations": ["soldier", "gunner", "mercenary"],
+      "typical_religions": ["Christianity"],
+      "world_region": "Europe",
+      "wage_range": [5, 10]
+    },
+    "konkani_pilot": {
+      "ethnicity": "Konkani", "native_tongue": "Konkani",
+      "other_languages": ["Portuguese", "Malayalam"],
+      "typical_occupations": ["navigator", "sailor"],
+      "typical_religions": ["Hinduism", "Christianity"],
+      "world_region": "Indian Ocean",
+      "wage_range": [3, 6]
+    },
+    "african_slave_freed": {
+      "ethnicity": "East African", "native_tongue": "Swahili",
+      "other_languages": ["Arabic", "Portuguese"],
+      "typical_occupations": ["sailor", "soldier", "diver"],
+      "typical_religions": ["Islam", "Christianity"],
+      "world_region": "East Africa",
+      "wage_range": [2, 5],
+      "was_enslaved": true
+    },
+    "goan_merchant": {
+      "ethnicity": "Goan", "native_tongue": "Konkani",
+      "other_languages": ["Portuguese", "Gujarati"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Hinduism", "Christianity"],
+      "world_region": "Indian Ocean",
+      "wage_range": [4, 7]
+    },
+    "malabar_sailor": {
+      "ethnicity": "Nair", "native_tongue": "Malayalam",
+      "other_languages": ["Tamil", "Arabic"],
+      "typical_occupations": ["sailor", "navigator"],
+      "typical_religions": ["Hinduism"],
+      "world_region": "Indian Ocean",
+      "wage_range": [2, 5]
+    },
+    "nair_warrior": {
+      "ethnicity": "Nair", "native_tongue": "Malayalam",
+      "other_languages": [],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Hinduism"],
+      "world_region": "Indian Ocean",
+      "wage_range": [4, 8]
+    },
+    "mapilla_trader": {
+      "ethnicity": "Mapilla", "native_tongue": "Malayalam",
+      "other_languages": ["Arabic", "Malay"],
+      "typical_occupations": ["merchant", "interpreter", "sailor"],
+      "typical_religions": ["Islam"],
+      "world_region": "Indian Ocean",
+      "wage_range": [3, 6]
+    },
+    "arab_navigator": {
+      "ethnicity": "Arab", "native_tongue": "Arabic",
+      "other_languages": ["Persian", "Swahili", "Malay"],
+      "typical_occupations": ["navigator", "merchant", "interpreter"],
+      "typical_religions": ["Islam"],
+      "world_region": "Indian Ocean",
+      "wage_range": [5, 9]
+    },
+    "persian_navigator": {
+      "ethnicity": "Persian", "native_tongue": "Persian",
+      "other_languages": ["Arabic", "Turkish"],
+      "typical_occupations": ["navigator", "merchant"],
+      "typical_religions": ["Islam"],
+      "world_region": "Persian Gulf",
+      "wage_range": [5, 9]
+    },
+    "arab_merchant": {
+      "ethnicity": "Arab", "native_tongue": "Arabic",
+      "other_languages": ["Persian", "Malay"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Islam"],
+      "world_region": "Persian Gulf",
+      "wage_range": [4, 8]
+    },
+    "baluchi_guard": {
+      "ethnicity": "Baluchi", "native_tongue": "Baluchi",
+      "other_languages": ["Persian", "Arabic"],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Islam"],
+      "world_region": "Persian Gulf",
+      "wage_range": [4, 7]
+    },
+    "turkish_soldier": {
+      "ethnicity": "Turkish", "native_tongue": "Turkish",
+      "other_languages": ["Arabic", "Persian"],
+      "typical_occupations": ["soldier", "gunner", "mercenary"],
+      "typical_religions": ["Islam"],
+      "world_region": "Ottoman",
+      "wage_range": [6, 11]
+    },
+    "chinese_navigator": {
+      "ethnicity": "Chinese (Hokkien)", "native_tongue": "Min Chinese",
+      "other_languages": ["Malay", "Javanese"],
+      "typical_occupations": ["navigator", "merchant"],
+      "typical_religions": ["Buddhism", "Taoism"],
+      "world_region": "East Asia",
+      "wage_range": [4, 8]
+    },
+    "chinese_merchant": {
+      "ethnicity": "Chinese (Hokkien)", "native_tongue": "Min Chinese",
+      "other_languages": ["Malay"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Buddhism", "Taoism"],
+      "world_region": "East Asia",
+      "wage_range": [4, 9]
+    },
+    "fujian_sailor": {
+      "ethnicity": "Chinese (Fujian)", "native_tongue": "Min Chinese",
+      "other_languages": [],
+      "typical_occupations": ["sailor", "carpenter"],
+      "typical_religions": ["Buddhism", "Taoism"],
+      "world_region": "East Asia",
+      "wage_range": [2, 5]
+    },
+    "hakka_guard": {
+      "ethnicity": "Chinese (Hakka)", "native_tongue": "Hakka Chinese",
+      "other_languages": ["Min Chinese"],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Buddhism"],
+      "world_region": "East Asia",
+      "wage_range": [3, 7]
+    },
+    "javanese_sailor": {
+      "ethnicity": "Javanese", "native_tongue": "Javanese",
+      "other_languages": ["Malay"],
+      "typical_occupations": ["sailor", "navigator"],
+      "typical_religions": ["Islam", "Hinduism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [2, 4]
+    },
+    "sundanese_warrior": {
+      "ethnicity": "Sundanese", "native_tongue": "Sundanese",
+      "other_languages": ["Javanese", "Malay"],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Islam"],
+      "world_region": "Southeast Asia",
+      "wage_range": [3, 6]
+    },
+    "chinese_resident": {
+      "ethnicity": "Chinese (diaspora)", "native_tongue": "Min Chinese",
+      "other_languages": ["Javanese", "Malay"],
+      "typical_occupations": ["merchant", "interpreter", "carpenter"],
+      "typical_religions": ["Buddhism", "Taoism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [3, 7]
+    },
+    "bugis_navigator": {
+      "ethnicity": "Bugis", "native_tongue": "Bugis",
+      "other_languages": ["Malay", "Javanese"],
+      "typical_occupations": ["navigator", "sailor", "former_pirate"],
+      "typical_religions": ["Islam"],
+      "world_region": "Southeast Asia",
+      "wage_range": [4, 8]
+    },
+    "orang_laut_sailor": {
+      "ethnicity": "Orang Laut", "native_tongue": "Malay",
+      "other_languages": [],
+      "typical_occupations": ["sailor", "diver", "scout"],
+      "typical_religions": ["Animism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [1, 3]
+    },
+    "sea_nomad_guide": {
+      "ethnicity": "Orang Laut", "native_tongue": "Malay",
+      "other_languages": [],
+      "typical_occupations": ["navigator", "scout"],
+      "typical_religions": ["Animism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [2, 4]
+    },
+    "patani_sailor": {
+      "ethnicity": "Malay (Patani)", "native_tongue": "Malay",
+      "other_languages": ["Siamese"],
+      "typical_occupations": ["sailor", "merchant"],
+      "typical_religions": ["Islam"],
+      "world_region": "Southeast Asia",
+      "wage_range": [2, 4]
+    },
+    "siamese_guard": {
+      "ethnicity": "Siamese", "native_tongue": "Siamese",
+      "other_languages": ["Malay"],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Buddhism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [3, 6]
+    },
+    "ternatan_warrior": {
+      "ethnicity": "Ternatan", "native_tongue": "Ternate",
+      "other_languages": ["Malay"],
+      "typical_occupations": ["soldier", "sailor"],
+      "typical_religions": ["Islam"],
+      "world_region": "Southeast Asia",
+      "wage_range": [2, 4]
+    },
+    "papuan_tracker": {
+      "ethnicity": "Papuan", "native_tongue": "Papuan dialect",
+      "other_languages": [],
+      "typical_occupations": ["scout", "sailor"],
+      "typical_religions": ["Animism"],
+      "world_region": "Southeast Asia",
+      "wage_range": [1, 3]
+    }
+  },
+  "weapons": {
+    "kris": {
+      "name": "Kris (Keris)", "type": "melee", "origin": "Malay/Javanese",
+      "damage": 4, "description": "Wavy-bladed dagger of great ritual significance. Fast and deadly at close quarters.",
+      "cost": 12, "availability": ["Malacca Harbor", "Bantam", "Ternate", "Pulau Tioman"]
+    },
+    "parang": {
+      "name": "Parang", "type": "melee", "origin": "Malay",
+      "damage": 3, "description": "Heavy chopping blade. Common among Malay sailors and soldiers.",
+      "cost": 5, "availability": ["Malacca Harbor", "Bantam", "Pulau Tioman", "Patani"]
+    },
+    "urumi": {
+      "name": "Urumi", "type": "melee", "origin": "Indian",
+      "damage": 5, "description": "Flexible whip-sword from the Malabar Coast. Lethal in practiced hands.",
+      "cost": 18, "availability": ["Calicut"]
+    },
+    "katar": {
+      "name": "Katar", "type": "melee", "origin": "Indian",
+      "damage": 4, "description": "Push-dagger with transverse grip. Punches through chain.",
+      "cost": 10, "availability": ["Calicut", "Goa Harbor"]
+    },
+    "scimitar": {
+      "name": "Scimitar", "type": "melee", "origin": "Persian/Arab",
+      "damage": 6, "description": "Curved cavalry blade, used widely around the Persian Gulf and Indian Ocean.",
+      "cost": 20, "availability": ["Hormuz", "Calicut"]
+    },
+    "composite_bow": {
+      "name": "Composite Bow", "type": "ranged", "origin": "Central Asian/Arab",
+      "damage": 5, "description": "Powerful recurve bow. High draw weight, fearsome range.",
+      "cost": 22, "availability": ["Hormuz"]
+    },
+    "dao": {
+      "name": "Dao (Chinese Saber)", "type": "melee", "origin": "Chinese",
+      "damage": 5, "description": "Single-edged Chinese blade. Standard weapon of Ming soldiers and sailors.",
+      "cost": 14, "availability": ["Quanzhou", "Bantam"]
+    },
+    "fire_lance": {
+      "name": "Fire Lance", "type": "ranged", "origin": "Chinese",
+      "damage": 7, "description": "Precursor to the gun: a bamboo tube packed with gunpowder. Terrifying, unstable.",
+      "cost": 25, "availability": ["Quanzhou"]
+    },
+    "sword_rapier": {
+      "name": "Rapier", "type": "melee", "origin": "Portuguese/European",
+      "damage": 6, "description": "Thrusting sword of European infantry officers. Fast and precise.",
+      "cost": 30, "availability": ["Goa Harbor"]
+    },
+    "pike": {
+      "name": "Pike", "type": "melee", "origin": "European",
+      "damage": 5, "description": "Long spear used in European pike formations. Effective against cavalry and boarding parties.",
+      "cost": 8, "availability": ["Goa Harbor"]
+    },
+    "arquebus": {
+      "name": "Arquebus", "type": "ranged", "origin": "European",
+      "damage": 9, "description": "Matchlock firearm. Slow to reload but devastating at range.",
+      "cost": 45, "availability": ["Goa Harbor"]
+    },
+    "local_arquebus": {
+      "name": "Local Arquebus (Bedil)", "type": "ranged", "origin": "Local manufacture",
+      "damage": 7, "description": "A crude matchlock copy, locally forged by artisans of variable skill. Cheaper but prone to misfires.",
+      "cost": 22, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam", "Ternate"]
+    },
+    "crossbow": {
+      "name": "Crossbow", "type": "ranged", "origin": "Chinese/European",
+      "damage": 7, "description": "Mechanical bow. Slower than a longbow but requires less training.",
+      "cost": 20, "availability": ["Quanzhou", "Goa Harbor"]
+    },
+    "spear": {
+      "name": "Spear", "type": "melee", "origin": "Universal",
+      "damage": 4, "description": "The universal weapon. Found everywhere from the Malabar Coast to the Spice Islands.",
+      "cost": 4, "availability": ["Malacca Harbor", "Calicut", "Hormuz", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
+    },
+    "dagger": {
+      "name": "Dagger", "type": "melee", "origin": "Universal",
+      "damage": 3, "description": "Short blade for close work. Easily concealed.",
+      "cost": 5, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam"]
+    },
+    "bow": {
+      "name": "Bow", "type": "ranged", "origin": "Universal",
+      "damage": 4, "description": "Simple hunting bow. Effective enough at short range.",
+      "cost": 7, "availability": ["Calicut", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
+    },
+    "blowpipe": {
+      "name": "Blowpipe (Sumpitan)", "type": "ranged", "origin": "Southeast Asian",
+      "damage": 3, "description": "Silent, with poison darts. Unnerving at range. Poisoned darts optional.",
+      "cost": 8, "availability": ["Pulau Tioman", "Ternate"]
+    },
+    "keris_panjang": {
+      "name": "Keris Panjang (Long Kris)", "type": "melee", "origin": "Javanese",
+      "damage": 5, "description": "An elongated kris. More like a short sword. Reserved for warriors of standing.",
+      "cost": 20, "availability": ["Bantam"]
+    },
+    "lance": {
+      "name": "Lance", "type": "melee", "origin": "Arab/Persian",
+      "damage": 6, "description": "Cavalry weapon, effective in open land engagements. Cumbersome on a ship.",
+      "cost": 10, "availability": ["Hormuz"]
+    }
+  }
+}

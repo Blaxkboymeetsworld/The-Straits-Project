@@ -1,56 +1,176 @@
 {
   "major_ports": [
-    { "name": "Malacca Harbor", "region": "Straits of Malacca" },
-    { "name": "Aceh", "region": "Sumatra" },
-    { "name": "Makassar", "region": "Sulawesi" },
-    { "name": "Brunei Harbor", "region": "Borneo" },
-    { "name": "Ternate", "region": "Maluku" },
-    { "name": "Patani", "region": "Siam" }
+    {
+      "name": "Malacca Harbor",
+      "region": "Malay Peninsula",
+      "culture": "Malay",
+      "language": "Malay",
+      "religion": "Islam",
+      "ruler": { "name": "Tun Mutahir", "title": "Bendahara", "faction": "Malacca Sultanate", "disposition": 50 },
+      "merchant_guild": "Malay-Gujarat Consortium",
+      "religious_figure": { "name": "Maulana Yusuf", "title": "Kadi", "religion": "Islam" },
+      "harbor_master": { "name": "Hang Kassim", "fees": 12 },
+      "slave_market": true,
+      "slave_notes": "Primarily war captives from the interior and Javanese pirates' hauls.",
+      "specialty_goods": ["pepper", "tin", "camphor"],
+      "recruitable_pool": ["malay_sailor", "javanese_fighter", "tamil_merchant", "gujarati_trader"],
+      "weapons_available": ["kris", "parang", "local_arquebus", "spear"],
+      "base_prices": {
+        "pepper": 8, "tin": 5, "camphor": 15, "cloves": 20, "nutmeg": 25,
+        "silk": 30, "cotton": 6, "rice": 2, "opium": 40, "porcelain": 18,
+        "slaves": 35, "salt": 3, "gold_dust": 60, "iron": 7
+      }
+    },
+    {
+      "name": "Goa Harbor",
+      "region": "Konkan Coast",
+      "culture": "Portuguese/Konkani",
+      "language": "Portuguese",
+      "religion": "Christianity",
+      "ruler": { "name": "Dom Afonso de Noronha", "title": "Viceroy", "faction": "Estado da India", "disposition": 50 },
+      "merchant_guild": "Casa da India Factors",
+      "religious_figure": { "name": "Padre Sebastião Rodrigues", "title": "Vicar-General", "religion": "Christianity" },
+      "harbor_master": { "name": "Estêvão Faria", "fees": 15 },
+      "slave_market": true,
+      "slave_notes": "African and Indian captives traded through Portuguese channels.",
+      "specialty_goods": ["cotton", "spices", "horses"],
+      "recruitable_pool": ["portuguese_soldier", "konkani_pilot", "african_slave_freed", "goan_merchant"],
+      "weapons_available": ["arquebus", "sword_rapier", "pike", "crossbow", "local_arquebus"],
+      "base_prices": {
+        "pepper": 10, "tin": 6, "camphor": 12, "cloves": 18, "nutmeg": 22,
+        "silk": 28, "cotton": 5, "rice": 3, "opium": 38, "porcelain": 20,
+        "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8
+      }
+    },
+    {
+      "name": "Calicut",
+      "region": "Malabar Coast",
+      "culture": "Nair/Muslim",
+      "language": "Malayalam",
+      "religion": "Hinduism",
+      "ruler": { "name": "Zamorin Mana Vikraman", "title": "Zamorin", "faction": "Kingdom of Calicut", "disposition": 40 },
+      "merchant_guild": "Mapilla Merchant Council",
+      "religious_figure": { "name": "Shaykh Ibrahim al-Malibari", "title": "Qadi", "religion": "Islam" },
+      "harbor_master": { "name": "Koya Moopan", "fees": 10 },
+      "slave_market": false,
+      "slave_notes": null,
+      "specialty_goods": ["pepper", "ginger", "cardamom"],
+      "recruitable_pool": ["malabar_sailor", "nair_warrior", "mapilla_trader", "arab_navigator"],
+      "weapons_available": ["urumi", "katar", "bow", "spear", "local_arquebus"],
+      "base_prices": {
+        "pepper": 6, "tin": 7, "camphor": 14, "cloves": 22, "nutmeg": 28,
+        "silk": 32, "cotton": 4, "rice": 2, "opium": 42, "porcelain": 22,
+        "slaves": 0, "salt": 3, "gold_dust": 58, "iron": 6
+      }
+    },
+    {
+      "name": "Hormuz",
+      "region": "Persian Gulf",
+      "culture": "Persian/Arab",
+      "language": "Persian",
+      "religion": "Islam",
+      "ruler": { "name": "Shah Salghur", "title": "Shah", "faction": "Kingdom of Hormuz", "disposition": 50 },
+      "merchant_guild": "Hormuzian Merchant Brotherhood",
+      "religious_figure": { "name": "Mawlana Rashid al-Din", "title": "Shaykh al-Islam", "religion": "Islam" },
+      "harbor_master": { "name": "Abbas ibn Yusuf", "fees": 18 },
+      "slave_market": true,
+      "slave_notes": "African and Central Asian slaves traded across the Persian Gulf network.",
+      "specialty_goods": ["horses", "pearls", "dates"],
+      "recruitable_pool": ["persian_navigator", "arab_merchant", "baluchi_guard", "turkish_soldier"],
+      "weapons_available": ["scimitar", "composite_bow", "dagger", "local_arquebus", "lance"],
+      "base_prices": {
+        "pepper": 14, "tin": 9, "camphor": 18, "cloves": 30, "nutmeg": 35,
+        "silk": 22, "cotton": 8, "rice": 4, "opium": 30, "porcelain": 25,
+        "slaves": 45, "salt": 5, "gold_dust": 50, "iron": 10
+      }
+    },
+    {
+      "name": "Quanzhou",
+      "region": "Fujian Province",
+      "culture": "Chinese",
+      "language": "Min Chinese",
+      "religion": "Buddhism/Taoism",
+      "ruler": { "name": "Prefect Chen Bao", "title": "Zhizhou", "faction": "Ming Dynasty", "disposition": 45 },
+      "merchant_guild": "Quanzhou Maritime Guild",
+      "religious_figure": { "name": "Abbot Mingzhi", "title": "Buddhist Abbot", "religion": "Buddhism" },
+      "harbor_master": { "name": "Wu Liangchen", "fees": 8 },
+      "slave_market": false,
+      "slave_notes": null,
+      "specialty_goods": ["silk", "porcelain", "tea"],
+      "recruitable_pool": ["chinese_navigator", "chinese_merchant", "fujian_sailor", "hakka_guard"],
+      "weapons_available": ["dao", "crossbow", "spear", "fire_lance", "local_arquebus"],
+      "base_prices": {
+        "pepper": 12, "tin": 4, "camphor": 10, "cloves": 16, "nutmeg": 20,
+        "silk": 12, "cotton": 3, "rice": 1, "opium": 35, "porcelain": 8,
+        "slaves": 0, "salt": 2, "gold_dust": 65, "iron": 5
+      }
+    },
+    {
+      "name": "Bantam",
+      "region": "West Java",
+      "culture": "Sundanese/Javanese",
+      "language": "Sundanese",
+      "religion": "Islam",
+      "ruler": { "name": "Sultan Hasanuddin", "title": "Sultan", "faction": "Sultanate of Bantam", "disposition": 50 },
+      "merchant_guild": "Javanese Pepper Traders",
+      "religious_figure": { "name": "Maulana Hasanuddin", "title": "Imam", "religion": "Islam" },
+      "harbor_master": { "name": "Raden Aria", "fees": 9 },
+      "slave_market": true,
+      "slave_notes": "Primarily captives from inter-polity warfare in the archipelago.",
+      "specialty_goods": ["pepper", "rice", "timber"],
+      "recruitable_pool": ["javanese_sailor", "sundanese_warrior", "chinese_resident", "bugis_navigator"],
+      "weapons_available": ["kris", "keris_panjang", "bow", "spear", "local_arquebus"],
+      "base_prices": {
+        "pepper": 5, "tin": 6, "camphor": 13, "cloves": 19, "nutmeg": 24,
+        "silk": 29, "cotton": 5, "rice": 1, "opium": 38, "porcelain": 16,
+        "slaves": 30, "salt": 3, "gold_dust": 62, "iron": 7
+      }
+    }
   ],
   "villages": [
-    { "name": "Kampung Laut", "region": "Malacca Coast" },
-    { "name": "Banda Village", "region": "Banda Islands" },
-    { "name": "Sungai Settlement", "region": "Sumatra Coast" },
-    { "name": "Tidore Hamlet", "region": "Maluku" },
-    { "name": "Kudat Village", "region": "Borneo" },
-    { "name": "Bugis Outpost", "region": "Sulawesi" }
-  ],
-  "harbor_masters": [
     {
-      "port": "Malacca Harbor",
-      "name": "Haji Iskandar",
-      "traits": ["meticulous", "pious"],
-      "fees": 8
+      "name": "Pulau Tioman",
+      "region": "South China Sea",
+      "culture": "Orang Laut",
+      "language": "Malay",
+      "religion": "Animism",
+      "slave_market": false,
+      "specialty_goods": ["fish", "turtle_shell", "camphor"],
+      "recruitable_pool": ["orang_laut_sailor", "sea_nomad_guide"],
+      "weapons_available": ["spear", "blowpipe", "parang"],
+      "base_prices": {
+        "pepper": 10, "tin": 8, "camphor": 11, "rice": 3, "fish": 1, "turtle_shell": 20
+      }
     },
     {
-      "port": "Aceh",
-      "name": "Cut Muda",
-      "traits": ["pragmatic", "stern"],
-      "fees": 7
+      "name": "Patani",
+      "region": "Gulf of Thailand",
+      "culture": "Malay",
+      "language": "Malay",
+      "religion": "Islam",
+      "slave_market": false,
+      "specialty_goods": ["tin", "elephant_ivory"],
+      "recruitable_pool": ["patani_sailor", "siamese_guard"],
+      "weapons_available": ["spear", "parang", "bow"],
+      "base_prices": {
+        "pepper": 9, "tin": 4, "camphor": 14, "rice": 2, "elephant_ivory": 55
+      }
     },
     {
-      "port": "Makassar",
-      "name": "Daeng Parani",
-      "traits": ["ambitious", "dealer"],
-      "fees": 9
-    },
-    {
-      "port": "Brunei Harbor",
-      "name": "Awang Sulaiman",
-      "traits": ["formal", "careful"],
-      "fees": 8
-    },
-    {
-      "port": "Ternate",
-      "name": "Kelana Jafar",
-      "traits": ["watchful", "spice-savvy"],
-      "fees": 10
-    },
-    {
-      "port": "Patani",
-      "name": "Sa-ib Dara",
-      "traits": ["welcoming", "calculating"],
-      "fees": 6
+      "name": "Ternate",
+      "region": "Maluku Islands",
+      "culture": "Ternatan",
+      "language": "Ternate",
+      "religion": "Islam",
+      "slave_market": true,
+      "slave_notes": "Captives from inter-island raids.",
+      "specialty_goods": ["cloves", "nutmeg"],
+      "recruitable_pool": ["ternatan_warrior", "papuan_tracker"],
+      "weapons_available": ["spear", "bow", "kris", "local_arquebus"],
+      "base_prices": {
+        "cloves": 4, "nutmeg": 6, "rice": 4, "slaves": 20
+      }
     }
-  ]
+  ],
+  "harbor_masters": []
 }

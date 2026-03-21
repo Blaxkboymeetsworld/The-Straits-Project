@@ -1,162 +1,351 @@
 {
-  "special_events": [
+  "sea_events": [
     {
-      "id": "harbormaster_intro",
-      "description": "You are shown into a cramped office. {harbormaster_name} eyes your crew, counting quietly. \"Fees are due if you want to berth in {current_port}. Storm season makes space tight.\"",
-      "when": {
-        "type": "major_port",
-        "once": true
-      },
-      "text_vars": ["harbormaster_name", "current_port", "harbor_fee"],
+      "id": "pirate_encounter_malay",
+      "description": "A fleet of low proas emerges from behind a headland — Orang Laut sea nomads, or perhaps pirates. They fly no flag. Their vessels flank yours with practiced ease. The lead craft pulls alongside; a man in a red headcloth shouts across the water in Malay.",
       "options": {
-        "1": {
-          "text": "Pay the standard fee ({harbor_fee} gold) and request berthing.",
-          "effect": { "gold": -8, "morale": 2 }
-        },
-        "2": {
-          "text": "Offer a small gift of spices to soften the fee.",
-          "effect": { "gold": -4, "spices": -1, "morale": 1 }
-        },
-        "3": {
-          "text": "Refuse and return to anchorage to think.",
-          "effect": { "morale": -2 }
-        }
+        "1": { "text": "Fight them off.", "effect": { "ship_health": -15, "morale": -5, "gold": 10 }, "requires": null },
+        "2": { "text": "Pay the toll and pass. (Cost: 8 gold)", "effect": { "gold": -8, "morale": -3 }, "requires": { "gold": 8 } },
+        "3": { "text": "Attempt to communicate if you have a Malay speaker.", "effect": { "gold": -3, "morale": 2 }, "requires": { "crew_language": "Malay" } },
+        "4": { "text": "Attempt to outrun them.", "effect": { "ship_health": -5, "morale": -2 }, "requires": null }
       },
-      "variants": {
-        "Portuguese Conquistador": {
-          "description": "{harbormaster_name} lingers on the banner at your stern. \"We mind powder and pride here, Captain.\"",
-          "options": {
-            "2": {
-              "text": "Hint at martial protection for reduced fees.",
-              "effect": { "gold": -3, "morale": 2 }
-            }
-          }
-        },
-        "Arab Muslim Dāʿī": {
-          "description": "{harbormaster_name} nods at your greeting. \"Peace upon you. Traders and callers alike find room—if ledger and conscience agree.\"",
-          "options": {
-            "2": {
-              "text": "Invoke pious hospitality and offer a token gift.",
-              "effect": { "gold": -2, "spices": -1, "morale": 2 }
-            }
-          }
-        },
-        "Chinese Trader": {
-          "description": "{harbormaster_name} weighs your account books with interest. \"Paper straight, cargo sealed, fee proper.\"",
-          "options": {
-            "2": {
-              "text": "Present neat manifests to negotiate a merchant’s rate.",
-              "effect": { "gold": -3, "morale": 1 }
-            }
-          }
-        }
-      }
+      "pool": "sea_events"
+    },
+    {
+      "id": "sudden_squall",
+      "description": "The sky darkens without warning. A squall sweeps down from the northeast — the kind that veteran sailors whisper about. The rain hits like a curtain of iron. Your crew scrambles, shouting above the wind.",
+      "options": {
+        "1": { "text": "Drop sail and ride it out.", "effect": { "ship_health": -10, "morale": -8 }, "requires": null },
+        "2": { "text": "Let your navigator call it. (Requires: Navigator aboard)", "effect": { "ship_health": -3, "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
+        "3": { "text": "Attempt to use local knowledge. (Requires: Orang Laut or local sailor)", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_region": "Southeast Asia" } },
+        "4": { "text": "Reduce speed and pray.", "effect": { "ship_health": -7, "morale": -5 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "drifting_wreck",
+      "description": "You spot a half-submerged hulk drifting on the current — a junk by the look of her rigging. She's gutted and listing, her deck awash. Crows circle above. Something might still be worth recovering. Or survivors.",
+      "options": {
+        "1": { "text": "Send a boat over to investigate.", "effect": { "gold": 20, "morale": 5 }, "requires": null },
+        "2": { "text": "Look for survivors first.", "effect": { "morale": 8, "gold": 5 }, "requires": null },
+        "3": { "text": "Ignore it — could be a pirate trap.", "effect": { "morale": -2 }, "requires": null },
+        "4": { "text": "If you have a diver, inspect the hull below the waterline.", "effect": { "gold": 35, "morale": 2 }, "requires": { "crew_occupation": "diver" } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "chinese_patrol_junk",
+      "description": "A large Ming patrol junk flying the Dragon Standard bears down on you. She is well-armed. Her captain signals for you to heave to and submit to inspection. They are looking for someone — or something.",
+      "options": {
+        "1": { "text": "Heave to and cooperate. Open your manifest.", "effect": { "morale": -3, "gold": -5 }, "requires": null },
+        "2": { "text": "If you have a Chinese speaker, negotiate credentials.", "effect": { "morale": 3, "gold": 0 }, "requires": { "crew_language": "Min Chinese" } },
+        "3": { "text": "Attempt to run — risky in open water.", "effect": { "ship_health": -10, "morale": -5 }, "requires": null },
+        "4": { "text": "Bribe the inspecting officer quietly. (Cost: 15 gold)", "effect": { "gold": -15, "morale": 2 }, "requires": { "gold": 15 } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "portuguese_man_of_war",
+      "description": "A carrack flying the Cross of Christ looms on the horizon. The Estado da India has a long reach, and they levy tribute freely on vessels they consider interlopers. She has made your course and is signaling.",
+      "options": {
+        "1": { "text": "Signal compliance and prepare for boarding.", "effect": { "gold": -20, "morale": -5 }, "requires": null },
+        "2": { "text": "If you are Portuguese, signal your allegiance.", "effect": { "morale": 2 }, "requires": { "player_role": "Portuguese Conquistador" } },
+        "3": { "text": "Produce a cartaz — if you have one.", "effect": { "morale": 3, "gold": 0 }, "requires": { "item": "cartaz" } },
+        "4": { "text": "Fight. This is your sea too.", "effect": { "ship_health": -25, "morale": -10, "gold": 15 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "monsoon_shift",
+      "description": "The monsoon has turned. The wind that filled your sails for weeks reverses almost overnight. You are ahead of schedule — or behind. The season is not what it was when you left port.",
+      "options": {
+        "1": { "text": "Accept the delay. Put into a nearby anchorage.", "effect": { "morale": -5 }, "requires": null },
+        "2": { "text": "Work against the wind. It costs you but keeps the schedule.", "effect": { "ship_health": -8, "morale": -3 }, "requires": null },
+        "3": { "text": "Let the navigator chart an alternate route.", "effect": { "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
+        "4": { "text": "Find a local pilot familiar with these waters. (Cost: 5 gold)", "effect": { "gold": -5, "morale": 3 }, "requires": { "gold": 5 } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "becalmed",
+      "description": "The wind dies. The ocean is glass. The sails hang limp from the yards. You are becalmed somewhere in the doldrums. Days may pass. Tempers are already fraying. The water barrel is not as full as it should be.",
+      "options": {
+        "1": { "text": "Ration water and wait.", "effect": { "morale": -10 }, "requires": null },
+        "2": { "text": "Organize work to keep the crew busy. (Requires: Cook or Priest)", "effect": { "morale": -3 }, "requires": { "crew_occupation": "cook" } },
+        "3": { "text": "Row if you have the boats — work toward any wind.", "effect": { "ship_health": -3, "morale": -5 }, "requires": null },
+        "4": { "text": "If you have a physician, treat the ill who have appeared.", "effect": { "morale": 5 }, "requires": { "crew_occupation": "physician" } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "Arab_dhow_meeting",
+      "description": "A lateen-rigged dhow glides alongside — an Arab vessel out of Aden or perhaps the Hadhrami coast, carrying cloth and news. The captain is a garrulous man who invites you to share coffee and intelligence. He knows these waters well.",
+      "options": {
+        "1": { "text": "Trade information and perhaps some goods.", "effect": { "gold": 5, "morale": 5 }, "requires": null },
+        "2": { "text": "Ask about conditions ahead — port news, pirate activity.", "effect": { "morale": 3 }, "requires": null },
+        "3": { "text": "If you have an Arabic speaker, draw out more detail.", "effect": { "morale": 5, "gold": 8 }, "requires": { "crew_language": "Arabic" } },
+        "4": { "text": "Decline politely and sail on.", "effect": { "morale": -2 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "fever_aboard",
+      "description": "A sailor collapses on deck. He is burning with fever. By nightfall, two more show symptoms. It may be the flux, or something worse picked up in the last port. The crew watches you carefully.",
+      "options": {
+        "1": { "text": "Isolate the sick in the forward hold.", "effect": { "morale": -5, "ship_health": 0 }, "requires": null },
+        "2": { "text": "Have the physician treat them. (Requires: Physician)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "physician" } },
+        "3": { "text": "Use the herbalist's remedies. (Requires: Herbalist)", "effect": { "morale": 2 }, "requires": { "crew_occupation": "herbalist" } },
+        "4": { "text": "Put in to the nearest anchorage for fresh water and rest. Costs a day.", "effect": { "morale": 2, "gold": -3 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "mysterious_sail_at_night",
+      "description": "The watch reports a sail — dark, running without a lantern. It is moving parallel to you in the night, matching your speed. No signal. No sound. The helmsman keeps glancing over his shoulder.",
+      "options": {
+        "1": { "text": "Show your own light and hail them.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Go dark. Match their silence.", "effect": { "morale": -3 }, "requires": null },
+        "3": { "text": "Change course to intercept.", "effect": { "morale": -2, "gold": 15 }, "requires": null },
+        "4": { "text": "Station the scout on watch. (Requires: Scout)", "effect": { "morale": 5 }, "requires": { "crew_occupation": "scout" } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "coral_reef_danger",
+      "description": "The leadsman calls a warning — the water is changing color. You are running into an uncharted reef. The charts say nothing. Your bowsprit is nearly over the coral now.",
+      "options": {
+        "1": { "text": "Hard about — turn at speed and take the risk.", "effect": { "ship_health": -12 }, "requires": null },
+        "2": { "text": "Bugis or Orang Laut navigator reads the water. (Requires: Southeast Asian sailor)", "effect": { "ship_health": -3 }, "requires": { "crew_region": "Southeast Asia" } },
+        "3": { "text": "Send the diver over the bow to feel the bottom.", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_occupation": "diver" } },
+        "4": { "text": "Drop anchor immediately. Take stock.", "effect": { "ship_health": -7, "morale": -2 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "refugee_vessel",
+      "description": "A small overcrowded craft wallows ahead of you. It is full of people — families, it looks like, with bundles of goods. They are waving. Whether they are refugees, escaped slaves, or something else entirely is unclear.",
+      "options": {
+        "1": { "text": "Take them aboard. (Morale cost — crowded ship)", "effect": { "morale": -5, "gold": 0 }, "requires": null },
+        "2": { "text": "Give them food and water and send them on.", "effect": { "morale": 5, "gold": -3 }, "requires": null },
+        "3": { "text": "Ignore them and sail on. The sea is cruel.", "effect": { "morale": -8 }, "requires": null },
+        "4": { "text": "Ask if any are skilled and seek a better life. Potential recruit.", "effect": { "morale": 2 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "celestial_navigation_crisis",
+      "description": "Heavy cloud cover for three days. Your navigator cannot take a star sight. The currents have pushed you sideways. No one is certain where you are.",
+      "options": {
+        "1": { "text": "Sail by dead reckoning and estimate.", "effect": { "morale": -5, "ship_health": -5 }, "requires": null },
+        "2": { "text": "Follow the birds and debris. (Sharp Eye trait required)", "effect": { "morale": 2 }, "requires": { "crew_trait": "sharp_eye" } },
+        "3": { "text": "Arab navigator uses the kamal — a latitude instrument. (Requires Arabic navigator)", "effect": { "morale": 5 }, "requires": { "crew_language": "Arabic" } },
+        "4": { "text": "Reduce speed and wait for clearing skies.", "effect": { "morale": -3 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "mutinous_whispers",
+      "description": "The carpenter corners you quietly at the tiller. He tells you the men are talking — about the length of the voyage, the dwindling provisions, the last port. Someone is spreading bad feelings. It hasn't broken yet but it could.",
+      "options": {
+        "1": { "text": "Address the crew directly. Make promises.", "effect": { "morale": 8, "gold": -10 }, "requires": null },
+        "2": { "text": "Find the agitator and make an example.", "effect": { "morale": -5 }, "requires": null },
+        "3": { "text": "Ask the priest or imam to speak to the men. (Requires: Priest)", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Increase rations for a week. (Cost: 8 gold)", "effect": { "morale": 12, "gold": -8 }, "requires": { "gold": 8 } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "whale_sighting",
+      "description": "A great whale surfaces alongside your hull, close enough to touch. Its eye regards you with unsettling calm before it sounds. Several of the crew cross themselves or murmur prayers. The mood of the watch has changed — but whether to wonder or unease depends on the man.",
+      "options": {
+        "1": { "text": "Let it pass. Accept the omen whatever it is.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Try to harpoon it — fresh meat for the crew.", "effect": { "morale": 8, "ship_health": -5 }, "requires": null },
+        "3": { "text": "The superstitious are frightened. Calm them (Requires: Priest or Inspiring crew)", "effect": { "morale": 5 }, "requires": { "crew_trait": "inspiring" } },
+        "4": { "text": "Record the sighting in the log. Practical is practical.", "effect": { "morale": 2 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "smuggler_rendezvous",
+      "description": "A vessel hails you at dusk with a pre-arranged signal you weren't expecting — it seems they've mistaken you for someone else. They are carrying contraband: opium, or perhaps untaxed pepper. They want to offload quickly.",
+      "options": {
+        "1": { "text": "Buy the goods cheap. (Cost: 10 gold, Gain: opium or pepper)", "effect": { "gold": -10, "spices": 5 }, "requires": { "gold": 10 } },
+        "2": { "text": "Refuse and report them to the next port authority.", "effect": { "morale": -3, "gold": 15 }, "requires": null },
+        "3": { "text": "Pretend to buy, then confiscate at gunpoint.", "effect": { "gold": 20, "morale": -8 }, "requires": null },
+        "4": { "text": "Simply decline and sail on.", "effect": { "morale": 0 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "shark_follows_ship",
+      "description": "A large shark — or several — has been following the ship for two days. The crew considers it an ill omen. One man swears it is the same shark that followed a doomed vessel he sailed on years ago.",
+      "options": {
+        "1": { "text": "Fish for it. Turn dread into dinner.", "effect": { "morale": 5 }, "requires": null },
+        "2": { "text": "Ignore the superstition. Keep the men working.", "effect": { "morale": -3 }, "requires": null },
+        "3": { "text": "Have the priest perform a blessing over the water.", "effect": { "morale": 7 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Shoot it with the arquebus. A practical exorcism.", "effect": { "morale": 6 }, "requires": { "crew_weapon": "arquebus" } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "fire_in_the_hold",
+      "description": "Smoke. Then shouting. Something in the forward hold has caught — a lamp, a badly stowed keg of spirits. Your carpenter is already moving but needs direction. A ship on fire at sea is a death sentence unless contained immediately.",
+      "options": {
+        "1": { "text": "All hands — form a bucket chain.", "effect": { "ship_health": -20, "morale": -5 }, "requires": null },
+        "2": { "text": "The carpenter knows where to cut the fire off. (Requires: Carpenter)", "effect": { "ship_health": -8, "morale": 2 }, "requires": { "crew_occupation": "carpenter" } },
+        "3": { "text": "Jettison the burning cargo into the sea.", "effect": { "gold": -15, "ship_health": -5 }, "requires": null },
+        "4": { "text": "If calm under fire crewman present, direct calmly and efficiently.", "effect": { "ship_health": -5, "morale": 5 }, "requires": { "crew_trait": "calm_under_fire" } }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "strange_island",
+      "description": "A small island not on any chart you carry. It may be unmapped, or it may be known only by the local peoples. Smoke rises from the interior. A beach shows signs of recent habitation. Your curiosity and your caution are at war.",
+      "options": {
+        "1": { "text": "Land and explore cautiously.", "effect": { "morale": 5, "gold": 10 }, "requires": null },
+        "2": { "text": "Send the scout in first. (Requires: Scout)", "effect": { "morale": 3, "gold": 15 }, "requires": { "crew_occupation": "scout" } },
+        "3": { "text": "Circle the island and take soundings for the chart. No landing.", "effect": { "morale": 2 }, "requires": null },
+        "4": { "text": "The island is in pirate territory — sail past.", "effect": { "morale": -2 }, "requires": null }
+      },
+      "pool": "sea_events"
+    },
+    {
+      "id": "cargo_spoilage",
+      "description": "The hold smells wrong. The carpenter opens a cask: the rice or pepper inside is damp, beginning to rot. A quarter of a valuable cargo may be unsellable if you don't act now.",
+      "options": {
+        "1": { "text": "Jettison the spoiled goods and seal what remains.", "effect": { "gold": -10 }, "requires": null },
+        "2": { "text": "Dry what you can in the sun — takes time.", "effect": { "gold": -5, "morale": -2 }, "requires": null },
+        "3": { "text": "Sell it at a discount at the next village. (Partial recovery)", "effect": { "gold": -5 }, "requires": null },
+        "4": { "text": "The herbalist can identify what's salvageable. (Requires: Herbalist)", "effect": { "gold": -3 }, "requires": { "crew_occupation": "herbalist" } }
+      },
+      "pool": "sea_events"
     }
   ],
   "harbor_events": [
     {
-      "id": "harbor_trade_opportunity",
-      "description": "You dock at a bustling harbor. Merchants call out, offering exotic goods for trade.",
+      "id": "harbormaster_intro",
+      "description": "The harbor master {harbormaster_name} eyes your manifest with the practiced disinterest of a man who has seen a thousand captains. He quotes you a fee of {harbor_fee} gold, then adds, almost casually, that there have been problems in the port lately.",
       "options": {
-        "1": {
-          "text": "Trade some of your goods for spices.",
-          "effect": { "gold": -10, "spices": 5 }
-        },
-        "2": {
-          "text": "Sell some of your spices for gold.",
-          "effect": { "gold": 15, "spices": -5 }
-        },
-        "3": {
-          "text": "Ignore the merchants and set sail.",
-          "effect": {}
-        }
-      }
+        "1": { "text": "Pay the fee and ask no questions. ({harbor_fee} gold)", "effect": { "gold": -12 }, "requires": null },
+        "2": { "text": "Negotiate — your reputation may help.", "effect": { "gold": -8 }, "requires": null },
+        "3": { "text": "Ask what problems. Listen carefully.", "effect": { "gold": -12, "morale": 3 }, "requires": null }
+      },
+      "once": true,
+      "pool": "harbor_events"
     },
     {
-      "id": "harbor_dock_repair",
-      "description": "The harbor master offers to repair your ship for a fee.",
+      "id": "brawl_in_tavern",
+      "description": "One of your crew — the violent type, or simply unlucky — has started a brawl in a waterfront establishment. By the time word reaches you, there is already blood and a crowd. The local watch is coming.",
       "options": {
-        "1": {
-          "text": "Pay for repairs.",
-          "effect": { "gold": -20, "ship_health": 20 }
-        },
-        "2": {
-          "text": "Decline repairs and save your gold.",
-          "effect": {}
-        }
-      }
+        "1": { "text": "Pay the fine and collect your man. (Cost: 5 gold)", "effect": { "gold": -5, "morale": -3 }, "requires": { "gold": 5 } },
+        "2": { "text": "Leave him. One less problem.", "effect": { "morale": -8 }, "requires": null },
+        "3": { "text": "Talk your way out of it. (Requires: Interpreter or Worldly crew)", "effect": { "morale": 3 }, "requires": { "crew_trait": "worldly" } },
+        "4": { "text": "Bribe the watch captain quietly. (Cost: 8 gold)", "effect": { "gold": -8, "morale": 2 }, "requires": { "gold": 8 } }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "rumor_of_goods",
+      "description": "A dockside broker pulls you aside — there is a shipment of pepper or cloves moving through the port tonight, quietly, avoiding the guild traders. He can get you a price below market if you move fast.",
+      "options": {
+        "1": { "text": "Buy in. (Cost: 20 gold, reward in spices)", "effect": { "gold": -20, "spices": 8 }, "requires": { "gold": 20 } },
+        "2": { "text": "Pass — could be a setup.", "effect": { "morale": 0 }, "requires": null },
+        "3": { "text": "Have your merchant verify the goods first. (Requires: Merchant)", "effect": { "gold": -15, "spices": 8 }, "requires": { "crew_occupation": "merchant" } },
+        "4": { "text": "Report it to the guild and collect a finder's fee.", "effect": { "gold": 10, "morale": -3 }, "requires": null }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "ruler_audience",
+      "description": "An invitation arrives from the palace — or rather from the chamberlain's secretary. The local ruler will receive you, if you are presentable and your gifts are appropriate.",
+      "options": {
+        "1": { "text": "Present yourself with a modest gift. (Cost: 10 gold)", "effect": { "gold": -10, "morale": 5 }, "requires": { "gold": 10 } },
+        "2": { "text": "Present yourself with an impressive gift. (Cost: 25 gold)", "effect": { "gold": -25, "morale": 10 }, "requires": { "gold": 25 } },
+        "3": { "text": "Send a polite refusal. You have business to attend to.", "effect": { "morale": -3 }, "requires": null },
+        "4": { "text": "Attend with your interpreter present. (Requires: Interpreter)", "effect": { "gold": -10, "morale": 8 }, "requires": { "crew_occupation": "interpreter" } }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "ship_repair_needed",
+      "description": "Your carpenter emerges from the hold looking grave. The keel has been gnawed by teredo worms — the curse of tropical waters. She needs careening and recaulking before the next long voyage. It will cost time and money.",
+      "options": {
+        "1": { "text": "Pay the local shipwrights. (Cost: 20 gold)", "effect": { "gold": -20, "ship_health": 30 }, "requires": { "gold": 20 } },
+        "2": { "text": "Have your carpenter lead the repair. (Requires: Carpenter, Cost: 8 gold)", "effect": { "gold": -8, "ship_health": 25 }, "requires": { "crew_occupation": "carpenter", "gold": 8 } },
+        "3": { "text": "Patch it and press on. She'll hold — probably.", "effect": { "ship_health": 5 }, "requires": null },
+        "4": { "text": "Negotiate with the harbor master to use his dry facilities. (Requires: Diplomat)", "effect": { "gold": -12, "ship_health": 30 }, "requires": { "gold": 12 } }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "religious_procession",
+      "description": "A festival day. The port has come alive with processions — incense, chanting, music. Commerce is suspended. Your crew has mingled with the crowd. Some are moved; some are merely curious. The local faithful notice your presence.",
+      "options": {
+        "1": { "text": "Participate respectfully — show deference to local faith.", "effect": { "morale": 8 }, "requires": null },
+        "2": { "text": "Keep to the ship. You are guests, not converts.", "effect": { "morale": 2 }, "requires": null },
+        "3": { "text": "If your priest joins the local clergy for discussion, it may build trust.", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Some of your crew are of this faith. Let them lead.", "effect": { "morale": 12 }, "requires": null }
+      },
+      "pool": "harbor_events"
     }
   ],
   "village_events": [
     {
-      "id": "village_festival",
-      "description": "A village festival is underway. Music, dancing, and food fill the air.",
+      "id": "village_elder_welcome",
+      "description": "The headman of the village greets you at the beach, flanked by two younger men with spears. His expression is cautious but not hostile. He has seen ships before — and he knows they can bring trouble as easily as trade.",
       "options": {
-        "1": {
-          "text": "Join the celebration.",
-          "effect": { "morale": 10, "gold": -5 }
-        },
-        "2": {
-          "text": "Trade goods at the festival market.",
-          "effect": { "gold": 10, "spices": -2 }
-        },
-        "3": {
-          "text": "Leave quietly.",
-          "effect": {}
-        }
-      }
+        "1": { "text": "Offer a gift. (Cost: 3 gold)", "effect": { "gold": -3, "morale": 5 }, "requires": { "gold": 3 } },
+        "2": { "text": "Speak through a Malay interpreter.", "effect": { "morale": 7 }, "requires": { "crew_language": "Malay" } },
+        "3": { "text": "Trade food for local knowledge of the area.", "effect": { "morale": 4 }, "requires": null },
+        "4": { "text": "State your business and be done with it.", "effect": { "morale": -2 }, "requires": null }
+      },
+      "pool": "village_events"
     },
     {
-      "id": "village_request",
-      "description": "Villagers ask for help repairing their fishing boats.",
+      "id": "local_guide_offer",
+      "description": "A young man approaches your camp at night — quietly, so the village elder won't see. He says he knows the passage through the reef that no chart shows. He wants passage to the next port. His price is reasonable.",
       "options": {
-        "1": {
-          "text": "Help them for free.",
-          "effect": { "morale": 5 }
-        },
-        "2": {
-          "text": "Ask for payment.",
-          "effect": { "gold": 10 }
-        },
-        "3": {
-          "text": "Refuse and move on.",
-          "effect": {}
-        }
-      }
+        "1": { "text": "Take him on. He may prove useful.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Ask what he is running from first.", "effect": { "morale": 2 }, "requires": null },
+        "3": { "text": "Decline. You don't know this man.", "effect": { "morale": 0 }, "requires": null },
+        "4": { "text": "Pay him for the information alone — no passage.", "effect": { "gold": -4, "morale": 3 }, "requires": { "gold": 4 } }
+      },
+      "pool": "village_events"
+    },
+    {
+      "id": "jungle_fever",
+      "description": "Two of your men went ashore to fill water casks from a stream inland. They have returned — but slowly, complaining of chills and sweating through their shirts. The water was bad, or there were insects. Either way you have sick men.",
+      "options": {
+        "1": { "text": "Rest here a day and hope they recover.", "effect": { "morale": -3 }, "requires": null },
+        "2": { "text": "The herbalist gathers local plants for treatment. (Requires: Herbalist)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "herbalist" } },
+        "3": { "text": "Sail immediately. The healthy crew can manage.", "effect": { "morale": -7 }, "requires": null },
+        "4": { "text": "Ask the village for medicine. It costs in trade goods.", "effect": { "gold": -5, "morale": 4 }, "requires": { "gold": 5 } }
+      },
+      "pool": "village_events"
     }
   ],
-  "sea_events": [
+  "special_events": [
     {
-      "id": "storm_at_sea",
-      "description": "Dark clouds gather. A storm batters your ship.",
-      "options": {
-        "1": {
-          "text": "Order the crew to secure the sails.",
-          "effect": { "ship_health": -10, "morale": -5 }
+      "id": "harbormaster_intro_special",
+      "description": "You have arrived at {current_port} for the first time. {harbormaster_name} receives you in a small stone office overlooking the anchorage. He sets your harbor fee at {harbor_fee} gold and says little else — but his eyes are measuring you carefully.",
+      "when": { "once": true, "type": "major_port" },
+      "variants": {
+        "Portuguese Conquistador": {
+          "description": "You have arrived at {current_port}. {harbormaster_name} stiffens when he sees your flag. He quotes the fee at {harbor_fee} gold — above standard — and does not offer refreshment. Portuguese ships carry a certain reputation here."
         },
-        "2": {
-          "text": "Attempt to ride out the storm.",
-          "effect": { "ship_health": -20 }
+        "Arab Muslim Dāʿī": {
+          "description": "You have arrived at {current_port}. {harbormaster_name} greets you with the briefest inclination of his head. The fee is {harbor_fee} gold. For a dāʿī, the network of Muslim merchants will have already whispered your name through the port. Some doors may open more easily."
+        },
+        "Chinese Trader": {
+          "description": "You have arrived at {current_port}. {harbormaster_name} has dealt with Chinese merchants for years. The fee is {harbor_fee} gold. He assumes you carry silk or porcelain and his manner is professional, if transactional."
         }
-      }
-    },
-    {
-      "id": "crew_conflict",
-      "description": "Two crew members are fighting over stolen rations.",
+      },
       "options": {
-        "1": {
-          "text": "Break up the fight and mediate.",
-          "effect": { "morale": 5 }
-        },
-        "2": {
-          "text": "Punish the instigator.",
-          "effect": { "morale": -5 }
-        },
-        "3": {
-          "text": "Ignore it.",
-          "effect": {}
-        }
-      }
+        "1": { "text": "Pay and proceed. ({harbor_fee} gold)", "effect": { "gold": -12 }, "requires": null },
+        "2": { "text": "Negotiate on the basis of your cargo and origin.", "effect": { "gold": -8 }, "requires": null },
+        "3": { "text": "Ask about the port — who is in power, what is trading.", "effect": { "gold": -12, "morale": 3 }, "requires": null }
+      },
+      "pool": "special_events"
     }
   ]
 }
