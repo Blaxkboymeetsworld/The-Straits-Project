@@ -8,7 +8,7 @@ quests.py — Timed quest system. Lords give quests, player completes them
 import json
 import os
 import random
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
@@ -19,6 +19,13 @@ def load_quests() -> List[Dict[str, Any]]:
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return data.get("quests", [])
+
+
+def load_mamluk_arc() -> List[Dict[str, Any]]:
+    path = os.path.join(DATA_DIR, "quests.json")
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("mamluk_arc", [])
 
 
 class ActiveQuest:
@@ -98,6 +105,52 @@ class ActiveQuest:
         return obj
 
 
+# Minimum faction reputation tier required per quest "tier" label.
+# Quest data can carry a "req_rep_tier" int field (-5 to 5). Default 0.
+QUEST_TIER_LABELS: Dict[int, str] = {
+    0: "Dockworkers & minor tradesmen",
+    1: "Guild merchants & ship captains",
+    2: "Senior merchants & officers",
+    3: "Orang Kaya, Fidalgo, junior beys",
+    4: "Rulers, Bendahara, Viceroy, Zamorin",
+    5: "Inner circle — by invitation only",
+}
+
+# 5-quest milestone scenes per faction (keyed by faction_id)
+MILESTONE_SCENES: Dict[str, str] = {
+    "malacca_sultanate": (
+        "A senior officer of the Bendahara's household finds you at your anchorage.\n"
+        "He says nothing complimentary — only that your name has been spoken in the right rooms.\n"
+        "\"Do not mistake attention for trust. But you have our attention.\""
+    ),
+    "estado_da_india": (
+        "A Fidalgo of the Estado, greying and precise, meets you at the harbor master's office.\n"
+        "He reviews your record without expression. Then:\n"
+        "\"You are becoming useful to the Crown. Useful men are remembered. Useful men are also watched.\""
+    ),
+    "ming_dynasty": (
+        "Wei Chongde receives a sealed letter that was not addressed to him.\n"
+        "He reads it, says nothing, hands it to you.\n"
+        "It is from a factor in Quanzhou: your name appears in a ledger that very few people see."
+    ),
+    "hadrami_silsila": (
+        "An elder of the Silsila — old, white-bearded, unhurried — greets you in Aden\n"
+        "as if he expected you. He speaks for three minutes and says little directly.\n"
+        "What he does say: \"The network remembers those who carry its water faithfully.\""
+    ),
+    "kingdom_of_calicut": (
+        "The Zamorin's trade commissioner receives you standing, which is an honour.\n"
+        "\"Five tasks,\" he says. \"A man who completes five tasks is either reliable or lucky.\n"
+        "We prefer reliable. Come back when you have a sixth.\""
+    ),
+    "sultanate_of_bantam": (
+        "A senior Orang Kaya sends a boy with a folded cloth — good Javanese work.\n"
+        "No note. No explanation.\n"
+        "Old Liang, if present, says: \"That cloth costs more than your ship.\""
+    ),
+}
+
+
 class QuestManager:
     """Manages active quests, completions, and port dispositions."""
 
@@ -107,6 +160,8 @@ class QuestManager:
         self.failed_ids: List[str] = []
         # Disposition per port ruler (0–100, default 50)
         self.disposition: Dict[str, int] = {}
+        # Lore throttle: track how many times each lore string has been shown
+        self.lore_shown_count: Dict[str, int] = {}
 
     def get_disposition(self, port_name: str) -> int:
         return self.disposition.get(port_name, 50)
@@ -126,14 +181,69 @@ class QuestManager:
     def available_quests_at_port(
         self,
         port_name: str,
-        all_quests: List[Dict[str, Any]]
+        all_quests: List[Dict[str, Any]],
+        faction_manager: Any = None,
+        state: Any = None,
     ) -> List[Dict[str, Any]]:
-        """Return quests available at this port that haven't been taken yet."""
+        """
+        Return quests available at this port that haven't been taken yet,
+        filtered by faction reputation tier if faction_manager is provided.
+        """
+        from faction import port_to_faction
         taken_or_done = set(q.id for q in self.active) | set(self.completed_ids) | set(self.failed_ids)
-        return [
-            q for q in all_quests
-            if q["giver_port"] == port_name and q["id"] not in taken_or_done
-        ]
+        result = []
+        state_role  = getattr(state, "role", None)     if state else None
+        state_year  = getattr(state, "year", 1)        if state else 1
+        state_flags = getattr(state, "once_flags", []) if state else []
+
+        for q in all_quests:
+            if q.get("giver_port") != port_name:
+                continue
+            if q["id"] in taken_or_done:
+                continue
+
+            # Protagonist lock
+            proto_lock = q.get("protagonist_lock")
+            if proto_lock and state_role and state_role != proto_lock:
+                continue
+
+            # Available years gate
+            avail_years = q.get("available_years")
+            if avail_years and state_year not in range(avail_years[0], avail_years[-1] + 1):
+                continue
+
+            # requires_quest: prior quest must be completed
+            req_quest = q.get("requires_quest")
+            if req_quest and req_quest not in self.completed_ids:
+                continue
+
+            # requires_world_event: a once_flag must be set
+            req_event = q.get("requires_world_event")
+            if req_event and req_event not in state_flags:
+                continue
+
+            # Rep tier gating
+            req_tier = q.get("req_rep_tier", 0)
+            if req_tier > 0 and faction_manager is not None:
+                faction_id = port_to_faction(port_name)
+                if faction_id:
+                    player_tier = faction_manager.get_rep(faction_id)
+                    if player_tier < req_tier:
+                        continue
+
+            result.append(q)
+        return result
+
+    def lore_throttled(self, lore_text: str, max_shows: int = 2) -> bool:
+        """
+        Returns True if this lore text has been shown max_shows times already.
+        Call before displaying lore, then call record_lore_shown() if displaying.
+        """
+        count = self.lore_shown_count.get(lore_text, 0)
+        return count >= max_shows
+
+    def record_lore_shown(self, lore_text: str):
+        self.lore_shown_count[lore_text] = self.lore_shown_count.get(lore_text, 0) + 1
 
     def check_expirations(self, current_day: int) -> List[ActiveQuest]:
         """Check and mark failed quests. Returns list of newly-failed quests."""
@@ -210,14 +320,31 @@ class QuestManager:
             if q.reward_item:
                 print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")
                 state.items.append(q.reward_item)
-            if q.lore:
+            # Lore throttle: only show if under the max display count
+            if q.lore and not self.lore_throttled(q.lore):
                 print(f"\n  ─ Historical Note ─\n  {q.lore}\n")
+                self.record_lore_shown(q.lore)
 
             state.gold += q.reward_gold
             self.adjust_disposition(port_name, q.reward_disposition)
             q.completed = True
             self.completed_ids.append(q.id)
             self.active.remove(q)
+
+            # Faction rep increase on quest completion
+            from faction import port_to_faction
+            faction_id = port_to_faction(port_name)
+            if faction_id and hasattr(state, "factions"):
+                state.factions.adjust_rep(faction_id, +1)
+                state.factions.adjust_disposition(faction_id, +5)
+                # 5-quest milestone check
+                milestone_key = state.factions.record_faction_quest(faction_id)
+                if milestone_key and faction_id in MILESTONE_SCENES:
+                    print()
+                    print("  ─" * 26)
+                    print(f"\n  {MILESTONE_SCENES[faction_id]}\n")
+                    print("  ─" * 26)
+
             press_enter_fn()
             break
 
@@ -231,7 +358,14 @@ class QuestManager:
         press_enter_fn
     ):
         """Show available and active quests at this port."""
-        available = self.available_quests_at_port(port_name, all_quests)
+        faction_manager = getattr(state, "factions", None)
+        # Merge main quests + mamluk arc for availability check
+        mamluk_arc = load_mamluk_arc()
+        combined_quests = all_quests + [
+            q for q in mamluk_arc
+            if q.get("type") != "world_event" and q.get("giver_port") is not None
+        ]
+        available = self.available_quests_at_port(port_name, combined_quests, faction_manager, state)
 
         while True:
             clear_fn()
@@ -283,6 +417,7 @@ class QuestManager:
             "completed_ids": self.completed_ids,
             "failed_ids": self.failed_ids,
             "disposition": self.disposition,
+            "lore_shown_count": self.lore_shown_count,
         }
 
     @classmethod
@@ -292,6 +427,7 @@ class QuestManager:
         qm.completed_ids = d.get("completed_ids", [])
         qm.failed_ids = d.get("failed_ids", [])
         qm.disposition = d.get("disposition", {})
+        qm.lore_shown_count = d.get("lore_shown_count", {})
         return qm
 
 

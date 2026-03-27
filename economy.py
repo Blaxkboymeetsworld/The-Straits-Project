@@ -6,7 +6,8 @@ economy.py — Internal economy with fluctuating prices, trade interface,
 """
 
 import random
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
+from systems import roll_check, dialogue_exchange
 
 # All tradeable goods with base flavor text
 GOODS_CATALOG: Dict[str, Dict[str, Any]] = {
@@ -27,6 +28,15 @@ GOODS_CATALOG: Dict[str, Dict[str, Any]] = {
     "turtle_shell": {"name": "Turtle Shell",      "unit": "pieces",  "bulky": False},
     "elephant_ivory":{"name": "Elephant Ivory",   "unit": "tusks",   "bulky": True},
     "slaves":       {"name": "Enslaved Persons",   "unit": "persons", "bulky": False},
+    "frankincense": {"name": "Frankincense",       "unit": "pouches", "bulky": False},
+    "coffee":       {"name": "Coffee (beans)",     "unit": "sacks",   "bulky": True},
+    "deer_hide":    {"name": "Deer Hide",          "unit": "bales",   "bulky": True},
+    "sulphur":      {"name": "Sulphur",            "unit": "barrels", "bulky": True},
+    "dried_fish":   {"name": "Dried Fish (salted)","unit": "barrels", "bulky": True},
+    "songket":      {"name": "Songket (cloth)",    "unit": "bolts",   "bulky": False},
+    "ivory":        {"name": "Ivory (raw)",        "unit": "pieces",  "bulky": True},
+    "aloes_wood":   {"name": "Aloes Wood (oud)",   "unit": "chests",  "bulky": False},
+    "mace":         {"name": "Mace",               "unit": "sacks",   "bulky": False},
 }
 
 # Price fluctuation: market events that shift prices up or down
@@ -58,6 +68,175 @@ MARKET_EVENTS = [
 ]
 
 MAX_CARGO = 50  # max cargo units per hold
+
+
+# ─────────────────────────────────────────
+# Haggling system
+# ─────────────────────────────────────────
+
+# Base haggling odds: player's chance to get a favorable outcome (lower buy price).
+# Returns (player_win_chance, flavor_note)
+HAGGLE_BASE: Dict[str, float] = {
+    "Portuguese Conquistador": 0.25,   # foreign + violent reputation
+    "Ottoman Trader":          0.50,   # neutral default
+    "Chinese Trader":          0.50,   # neutral default, region-boosted below
+}
+
+# Ports in "home waters" or natural zones for each role
+CHINESE_HOME_PORTS = {
+    "Quanzhou", "Bantam", "Malacca Harbor", "Patani",
+    "Keelung Outpost", "Cham Coast Anchorage", "Ternate", "Banda Islands",
+}
+OTTOMAN_HOME_PORTS = {"Hormuz", "Aden Harbor"}
+
+# Crew ethnicity → port culture pairings that trigger culture intervention
+# Maps crew_ethnicity → list of port cultures they match
+CULTURE_INTERVENTION_MAP: Dict[str, List[str]] = {
+    "Mapilla":          ["Calicut"],
+    "Persian":          ["Hormuz"],
+    "Arab":             ["Aden Harbor", "Hormuz"],
+    "Malay":            ["Malacca Harbor", "Patani", "Bantam"],
+    "Javanese":         ["Bantam", "Bali Harbor"],
+    "Tamil":            ["Calicut"],
+    "Gujarati":         ["Calicut", "Hormuz", "Goa Harbor"],
+    "Chinese (Hokkien)":["Quanzhou", "Malacca Harbor", "Patani"],
+    "Chinese (Fujian)": ["Quanzhou", "Keelung Outpost"],
+    "Turkish":          ["Hormuz", "Aden Harbor"],
+    "Orang Laut":       ["Malacca Harbor", "Pulau Tioman"],
+}
+
+
+def get_haggle_odds(role: str, port_name: str) -> float:
+    """Return base win-chance for haggling at a given port, role-adjusted."""
+    base = HAGGLE_BASE.get(role, 0.50)
+    if role == "Chinese Trader" and port_name in CHINESE_HOME_PORTS:
+        base = 0.70
+    elif role == "Ottoman Trader" and port_name in OTTOMAN_HOME_PORTS:
+        base += 0.10
+    return base
+
+
+def find_intervention_crew(crew_manager: Any, port_name: str) -> Optional[Any]:
+    """
+    Return the first alive crew member whose ethnicity matches the port culture,
+    enabling a culture intervention dialogue.
+    """
+    for member in crew_manager.alive_members():
+        match_ports = CULTURE_INTERVENTION_MAP.get(member.ethnicity, [])
+        if port_name in match_ports:
+            return member
+    return None
+
+
+def haggle(
+    state: Any,
+    crew_manager: Any,
+    port_name: str,
+    base_buy_price: int,
+    clear_fn,
+    press_enter_fn,
+) -> int:
+    """
+    Run the haggling mini-sequence. Returns the final buy price for this
+    transaction. May be lower (player wins), same (neutral), or unchanged.
+
+    If an intervention crew member is present, fires a multi-turn dialogue first
+    that can shift the odds.
+    """
+    clear_fn()
+    print("═" * 52)
+    print(f"  HAGGLING — {port_name}")
+    print("═" * 52)
+    print(f"\n  Base price: {base_buy_price} gold")
+
+    win_chance = get_haggle_odds(state.role, port_name)
+    intervention_member = find_intervention_crew(crew_manager, port_name)
+    final_odds = win_chance
+
+    if intervention_member:
+        print(
+            f"\n  {intervention_member.name} ({intervention_member.ethnicity}) steps forward.\n"
+            f"  He knows this port, these people.\n"
+        )
+        print("  [1] Let him negotiate fully  (→ 50/50 odds)")
+        print("  [2] Back him up              (→ slight improvement)")
+        print("  [3] Override him             (→ keep base odds)")
+        print()
+        choice = input("  > ").strip()
+
+        if choice == "1":
+            final_odds = 0.50
+            # Run the dialogue exchange
+            script = _build_intervention_script(intervention_member, port_name)
+            result = dialogue_exchange(script, state)
+            print()
+        elif choice == "2":
+            final_odds = min(0.95, win_chance + 0.15)
+            print(f"\n  You stand at his shoulder. The harbor master's eyes flick between you.")
+        else:
+            final_odds = win_chance
+            print(f"\n  {intervention_member.name} steps back. You handle it your way.")
+
+    # Roll the haggle
+    success = roll_check(final_odds)
+    odds_pct = int(final_odds * 100)
+    print(f"\n  Odds: {odds_pct}% in your favor.", end="")
+
+    if success:
+        discount = random.uniform(0.10, 0.25)
+        final_price = max(1, round(base_buy_price * (1.0 - discount)))
+        print(f"\n  The merchant relents. Price: {final_price} gold  ({int(discount*100)}% off)")
+    else:
+        final_price = base_buy_price
+        print(f"\n  The merchant holds firm. Price: {final_price} gold.")
+
+    press_enter_fn()
+    return final_price
+
+
+def _build_intervention_script(member: Any, port_name: str) -> Dict[str, Any]:
+    """Build a simple 2-node dialogue script for the culture intervention."""
+    return {
+        "start": "crew_speaks",
+        "nodes": {
+            "crew_speaks": {
+                "speaker": member.name,
+                "text": (
+                    f"I know this house. "
+                    f"Give us a fair price, as you would give a neighbor."
+                ),
+                "choices": [
+                    {
+                        "key": "A",
+                        "text": "Let him finish. Say nothing.",
+                        "outcome": "favorable",
+                        "effects": {},
+                        "next": "master_responds_well",
+                    },
+                    {
+                        "key": "B",
+                        "text": "Cut in: 'And we have coin ready today.'",
+                        "outcome": "neutral",
+                        "effects": {},
+                        "next": "master_responds_neutral",
+                    },
+                ],
+            },
+            "master_responds_well": {
+                "speaker": "Harbor Master",
+                "text": (
+                    "...He considers. Nods once. "
+                    "\"For a man who knows the house. We can speak.\""
+                ),
+                "choices": [],
+            },
+            "master_responds_neutral": {
+                "speaker": "Harbor Master",
+                "text": "\"Today's price is today's price. Take it or leave.\"",
+                "choices": [],
+            },
+        },
+    }
 
 
 class Economy:
@@ -127,7 +306,10 @@ class Economy:
             name_str = info["name"]
             print(f"  {name_str:<22} {buy_p:>6} {sell_p:>6} {in_hold:>8}")
 
-        print(f"{'─'*56}\n")
+        print(f"{'─'*56}")
+        if trade_bonus == 0 and sell_bonus == 0:
+            print("  (Hire crew with trade skills to unlock better prices)")
+        print()
 
     def trade_menu(
         self,
@@ -143,7 +325,7 @@ class Economy:
         while True:
             clear_fn()
             cargo_used = sum(state.cargo.values())
-            print(f"\n  Gold: {state.gold}  |  Cargo: {cargo_used}/{MAX_CARGO} units")
+            print(f"\n  Gold: {state.gold}  |  Cargo: {cargo_used}/{state.cargo_capacity()} units")
             if trade_bonus > 0:
                 print(f"  ✦ Language/trade bonus active: -{int(trade_bonus*100)}% on buy prices")
             self.market_display(state.cargo, trade_bonus, sell_bonus_val)
@@ -198,7 +380,7 @@ class Economy:
             if 0 <= idx < len(goods_list):
                 good, price = goods_list[idx]
                 cargo_used = sum(state.cargo.values())
-                space = MAX_CARGO - cargo_used
+                space = state.cargo_capacity() - cargo_used
                 if space <= 0:
                     print("\n  Your hold is full.")
                     press_enter_fn()

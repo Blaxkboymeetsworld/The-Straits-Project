@@ -8,10 +8,86 @@ crew.py — Crew recruitment, traits, occupations, language bonuses,
 import random
 import json
 import os
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Optional, Set, Tuple
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
+
+# ─────────────────────────────────────────
+# Trait mutual exclusivity
+# ─────────────────────────────────────────
+
+# Maps a trait_id to the set of trait_ids it cannot coexist with.
+# The table is symmetric — if A blocks B, B blocks A.
+TRAIT_EXCLUSIONS: Dict[str, Set[str]] = {
+    "xenophobic":    {"worldly", "polyglot", "inspiring"},
+    "worldly":       {"xenophobic"},
+    "polyglot":      {"xenophobic"},
+    "inspiring":     {"xenophobic"},
+    # zealot blocks worldly unless the interfaith_respect bypass is present
+    "zealot":        {"worldly"},
+    "coward":        {"calm_under_fire", "intimidating"},
+    "calm_under_fire": {"coward"},
+    "intimidating":  {"coward"},
+    "womanizer":     {"pious"},
+    "pious":         {"womanizer"},
+    "insubordinate": {"inspiring", "prideful"},
+    "prideful":      {"insubordinate"},
+    "gossip":        {"worldly"},
+    "kleptomaniac":  {"sharp_trader"},
+    "sharp_trader":  {"kleptomaniac"},
+}
+
+# Pairs that are exempt from the zealot↔worldly exclusion
+# when a specific flag has been set (e.g. interfaith_respect event).
+ZEALOT_WORLDLY_BYPASS_FLAG = "interfaith_respect_zealot"
+
+
+def validate_trait_compatibility(
+    trait_ids: List[str],
+    bypass_flags: Optional[List[str]] = None
+) -> bool:
+    """
+    Returns True if the given list of trait IDs contains no mutual exclusions.
+    bypass_flags: list of special flags that lift specific exclusions.
+    """
+    if bypass_flags is None:
+        bypass_flags = []
+
+    id_set: Set[str] = set(trait_ids)
+    for tid in trait_ids:
+        blocked = TRAIT_EXCLUSIONS.get(tid, set())
+        for other in blocked:
+            if other not in id_set:
+                continue
+            # Check bypass
+            if (
+                {tid, other} == {"zealot", "worldly"}
+                and ZEALOT_WORLDLY_BYPASS_FLAG in bypass_flags
+            ):
+                continue
+            return False
+    return True
+
+
+def filter_incompatible_traits(
+    candidates: List[Dict[str, Any]],
+    existing_trait_ids: List[str],
+    bypass_flags: Optional[List[str]] = None
+) -> List[Dict[str, Any]]:
+    """
+    From a list of candidate trait dicts, remove any that would conflict
+    with the already-assigned existing_trait_ids.
+    """
+    if bypass_flags is None:
+        bypass_flags = []
+    result = []
+    for t in candidates:
+        tid = t["id"]
+        test_list = existing_trait_ids + [tid]
+        if validate_trait_compatibility(test_list, bypass_flags):
+            result.append(t)
+    return result
 
 # Regions whose crews feel no cultural shock re: slavery in this world
 SOUTHEAST_ASIAN_REGIONS = {"Southeast Asia"}
@@ -174,20 +250,32 @@ def assign_traits(
     force_clean: bool = False
 ) -> Tuple[List[Dict], List[Dict]]:
     """
-    Assign traits to a recruitable character.
+    Assign traits to a recruitable character, respecting mutual exclusivity.
     ~1/5 chance of no negative traits (as spec'd).
     """
     all_pos = crew_data["positive_traits"]
     all_neg = crew_data["negative_traits"]
 
+    # Build positive traits respecting exclusivity
     num_pos = random.randint(1, 3)
-    pos = random.sample(all_pos, min(num_pos, len(all_pos)))
+    available_pos = list(all_pos)
+    random.shuffle(available_pos)
+    pos: List[Dict] = []
+    for candidate in available_pos:
+        if len(pos) >= num_pos:
+            break
+        current_ids = [t["id"] for t in pos]
+        if validate_trait_compatibility(current_ids + [candidate["id"]]):
+            pos.append(candidate)
 
     if force_clean or random.random() < 0.20:  # 1 in 5 have no negatives
-        neg = []
+        neg: List[Dict] = []
     else:
         num_neg = random.randint(1, 2)
-        neg = random.sample(all_neg, min(num_neg, len(all_neg)))
+        existing_ids = [t["id"] for t in pos]
+        compatible_neg = filter_incompatible_traits(all_neg, existing_ids)
+        random.shuffle(compatible_neg)
+        neg = compatible_neg[:num_neg]
 
     return pos, neg
 

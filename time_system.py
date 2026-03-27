@@ -45,6 +45,23 @@ TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
     ("Patani", "Quanzhou"):             10,
     ("Patani", "Bantam"):               5,
     ("Ternate", "Pulau Tioman"):        8,
+    # New ports
+    ("Aden Harbor", "Hormuz"):          4,
+    ("Aden Harbor", "Calicut"):         5,
+    ("Aden Harbor", "Goa Harbor"):      6,
+    ("Aden Harbor", "Malacca Harbor"): 18,
+    ("Bali Harbor", "Bantam"):          3,
+    ("Bali Harbor", "Ternate"):         4,
+    ("Bali Harbor", "Malacca Harbor"):  5,
+    ("Keelung Outpost", "Quanzhou"):    2,
+    ("Keelung Outpost", "Bantam"):      9,
+    ("Keelung Outpost", "Patani"):      7,
+    ("Banda Islands", "Ternate"):       3,
+    ("Banda Islands", "Bantam"):        6,
+    ("Banda Islands", "Malacca Harbor"):10,
+    ("Cham Coast Anchorage", "Quanzhou"):  6,
+    ("Cham Coast Anchorage", "Malacca Harbor"): 5,
+    ("Cham Coast Anchorage", "Patani"): 4,
 }
 
 # Fill in reverse directions automatically (roughly symmetric)

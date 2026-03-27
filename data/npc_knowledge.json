@@ -1,0 +1,633 @@
+{
+  "npcs": [
+    {
+      "id": "hang_kassim_malacca",
+      "name": "Hang Kassim",
+      "port": "Malacca Harbor",
+      "role": "Harbor Master",
+      "fallback": "Hang Kassim squints. 'Never heard of it. Ask in the market.'",
+      "fallback_es": "Hang Kassim frunce el ceño. 'Nunca he oído hablar de eso. Pregunta en el mercado.'",
+      "knowledge": [
+        {
+          "topic": "tun mutahir",
+          "aliases": ["bendahara", "mutahir", "the bendahara"],
+          "response": "He lowers his voice. 'The Bendahara is careful these days. Since the Portuguese arrived, every word is weighed twice. He still runs the port — in practice, if not in name.'",
+          "response_es": "Baja la voz. 'El Bendahara anda con cuidado en estos tiempos. Desde que llegaron los portugueses, cada palabra se pesa dos veces. Sigue manejando el puerto — en la práctica, aunque no de nombre.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "pepper prices",
+          "aliases": ["pepper", "spice prices", "prices", "spices"],
+          "response": "Kassim names a figure without hesitation. 'That is the guild rate. What you will actually pay depends on who you know.'",
+          "response_es": "Kassim nombra una cifra sin vacilar. 'Ese es el precio del gremio. Lo que pagarás de verdad depende de a quién conozcas.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "portuguese fleet",
+          "aliases": ["portuguese", "franks", "portuguese ships", "estado", "feringhi"],
+          "response": "He is quiet for a moment. 'They patrol the strait. Two carracks, sometimes three. They do not come into the harbor often — they send factors instead.' He adds nothing else.",
+          "response_es": "Se queda en silencio un momento. 'Patrullan el estrecho. Dos carracas, a veces tres. No entran mucho al puerto — mandan factores en su lugar.' No añade nada más.",
+          "min_disposition": 20,
+          "locked_response": "Kassim's expression closes. 'I would not know about patrol movements. Try the factors near the outer harbor.'",
+          "locked_response_es": "La expresión de Kassim se cierra. 'No sé nada de movimientos de patrulla. Pregunta a los factores cerca del puerto exterior.'"
+        },
+        {
+          "topic": "sultan mahmud",
+          "aliases": ["the sultan", "mahmud shah", "exiled sultan", "mahmud"],
+          "response": "He glances toward the fort the Portuguese are building where the mosque used to stand. 'The Sultan is at Bintan. He has not forgotten. Neither have we.'",
+          "response_es": "Dirige la mirada hacia el fuerte que los portugueses están levantando donde antes estaba la mezquita. 'El Sultán está en Bintan. No ha olvidado. Nosotros tampoco.'",
+          "min_disposition": 35,
+          "min_reputation": 2,
+          "reputation_faction": "malacca_sultanate",
+          "locked_response": "He looks away. 'That is not a conversation for strangers.'",
+          "locked_response_es": "Aparta la vista. 'Eso no es conversación para extraños.'"
+        },
+        {
+          "topic": "orang laut",
+          "aliases": ["sea nomads", "sea people", "pirates", "nomads", "strait pirates"],
+          "response": "A slight smile. 'The Orang Laut know every current in the strait. They are not pirates — not exactly. They tax passage, which is different. Pay them fairly and they will guide you safely. Insult them and...' He trails off meaningfully.",
+          "response_es": "Una sonrisa leve. 'Los Orang Laut conocen cada corriente del estrecho. No son piratas — no exactamente. Cobran peaje por el paso, que es distinto. Págales bien y te guiarán a salvo. Insúltalos y...' Deja la frase sin terminar, con intención.",
+          "min_disposition": 0
+        },
+        {
+          "topic": "tin",
+          "aliases": ["tin prices", "tin trade", "sungei ujong"],
+          "response": "'Tin comes down from the interior mines — Sungei Ujong, Perak. The Portuguese want it for cannon, which has done nothing good for the price.' He names a figure. 'And that is before their factor takes his cut.'",
+          "response_es": "'El estaño baja de las minas del interior — Sungei Ujong, Perak. Los portugueses lo quieren para cañones, lo que no ha hecho ningún bien al precio.' Nombra una cifra. 'Y eso antes de que el factor se lleve su parte.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "gujarati merchants",
+          "aliases": ["gujarati", "gujarat", "indian merchants", "baniya"],
+          "response": "'The Gujarati houses have been here longer than the Portuguese. They will be here after the Portuguese are gone, too. They do not make enemies — they make debts, which is safer.'",
+          "response_es": "'Las casas gujaratis llevan aquí más tiempo que los portugueses. Y seguirán aquí cuando los portugueses se hayan ido. No hacen enemigos — hacen deudas, que es más seguro.'",
+          "min_disposition": 15,
+          "locked_response": "'Some merchants I know better than others.' He does not elaborate.",
+          "locked_response_es": "'A algunos mercaderes los conozco mejor que a otros.' No elabora."
+        },
+        {
+          "topic": "hadrami",
+          "aliases": ["hadrami merchants", "arab scholars", "silsila", "hadramawt"],
+          "response": "'The Hadrami men are in every port east of Aden. Merchants, scholars, teachers — and sometimes the same man does all three. They move money and knowledge in the same bundle.'",
+          "response_es": "'Los hombres hadrami están en cada puerto al este de Adén. Mercaderes, eruditos, maestros — a veces el mismo hombre hace las tres cosas. Mueven dinero y conocimiento en el mismo fardo.'",
+          "min_disposition": 10,
+          "locked_response": "'There are scholars in many ports.' He returns his attention to his ledger.",
+          "locked_response_es": "'Hay eruditos en muchos puertos.' Vuelve su atención al libro de cuentas."
+        },
+        {
+          "topic": "albuquerque",
+          "aliases": ["governor of india", "afonso", "albuquerque"],
+          "response": "Kassim's expression does not change. 'He is the man who took this city. His name is worth knowing. Whether he stays or goes — that is a question for Lisbon, not for us.'",
+          "response_es": "La expresión de Kassim no cambia. 'Es el hombre que tomó esta ciudad. Su nombre vale la pena conocer. Si se queda o se va — eso es asunto de Lisboa, no nuestro.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "bantam",
+          "aliases": ["banten", "sunda", "west java"],
+          "response": "'Bantam is growing. The Sundanese port. They are building something there — a proper sultanate. In twenty years they may be what we were.'",
+          "response_es": "'Bantam está creciendo. El puerto sundanés. Están construyendo algo allí — un sultanato de verdad. En veinte años puede que sean lo que nosotros fuimos.'",
+          "min_disposition": 10,
+          "locked_response": "'Bantam.' He repeats the word without inflection. 'A port to the south.'",
+          "locked_response_es": "'Bantam.' Repite la palabra sin inflexión. 'Un puerto al sur.'"
+        }
+      ]
+    },
+    {
+      "id": "raden_aria_bantam",
+      "name": "Raden Aria",
+      "port": "Bantam",
+      "role": "Harbor Master",
+      "fallback": "Raden Aria shrugs with elaborate indifference. 'Ask the market men.'",
+      "fallback_es": "Raden Aria se encoge de hombros con elaborada indiferencia. 'Pregunta a los del mercado.'",
+      "knowledge": [
+        {
+          "topic": "pepper",
+          "aliases": ["pepper prices", "black pepper", "spice", "merica"],
+          "response": "He spreads his hands. 'The best pepper in the world comes through Bantam. You know this or you would not be here. The price is what I tell you it is — until someone else tells you differently.'",
+          "response_es": "Extiende las manos. 'La mejor pimienta del mundo pasa por Bantam. Lo sabes o no estarías aquí. El precio es el que yo te digo — hasta que alguien te diga algo distinto.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "sultan hasanuddin",
+          "aliases": ["the sultan", "hasanuddin", "sultan", "the ruler"],
+          "response": "He straightens slightly. 'The Sultan has been generous to those who trade honestly through his port. He is watching how the Portuguese move. He has not decided yet what he thinks of them.'",
+          "response_es": "Se endereza ligeramente. 'El Sultán ha sido generoso con quienes comercian honestamente por su puerto. Está observando cómo se mueven los portugueses. Todavía no ha decidido qué piensa de ellos.'",
+          "min_disposition": 15,
+          "locked_response": "'The Sultan's affairs are the Sultan's affairs.' He straightens his papers.",
+          "locked_response_es": "'Los asuntos del Sultán son asuntos del Sultán.' Ordena sus papeles."
+        },
+        {
+          "topic": "portuguese",
+          "aliases": ["franks", "portuguese ships", "estado", "feringhi"],
+          "response": "His expression does not change. 'They have not come to Bantam. Yet. When they do, we will be ready to receive them — as merchants, if they come as merchants.'",
+          "response_es": "Su expresión no cambia. 'No han venido a Bantam. Todavía. Cuando vengan, estaremos listos para recibirlos — como mercaderes, si vienen como mercaderes.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "javanese",
+          "aliases": ["java", "javanese merchants", "demak", "majapahit", "pati unus"],
+          "response": "He considers this. 'The Javanese were here before us and they will be here after. Demak is building. Pati Unus has ambitions. Whether those ambitions bring war or trade — that depends on who is listening in Malacca.'",
+          "response_es": "Reflexiona. 'Los javaneses estaban aquí antes que nosotros y seguirán estando después. Demak está creciendo. Pati Unus tiene ambiciones. Si esas ambiciones traen guerra o comercio — depende de quién escuche en Malaca.'",
+          "min_disposition": 30,
+          "min_reputation": 2,
+          "reputation_faction": "sultanate_of_bantam",
+          "locked_response": "He shrugs. 'Javanese business is Javanese business.'",
+          "locked_response_es": "Se encoge de hombros. 'Los asuntos javaneses son asuntos javaneses.'"
+        },
+        {
+          "topic": "chinese merchants",
+          "aliases": ["chinese", "hokkien", "fujian", "tang people"],
+          "response": "'Chinese merchants have been in this port for three generations. They bring porcelain and silk and they know how to do business quietly. The best ones know not to show everything they know.'",
+          "response_es": "'Los mercaderes chinos llevan tres generaciones en este puerto. Traen porcelana y seda y saben hacer negocios en silencio. Los mejores saben que no hay que mostrar todo lo que saben.'",
+          "min_disposition": 10,
+          "locked_response": "'Merchants come and go.' He does not elaborate.",
+          "locked_response_es": "'Los mercaderes van y vienen.' No elabora."
+        },
+        {
+          "topic": "ternate",
+          "aliases": ["ternate", "maluku", "spice islands", "cloves", "nutmeg islands"],
+          "response": "'Four days east in good weather. The cloves come from there, and the nutmeg from Banda beyond. Every merchant in this port has a man in Ternate or wishes he did.'",
+          "response_es": "'A cuatro días al este con buen tiempo. Los clavos vienen de allí, y la nuez moscada de Banda, más allá. Todo mercader de este puerto tiene un hombre en Ternate o desearía tenerlo.'",
+          "min_disposition": 0
+        }
+      ]
+    },
+    {
+      "id": "abbas_ibn_yusuf_hormuz",
+      "name": "Abbas ibn Yusuf",
+      "port": "Hormuz",
+      "role": "Harbor Master",
+      "fallback": "Abbas ibn Yusuf makes a small gesture. 'I would not know about that.'",
+      "fallback_es": "Abbas ibn Yusuf hace un pequeño gesto. 'Yo no sabría nada de eso.'",
+      "knowledge": [
+        {
+          "topic": "persian gulf trade",
+          "aliases": ["gulf trade", "hormuz trade", "prices", "goods"],
+          "response": "'Everything that moves between the Indian Ocean and the Mediterranean passes through here — or used to. The Portuguese have made that more complicated.' He names current prices without apparent emotion.",
+          "response_es": "'Todo lo que se mueve entre el Océano Índico y el Mediterráneo pasa por aquí — o pasaba. Los portugueses han complicado eso.' Nombra los precios actuales sin aparente emoción.",
+          "min_disposition": 0
+        },
+        {
+          "topic": "portuguese",
+          "aliases": ["franks", "estado", "feringhi", "portuguese ships"],
+          "response": "'They have a fort here now. They call it a partnership. We call it what it is.' A pause. 'But business continues. Business always continues.'",
+          "response_es": "'Tienen un fuerte aquí ahora. Lo llaman una alianza. Nosotros lo llamamos por su nombre.' Una pausa. 'Pero el negocio continúa. El negocio siempre continúa.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "karimi merchants",
+          "aliases": ["karimi", "karimi network", "old merchants", "spice brotherhood"],
+          "response": "'The Karimi men are older than the Portuguese, older than the Ottomans. They built the trade routes you are sailing now. Some of them are still here — old men, patient, watching.' A faint smile. 'The patient men always outlast the ambitious ones.'",
+          "response_es": "'Los hombres karimi son más antiguos que los portugueses, más antiguos que los otomanos. Ellos trazaron las rutas comerciales que estás navegando ahora. Algunos de ellos siguen aquí — hombres viejos, pacientes, observando.' Una leve sonrisa. 'Los hombres pacientes siempre sobreviven a los ambiciosos.'",
+          "min_disposition": 20,
+          "locked_response": "'Old trade families. I would not presume to know their private business.'",
+          "locked_response_es": "'Antiguas familias comerciales. No me atrevería a conocer sus asuntos privados.'"
+        },
+        {
+          "topic": "ottomans",
+          "aliases": ["ottoman", "turks", "istanbul", "porte", "ottoman ships"],
+          "response": "He is careful. 'The Ottomans are coming east. Whether they come as protectors or masters — that will be settled in time. Most people here are keeping their options open.'",
+          "response_es": "Es cauteloso. 'Los otomanos avanzan hacia el este. Si vienen como protectores o como señores — eso se resolverá con el tiempo. La mayoría de la gente aquí está manteniendo sus opciones abiertas.'",
+          "min_disposition": 15,
+          "locked_response": "'Distant matters. Nothing that concerns harbor operations here.'",
+          "locked_response_es": "'Asuntos lejanos. Nada que concierna a las operaciones del puerto de aquí.'"
+        },
+        {
+          "topic": "mustafa al-rumi",
+          "aliases": ["mustafa", "ottoman agent", "al-rumi"],
+          "response": "He says nothing for a moment. 'I know the name. I would be careful about how loudly you use it at a public harbor.'",
+          "response_es": "No dice nada por un momento. 'Conozco el nombre. Tendría cuidado de cómo lo pronuncias en un puerto público.'",
+          "min_disposition": 35,
+          "min_reputation": 2,
+          "reputation_faction": "karimi_merchants",
+          "locked_response": "His expression does not change. 'I don't know that name.'",
+          "locked_response_es": "Su expresión no cambia. 'No conozco ese nombre.'"
+        },
+        {
+          "topic": "pearls",
+          "aliases": ["pearl diving", "pearls", "gulf pearls", "diving"],
+          "response": "'The finest pearls in the world come from the beds south of here. The divers work from March to September. Three good seasons and a man can buy his family's debt. Three bad ones and the debt grows.'",
+          "response_es": "'Las mejores perlas del mundo vienen de los bancos al sur de aquí. Los buzos trabajan de marzo a septiembre. Tres buenas temporadas y un hombre puede pagar la deuda de su familia. Tres malas y la deuda crece.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "aden",
+          "aliases": ["aden harbor", "aden", "south arabia", "red sea"],
+          "response": "'Four days southwest in good conditions. The Tahirid governor is — was — the man to see there. What happens after the Mamluks fall is a question people are asking quietly.'",
+          "response_es": "'A cuatro días al suroeste en buenas condiciones. El gobernador tahírida era — era — el hombre al que acudir allí. Lo que ocurra tras la caída de los mamelucos es una pregunta que la gente se hace en voz baja.'",
+          "min_disposition": 10,
+          "locked_response": "'A port four days southwest. You can go there yourself if you want information.'",
+          "locked_response_es": "'Un puerto a cuatro días al suroeste. Puedes ir tú mismo si quieres información.'"
+        }
+      ]
+    },
+    {
+      "id": "wu_liangchen_quanzhou",
+      "name": "Wu Liangchen",
+      "port": "Quanzhou",
+      "role": "Harbor Master",
+      "fallback": "Wu Liangchen strokes his beard. 'That is outside my area of knowledge, I'm afraid.'",
+      "fallback_es": "Wu Liangchen se acaricia la barba. 'Eso, me temo, escapa a mis conocimientos.'",
+      "knowledge": [
+        {
+          "topic": "silk",
+          "aliases": ["silk trade", "silk prices", "textiles", "fabric"],
+          "response": "'Quanzhou silk goes east and south both. The price at Southeast Asian ports runs about forty percent above what you'd pay here — if you buy from the right warehouse. I can point you to the right warehouse.' He pauses. 'For a consideration.'",
+          "response_es": "'La seda de Quanzhou va al este y al sur. El precio en los puertos del Sudeste Asiático ronda un cuarenta por ciento por encima de lo que pagarías aquí — si compras en el almacén adecuado. Puedo indicarte el almacén adecuado.' Pausa. 'Por una consideración.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "haijin",
+          "aliases": ["sea ban", "trading ban", "private trade", "illegal trade"],
+          "response": "He lowers his voice slightly. 'The haijin exists. Enforcement exists. The gap between those two things is where business happens. You understand this already or you would not be here.'",
+          "response_es": "Baja ligeramente la voz. 'El haijin existe. La aplicación existe. La brecha entre esas dos cosas es donde ocurren los negocios. Ya lo entiendes o no estarías aquí.'",
+          "min_disposition": 20,
+          "locked_response": "He looks at you pleasantly. 'I'm not sure what you're referring to.'",
+          "locked_response_es": "Te mira con amabilidad. 'No sé a qué te refieres.'"
+        },
+        {
+          "topic": "ming dynasty",
+          "aliases": ["ming court", "the emperor", "beijing", "the court", "prefect"],
+          "response": "'The court wants trade to flow through official channels. Whether it does is another matter. Prefect Chen Bao monitors what he can monitor. He is not a fool — he simply has limited resources.'",
+          "response_es": "'La corte quiere que el comercio fluya por canales oficiales. Si lo hace es otra cuestión. El Prefecto Chen Bao supervisa lo que puede supervisar. No es un necio — simplemente tiene recursos limitados.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "malacca",
+          "aliases": ["malacca harbor", "melaka", "the strait", "malacca fall"],
+          "response": "His expression is complicated. 'Malacca was the center of the world for our traders. When the Portuguese took it — there was a calculation to make. Some houses lost badly. Others found new routes. The Hokkien diaspora is more scattered now, which means they are also more resilient.'",
+          "response_es": "Su expresión es complicada. 'Malaca era el centro del mundo para nuestros comerciantes. Cuando los portugueses la tomaron — hubo un cálculo que hacer. Algunas casas perdieron mucho. Otras encontraron nuevas rutas. La diáspora hokkien está más dispersa ahora, lo que también la hace más resistente.'",
+          "min_disposition": 15,
+          "locked_response": "He spreads his hands. 'Distant news. I deal in the affairs of this port.'",
+          "locked_response_es": "Extiende las manos. 'Noticias lejanas. Yo me ocupo de los asuntos de este puerto.'"
+        },
+        {
+          "topic": "porcelain",
+          "aliases": ["ceramics", "pottery", "blue and white", "jingdezhen"],
+          "response": "'Jingdezhen ware is the finest. Quanzhou exports the standard grade — good quality, reliable demand. Southeast Asian rulers buy it for status, European factors buy it for novelty. The margins are better than silk right now.'",
+          "response_es": "'La loza de Jingdezhen es la más fina. Quanzhou exporta el grado estándar — buena calidad, demanda fiable. Los gobernantes del Sudeste Asiático la compran por estatus; los factores europeos, por novedad. Los márgenes son mejores que los de la seda en este momento.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "prefect chen bao",
+          "aliases": ["prefect", "chen bao", "the prefect", "maritime official"],
+          "response": "'Chen Bao is thorough. He counts ships, he counts cargoes, he counts the gap between the two. If you are trading through Quanzhou, it is worth being polite to his office.' A thin smile. 'And perhaps letting certain numbers be slightly rounded.'",
+          "response_es": "'Chen Bao es meticuloso. Cuenta barcos, cuenta cargas, cuenta la diferencia entre los dos. Si comercias por Quanzhou, vale la pena ser cortés con su oficina.' Una sonrisa tenue. 'Y quizás dejar que ciertos números se redondeen un poco.'",
+          "min_disposition": 25,
+          "min_reputation": 1,
+          "reputation_faction": "ming_dynasty",
+          "locked_response": "Wu Liangchen looks thoughtful. 'The Prefect is a busy man. I would not distract him unnecessarily.'",
+          "locked_response_es": "Wu Liangchen tiene una expresión pensativa. 'El Prefecto es un hombre ocupado. No lo distraería innecesariamente.'"
+        }
+      ]
+    },
+    {
+      "id": "ibrahim_al_yamani_aden",
+      "name": "Ibrahim al-Yamani",
+      "port": "Aden Harbor",
+      "role": "Harbor Master",
+      "fallback": "Ibrahim al-Yamani shakes his head slowly. 'I cannot help you with that.'",
+      "fallback_es": "Ibrahim al-Yamani sacude la cabeza lentamente. 'No puedo ayudarte en eso.'",
+      "knowledge": [
+        {
+          "topic": "frankincense",
+          "aliases": ["incense", "oud", "frankincense prices", "myrrh"],
+          "response": "'The best frankincense comes from Dhofar and the Hadramawt. What reaches Aden is already sorted — the finest grade goes to Mecca, the merchants' grade goes east. The price I can quote you is the merchants' grade.'",
+          "response_es": "'El mejor incienso viene de Dhofar y del Hadramawt. Lo que llega a Adén ya está seleccionado — el grado más fino va a La Meca, el grado mercantil va hacia el este. El precio que te puedo dar es el del grado mercantil.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "hadrami silsila",
+          "aliases": ["hadrami", "silsila", "arab scholars", "hadrami network", "ibn alawi"],
+          "response": "'The Hadrami network runs from Aden to Bantam and beyond. Scholars and merchants and sometimes the same man doing both. They move quietly. They remember everyone they have ever met.' A pause. 'Everyone.'",
+          "response_es": "'La red hadrami va desde Adén hasta Bantam y más allá. Eruditos y mercaderes, y a veces el mismo hombre hace ambas cosas. Se mueven en silencio. Recuerdan a todos los que han conocido.' Una pausa. 'A todos.'",
+          "min_disposition": 10,
+          "locked_response": "'Scholars move everywhere. I could not track all of them.' He looks past you.",
+          "locked_response_es": "'Los eruditos van a todas partes. No podría rastrearlos a todos.' Mira más allá de ti."
+        },
+        {
+          "topic": "portuguese",
+          "aliases": ["franks", "estado", "feringhi", "portuguese ships"],
+          "response": "'They are in the Red Sea now. They burned Aden's harbor once — you did not know that? Twenty years ago. We rebuilt it. The harbor survives because the harbor has always survived. The Portuguese will leave eventually. The harbor will remain.'",
+          "response_es": "'Están en el Mar Rojo ahora. Una vez quemaron el puerto de Adén — ¿no lo sabías? Hace veinte años. Lo reconstruimos. El puerto sobrevive porque el puerto siempre ha sobrevivido. Los portugueses se irán eventualmente. El puerto permanecerá.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "mamluks",
+          "aliases": ["mamluk", "cairo", "egypt", "mamluk fleet", "mamluk sultan"],
+          "response": "He measures his words. 'The Mamluks controlled the Red Sea. Now the Ottomans do. The trade continues. The faces change.' He does not look pleased about this, exactly. 'Aden has survived many masters.'",
+          "response_es": "Mide sus palabras. 'Los mamelucos controlaban el Mar Rojo. Ahora los otomanos lo hacen. El comercio continúa. Los rostros cambian.' No parece del todo satisfecho con esto. 'Adén ha sobrevivido a muchos señores.'",
+          "min_disposition": 15,
+          "locked_response": "He is briefly still. 'Political matters are above my station.' He does not sound convinced by this himself.",
+          "locked_response_es": "Queda brevemente inmóvil. 'Los asuntos políticos están por encima de mi rango.' No suena convencido él mismo."
+        },
+        {
+          "topic": "coffee",
+          "aliases": ["coffee trade", "qahwa", "mocha", "yemen coffee"],
+          "response": "'Coffee from the Yemen highlands. The demand is growing — Sufi orders drink it for their night prayers, and the habit is spreading. In ten years, everyone east of Hormuz will want it. I am already positioned accordingly.'",
+          "response_es": "'Café de las tierras altas del Yemen. La demanda crece — las órdenes sufíes lo beben en sus oraciones nocturnas, y el hábito se extiende. En diez años, todos al este de Ormuz lo querrán. Ya estoy posicionado para ello.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "mustafa al-rumi",
+          "aliases": ["mustafa", "ottoman agent", "al-rumi"],
+          "response": "'A capable man. Quietly present in more places than you would expect.' He looks at you steadily. 'Are you asking me as someone who works with him, or someone who wants to know where he is?'",
+          "response_es": "'Un hombre capaz. Discretamente presente en más lugares de los que esperarías.' Te mira con calma. '¿Me preguntas como alguien que trabaja con él, o como alguien que quiere saber dónde está?'",
+          "min_disposition": 30,
+          "min_reputation": 1,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "Ibrahim al-Yamani says nothing. Then: 'That name is not one I would use carelessly.'",
+          "locked_response_es": "Ibrahim al-Yamani no dice nada. Luego: 'Ese nombre no es para pronunciarlo sin cuidado.'"
+        },
+        {
+          "topic": "selman reis",
+          "aliases": ["selman", "ottoman admiral", "admiral"],
+          "response": "He is quiet for longer than usual. 'Selman Reis commands Ottoman ambitions in the Indian Ocean. He is not yet here. When he comes, you will know it.' A pause. 'Make sure you know which side you're on before he arrives.'",
+          "response_es": "Guarda silencio más tiempo de lo habitual. 'Selman Reis comanda las ambiciones otomanas en el Océano Índico. Todavía no está aquí. Cuando llegue, lo sabrás.' Una pausa. 'Asegúrate de saber de qué lado estás antes de que llegue.'",
+          "min_disposition": 40,
+          "min_reputation": 2,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "'I would not know about that kind of thing.'",
+          "locked_response_es": "'De eso yo no sé nada.'"
+        }
+      ]
+    },
+    {
+      "id": "rodrigo_rabelo_goa",
+      "name": "Rodrigo Rabelo",
+      "port": "Goa Harbor",
+      "role": "Harbor Master",
+      "fallback": "Rodrigo Rabelo scratches his jaw. 'Can't say I've heard much about that. Ask the factors at the Casa.'",
+      "fallback_es": "Rodrigo Rabelo se rasca la mandíbula. 'No he oído mucho sobre eso. Pregunta a los factores en la Casa.'",
+      "knowledge": [
+        {
+          "topic": "albuquerque",
+          "aliases": ["the governor", "afonso de albuquerque", "dom afonso", "albuquerque"],
+          "response": "'The Governor is in residence. He is — thorough. His methods are his own. I would not recommend making yourself conspicuous to him unless you have something he wants.' He pauses. 'Or have done nothing to hide.'",
+          "response_es": "'El Gobernador está en residencia. Es — meticuloso. Sus métodos son propios. No te recomendaría llamar su atención a menos que tengas algo que él quiera.' Pausa. 'O que no tengas nada que ocultar.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "cartaz",
+          "aliases": ["safe passage", "cartaz", "portuguese pass", "trading permit"],
+          "response": "'A cartaz is the difference between trading freely and being boarded. The fee is modest. The inconvenience of not having one is not.' He names the going rate. 'The Estado runs a tight system.'",
+          "response_es": "'Un cartaz es la diferencia entre comerciar libremente y ser abordado. La tarifa es modesta. La incomodidad de no tenerlo no lo es.' Menciona la tarifa vigente. 'El Estado maneja un sistema estricto.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "konkani merchants",
+          "aliases": ["konkani", "local merchants", "hindu merchants", "madhavrav"],
+          "response": "He lowers his voice slightly. 'The Konkani men know where every coin in Goa goes. They were here before us and they will be useful long after — to whoever is here then. Madhavrav is the one to know if you want local intelligence.' A look. 'Officially, I did not say that.'",
+          "response_es": "Baja ligeramente la voz. 'Los hombres konkani saben adónde va cada moneda en Goa. Estaban aquí antes que nosotros y serán útiles mucho después — para quien esté aquí entonces. Madhavrav es a quien debes conocer si quieres inteligencia local.' Una mirada. 'Oficialmente, no he dicho eso.'",
+          "min_disposition": 25,
+          "locked_response": "Rodrigo shrugs. 'Local business. Not my area.'",
+          "locked_response_es": "Rodrigo se encoge de hombros. 'Negocio local. No es mi área.'"
+        },
+        {
+          "topic": "bijapur",
+          "aliases": ["bijapur remnant", "ibrahim lari", "former bijapur", "sultanate"],
+          "response": "He is briefly still. 'There are men in this port who served the Adil Shah. They are quiet. They are patient. The Governor knows they are here — he has made a calculation about whether they are useful.' He pauses. 'Do not ask me what that calculation is.'",
+          "response_es": "Se queda brevemente inmóvil. 'Hay hombres en este puerto que sirvieron al Adil Shah. Son discretos. Son pacientes. El Gobernador sabe que están aquí — ha hecho un cálculo sobre si son útiles.' Pausa. 'No me preguntes cuál es ese cálculo.'",
+          "min_disposition": 35,
+          "min_reputation": 1,
+          "reputation_faction": "estado_da_india",
+          "locked_response": "'I would not know anything about that.'",
+          "locked_response_es": "'De eso yo no sabría nada.'"
+        },
+        {
+          "topic": "horses",
+          "aliases": ["horse trade", "horses", "cavalry horses", "arabian horses"],
+          "response": "'Horses are the most valuable single commodity through Goa. The Deccan kingdoms need them and the Arab traders bring them. The Governor takes a percentage — officially as licensing, practically as taxation. The margins are still excellent if you can source them.'",
+          "response_es": "'Los caballos son la mercancía individual más valiosa que pasa por Goa. Los reinos del Decán los necesitan y los comerciantes árabes los traen. El Gobernador toma un porcentaje — oficialmente como licencia, en la práctica como impuesto. Los márgenes siguen siendo excelentes si puedes abastecerte.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "estado da india",
+          "aliases": ["estado", "portuguese india", "viceroy", "portuguese empire"],
+          "response": "'The Estado runs from here east to Hormuz and south to Sofala — in theory. In practice, the further from Goa, the looser the grip. This city is the center. Everything else is aspiration.' He says this without apparent irony.",
+          "response_es": "'El Estado va desde aquí hacia el este hasta Ormuz y hacia el sur hasta Sofala — en teoría. En la práctica, cuanto más lejos de Goa, más flojo el dominio. Esta ciudad es el centro. Todo lo demás es aspiración.' Lo dice sin ironía aparente.",
+          "min_disposition": 0
+        }
+      ]
+    },
+    {
+      "id": "koya_moopan_calicut",
+      "name": "Koya Moopan",
+      "port": "Calicut",
+      "role": "Harbor Master",
+      "fallback": "Koya Moopan shakes his head. 'I deal in ships and fees. For other matters, try the market lanes.'",
+      "fallback_es": "Koya Moopan sacude la cabeza. 'Me ocupo de barcos y tasas. Para otros asuntos, prueba en los callejones del mercado.'",
+      "knowledge": [
+        {
+          "topic": "pepper",
+          "aliases": ["pepper trade", "malabar pepper", "spice prices", "black pepper"],
+          "response": "'Malabar pepper is the standard against which all other pepper is judged. The price here is the price everywhere else plus the transport. If you are buying here, buy well.' He names the current market rate.",
+          "response_es": "'La pimienta de Malabar es el patrón por el que se juzga toda otra pimienta. El precio aquí es el precio de cualquier otro lugar más el transporte. Si compras aquí, compra bien.' Nombra el precio actual del mercado.",
+          "min_disposition": 0
+        },
+        {
+          "topic": "zamorin",
+          "aliases": ["the zamorin", "mana vikraman", "ruler of calicut", "king"],
+          "response": "'The Zamorin has fought the Portuguese twice and is preparing to fight them a third time. He is not a patient man, but he is a thorough one. He does not lose without learning.' A pause. 'He learns quickly.'",
+          "response_es": "'El Zamorín ha combatido a los portugueses dos veces y se prepara para combatirlos una tercera. No es un hombre paciente, pero sí minucioso. No pierde sin aprender.' Una pausa. 'Aprende rápido.'",
+          "min_disposition": 20,
+          "locked_response": "'The Zamorin's business is the Zamorin's business.' He does not look at you.",
+          "locked_response_es": "'Los asuntos del Zamorín son asuntos del Zamorín.' No te mira."
+        },
+        {
+          "topic": "portuguese",
+          "aliases": ["franks", "feringhi", "estado", "portuguese ships", "vasco da gama"],
+          "response": "His expression is controlled. 'We have history with the Portuguese. The first time they came, we traded. The second time they came, they burned our ships. We remember the first time also — but the second time more clearly.'",
+          "response_es": "Su expresión es controlada. 'Tenemos historia con los portugueses. La primera vez que vinieron, comerciamos. La segunda vez que vinieron, quemaron nuestros barcos. También recordamos la primera vez — pero la segunda con más claridad.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "mapilla merchants",
+          "aliases": ["mapilla", "muslim merchants", "arab traders", "moors"],
+          "response": "'The Mapilla are the spine of this port's trade. They have been here since before anyone's grandfather. They know every ship and every captain and every debt. If you need to move goods quietly, they are the people to know.'",
+          "response_es": "'Los mapilla son la columna vertebral del comercio de este puerto. Llevan aquí desde antes que el abuelo de nadie. Conocen cada barco, cada capitán y cada deuda. Si necesitas mover mercancía en silencio, ellos son a quienes debes conocer.'",
+          "min_disposition": 15,
+          "locked_response": "'Many merchants use this port. I know the ones who pay their fees.' He returns to his accounts.",
+          "locked_response_es": "'Muchos mercaderes usan este puerto. Conozco a los que pagan sus tasas.' Vuelve a sus cuentas."
+        },
+        {
+          "topic": "nair warriors",
+          "aliases": ["nair", "warriors", "soldiers", "calicut army"],
+          "response": "'The Nair are the Zamorin's fighters. What you are told about them is mostly true — they train from childhood and they do not retreat easily. If you are thinking about testing that, I would discourage it.' He says this pleasantly.",
+          "response_es": "'Los nair son los combatientes del Zamorín. Lo que te digan de ellos es en su mayor parte cierto — se entrenan desde niños y no retroceden fácilmente. Si estás pensando en ponerlo a prueba, te lo desaconsejo.' Lo dice con amabilidad.",
+          "min_disposition": 0
+        },
+        {
+          "topic": "ginger",
+          "aliases": ["ginger trade", "ginger prices", "malabar ginger", "spices"],
+          "response": "'Ginger, cardamom, pepper — Malabar exports them all. The cardamom especially — there is no better source anywhere. The Zamorin's lands grow it in the hills inland. The price here is fair if you are buying at scale.'",
+          "response_es": "'Jengibre, cardamomo, pimienta — Malabar los exporta todos. El cardamomo en especial — no hay mejor fuente en ningún lugar. Las tierras del Zamorín lo cultivan en las colinas del interior. El precio aquí es justo si compras a escala.'",
+          "min_disposition": 0
+        },
+        {
+          "topic": "arab traders",
+          "aliases": ["arabs", "arab ships", "muslim traders", "dhow"],
+          "response": "'The Arab traders were here before the Portuguese and will be here after. They know the monsoon patterns better than anyone — they mapped them. They do not hurry and they do not forget a debt, which makes them the best and worst partners depending on which side of the ledger you are on.'",
+          "response_es": "'Los comerciantes árabes estaban aquí antes que los portugueses y seguirán estando después. Conocen los patrones del monzón mejor que nadie — los cartografiaron ellos. No se apresuran y no olvidan una deuda, lo que los convierte en los mejores y peores socios según de qué lado del libro de cuentas estés.'",
+          "min_disposition": 10,
+          "locked_response": "'They come and go with the monsoon. As they always have.' He offers nothing more.",
+          "locked_response_es": "'Vienen y van con el monzón. Como siempre.' No ofrece nada más."
+        }
+      ]
+    },
+    {
+      "id": "tun_mutahir_malacca",
+      "name": "Tun Mutahir",
+      "port": "Malacca Harbor",
+      "role": "Bendahara",
+      "fallback": "Tun Mutahir regards you steadily. 'That is not something I have information about.'",
+      "fallback_es": "Tun Mutahir te observa con calma. 'Eso no es algo sobre lo que tenga información.'",
+      "knowledge": [
+        {
+          "topic": "sultan mahmud",
+          "aliases": ["the sultan", "mahmud shah", "sultan of malacca"],
+          "response": "'The Sultan is at Bintan, regrouping. He has messengers moving. He has not abandoned Malacca — he has withdrawn from it temporarily. There is a difference.' His tone makes clear this is not a topic for further elaboration.",
+          "response_es": "'El Sultán está en Bintan, reagrupándose. Tiene mensajeros en movimiento. No ha abandonado Malaca — se ha retirado de ella temporalmente. Hay una diferencia.' Su tono deja claro que no es un tema para mayor elaboración.",
+          "min_disposition": 40,
+          "min_reputation": 3,
+          "reputation_faction": "malacca_sultanate",
+          "locked_response": "He looks at you with measured neutrality. 'I would not speak of such matters with someone I do not know well.'",
+          "locked_response_es": "Te mira con neutralidad calculada. 'No hablaría de esos asuntos con alguien a quien no conozco bien.'"
+        },
+        {
+          "topic": "tin trade",
+          "aliases": ["tin", "tin prices", "perak tin", "tin mining"],
+          "response": "'Tin from the interior has always moved through Malacca. The Portuguese disruption has shifted some flows to Patani and Johor — not stopped them. Those who adapt to the new routes will do well. Those who wait for the old routes to reopen will wait a long time.'",
+          "response_es": "'El estaño del interior siempre ha pasado por Malaca. La perturbación portuguesa ha desviado algunos flujos hacia Patani y Johor — no los ha detenido. Los que se adapten a las nuevas rutas lo harán bien. Los que esperen a que reabran las antiguas, esperarán mucho tiempo.'",
+          "min_disposition": 20,
+          "locked_response": "He glances at you briefly. 'Commodity prices fluctuate. Ask the market.'",
+          "locked_response_es": "Te lanza una breve mirada. 'Los precios de las materias primas fluctúan. Pregunta en el mercado.'"
+        },
+        {
+          "topic": "gujarati merchants",
+          "aliases": ["gujarati", "gujarat", "indian merchants", "merchants"],
+          "response": "'The Gujarati houses hold significant credit in this port. They outlasted the Malacca Sultanate's collapse — or are in the process of outlasting it. They deal with whoever controls the port, not whoever claims to.'",
+          "response_es": "'Las casas gujaratis tienen crédito significativo en este puerto. Sobrevivieron al colapso del Sultanato de Malaca — o están en proceso de sobrevivirlo. Tratan con quien controla el puerto, no con quien lo reclama.'",
+          "min_disposition": 25,
+          "locked_response": "'Established houses. They conduct their business with discretion.' He does not elaborate.",
+          "locked_response_es": "'Casas establecidas. Realizan sus negocios con discreción.' No elabora."
+        },
+        {
+          "topic": "hadrami silsila",
+          "aliases": ["hadrami", "silsila", "arab scholars", "scholar merchants"],
+          "response": "He is careful. 'The Hadrami network is older and more resilient than any single sultanate. They were here before us and they will be here after. Some of them are very quietly useful in the current situation.' He does not explain what situation.",
+          "response_es": "Es cuidadoso. 'La red hadrami es más antigua y más resistente que cualquier sultanato. Estaban aquí antes que nosotros y seguirán estando después. Algunos de ellos son discretamente muy útiles en la situación actual.' No explica cuál es la situación.",
+          "min_disposition": 30,
+          "min_reputation": 2,
+          "reputation_faction": "malacca_sultanate",
+          "locked_response": "'There are many scholars in this region.' He says nothing further.",
+          "locked_response_es": "'Hay muchos eruditos en esta región.' No dice nada más."
+        },
+        {
+          "topic": "orang laut",
+          "aliases": ["orang laut", "sea nomads", "sea people"],
+          "response": "'The Orang Laut are loyal to the Sultanate — or were. They are also practical. In the current situation, their loyalty follows whoever can protect and pay them. If you are moving through the strait, it is worth having their goodwill. I can make an introduction.' A pause. 'The introduction costs nothing. What comes after it is your affair.'",
+          "response_es": "'Los Orang Laut son leales al Sultanato — o lo eran. También son prácticos. En la situación actual, su lealtad sigue a quien puede protegerlos y pagarles. Si te mueves por el estrecho, vale la pena ganarte su buena voluntad. Puedo hacer una presentación.' Una pausa. 'La presentación no cuesta nada. Lo que venga después es asunto tuyo.'",
+          "min_disposition": 35,
+          "min_reputation": 2,
+          "reputation_faction": "malacca_sultanate",
+          "locked_response": "'The Orang Laut manage their own affairs. I would not presume to speak for them.'",
+          "locked_response_es": "'Los Orang Laut gestionan sus propios asuntos. No me atrevería a hablar en su nombre.'"
+        }
+      ]
+    },
+    {
+      "id": "amir_salim_tahiri_aden",
+      "name": "Amir Salim al-Tahiri",
+      "port": "Aden Harbor",
+      "role": "Tahirid Governor",
+      "fallback": "The Governor inclines his head. 'I do not have information on that matter.'",
+      "fallback_es": "El Gobernador inclina la cabeza. 'No tengo información sobre ese asunto.'",
+      "knowledge": [
+        {
+          "topic": "mamluk fleet",
+          "aliases": ["mamluk", "mamluk ships", "red sea fleet", "indian ocean fleet"],
+          "response": "'The Mamluk fleet has been rebuilding since Diu. Timber is the constraint — Egypt and Syria cannot supply enough. The fleet needs resources from further east.' He watches you carefully. 'Which is why I am speaking with you.'",
+          "response_es": "'La flota mameluca se ha estado reconstruyendo desde Diu. La madera es la limitación — Egipto y Siria no pueden suministrar suficiente. La flota necesita recursos de más al este.' Te observa con atención. 'Por eso estoy hablando contigo.'",
+          "min_disposition": 30,
+          "min_reputation": 1,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "He regards you steadily. 'I do not discuss fleet movements with people I do not know well.'",
+          "locked_response_es": "Te observa con calma. 'No hablo de movimientos de flotas con personas que no conozco bien.'"
+        },
+        {
+          "topic": "portuguese patrols",
+          "aliases": ["portuguese", "patrol", "portuguese ships", "estado"],
+          "response": "'Two carracks work the route between Hormuz and the Red Sea entrance. They change schedule irregularly — someone is selling them information about Mamluk movements, which means someone is also selling information about Portuguese movements.' A slight pause. 'Navigation.'",
+          "response_es": "'Dos carracas trabajan la ruta entre Ormuz y la entrada del Mar Rojo. Cambian de horario de manera irregular — alguien les está vendiendo información sobre los movimientos mamelucos, lo que significa que alguien también está vendiendo información sobre los movimientos portugueses.' Una leve pausa. 'Navegación.'",
+          "min_disposition": 25,
+          "min_reputation": 1,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "'Portuguese movements are a matter for their captains.' He says nothing further.",
+          "locked_response_es": "'Los movimientos portugueses son asunto de sus capitanes.' No dice nada más."
+        },
+        {
+          "topic": "timber",
+          "aliases": ["ship timber", "wood", "teak", "construction"],
+          "response": "'Timber for shipbuilding. India has teak — Malabar, Gujarat. The Hormuz route is the conduit. If someone were moving timber south and west — quietly, without attracting Portuguese attention — that would be a service worth compensating.'",
+          "response_es": "'Madera para construcción naval. India tiene teca — Malabar, Gujarat. La ruta de Ormuz es el conducto. Si alguien transportara madera hacia el sur y el oeste — en silencio, sin llamar la atención de los portugueses — ese sería un servicio digno de compensación.'",
+          "min_disposition": 35,
+          "locked_response": "'Timber is widely traded.' He does not engage further.",
+          "locked_response_es": "'La madera es un bien ampliamente comerciado.' No se involucra más."
+        }
+      ]
+    },
+    {
+      "id": "mustafa_al_rumi_hormuz",
+      "name": "Mustafa al-Rumi",
+      "port": "Hormuz",
+      "role": "Ottoman Agent",
+      "fallback": "Mustafa al-Rumi considers your question. 'I do not have anything useful on that topic.'",
+      "fallback_es": "Mustafa al-Rumi considera tu pregunta. 'No tengo nada útil sobre ese tema.'",
+      "knowledge": [
+        {
+          "topic": "selman reis",
+          "aliases": ["selman", "ottoman admiral", "the admiral", "selman bey"],
+          "response": "'Selman Reis is the man who will decide whether the Ottomans have a permanent presence in the Indian Ocean. He is planning a fleet — not for now, but for the future. When he comes east, he will come with force and with purpose.' A pause. 'It would be useful to know which side of that you want to be on before then.'",
+          "response_es": "'Selman Reis es el hombre que decidirá si los otomanos tienen presencia permanente en el Océano Índico. Está planeando una flota — no para ahora, sino para el futuro. Cuando venga al este, vendrá con fuerza y propósito.' Una pausa. 'Sería útil saber de qué lado quieres estar antes de entonces.'",
+          "min_disposition": 40,
+          "min_reputation": 2,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "He does not react. 'I do not know anyone by that name.' He does not look away.",
+          "locked_response_es": "No reacciona. 'No conozco a nadie con ese nombre.' No aparta la vista."
+        },
+        {
+          "topic": "portuguese intelligence",
+          "aliases": ["portuguese", "patrol patterns", "estado", "portuguese ships"],
+          "response": "'Two carracks. They change route irregularly — every six to eight days, not on a fixed schedule. They search ships with specific cargo types: copper, timber, weapons. If you were carrying something they were looking for, I would know about it before you did.' He leaves the implication standing.",
+          "response_es": "'Dos carracas. Cambian de ruta de manera irregular — cada seis u ocho días, no con un horario fijo. Inspeccionan barcos con tipos de carga específicos: cobre, madera, armas. Si llevaras algo que estuvieran buscando, yo lo sabría antes que tú.' Deja la implicación en pie.",
+          "min_disposition": 35,
+          "min_reputation": 1,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "'The Portuguese movements are not something I track.' He says this without apparent irony.",
+          "locked_response_es": "'Los movimientos portugueses no son algo que yo rastree.' Lo dice sin ironía aparente."
+        },
+        {
+          "topic": "mamluk collapse",
+          "aliases": ["mamluks", "cairo", "egypt", "mamluk fall", "selim"],
+          "response": "'Cairo falls — it is already decided, we are watching the timing. The Mamluks held the old routes for two centuries. What comes after them is being built right now, by people who are paying attention.' He looks at you directly. 'Are you paying attention?'",
+          "response_es": "'El Cairo cae — ya está decidido, estamos observando los tiempos. Los mamelucos mantuvieron las viejas rutas durante dos siglos. Lo que viene tras ellos se está construyendo ahora mismo, por personas que están prestando atención.' Te mira directamente. '¿Tú estás prestando atención?'",
+          "min_disposition": 30,
+          "min_reputation": 1,
+          "reputation_faction": "hadrami_silsila",
+          "locked_response": "'Cairo politics are complicated. I would not speculate.' He changes the subject.",
+          "locked_response_es": "'La política de El Cairo es complicada. No especularía.' Cambia de tema."
+        },
+        {
+          "topic": "ottomans",
+          "aliases": ["ottoman empire", "istanbul", "the porte", "sultan selim"],
+          "response": "'The Ottoman Empire is the largest state in the world. It is also not a fixed object — it is a process. What it is doing in the Indian Ocean right now is that process in motion.' A quiet pause. 'I am part of that process. Whether you are is a question you should answer for yourself.'",
+          "response_es": "'El Imperio Otomano es el estado más grande del mundo. Y tampoco es un objeto fijo — es un proceso. Lo que está haciendo en el Océano Índico en este momento es ese proceso en movimiento.' Una pausa silenciosa. 'Yo soy parte de ese proceso. Si tú lo eres es una pregunta que deberías responderte tú mismo.'",
+          "min_disposition": 20,
+          "locked_response": "'A large empire with many concerns.' He does not engage further.",
+          "locked_response_es": "'Un gran imperio con muchas preocupaciones.' No se involucra más."
+        }
+      ]
+    }
+  ]
+}

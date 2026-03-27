@@ -1,126 +1,147 @@
 {
   "positive_traits": [
-    { "id": "worldly", "name": "Worldly", "description": "Has traveled broadly; reduces price penalties at foreign ports by 10%.", "stat_mods": { "trade_bonus": 0.10 } },
-    { "id": "polyglot", "name": "Polyglot", "description": "Picks up languages quickly; functions as partial translator even in unknown tongues.", "stat_mods": { "trade_bonus": 0.08, "diplomacy": 5 } },
-    { "id": "navigator", "name": "Skilled Navigator", "description": "Reduces travel time between ports by 1 day.", "stat_mods": { "travel_speed": 1 } },
-    { "id": "iron_constitution", "name": "Iron Constitution", "description": "Rarely falls ill; reduces crew sickness events.", "stat_mods": { "health_bonus": 15 } },
-    { "id": "veteran_sailor", "name": "Veteran Sailor", "description": "Adds +5 to ship handling in storms.", "stat_mods": { "storm_bonus": 5 } },
-    { "id": "inspiring", "name": "Inspiring", "description": "Passively adds +2 morale per day at sea.", "stat_mods": { "morale_per_day": 2 } },
-    { "id": "sharp_eye", "name": "Sharp Eye", "description": "Spots threats early; reduces chance of being surprised at sea by 20%.", "stat_mods": { "ambush_resist": 0.20 } },
-    { "id": "strong", "name": "Strong", "description": "+3 combat effectiveness in boarding actions.", "stat_mods": { "combat": 3 } },
-    { "id": "quick", "name": "Quick", "description": "+2 combat effectiveness, first strike advantage.", "stat_mods": { "combat": 2, "first_strike": true } },
-    { "id": "intimidating", "name": "Intimidating", "description": "Reduces pirate boarding attempts by 10%.", "stat_mods": { "pirate_deter": 0.10 } },
-    { "id": "pious", "name": "Pious", "description": "Boosts morale among crew of matching religion by 5.", "stat_mods": { "religion_morale": 5 } },
-    { "id": "healer", "name": "Healer", "description": "Reduces crew casualties from combat and disease.", "stat_mods": { "casualty_reduce": 0.20 } },
-    { "id": "sharp_trader", "name": "Sharp Trader", "description": "Gets an additional 5% on all sell prices.", "stat_mods": { "sell_bonus": 0.05 } },
-    { "id": "calm_under_fire", "name": "Calm Under Fire", "description": "Prevents morale drop during combat.", "stat_mods": { "combat_morale_immune": true } },
-    { "id": "storyteller", "name": "Storyteller", "description": "Boosts morale at port; reduces time needed to recruit.", "stat_mods": { "recruit_speed": 1 } }
+    { "id": "worldly", "name": "Worldly", "name_es": "Cosmopolita", "description": "Has traveled broadly; reduces price penalties at foreign ports by 10%.", "description_es": "Ha viajado ampliamente; reduce las penalizaciones de precio en puertos extranjeros en un 10%.", "stat_mods": { "trade_bonus": 0.10 } },
+    { "id": "polyglot", "name": "Polyglot", "name_es": "Políglota", "description": "Picks up languages quickly; functions as partial translator even in unknown tongues.", "description_es": "Aprende lenguas con rapidez; actúa como traductor parcial incluso en idiomas desconocidos.", "stat_mods": { "trade_bonus": 0.08, "diplomacy": 5 } },
+    { "id": "navigator", "name": "Skilled Navigator", "name_es": "Navegante Experto", "description": "Reduces travel time between ports by 1 day.", "description_es": "Reduce el tiempo de viaje entre puertos en 1 día.", "stat_mods": { "travel_speed": 1 } },
+    { "id": "iron_constitution", "name": "Iron Constitution", "name_es": "Constitución de Hierro", "description": "Rarely falls ill; reduces crew sickness events.", "description_es": "Rara vez enferma; reduce los eventos de enfermedad entre la tripulación.", "stat_mods": { "health_bonus": 15 } },
+    { "id": "veteran_sailor", "name": "Veteran Sailor", "name_es": "Marinero Veterano", "description": "Adds +5 to ship handling in storms.", "description_es": "Añade +5 al manejo del navío en tormentas.", "stat_mods": { "storm_bonus": 5 } },
+    { "id": "inspiring", "name": "Inspiring", "name_es": "Inspirador", "description": "Passively adds +2 morale per day at sea.", "description_es": "Añade pasivamente +2 de moral por día en alta mar.", "stat_mods": { "morale_per_day": 2 } },
+    { "id": "sharp_eye", "name": "Sharp Eye", "name_es": "Ojo Agudo", "description": "Spots threats early; reduces chance of being surprised at sea by 20%.", "description_es": "Detecta amenazas a tiempo; reduce en un 20% la probabilidad de ser sorprendido en el mar.", "stat_mods": { "ambush_resist": 0.20 } },
+    { "id": "strong", "name": "Strong", "name_es": "Fuerte", "description": "+3 combat effectiveness in boarding actions.", "description_es": "+3 de efectividad en combate durante abordajes.", "stat_mods": { "combat": 3 } },
+    { "id": "quick", "name": "Quick", "name_es": "Ágil", "description": "+2 combat effectiveness, first strike advantage.", "description_es": "+2 de efectividad en combate, ventaja de ataque primero.", "stat_mods": { "combat": 2, "first_strike": true } },
+    { "id": "intimidating", "name": "Intimidating", "name_es": "Intimidante", "description": "Reduces pirate boarding attempts by 10%.", "description_es": "Reduce los intentos de abordaje piratas en un 10%.", "stat_mods": { "pirate_deter": 0.10 } },
+    { "id": "pious", "name": "Pious", "name_es": "Piadoso", "description": "Boosts morale among crew of matching religion by 5.", "description_es": "Aumenta la moral de la tripulación de la misma fe en 5.", "stat_mods": { "religion_morale": 5 } },
+    { "id": "healer", "name": "Healer", "name_es": "Curandero", "description": "Reduces crew casualties from combat and disease.", "description_es": "Reduce las bajas de la tripulación por combate y enfermedad.", "stat_mods": { "casualty_reduce": 0.20 } },
+    { "id": "sharp_trader", "name": "Sharp Trader", "name_es": "Comerciante Astuto", "description": "Gets an additional 5% on all sell prices.", "description_es": "Obtiene un 5% adicional en todos los precios de venta.", "stat_mods": { "sell_bonus": 0.05 } },
+    { "id": "calm_under_fire", "name": "Calm Under Fire", "name_es": "Sereno bajo el Fuego", "description": "Prevents morale drop during combat.", "description_es": "Impide la caída de moral durante el combate.", "stat_mods": { "combat_morale_immune": true } },
+    { "id": "storyteller", "name": "Storyteller", "name_es": "Cuentacuentos", "description": "Boosts morale at port; reduces time needed to recruit.", "description_es": "Eleva la moral en puerto; reduce el tiempo necesario para reclutar.", "stat_mods": { "recruit_speed": 1 } }
   ],
   "negative_traits": [
-    { "id": "drunk", "name": "Drunkard", "description": "At port, has a 20% chance to cause a brawl, costing gold.", "stat_mods": { "port_incident_chance": 0.20 } },
-    { "id": "coward", "name": "Coward", "description": "Flees during combat; reduces combat effectiveness of adjacent crew.", "stat_mods": { "combat": -3 } },
-    { "id": "greedy", "name": "Greedy", "description": "Demands double wages or morale drops.", "stat_mods": { "wage_multiplier": 2 } },
-    { "id": "superstitious", "name": "Superstitious", "description": "Loses 3 morale when unusual events occur at sea.", "stat_mods": { "sea_event_morale": -3 } },
-    { "id": "seasick", "name": "Chronically Seasick", "description": "Loses effectiveness at sea; -2 morale per 2 days.", "stat_mods": { "sea_morale_drain": 2 } },
-    { "id": "violent", "name": "Violent Temper", "description": "10% chance per port of starting a fight.", "stat_mods": { "port_incident_chance": 0.10 } },
-    { "id": "slow", "name": "Slow-Witted", "description": "Fumbles under pressure; -2 in emergencies.", "stat_mods": { "emergency_penalty": -2 } },
-    { "id": "gossip", "name": "Gossip", "description": "Spreads rumors; -5 diplomacy with port rulers.", "stat_mods": { "diplomacy": -5 } },
-    { "id": "kleptomaniac", "name": "Kleptomaniac", "description": "Has a 10% chance to steal small amounts from cargo each port.", "stat_mods": { "cargo_theft_chance": 0.10 } },
-    { "id": "sickly", "name": "Sickly", "description": "Prone to illness; risks spreading disease to crew.", "stat_mods": { "disease_risk": 0.15 } },
-    { "id": "insubordinate", "name": "Insubordinate", "description": "Refuses orders 15% of the time; causes crew friction.", "stat_mods": { "order_fail_chance": 0.15 } },
-    { "id": "unlucky", "name": "Unlucky", "description": "Increases bad sea event probability by 10%.", "stat_mods": { "bad_event_chance": 0.10 } },
-    { "id": "bigoted", "name": "Bigoted", "description": "Reduces morale among crew of different religion/ethnicity by 3.", "stat_mods": { "diversity_morale": -3 } },
-    { "id": "gambler", "name": "Compulsive Gambler", "description": "Loses gold at port dice games; 15% chance to drain party funds.", "stat_mods": { "gambling_loss_chance": 0.15 } },
-    { "id": "crude", "name": "Crude", "description": "Offends local dignitaries; -10 to ruler disposition on first meeting.", "stat_mods": { "first_impression": -10 } }
+    { "id": "drunk", "name": "Drunkard", "name_es": "Borrachín", "description": "At port, has a 20% chance to cause a brawl, costing gold.", "description_es": "En puerto, tiene un 20% de posibilidades de provocar una pelea, costando oro.", "stat_mods": { "port_incident_chance": 0.20 } },
+    { "id": "coward", "name": "Coward", "name_es": "Cobarde", "description": "Flees during combat; reduces combat effectiveness of adjacent crew.", "description_es": "Huye durante el combate; reduce la efectividad de los tripulantes cercanos.", "stat_mods": { "combat": -3 } },
+    { "id": "greedy", "name": "Greedy", "name_es": "Codicioso", "description": "Demands double wages or morale drops.", "description_es": "Exige el doble de salario o la moral cae.", "stat_mods": { "wage_multiplier": 2 } },
+    { "id": "superstitious", "name": "Superstitious", "name_es": "Supersticioso", "description": "Loses 3 morale when unusual events occur at sea.", "description_es": "Pierde 3 de moral cuando ocurren eventos inusuales en el mar.", "stat_mods": { "sea_event_morale": -3 } },
+    { "id": "seasick", "name": "Chronically Seasick", "name_es": "Mareado Crónico", "description": "Loses effectiveness at sea; -2 morale per 2 days.", "description_es": "Pierde efectividad en alta mar; -2 de moral cada 2 días.", "stat_mods": { "sea_morale_drain": 2 } },
+    { "id": "violent", "name": "Violent Temper", "name_es": "Temperamento Violento", "description": "10% chance per port of starting a fight.", "description_es": "10% de posibilidades por puerto de provocar una pelea.", "stat_mods": { "port_incident_chance": 0.10 } },
+    { "id": "slow", "name": "Slow-Witted", "name_es": "Torpe de Mente", "description": "Fumbles under pressure; -2 in emergencies.", "description_es": "Se desconcierta bajo presión; -2 en emergencias.", "stat_mods": { "emergency_penalty": -2 } },
+    { "id": "gossip", "name": "Gossip", "name_es": "Chismoso", "description": "Spreads rumors; -5 diplomacy with port rulers.", "description_es": "Difunde rumores; -5 de diplomacia con los gobernantes del puerto.", "stat_mods": { "diplomacy": -5 } },
+    { "id": "kleptomaniac", "name": "Kleptomaniac", "name_es": "Cleptómano", "description": "Has a 10% chance to steal small amounts from cargo each port.", "description_es": "Tiene un 10% de posibilidades de robar pequeñas cantidades de la carga en cada puerto.", "stat_mods": { "cargo_theft_chance": 0.10 } },
+    { "id": "sickly", "name": "Sickly", "name_es": "Enfermizo", "description": "Prone to illness; risks spreading disease to crew.", "description_es": "Propenso a enfermar; arriesga propagar enfermedades a la tripulación.", "stat_mods": { "disease_risk": 0.15 } },
+    { "id": "insubordinate", "name": "Insubordinate", "name_es": "Insubordinado", "description": "Refuses orders 15% of the time; causes crew friction.", "description_es": "Rechaza órdenes el 15% de las veces; genera fricciones en la tripulación.", "stat_mods": { "order_fail_chance": 0.15 } },
+    { "id": "unlucky", "name": "Unlucky", "name_es": "Sin Suerte", "description": "Increases bad sea event probability by 10%.", "description_es": "Aumenta la probabilidad de eventos adversos en el mar en un 10%.", "stat_mods": { "bad_event_chance": 0.10 } },
+    { "id": "bigoted", "name": "Bigoted", "name_es": "Intolerante", "description": "Reduces morale among crew of different religion/ethnicity by 3.", "description_es": "Reduce la moral de la tripulación de distinta fe o etnia en 3.", "stat_mods": { "diversity_morale": -3 } },
+    { "id": "gambler", "name": "Compulsive Gambler", "name_es": "Jugador Compulsivo", "description": "Loses gold at port dice games; 15% chance to drain party funds.", "description_es": "Pierde oro en los juegos de dados del puerto; 15% de posibilidades de agotar los fondos.", "stat_mods": { "gambling_loss_chance": 0.15 } },
+    { "id": "crude", "name": "Crude", "name_es": "Grosero", "description": "Offends local dignitaries; -10 to ruler disposition on first meeting.", "description_es": "Ofende a los dignatarios locales; -10 a la disposición del gobernante en el primer encuentro.", "stat_mods": { "first_impression": -10 } },
+    { "id": "zealot", "name": "Zealot", "name_es": "Fanático", "description": "Fanatical faith. Boosts same-faith morale +5 but creates friction with those of opposing belief. Conflict events possible.", "description_es": "Fe intransigente. Eleva la moral de quienes comparten su credo en +5, pero genera conflictos con los de creencias opuestas. Posibles eventos de confrontación.", "stat_mods": { "same_faith_morale": 5, "cross_faith_friction": true } },
+    { "id": "prideful", "name": "Prideful", "name_es": "Altivo", "description": "Will not take orders from those he deems beneath him. Cannot be insubordinate — pride runs deeper than defiance.", "description_es": "No acepta órdenes de quienes considera inferiores. No es insubordinación — el orgullo corre más hondo que la rebeldía.", "stat_mods": { "diplomacy": -3 } },
+    { "id": "oath_breaker", "name": "Oath-Breaker", "name_es": "Quebrantajuramentos", "description": "Known to have broken a sworn oath. Other crew trust him less. Some ports know his name.", "description_es": "Conocido por haber traicionado un juramento. La tripulación confía menos en él. Algunos puertos conocen su nombre.", "stat_mods": { "crew_trust": -10, "diplomat_penalty": -5 } },
+    { "id": "haunted", "name": "Haunted", "name_es": "Atormentado", "description": "Carries an old wound — a loss or a crime that never leaves. Periodic morale dips. Certain events hit harder.", "description_es": "Carga con una herida antigua — una pérdida o un crimen que no lo abandona. Caídas periódicas de moral. Ciertos eventos lo golpean con más fuerza.", "stat_mods": { "sea_event_morale": -2 } },
+    { "id": "womanizer", "name": "Womanizer", "name_es": "Mujeriego", "description": "Trouble at every port; creates complications with local figures and pious crew alike.", "description_es": "Problemas en cada puerto; crea complicaciones con figuras locales y tripulantes devotos por igual.", "stat_mods": { "port_incident_chance": 0.15 } },
+    { "id": "xenophobic", "name": "Xenophobic", "name_es": "Xenófobo", "description": "Distrusts foreign ports and peoples. Morale penalty at non-home-region ports. Creates crew tension with worldly or polyglot members.", "description_es": "Desconfía de los puertos y pueblos extranjeros. Penalización de moral en puertos fuera de su región. Genera tensión con los miembros cosmopolitas o políglotas de la tripulación.", "stat_mods": { "foreign_port_morale": -3 } }
   ],
   "occupations": [
     {
-      "id": "sailor", "name": "Sailor",
+      "id": "sailor", "name": "Sailor", "name_es": "Marinero",
       "description": "The backbone of any crew. Does a bit of everything.",
+      "description_es": "El pilar de toda tripulación. Hace un poco de todo.",
       "base_combat": 3, "base_navigation": 4, "base_trade": 1,
       "special": null
     },
     {
-      "id": "navigator", "name": "Navigator",
+      "id": "navigator", "name": "Navigator", "name_es": "Navegante",
       "description": "Reads stars, currents, and coastlines. Reduces travel time.",
+      "description_es": "Lee estrellas, corrientes y costas. Reduce el tiempo de viaje.",
       "base_combat": 1, "base_navigation": 8, "base_trade": 2,
       "special": "travel_speed_bonus"
     },
     {
-      "id": "merchant", "name": "Merchant",
+      "id": "merchant", "name": "Merchant", "name_es": "Mercader",
       "description": "Knows the value of things. Better prices when trading.",
+      "description_es": "Conoce el valor de las cosas. Mejores precios al comerciar.",
       "base_combat": 1, "base_navigation": 2, "base_trade": 8,
       "special": "trade_price_bonus"
     },
     {
-      "id": "soldier", "name": "Soldier",
+      "id": "soldier", "name": "Soldier", "name_es": "Soldado",
       "description": "Trained for combat. Crucial in boarding actions and pirate encounters.",
+      "description_es": "Entrenado para el combate. Esencial en abordajes y encuentros con piratas.",
       "base_combat": 8, "base_navigation": 1, "base_trade": 1,
       "special": "boarding_bonus"
     },
     {
-      "id": "gunner", "name": "Gunner",
+      "id": "gunner", "name": "Gunner", "name_es": "Artillero",
       "description": "Manages ship artillery. Improves cannon effectiveness.",
+      "description_es": "Maneja la artillería del barco. Mejora la efectividad de los cañones.",
       "base_combat": 6, "base_navigation": 2, "base_trade": 1,
       "special": "cannon_bonus"
     },
     {
-      "id": "physician", "name": "Physician",
+      "id": "physician", "name": "Physician", "name_es": "Médico",
       "description": "Reduces crew casualties from disease and combat wounds.",
+      "description_es": "Reduce las bajas de la tripulación por enfermedad y heridas de combate.",
       "base_combat": 1, "base_navigation": 1, "base_trade": 2,
       "special": "healing_bonus"
     },
     {
-      "id": "interpreter", "name": "Interpreter",
+      "id": "interpreter", "name": "Interpreter", "name_es": "Intérprete",
       "description": "Fluent in multiple tongues. Unlocks better prices and diplomatic options.",
+      "description_es": "Fluido en múltiples lenguas. Desbloquea mejores precios y opciones diplomáticas.",
       "base_combat": 1, "base_navigation": 2, "base_trade": 6,
       "special": "language_trade_bonus"
     },
     {
-      "id": "carpenter", "name": "Ship's Carpenter",
+      "id": "carpenter", "name": "Ship's Carpenter", "name_es": "Carpintero de Ribera",
       "description": "Repairs hull damage. Invaluable after storms or battles.",
+      "description_es": "Repara los daños del casco. Invaluable tras tormentas o batallas.",
       "base_combat": 2, "base_navigation": 1, "base_trade": 1,
       "special": "repair_bonus"
     },
     {
-      "id": "priest", "name": "Priest/Imam/Monk",
+      "id": "priest", "name": "Priest/Imam/Monk", "name_es": "Sacerdote/Imán/Monje",
       "description": "Religious figure aboard. Boosts morale among faithful crew.",
+      "description_es": "Figura religiosa a bordo. Eleva la moral de la tripulación devota.",
       "base_combat": 1, "base_navigation": 1, "base_trade": 2,
       "special": "morale_religion_bonus"
     },
     {
-      "id": "cook", "name": "Ship's Cook",
+      "id": "cook", "name": "Ship's Cook", "name_es": "Cocinero de a Bordo",
       "description": "Good food keeps a crew alive. Reduces morale loss on long voyages.",
+      "description_es": "La buena comida mantiene viva a la tripulación. Reduce la pérdida de moral en travesías largas.",
       "base_combat": 1, "base_navigation": 1, "base_trade": 1,
       "special": "morale_passive_bonus"
     },
     {
-      "id": "diver", "name": "Pearl Diver",
+      "id": "diver", "name": "Pearl Diver", "name_es": "Buzo de Perlas",
       "description": "Skilled underwater. Unlocks unique salvage options at sea.",
+      "description_es": "Hábil bajo el agua. Desbloquea opciones únicas de salvamento en el mar.",
       "base_combat": 2, "base_navigation": 3, "base_trade": 3,
       "special": "salvage_bonus"
     },
     {
-      "id": "scout", "name": "Scout",
+      "id": "scout", "name": "Scout", "name_es": "Explorador",
       "description": "Eyes and ears. Reduces chance of ambush and reveals port rumors.",
+      "description_es": "Ojos y oídos. Reduce la probabilidad de emboscadas y revela rumores del puerto.",
       "base_combat": 4, "base_navigation": 4, "base_trade": 2,
       "special": "ambush_resist"
     },
     {
-      "id": "mercenary", "name": "Mercenary",
+      "id": "mercenary", "name": "Mercenary", "name_es": "Mercenario",
       "description": "Fights for gold. High combat, demands premium pay.",
+      "description_es": "Combate por oro. Alto nivel de combate, exige paga premium.",
       "base_combat": 9, "base_navigation": 1, "base_trade": 1,
       "special": "high_wage"
     },
     {
-      "id": "former_pirate", "name": "Former Pirate",
+      "id": "former_pirate", "name": "Former Pirate", "name_es": "Antiguo Pirata",
       "description": "Knows pirate tactics from the inside. Mixed blessing.",
+      "description_es": "Conoce las tácticas piratas desde dentro. Bendición con condiciones.",
       "base_combat": 7, "base_navigation": 5, "base_trade": 3,
       "special": "pirate_knowledge"
     },
     {
-      "id": "herbalist", "name": "Herbalist",
+      "id": "herbalist", "name": "Herbalist", "name_es": "Herbolario",
       "description": "Knowledge of local plants. Reduces disease risk; can trade remedies.",
+      "description_es": "Conocimiento de plantas locales. Reduce el riesgo de enfermedad; puede comerciar remedios.",
       "base_combat": 1, "base_navigation": 2, "base_trade": 4,
       "special": "disease_resist"
     }
@@ -366,102 +387,164 @@
       "typical_religions": ["Animism"],
       "world_region": "Southeast Asia",
       "wage_range": [1, 3]
+    },
+    "yemeni_merchant": {
+      "ethnicity": "Yemeni", "native_tongue": "Arabic",
+      "other_languages": ["Persian", "Swahili"],
+      "typical_occupations": ["merchant", "interpreter"],
+      "typical_religions": ["Islam"],
+      "world_region": "Arabian Peninsula",
+      "wage_range": [3, 7]
+    },
+    "somali_sailor": {
+      "ethnicity": "Somali", "native_tongue": "Somali",
+      "other_languages": ["Arabic"],
+      "typical_occupations": ["sailor", "navigator", "diver"],
+      "typical_religions": ["Islam"],
+      "world_region": "Arabian Peninsula",
+      "wage_range": [2, 5]
+    },
+    "hadrami_guard": {
+      "ethnicity": "Hadrami", "native_tongue": "Arabic",
+      "other_languages": ["Swahili", "Malay"],
+      "typical_occupations": ["soldier", "mercenary"],
+      "typical_religions": ["Islam"],
+      "world_region": "Arabian Peninsula",
+      "wage_range": [4, 8]
     }
   },
   "weapons": {
     "kris": {
-      "name": "Kris (Keris)", "type": "melee", "origin": "Malay/Javanese",
-      "damage": 4, "description": "Wavy-bladed dagger of great ritual significance. Fast and deadly at close quarters.",
+      "name": "Kris (Keris)", "name_es": "Kris (Keris)", "type": "melee", "origin": "Malay/Javanese",
+      "damage": 4,
+      "description": "Wavy-bladed dagger of great ritual significance. Fast and deadly at close quarters.",
+      "description_es": "Daga de hoja ondulada y gran significado ritual. Rápida y letal en el combate cuerpo a cuerpo.",
       "cost": 12, "availability": ["Malacca Harbor", "Bantam", "Ternate", "Pulau Tioman"]
     },
     "parang": {
-      "name": "Parang", "type": "melee", "origin": "Malay",
-      "damage": 3, "description": "Heavy chopping blade. Common among Malay sailors and soldiers.",
+      "name": "Parang", "name_es": "Parang", "type": "melee", "origin": "Malay",
+      "damage": 3,
+      "description": "Heavy chopping blade. Common among Malay sailors and soldiers.",
+      "description_es": "Hoja pesada para cortar. Común entre marineros y soldados malayos.",
       "cost": 5, "availability": ["Malacca Harbor", "Bantam", "Pulau Tioman", "Patani"]
     },
     "urumi": {
-      "name": "Urumi", "type": "melee", "origin": "Indian",
-      "damage": 5, "description": "Flexible whip-sword from the Malabar Coast. Lethal in practiced hands.",
+      "name": "Urumi", "name_es": "Urumi", "type": "melee", "origin": "Indian",
+      "damage": 5,
+      "description": "Flexible whip-sword from the Malabar Coast. Lethal in practiced hands.",
+      "description_es": "Espada-látigo flexible de la Costa de Malabar. Letal en manos expertas.",
       "cost": 18, "availability": ["Calicut"]
     },
     "katar": {
-      "name": "Katar", "type": "melee", "origin": "Indian",
-      "damage": 4, "description": "Push-dagger with transverse grip. Punches through chain.",
+      "name": "Katar", "name_es": "Katar", "type": "melee", "origin": "Indian",
+      "damage": 4,
+      "description": "Push-dagger with transverse grip. Punches through chain.",
+      "description_es": "Daga de empuje con empuñadura transversal. Perfora la cota de malla.",
       "cost": 10, "availability": ["Calicut", "Goa Harbor"]
     },
     "scimitar": {
-      "name": "Scimitar", "type": "melee", "origin": "Persian/Arab",
-      "damage": 6, "description": "Curved cavalry blade, used widely around the Persian Gulf and Indian Ocean.",
+      "name": "Scimitar", "name_es": "Cimitarra", "type": "melee", "origin": "Persian/Arab",
+      "damage": 6,
+      "description": "Curved cavalry blade, used widely around the Persian Gulf and Indian Ocean.",
+      "description_es": "Hoja curva de caballería, usada ampliamente en el Golfo Pérsico y el Océano Índico.",
       "cost": 20, "availability": ["Hormuz", "Calicut"]
     },
     "composite_bow": {
-      "name": "Composite Bow", "type": "ranged", "origin": "Central Asian/Arab",
-      "damage": 5, "description": "Powerful recurve bow. High draw weight, fearsome range.",
+      "name": "Composite Bow", "name_es": "Arco Compuesto", "type": "ranged", "origin": "Central Asian/Arab",
+      "damage": 5,
+      "description": "Powerful recurve bow. High draw weight, fearsome range.",
+      "description_es": "Potente arco recurvo. Gran tensión, alcance formidable.",
       "cost": 22, "availability": ["Hormuz"]
     },
     "dao": {
-      "name": "Dao (Chinese Saber)", "type": "melee", "origin": "Chinese",
-      "damage": 5, "description": "Single-edged Chinese blade. Standard weapon of Ming soldiers and sailors.",
+      "name": "Dao (Chinese Saber)", "name_es": "Dao (Sable Chino)", "type": "melee", "origin": "Chinese",
+      "damage": 5,
+      "description": "Single-edged Chinese blade. Standard weapon of Ming soldiers and sailors.",
+      "description_es": "Hoja china de un solo filo. Arma estándar de soldados y marineros Ming.",
       "cost": 14, "availability": ["Quanzhou", "Bantam"]
     },
     "fire_lance": {
-      "name": "Fire Lance", "type": "ranged", "origin": "Chinese",
-      "damage": 7, "description": "Precursor to the gun: a bamboo tube packed with gunpowder. Terrifying, unstable.",
+      "name": "Fire Lance", "name_es": "Lanza de Fuego", "type": "ranged", "origin": "Chinese",
+      "damage": 7,
+      "description": "Precursor to the gun: a bamboo tube packed with gunpowder. Terrifying, unstable.",
+      "description_es": "Precursor del arma de fuego: un tubo de bambú cargado con pólvora. Aterrador e inestable.",
       "cost": 25, "availability": ["Quanzhou"]
     },
     "sword_rapier": {
-      "name": "Rapier", "type": "melee", "origin": "Portuguese/European",
-      "damage": 6, "description": "Thrusting sword of European infantry officers. Fast and precise.",
+      "name": "Rapier", "name_es": "Estoque", "type": "melee", "origin": "Portuguese/European",
+      "damage": 6,
+      "description": "Thrusting sword of European infantry officers. Fast and precise.",
+      "description_es": "Espada de estocada de los oficiales de infantería europeos. Rápida y precisa.",
       "cost": 30, "availability": ["Goa Harbor"]
     },
     "pike": {
-      "name": "Pike", "type": "melee", "origin": "European",
-      "damage": 5, "description": "Long spear used in European pike formations. Effective against cavalry and boarding parties.",
+      "name": "Pike", "name_es": "Pica", "type": "melee", "origin": "European",
+      "damage": 5,
+      "description": "Long spear used in European pike formations. Effective against cavalry and boarding parties.",
+      "description_es": "Lanza larga usada en formaciones de piqueros europeos. Efectiva contra caballería y abordajes.",
       "cost": 8, "availability": ["Goa Harbor"]
     },
     "arquebus": {
-      "name": "Arquebus", "type": "ranged", "origin": "European",
-      "damage": 9, "description": "Matchlock firearm. Slow to reload but devastating at range.",
+      "name": "Arquebus", "name_es": "Arcabuz", "type": "ranged", "origin": "European",
+      "damage": 9,
+      "description": "Matchlock firearm. Slow to reload but devastating at range.",
+      "description_es": "Arma de fuego de mecha. Lenta en recargar, pero devastadora a distancia.",
       "cost": 45, "availability": ["Goa Harbor"]
     },
     "local_arquebus": {
-      "name": "Local Arquebus (Bedil)", "type": "ranged", "origin": "Local manufacture",
-      "damage": 7, "description": "A crude matchlock copy, locally forged by artisans of variable skill. Cheaper but prone to misfires.",
+      "name": "Local Arquebus (Bedil)", "name_es": "Arcabuz Local (Bedil)", "type": "ranged", "origin": "Local manufacture",
+      "damage": 7,
+      "description": "A crude matchlock copy, locally forged by artisans of variable skill. Cheaper but prone to misfires.",
+      "description_es": "Una tosca copia de arcabuz, forjada localmente por artesanos de habilidad variable. Más barata, pero propensa a fallar.",
       "cost": 22, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam", "Ternate"]
     },
     "crossbow": {
-      "name": "Crossbow", "type": "ranged", "origin": "Chinese/European",
-      "damage": 7, "description": "Mechanical bow. Slower than a longbow but requires less training.",
+      "name": "Crossbow", "name_es": "Ballesta", "type": "ranged", "origin": "Chinese/European",
+      "damage": 7,
+      "description": "Mechanical bow. Slower than a longbow but requires less training.",
+      "description_es": "Arco mecánico. Más lenta que el arco largo, pero requiere menos adiestramiento.",
       "cost": 20, "availability": ["Quanzhou", "Goa Harbor"]
     },
     "spear": {
-      "name": "Spear", "type": "melee", "origin": "Universal",
-      "damage": 4, "description": "The universal weapon. Found everywhere from the Malabar Coast to the Spice Islands.",
+      "name": "Spear", "name_es": "Lanza", "type": "melee", "origin": "Universal",
+      "damage": 4,
+      "description": "The universal weapon. Found everywhere from the Malabar Coast to the Spice Islands.",
+      "description_es": "El arma universal. Presente en todas partes, desde la Costa de Malabar hasta las Islas de las Especias.",
       "cost": 4, "availability": ["Malacca Harbor", "Calicut", "Hormuz", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
     },
     "dagger": {
-      "name": "Dagger", "type": "melee", "origin": "Universal",
-      "damage": 3, "description": "Short blade for close work. Easily concealed.",
+      "name": "Dagger", "name_es": "Daga", "type": "melee", "origin": "Universal",
+      "damage": 3,
+      "description": "Short blade for close work. Easily concealed.",
+      "description_es": "Hoja corta para el combate a distancia corta. Fácil de ocultar.",
       "cost": 5, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam"]
     },
     "bow": {
-      "name": "Bow", "type": "ranged", "origin": "Universal",
-      "damage": 4, "description": "Simple hunting bow. Effective enough at short range.",
+      "name": "Bow", "name_es": "Arco", "type": "ranged", "origin": "Universal",
+      "damage": 4,
+      "description": "Simple hunting bow. Effective enough at short range.",
+      "description_es": "Arco de caza sencillo. Suficientemente efectivo a corta distancia.",
       "cost": 7, "availability": ["Calicut", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
     },
     "blowpipe": {
-      "name": "Blowpipe (Sumpitan)", "type": "ranged", "origin": "Southeast Asian",
-      "damage": 3, "description": "Silent, with poison darts. Unnerving at range. Poisoned darts optional.",
+      "name": "Blowpipe (Sumpitan)", "name_es": "Cerbatana (Sumpitan)", "type": "ranged", "origin": "Southeast Asian",
+      "damage": 3,
+      "description": "Silent, with poison darts. Unnerving at range. Poisoned darts optional.",
+      "description_es": "Silenciosa, con dardos envenenados. Inquietante a distancia. Dardos envenenados opcionales.",
       "cost": 8, "availability": ["Pulau Tioman", "Ternate"]
     },
     "keris_panjang": {
-      "name": "Keris Panjang (Long Kris)", "type": "melee", "origin": "Javanese",
-      "damage": 5, "description": "An elongated kris. More like a short sword. Reserved for warriors of standing.",
+      "name": "Keris Panjang (Long Kris)", "name_es": "Keris Panjang (Kris Largo)", "type": "melee", "origin": "Javanese",
+      "damage": 5,
+      "description": "An elongated kris. More like a short sword. Reserved for warriors of standing.",
+      "description_es": "Un kris alargado. Más parecido a una espada corta. Reservado para guerreros de rango.",
       "cost": 20, "availability": ["Bantam"]
     },
     "lance": {
-      "name": "Lance", "type": "melee", "origin": "Arab/Persian",
-      "damage": 6, "description": "Cavalry weapon, effective in open land engagements. Cumbersome on a ship.",
+      "name": "Lance", "name_es": "Lanza de Caballería", "type": "melee", "origin": "Arab/Persian",
+      "damage": 6,
+      "description": "Cavalry weapon, effective in open land engagements. Cumbersome on a ship.",
+      "description_es": "Arma de caballería, efectiva en combates terrestres abiertos. Incómoda en un barco.",
       "cost": 10, "availability": ["Hormuz"]
     }
   }

@@ -6,12 +6,14 @@
       "culture": "Malay",
       "language": "Malay",
       "religion": "Islam",
+      "faction_presence": ["malacca_sultanate", "hadrami_silsila"],
       "ruler": { "name": "Tun Mutahir", "title": "Bendahara", "faction": "Malacca Sultanate", "disposition": 50 },
       "merchant_guild": "Malay-Gujarat Consortium",
       "religious_figure": { "name": "Maulana Yusuf", "title": "Kadi", "religion": "Islam" },
       "harbor_master": { "name": "Hang Kassim", "fees": 12 },
       "slave_market": true,
       "slave_notes": "Primarily war captives from the interior and Javanese pirates' hauls.",
+      "slave_notes_es": "Principalmente cautivos de guerra del interior y botín de piratas javaneses.",
       "specialty_goods": ["pepper", "tin", "camphor"],
       "recruitable_pool": ["malay_sailor", "javanese_fighter", "tamil_merchant", "gujarati_trader"],
       "weapons_available": ["kris", "parang", "local_arquebus", "spear"],
@@ -26,20 +28,65 @@
       "region": "Konkan Coast",
       "culture": "Portuguese/Konkani",
       "language": "Portuguese",
-      "religion": "Christianity",
-      "ruler": { "name": "Dom Afonso de Noronha", "title": "Viceroy", "faction": "Estado da India", "disposition": 50 },
+      "religion": "Christianity (imposed), Hinduism (majority)",
+      "faction_presence": ["estado_da_india", "konkani_merchant_network", "bijapur_remnant"],
+      "ruler": {
+        "name": "Dom Afonso de Albuquerque",
+        "title": "Governor of Portuguese India",
+        "faction": "estado_da_india",
+        "disposition": 40,
+        "active_years": [1, 4],
+        "death_note": "Dies Year 5 at sea. Succeeded by lesser governors.",
+        "death_note_es": "Muere en el mar en el Año 5. Le suceden gobernadores de menor talla."
+      },
       "merchant_guild": "Casa da India Factors",
-      "religious_figure": { "name": "Padre Sebastião Rodrigues", "title": "Vicar-General", "religion": "Christianity" },
-      "harbor_master": { "name": "Estêvão Faria", "fees": 15 },
+      "religious_figure": {
+        "name": "Padre Gaspar de São Bento",
+        "title": "Chaplain",
+        "religion": "Christianity"
+      },
+      "harbor_master": { "name": "Rodrigo Rabelo", "fees": 20 },
+      "minor_factions": [
+        {
+          "id": "konkani_merchant_network",
+          "name": "Konkani Merchant Network",
+          "key_figure": "Madhavrav",
+          "disposition_default": 35,
+          "description": "Hindu merchants who survived by being useful to the Portuguese. Know where every coin goes.",
+          "description_es": "Mercaderes hindúes que sobrevivieron siendo útiles a los portugueses. Saben adónde va cada moneda."
+        },
+        {
+          "id": "bijapur_remnant",
+          "name": "Bijapur Remnant",
+          "key_figure": "Ibrahim Lari",
+          "disposition_default": 20,
+          "disposition_override": {
+            "Portuguese Conquistador": 10,
+            "Ottoman Trader": 30,
+            "Chinese Trader": 25
+          },
+          "description": "Former Bijapur officials operating quietly in Portuguese Goa's margins. Patient. Have not accepted the conquest.",
+          "description_es": "Antiguos funcionarios de Bijapur que operan silenciosamente en los márgenes del Goa portugués. Pacientes. No han aceptado la conquista."
+        }
+      ],
       "slave_market": true,
-      "slave_notes": "African and Indian captives traded through Portuguese channels.",
-      "specialty_goods": ["cotton", "spices", "horses"],
+      "slave_notes": "African and Indian captives. Inquisition not yet arrived — that comes later.",
+      "slave_notes_es": "Cautivos africanos e indios. La Inquisición aún no ha llegado — eso vendrá después.",
+      "specialty_goods": ["horses", "cotton", "pepper", "copper"],
       "recruitable_pool": ["portuguese_soldier", "konkani_pilot", "african_slave_freed", "goan_merchant"],
       "weapons_available": ["arquebus", "sword_rapier", "pike", "crossbow", "local_arquebus"],
       "base_prices": {
         "pepper": 10, "tin": 6, "camphor": 12, "cloves": 18, "nutmeg": 22,
         "silk": 28, "cotton": 5, "rice": 3, "opium": 38, "porcelain": 20,
-        "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8
+        "horses": 80, "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8
+      },
+      "ibu_malam_trigger": "year_3_4_goa",
+      "temporal_notes": {
+        "year_1_4": "Albuquerque present. Estado disposition +10 for Portuguese protagonist.",
+        "year_1_4_es": "Albuquerque presente. Disposición del Estado +10 para el protagonista portugués.",
+        "year_5_plus": "Generic governor. Estado returns to base disposition.",
+        "year_5_plus_es": "Gobernador genérico. El Estado vuelve a la disposición base.",
+        "world_event_year_5": "albuquerque_death fires on any port visit."
       }
     },
     {
@@ -48,6 +95,7 @@
       "culture": "Nair/Muslim",
       "language": "Malayalam",
       "religion": "Hinduism",
+      "faction_presence": ["kingdom_of_calicut", "hadrami_silsila"],
       "ruler": { "name": "Zamorin Mana Vikraman", "title": "Zamorin", "faction": "Kingdom of Calicut", "disposition": 40 },
       "merchant_guild": "Mapilla Merchant Council",
       "religious_figure": { "name": "Shaykh Ibrahim al-Malibari", "title": "Qadi", "religion": "Islam" },
@@ -69,12 +117,30 @@
       "culture": "Persian/Arab",
       "language": "Persian",
       "religion": "Islam",
+      "faction_presence": ["kingdom_of_calicut", "hadrami_silsila", "karimi_merchants"],
       "ruler": { "name": "Shah Salghur", "title": "Shah", "faction": "Kingdom of Hormuz", "disposition": 50 },
       "merchant_guild": "Hormuzian Merchant Brotherhood",
       "religious_figure": { "name": "Mawlana Rashid al-Din", "title": "Shaykh al-Islam", "religion": "Islam" },
       "harbor_master": { "name": "Abbas ibn Yusuf", "fees": 18 },
+      "hadrami_figure": {
+        "id": "ibn_majid_al_aden",
+        "name": "Ahmad ibn Majid al-Aden",
+        "title": "Hadrami Scholar-Merchant, Hormuz",
+        "lore": "The most celebrated navigator of the age — the 'Lion of the Sea' — now old and reclusive at Hormuz. His rutters map every monsoon passage from Aden to Quanzhou. He moves between pilgrimage seasons and the counting-house with equal ease, and his Sufi silsila connects him to houses in Calicut, Malacca, and the Hadhramawt.",
+        "lore_es": "El navegante más célebre de la época — el 'León del Mar' — ahora anciano y recluido en Ormuz. Sus derroteros cartografían cada paso del monzón desde Adén hasta Quanzhou. Se mueve entre las temporadas de peregrinación y la casa de cuentas con igual soltura, y su silsila sufí lo conecta con casas en Calicut, Malaca y el Hadramawt.",
+        "greeting_portuguese": "He regards your cross and your cannon with the patience of a man who has watched several empires rise and one or two fall. 'You navigate by instruments you did not invent,' he says. 'That is a beginning.'",
+        "greeting_portuguese_es": "Observa tu cruz y tu cañón con la paciencia de un hombre que ha visto alzarse varios imperios y caer uno o dos. 'Navegáis con instrumentos que no inventasteis', dice. 'Es un comienzo.'",
+        "options_high": {
+          "ask_stars": "Ask him to share knowledge of the monsoon stars and passages east",
+          "ask_stars_es": "Pedirle que comparta su conocimiento de las estrellas del monzón y los pasos hacia el este",
+          "dialogue_ottomans": "Ask what he knows of the Ottoman fleet massing in the Red Sea",
+          "dialogue_ottomans_es": "Preguntarle qué sabe de la flota otomana que se concentra en el Mar Rojo"
+        },
+        "faction": "hadrami_silsila"
+      },
       "slave_market": true,
       "slave_notes": "African and Central Asian slaves traded across the Persian Gulf network.",
+      "slave_notes_es": "Esclavos africanos y centroasiáticos comerciados a través de la red del Golfo Pérsico.",
       "specialty_goods": ["horses", "pearls", "dates"],
       "recruitable_pool": ["persian_navigator", "arab_merchant", "baluchi_guard", "turkish_soldier"],
       "weapons_available": ["scimitar", "composite_bow", "dagger", "local_arquebus", "lance"],
@@ -117,6 +183,7 @@
       "harbor_master": { "name": "Raden Aria", "fees": 9 },
       "slave_market": true,
       "slave_notes": "Primarily captives from inter-polity warfare in the archipelago.",
+      "slave_notes_es": "Principalmente cautivos de la guerra interestatal en el archipiélago.",
       "specialty_goods": ["pepper", "rice", "timber"],
       "recruitable_pool": ["javanese_sailor", "sundanese_warrior", "chinese_resident", "bugis_navigator"],
       "weapons_available": ["kris", "keris_panjang", "bow", "spear", "local_arquebus"],
@@ -124,6 +191,57 @@
         "pepper": 5, "tin": 6, "camphor": 13, "cloves": 19, "nutmeg": 24,
         "silk": 29, "cotton": 5, "rice": 1, "opium": 38, "porcelain": 16,
         "slaves": 30, "salt": 3, "gold_dust": 62, "iron": 7
+      }
+    },
+    {
+      "name": "Aden Harbor",
+      "region": "Arabian Peninsula",
+      "culture": "Hadrami/Yemeni",
+      "language": "Arabic",
+      "religion": "Islam",
+      "faction_presence": ["hadrami_silsila", "karimi_merchants"],
+      "ruler": {
+        "name": "Amir Salim al-Tahiri",
+        "title": "Tahirid Governor",
+        "faction": "hadrami_silsila",
+        "disposition": 45
+      },
+      "merchant_guild": "Karimi Spice Brotherhood",
+      "religious_figure": { "name": "Shaykh Abd al-Qadir al-Hadhrami", "title": "Mufti", "religion": "Islam" },
+      "harbor_master": { "name": "Ibrahim al-Yamani", "fees": 14 },
+      "slave_market": true,
+      "slave_notes": "East African and Horn of Africa captives traded through the dhow networks.",
+      "slave_notes_es": "Cautivos del África Oriental y el Cuerno de África comerciados a través de las redes de dhows.",
+      "hadrami_figure": {
+        "id": "governor_aden",
+        "name": "Amir Salim al-Tahiri",
+        "title": "Tahirid Governor, Aden Harbor",
+        "lore": "The last Tahirid governor clings to Aden's customs revenue as the Mamluk shadow from Cairo and the Ottoman shadow from the north grow longer. He is pragmatic above all — he will deal with any captain who brings goods, news, or cannon.",
+        "lore_es": "El último gobernador tahírida se aferra a los ingresos aduaneros de Adén mientras la sombra mameluca desde El Cairo y la sombra otomana desde el norte se alargan. Es pragmático ante todo — tratará con cualquier capitán que traiga mercancías, noticias o cañones.",
+        "greeting_portuguese": "He does not rise. 'Another Frankish ship. You come for pepper and you leave taking more than you know. Very well — what do you offer in return for safe anchorage?'",
+        "greeting_portuguese_es": "No se levanta. 'Otro barco franco. Venís por pimienta y os vais llevando más de lo que sabéis. Bien — ¿qué ofrecéis a cambio de un ancladero seguro?'",
+        "options_high": {
+          "cannon_purchase": "Negotiate purchase of a Mamluk bronze cannon through his factors",
+          "cannon_purchase_es": "Negociar la compra de un cañón de bronce mameluco a través de sus factores",
+          "intel_aden_politics": "Ask him plainly about the Mamluk-Ottoman struggle for the Red Sea",
+          "intel_aden_politics_es": "Preguntarle directamente sobre la lucha mameluca-otomana por el Mar Rojo"
+        },
+        "faction": "hadrami_silsila"
+      },
+      "ottoman_contact": {
+        "name": "Mustafa al-Rumi",
+        "title": "Ottoman Merchant, Aden",
+        "note": "A Levantine factor who arrived on the last dhow from Jeddah. The governor tolerates him as a useful conduit for news from Istanbul; the Karimi old guard eye him as competition they have not yet decided how to handle. He is an early mover, and he knows it.",
+        "note_es": "Un factor levantino que llegó en el último dhow desde Yeda. El gobernador lo tolera como conducto útil para las noticias de Estambul; los veteranos karimi lo miran como competencia sobre la que aún no han decidido cómo actuar. Es un pionero, y lo sabe."
+      },
+      "specialty_goods": ["frankincense", "coffee", "aloes_wood"],
+      "recruitable_pool": ["arab_navigator", "yemeni_merchant", "somali_sailor", "hadrami_guard"],
+      "weapons_available": ["scimitar", "composite_bow", "dagger", "local_arquebus"],
+      "base_prices": {
+        "pepper": 16, "tin": 10, "camphor": 20, "cloves": 32, "nutmeg": 38,
+        "silk": 26, "cotton": 9, "rice": 5, "opium": 28, "porcelain": 30,
+        "frankincense": 18, "coffee": 12, "aloes_wood": 45,
+        "slaves": 50, "salt": 6, "gold_dust": 48, "iron": 11
       }
     }
   ],
@@ -164,6 +282,7 @@
       "religion": "Islam",
       "slave_market": true,
       "slave_notes": "Captives from inter-island raids.",
+      "slave_notes_es": "Cautivos de las razias interinsulares.",
       "specialty_goods": ["cloves", "nutmeg"],
       "recruitable_pool": ["ternatan_warrior", "papuan_tracker"],
       "weapons_available": ["spear", "bow", "kris", "local_arquebus"],
