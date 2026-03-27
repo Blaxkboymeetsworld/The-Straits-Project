@@ -3,220 +3,240 @@
     {
       "id": "pirate_encounter_malay",
       "description": "A fleet of low proas emerges from behind a headland — Orang Laut sea nomads, or perhaps pirates. They fly no flag. Their vessels flank yours with practiced ease. The lead craft pulls alongside; a man in a red headcloth shouts across the water in Malay.",
+      "description_es": "Una flota de proas rasantes surge de detrás de un promontorio — nómadas del mar Orang Laut, o quizás piratas. No enarbolan ninguna bandera. Sus embarcaciones flanquean la vuestra con destreza consumada. La nave de proa se acomoda al costado; un hombre con un turbante rojo grita en malayo sobre el agua.",
       "options": {
-        "1": { "text": "Fight them off.", "effect": { "ship_health": -15, "morale": -5, "gold": 10 }, "requires": null },
-        "2": { "text": "Pay the toll and pass. (Cost: 8 gold)", "effect": { "gold": -8, "morale": -3 }, "requires": { "gold": 8 } },
-        "3": { "text": "Attempt to communicate if you have a Malay speaker.", "effect": { "gold": -3, "morale": 2 }, "requires": { "crew_language": "Malay" } },
-        "4": { "text": "Attempt to outrun them.", "effect": { "ship_health": -5, "morale": -2 }, "requires": null }
+        "1": { "text": "Fight them off.", "text_es": "Combatirlos.", "effect": { "ship_health": -15, "morale": -5, "gold": 10 }, "requires": null },
+        "2": { "text": "Pay the toll and pass. (Cost: 8 gold)", "text_es": "Pagar el peaje y continuar. (Coste: 8 oro)", "effect": { "gold": -8, "morale": -3 }, "requires": { "gold": 8 } },
+        "3": { "text": "Attempt to communicate if you have a Malay speaker.", "text_es": "Intentar comunicarse, si tenéis a alguien que hable malayo.", "effect": { "gold": -3, "morale": 2 }, "requires": { "crew_language": "Malay" } },
+        "4": { "text": "Attempt to outrun them.", "text_es": "Intentar huir de ellos.", "effect": { "ship_health": -5, "morale": -2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "sudden_squall",
       "description": "The sky darkens without warning. A squall sweeps down from the northeast — the kind that veteran sailors whisper about. The rain hits like a curtain of iron. Your crew scrambles, shouting above the wind.",
+      "description_es": "El cielo se oscurece sin previo aviso. Una borrasca baja del noreste — de las que los marineros veteranos nombran en voz baja. La lluvia golpea como un telón de hierro. La tripulación se afana, gritando por encima del viento.",
       "options": {
-        "1": { "text": "Drop sail and ride it out.", "effect": { "ship_health": -10, "morale": -8 }, "requires": null },
-        "2": { "text": "Let your navigator call it. (Requires: Navigator aboard)", "effect": { "ship_health": -3, "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
-        "3": { "text": "Attempt to use local knowledge. (Requires: Orang Laut or local sailor)", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_region": "Southeast Asia" } },
-        "4": { "text": "Reduce speed and pray.", "effect": { "ship_health": -7, "morale": -5 }, "requires": null }
+        "1": { "text": "Drop sail and ride it out.", "text_es": "Amainar las velas y aguantar.", "effect": { "ship_health": -10, "morale": -8 }, "requires": null },
+        "2": { "text": "Let your navigator call it. (Requires: Navigator aboard)", "text_es": "Dejar que el piloto decida. (Requiere: Piloto a bordo)", "effect": { "ship_health": -3, "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
+        "3": { "text": "Attempt to use local knowledge. (Requires: Orang Laut or local sailor)", "text_es": "Aprovechar el conocimiento local. (Requiere: Marinero Orang Laut o de la región)", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_region": "Southeast Asia" } },
+        "4": { "text": "Reduce speed and pray.", "text_es": "Reducir la velocidad y rezar.", "effect": { "ship_health": -7, "morale": -5 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "drifting_wreck",
       "description": "You spot a half-submerged hulk drifting on the current — a junk by the look of her rigging. She's gutted and listing, her deck awash. Crows circle above. Something might still be worth recovering. Or survivors.",
+      "description_es": "Divisáis un casco semisumergido a la deriva — un junco, a juzgar por su aparejo. Está destripado e inclinado, con la cubierta inundada. Los cuervos giran en círculos. Quizás quede algo que rescatar. O supervivientes.",
       "options": {
-        "1": { "text": "Send a boat over to investigate.", "effect": { "gold": 20, "morale": 5 }, "requires": null },
-        "2": { "text": "Look for survivors first.", "effect": { "morale": 8, "gold": 5 }, "requires": null },
-        "3": { "text": "Ignore it — could be a pirate trap.", "effect": { "morale": -2 }, "requires": null },
-        "4": { "text": "If you have a diver, inspect the hull below the waterline.", "effect": { "gold": 35, "morale": 2 }, "requires": { "crew_occupation": "diver" } }
+        "1": { "text": "Send a boat over to investigate.", "text_es": "Enviar un bote a reconocerlo.", "effect": { "gold": 20, "morale": 5 }, "requires": null },
+        "2": { "text": "Look for survivors first.", "text_es": "Buscar supervivientes antes.", "effect": { "morale": 8, "gold": 5 }, "requires": null },
+        "3": { "text": "Ignore it — could be a pirate trap.", "text_es": "Ignorarlo — podría ser una trampa de piratas.", "effect": { "morale": -2 }, "requires": null },
+        "4": { "text": "If you have a diver, inspect the hull below the waterline.", "text_es": "Si disponéis de un buzo, inspeccionar el casco bajo la línea de flotación.", "effect": { "gold": 35, "morale": 2 }, "requires": { "crew_occupation": "diver" } }
       },
       "pool": "sea_events"
     },
     {
       "id": "chinese_patrol_junk",
       "description": "A large Ming patrol junk flying the Dragon Standard bears down on you. She is well-armed. Her captain signals for you to heave to and submit to inspection. They are looking for someone — or something.",
+      "description_es": "Un gran junco de patrulla Ming enarbolando el Estandarte del Dragón se aproxima velozmente. Está bien armado. Su capitán os hace señas para que os detengáis y os sometáis a inspección. Buscan a alguien — o algo.",
       "options": {
-        "1": { "text": "Heave to and cooperate. Open your manifest.", "effect": { "morale": -3, "gold": -5 }, "requires": null },
-        "2": { "text": "If you have a Chinese speaker, negotiate credentials.", "effect": { "morale": 3, "gold": 0 }, "requires": { "crew_language": "Min Chinese" } },
-        "3": { "text": "Attempt to run — risky in open water.", "effect": { "ship_health": -10, "morale": -5 }, "requires": null },
-        "4": { "text": "Bribe the inspecting officer quietly. (Cost: 15 gold)", "effect": { "gold": -15, "morale": 2 }, "requires": { "gold": 15 } }
+        "1": { "text": "Heave to and cooperate. Open your manifest.", "text_es": "Detenerse y cooperar. Abrir el manifiesto de carga.", "effect": { "morale": -3, "gold": -5 }, "requires": null },
+        "2": { "text": "If you have a Chinese speaker, negotiate credentials.", "text_es": "Si tenéis a alguien que hable chino, negociar las credenciales.", "effect": { "morale": 3, "gold": 0 }, "requires": { "crew_language": "Min Chinese" } },
+        "3": { "text": "Attempt to run — risky in open water.", "text_es": "Intentar huir — arriesgado en mar abierto.", "effect": { "ship_health": -10, "morale": -5 }, "requires": null },
+        "4": { "text": "Bribe the inspecting officer quietly. (Cost: 15 gold)", "text_es": "Sobornar discretamente al oficial de inspección. (Coste: 15 oro)", "effect": { "gold": -15, "morale": 2 }, "requires": { "gold": 15 } }
       },
       "pool": "sea_events"
     },
     {
       "id": "portuguese_man_of_war",
       "description": "A carrack flying the Cross of Christ looms on the horizon. The Estado da India has a long reach, and they levy tribute freely on vessels they consider interlopers. She has made your course and is signaling.",
+      "description_es": "Una carraca que enarbola la Cruz de Cristo aparece en el horizonte. El Estado da India tiene un largo alcance, y exigen tributo sin reparos a los navíos que consideran intrusos. Han tomado vuestra ruta y os hacen señales.",
       "options": {
-        "1": { "text": "Signal compliance and prepare for boarding.", "effect": { "gold": -20, "morale": -5 }, "requires": null },
-        "2": { "text": "If you are Portuguese, signal your allegiance.", "effect": { "morale": 2 }, "requires": { "player_role": "Portuguese Conquistador" } },
-        "3": { "text": "Produce a cartaz — if you have one.", "effect": { "morale": 3, "gold": 0 }, "requires": { "item": "cartaz" } },
-        "4": { "text": "Fight. This is your sea too.", "effect": { "ship_health": -25, "morale": -10, "gold": 15 }, "requires": null }
+        "1": { "text": "Signal compliance and prepare for boarding.", "text_es": "Señalizar vuestra conformidad y prepararse para el abordaje.", "effect": { "gold": -20, "morale": -5 }, "requires": null },
+        "2": { "text": "If you are Portuguese, signal your allegiance.", "text_es": "Si sois portugués, señalizar vuestra lealtad.", "effect": { "morale": 2 }, "requires": { "player_role": "Portuguese Conquistador" } },
+        "3": { "text": "Produce a cartaz — if you have one.", "text_es": "Mostrar un cartaz — si lo tenéis.", "effect": { "morale": 3, "gold": 0 }, "requires": { "item": "cartaz" } },
+        "4": { "text": "Fight. This is your sea too.", "text_es": "Combatir. Este mar también es vuestro.", "effect": { "ship_health": -25, "morale": -10, "gold": 15 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "monsoon_shift",
       "description": "The monsoon has turned. The wind that filled your sails for weeks reverses almost overnight. You are ahead of schedule — or behind. The season is not what it was when you left port.",
+      "description_es": "El monzón ha virado. El viento que hinchó vuestras velas durante semanas se invierte casi de la noche a la mañana. Lleváis ventaja — o vais con retraso. La estación ya no es la que era cuando zarpasteis.",
       "options": {
-        "1": { "text": "Accept the delay. Put into a nearby anchorage.", "effect": { "morale": -5 }, "requires": null },
-        "2": { "text": "Work against the wind. It costs you but keeps the schedule.", "effect": { "ship_health": -8, "morale": -3 }, "requires": null },
-        "3": { "text": "Let the navigator chart an alternate route.", "effect": { "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
-        "4": { "text": "Find a local pilot familiar with these waters. (Cost: 5 gold)", "effect": { "gold": -5, "morale": 3 }, "requires": { "gold": 5 } }
+        "1": { "text": "Accept the delay. Put into a nearby anchorage.", "text_es": "Aceptar el retraso. Buscar un fondeadero cercano.", "effect": { "morale": -5 }, "requires": null },
+        "2": { "text": "Work against the wind. It costs you but keeps the schedule.", "text_es": "Navegar contra el viento. Costará, pero mantendrá el itinerario.", "effect": { "ship_health": -8, "morale": -3 }, "requires": null },
+        "3": { "text": "Let the navigator chart an alternate route.", "text_es": "Dejar que el piloto trace una ruta alternativa.", "effect": { "morale": 2 }, "requires": { "crew_occupation": "navigator" } },
+        "4": { "text": "Find a local pilot familiar with these waters. (Cost: 5 gold)", "text_es": "Contratar un práctico local que conozca estas aguas. (Coste: 5 oro)", "effect": { "gold": -5, "morale": 3 }, "requires": { "gold": 5 } }
       },
       "pool": "sea_events"
     },
     {
       "id": "becalmed",
       "description": "The wind dies. The ocean is glass. The sails hang limp from the yards. You are becalmed somewhere in the doldrums. Days may pass. Tempers are already fraying. The water barrel is not as full as it should be.",
+      "description_es": "El viento muere. El océano es un espejo. Las velas cuelgan inertes de las vergas. Estáis en calma chicha en algún lugar de los doldrums. Pueden pasar días. Los ánimos ya se tensan. El barril de agua no está tan lleno como debería.",
       "options": {
-        "1": { "text": "Ration water and wait.", "effect": { "morale": -10 }, "requires": null },
-        "2": { "text": "Organize work to keep the crew busy. (Requires: Cook or Priest)", "effect": { "morale": -3 }, "requires": { "crew_occupation": "cook" } },
-        "3": { "text": "Row if you have the boats — work toward any wind.", "effect": { "ship_health": -3, "morale": -5 }, "requires": null },
-        "4": { "text": "If you have a physician, treat the ill who have appeared.", "effect": { "morale": 5 }, "requires": { "crew_occupation": "physician" } }
+        "1": { "text": "Ration water and wait.", "text_es": "Racionar el agua y esperar.", "effect": { "morale": -10 }, "requires": null },
+        "2": { "text": "Organize work to keep the crew busy. (Requires: Cook or Priest)", "text_es": "Organizar trabajo para mantener ocupada a la tripulación. (Requiere: Cocinero o Clérigo)", "effect": { "morale": -3 }, "requires": { "crew_occupation": "cook" } },
+        "3": { "text": "Row if you have the boats — work toward any wind.", "text_es": "Remar si disponéis de botes — avanzar hacia cualquier viento.", "effect": { "ship_health": -3, "morale": -5 }, "requires": null },
+        "4": { "text": "If you have a physician, treat the ill who have appeared.", "text_es": "Si tenéis médico, atender a los enfermos que han aparecido.", "effect": { "morale": 5 }, "requires": { "crew_occupation": "physician" } }
       },
       "pool": "sea_events"
     },
     {
       "id": "Arab_dhow_meeting",
       "description": "A lateen-rigged dhow glides alongside — an Arab vessel out of Aden or perhaps the Hadhrami coast, carrying cloth and news. The captain is a garrulous man who invites you to share coffee and intelligence. He knows these waters well.",
+      "description_es": "Un dhow de vela latina se desliza hasta vuestro costado — un navío árabe de Adén o quizás de la costa hadramí, cargado de telas y noticias. El capitán es un hombre locuaz que os invita a compartir café e información. Conoce bien estas aguas.",
       "options": {
-        "1": { "text": "Trade information and perhaps some goods.", "effect": { "gold": 5, "morale": 5 }, "requires": null },
-        "2": { "text": "Ask about conditions ahead — port news, pirate activity.", "effect": { "morale": 3 }, "requires": null },
-        "3": { "text": "If you have an Arabic speaker, draw out more detail.", "effect": { "morale": 5, "gold": 8 }, "requires": { "crew_language": "Arabic" } },
-        "4": { "text": "Decline politely and sail on.", "effect": { "morale": -2 }, "requires": null }
+        "1": { "text": "Trade information and perhaps some goods.", "text_es": "Intercambiar información y quizás alguna mercancía.", "effect": { "gold": 5, "morale": 5 }, "requires": null },
+        "2": { "text": "Ask about conditions ahead — port news, pirate activity.", "text_es": "Preguntar por las condiciones a proa — noticias de puertos, actividad pirata.", "effect": { "morale": 3 }, "requires": null },
+        "3": { "text": "If you have an Arabic speaker, draw out more detail.", "text_es": "Si tenéis a alguien que hable árabe, obtener más detalles.", "effect": { "morale": 5, "gold": 8 }, "requires": { "crew_language": "Arabic" } },
+        "4": { "text": "Decline politely and sail on.", "text_es": "Declinar con cortesía y continuar navegando.", "effect": { "morale": -2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "fever_aboard",
       "description": "A sailor collapses on deck. He is burning with fever. By nightfall, two more show symptoms. It may be the flux, or something worse picked up in the last port. The crew watches you carefully.",
+      "description_es": "Un marinero cae en cubierta. Arde en fiebre. Al anochecer, otros dos muestran síntomas. Puede ser el tifus, o algo peor traído del último puerto. La tripulación os observa con atención.",
       "options": {
-        "1": { "text": "Isolate the sick in the forward hold.", "effect": { "morale": -5, "ship_health": 0 }, "requires": null },
-        "2": { "text": "Have the physician treat them. (Requires: Physician)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "physician" } },
-        "3": { "text": "Use the herbalist's remedies. (Requires: Herbalist)", "effect": { "morale": 2 }, "requires": { "crew_occupation": "herbalist" } },
-        "4": { "text": "Put in to the nearest anchorage for fresh water and rest. Costs a day.", "effect": { "morale": 2, "gold": -3 }, "requires": null }
+        "1": { "text": "Isolate the sick in the forward hold.", "text_es": "Aislar a los enfermos en la bodega de proa.", "effect": { "morale": -5, "ship_health": 0 }, "requires": null },
+        "2": { "text": "Have the physician treat them. (Requires: Physician)", "text_es": "Encargar al médico que los atienda. (Requiere: Médico)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "physician" } },
+        "3": { "text": "Use the herbalist's remedies. (Requires: Herbalist)", "text_es": "Emplear los remedios del herborista. (Requiere: Herborista)", "effect": { "morale": 2 }, "requires": { "crew_occupation": "herbalist" } },
+        "4": { "text": "Put in to the nearest anchorage for fresh water and rest. Costs a day.", "text_es": "Fondear en el ancladero más cercano para obtener agua dulce y descansar. Cuesta un día.", "effect": { "morale": 2, "gold": -3 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "mysterious_sail_at_night",
       "description": "The watch reports a sail — dark, running without a lantern. It is moving parallel to you in the night, matching your speed. No signal. No sound. The helmsman keeps glancing over his shoulder.",
+      "description_es": "La guardia avista una vela — oscura, navegando sin farol. Se mueve paralela a vosotros en la noche, igualando vuestra velocidad. Sin señales. Sin sonido. El timonel no deja de mirar por encima del hombro.",
       "options": {
-        "1": { "text": "Show your own light and hail them.", "effect": { "morale": 3 }, "requires": null },
-        "2": { "text": "Go dark. Match their silence.", "effect": { "morale": -3 }, "requires": null },
-        "3": { "text": "Change course to intercept.", "effect": { "morale": -2, "gold": 15 }, "requires": null },
-        "4": { "text": "Station the scout on watch. (Requires: Scout)", "effect": { "morale": 5 }, "requires": { "crew_occupation": "scout" } }
+        "1": { "text": "Show your own light and hail them.", "text_es": "Mostrar vuestra propia luz y hacerles señas.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Go dark. Match their silence.", "text_es": "Apagar las luces. Igualar su silencio.", "effect": { "morale": -3 }, "requires": null },
+        "3": { "text": "Change course to intercept.", "text_es": "Cambiar rumbo para interceptarlos.", "effect": { "morale": -2, "gold": 15 }, "requires": null },
+        "4": { "text": "Station the scout on watch. (Requires: Scout)", "text_es": "Poner al explorador de guardia. (Requiere: Explorador)", "effect": { "morale": 5 }, "requires": { "crew_occupation": "scout" } }
       },
       "pool": "sea_events"
     },
     {
       "id": "coral_reef_danger",
       "description": "The leadsman calls a warning — the water is changing color. You are running into an uncharted reef. The charts say nothing. Your bowsprit is nearly over the coral now.",
+      "description_es": "El sondeador lanza una advertencia — el color del agua está cambiando. Navegáis hacia un arrecife sin cartografiar. Las cartas no dicen nada. El bauprés está casi sobre el coral.",
       "options": {
-        "1": { "text": "Hard about — turn at speed and take the risk.", "effect": { "ship_health": -12 }, "requires": null },
-        "2": { "text": "Bugis or Orang Laut navigator reads the water. (Requires: Southeast Asian sailor)", "effect": { "ship_health": -3 }, "requires": { "crew_region": "Southeast Asia" } },
-        "3": { "text": "Send the diver over the bow to feel the bottom.", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_occupation": "diver" } },
-        "4": { "text": "Drop anchor immediately. Take stock.", "effect": { "ship_health": -7, "morale": -2 }, "requires": null }
+        "1": { "text": "Hard about — turn at speed and take the risk.", "text_es": "Virar de proa a toda velocidad y asumir el riesgo.", "effect": { "ship_health": -12 }, "requires": null },
+        "2": { "text": "Bugis or Orang Laut navigator reads the water. (Requires: Southeast Asian sailor)", "text_es": "El piloto bugis u Orang Laut lee el agua. (Requiere: Marinero del Sudeste Asiático)", "effect": { "ship_health": -3 }, "requires": { "crew_region": "Southeast Asia" } },
+        "3": { "text": "Send the diver over the bow to feel the bottom.", "text_es": "Enviar al buzo por la proa para tantear el fondo.", "effect": { "ship_health": -5, "morale": 3 }, "requires": { "crew_occupation": "diver" } },
+        "4": { "text": "Drop anchor immediately. Take stock.", "text_es": "Echar el ancla de inmediato. Evaluar la situación.", "effect": { "ship_health": -7, "morale": -2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "refugee_vessel",
       "description": "A small overcrowded craft wallows ahead of you. It is full of people — families, it looks like, with bundles of goods. They are waving. Whether they are refugees, escaped slaves, or something else entirely is unclear.",
+      "description_es": "Una pequeña embarcación abarrotada se balancea frente a vosotros. Está llena de gente — familias, en apariencia, con fardos de bienes. Hacen señas. Si son refugiados, esclavos fugitivos o algo del todo distinto no está claro.",
       "options": {
-        "1": { "text": "Take them aboard. (Morale cost — crowded ship)", "effect": { "morale": -5, "gold": 0 }, "requires": null },
-        "2": { "text": "Give them food and water and send them on.", "effect": { "morale": 5, "gold": -3 }, "requires": null },
-        "3": { "text": "Ignore them and sail on. The sea is cruel.", "effect": { "morale": -8 }, "requires": null },
-        "4": { "text": "Ask if any are skilled and seek a better life. Potential recruit.", "effect": { "morale": 2 }, "requires": null }
+        "1": { "text": "Take them aboard. (Morale cost — crowded ship)", "text_es": "Subirlos a bordo. (Coste en moral — barco abarrotado)", "effect": { "morale": -5, "gold": 0 }, "requires": null },
+        "2": { "text": "Give them food and water and send them on.", "text_es": "Darles comida y agua y dejarlos seguir su camino.", "effect": { "morale": 5, "gold": -3 }, "requires": null },
+        "3": { "text": "Ignore them and sail on. The sea is cruel.", "text_es": "Ignorarlos y continuar. El mar es cruel.", "effect": { "morale": -8 }, "requires": null },
+        "4": { "text": "Ask if any are skilled and seek a better life. Potential recruit.", "text_es": "Preguntar si alguno tiene oficio y busca una vida mejor. Posible recluta.", "effect": { "morale": 2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "celestial_navigation_crisis",
       "description": "Heavy cloud cover for three days. Your navigator cannot take a star sight. The currents have pushed you sideways. No one is certain where you are.",
+      "description_es": "Nubosidad densa durante tres días. El piloto no puede tomar la altura de las estrellas. Las corrientes os han desviado. Nadie sabe con certeza dónde estáis.",
       "options": {
-        "1": { "text": "Sail by dead reckoning and estimate.", "effect": { "morale": -5, "ship_health": -5 }, "requires": null },
-        "2": { "text": "Follow the birds and debris. (Sharp Eye trait required)", "effect": { "morale": 2 }, "requires": { "crew_trait": "sharp_eye" } },
-        "3": { "text": "Arab navigator uses the kamal — a latitude instrument. (Requires Arabic navigator)", "effect": { "morale": 5 }, "requires": { "crew_language": "Arabic" } },
-        "4": { "text": "Reduce speed and wait for clearing skies.", "effect": { "morale": -3 }, "requires": null }
+        "1": { "text": "Sail by dead reckoning and estimate.", "text_es": "Navegar por estima y calcular.", "effect": { "morale": -5, "ship_health": -5 }, "requires": null },
+        "2": { "text": "Follow the birds and debris. (Sharp Eye trait required)", "text_es": "Seguir las aves y los restos flotantes. (Requiere el rasgo Ojo Agudo)", "effect": { "morale": 2 }, "requires": { "crew_trait": "sharp_eye" } },
+        "3": { "text": "Arab navigator uses the kamal — a latitude instrument. (Requires Arabic navigator)", "text_es": "El piloto árabe emplea el kamal — instrumento de latitud. (Requiere piloto árabe)", "effect": { "morale": 5 }, "requires": { "crew_language": "Arabic" } },
+        "4": { "text": "Reduce speed and wait for clearing skies.", "text_es": "Reducir la velocidad y esperar que el cielo despeje.", "effect": { "morale": -3 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "mutinous_whispers",
       "description": "The carpenter corners you quietly at the tiller. He tells you the men are talking — about the length of the voyage, the dwindling provisions, the last port. Someone is spreading bad feelings. It hasn't broken yet but it could.",
+      "description_es": "El carpintero os aborda en voz baja junto al timón. Os dice que los hombres están hablando — de la duración del viaje, de las provisiones que menguan, del último puerto. Alguien está sembrando el descontento. Aún no ha estallado, pero podría.",
       "options": {
-        "1": { "text": "Address the crew directly. Make promises.", "effect": { "morale": 8, "gold": -10 }, "requires": null },
-        "2": { "text": "Find the agitator and make an example.", "effect": { "morale": -5 }, "requires": null },
-        "3": { "text": "Ask the priest or imam to speak to the men. (Requires: Priest)", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
-        "4": { "text": "Increase rations for a week. (Cost: 8 gold)", "effect": { "morale": 12, "gold": -8 }, "requires": { "gold": 8 } }
+        "1": { "text": "Address the crew directly. Make promises.", "text_es": "Dirigirse directamente a la tripulación. Hacer promesas.", "effect": { "morale": 8, "gold": -10 }, "requires": null },
+        "2": { "text": "Find the agitator and make an example.", "text_es": "Hallar al agitador y dar un escarmiento.", "effect": { "morale": -5 }, "requires": null },
+        "3": { "text": "Ask the priest or imam to speak to the men. (Requires: Priest)", "text_es": "Pedir al clérigo o imán que hable con los hombres. (Requiere: Clérigo)", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Increase rations for a week. (Cost: 8 gold)", "text_es": "Aumentar las raciones durante una semana. (Coste: 8 oro)", "effect": { "morale": 12, "gold": -8 }, "requires": { "gold": 8 } }
       },
       "pool": "sea_events"
     },
     {
       "id": "whale_sighting",
       "description": "A great whale surfaces alongside your hull, close enough to touch. Its eye regards you with unsettling calm before it sounds. Several of the crew cross themselves or murmur prayers. The mood of the watch has changed — but whether to wonder or unease depends on the man.",
+      "description_es": "Una ballena enorme emerge junto al casco, lo bastante cerca para tocarla. Su ojo os mira con una calma inquietante antes de zambullirse. Varios hombres de la tripulación se santiguan o murmuran oraciones. El ánimo de la guardia ha cambiado — aunque si hacia el asombro o la inquietud depende del hombre.",
       "options": {
-        "1": { "text": "Let it pass. Accept the omen whatever it is.", "effect": { "morale": 3 }, "requires": null },
-        "2": { "text": "Try to harpoon it — fresh meat for the crew.", "effect": { "morale": 8, "ship_health": -5 }, "requires": null },
-        "3": { "text": "The superstitious are frightened. Calm them (Requires: Priest or Inspiring crew)", "effect": { "morale": 5 }, "requires": { "crew_trait": "inspiring" } },
-        "4": { "text": "Record the sighting in the log. Practical is practical.", "effect": { "morale": 2 }, "requires": null }
+        "1": { "text": "Let it pass. Accept the omen whatever it is.", "text_es": "Dejarla pasar. Aceptar el presagio, sea cual sea.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Try to harpoon it — fresh meat for the crew.", "text_es": "Intentar arponearlo — carne fresca para la tripulación.", "effect": { "morale": 8, "ship_health": -5 }, "requires": null },
+        "3": { "text": "The superstitious are frightened. Calm them (Requires: Priest or Inspiring crew)", "text_es": "Los supersticiosos están asustados. Calmarlos. (Requiere: Clérigo o tripulación Inspiradora)", "effect": { "morale": 5 }, "requires": { "crew_trait": "inspiring" } },
+        "4": { "text": "Record the sighting in the log. Practical is practical.", "text_es": "Registrar el avistamiento en el diario. Lo práctico, práctico.", "effect": { "morale": 2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "smuggler_rendezvous",
       "description": "A vessel hails you at dusk with a pre-arranged signal you weren't expecting — it seems they've mistaken you for someone else. They are carrying contraband: opium, or perhaps untaxed pepper. They want to offload quickly.",
+      "description_es": "Una embarcación os hala al atardecer con una señal convenida que no esperabais — al parecer os han confundido con otro. Transportan contrabando: opio, o quizás pimienta sin gravar. Quieren descargar rápido.",
       "options": {
-        "1": { "text": "Buy the goods cheap. (Cost: 10 gold, Gain: opium or pepper)", "effect": { "gold": -10, "spices": 5 }, "requires": { "gold": 10 } },
-        "2": { "text": "Refuse and report them to the next port authority.", "effect": { "morale": -3, "gold": 15 }, "requires": null },
-        "3": { "text": "Pretend to buy, then confiscate at gunpoint.", "effect": { "gold": 20, "morale": -8 }, "requires": null },
-        "4": { "text": "Simply decline and sail on.", "effect": { "morale": 0 }, "requires": null }
+        "1": { "text": "Buy the goods cheap. (Cost: 10 gold, Gain: opium or pepper)", "text_es": "Comprar la mercancía barata. (Coste: 10 oro, Ganancia: opio o pimienta)", "effect": { "gold": -10, "spices": 5 }, "requires": { "gold": 10 } },
+        "2": { "text": "Refuse and report them to the next port authority.", "text_es": "Negaros y denunciarlos en el próximo puerto.", "effect": { "morale": -3, "gold": 15 }, "requires": null },
+        "3": { "text": "Pretend to buy, then confiscate at gunpoint.", "text_es": "Fingir que compráis y luego confiscar a punta de pistola.", "effect": { "gold": 20, "morale": -8 }, "requires": null },
+        "4": { "text": "Simply decline and sail on.", "text_es": "Simplemente declinar y seguir navegando.", "effect": { "morale": 0 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "shark_follows_ship",
       "description": "A large shark — or several — has been following the ship for two days. The crew considers it an ill omen. One man swears it is the same shark that followed a doomed vessel he sailed on years ago.",
+      "description_es": "Un gran tiburón — o varios — lleva dos días siguiendo el barco. La tripulación lo considera un mal presagio. Un hombre jura que es el mismo tiburón que siguió a un navío maldito en el que navegó años atrás.",
       "options": {
-        "1": { "text": "Fish for it. Turn dread into dinner.", "effect": { "morale": 5 }, "requires": null },
-        "2": { "text": "Ignore the superstition. Keep the men working.", "effect": { "morale": -3 }, "requires": null },
-        "3": { "text": "Have the priest perform a blessing over the water.", "effect": { "morale": 7 }, "requires": { "crew_occupation": "priest" } },
-        "4": { "text": "Shoot it with the arquebus. A practical exorcism.", "effect": { "morale": 6 }, "requires": { "crew_weapon": "arquebus" } }
+        "1": { "text": "Fish for it. Turn dread into dinner.", "text_es": "Pescarlo. Convertir el miedo en cena.", "effect": { "morale": 5 }, "requires": null },
+        "2": { "text": "Ignore the superstition. Keep the men working.", "text_es": "Ignorar la superstición. Mantener a los hombres trabajando.", "effect": { "morale": -3 }, "requires": null },
+        "3": { "text": "Have the priest perform a blessing over the water.", "text_es": "Pedir al clérigo que bendiga las aguas.", "effect": { "morale": 7 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Shoot it with the arquebus. A practical exorcism.", "text_es": "Dispararle con el arcabuz. Un exorcismo práctico.", "effect": { "morale": 6 }, "requires": { "crew_weapon": "arquebus" } }
       },
       "pool": "sea_events"
     },
     {
       "id": "fire_in_the_hold",
       "description": "Smoke. Then shouting. Something in the forward hold has caught — a lamp, a badly stowed keg of spirits. Your carpenter is already moving but needs direction. A ship on fire at sea is a death sentence unless contained immediately.",
+      "description_es": "Humo. Luego gritos. Algo en la bodega de proa ha prendido — una lámpara, un barril de aguardiente mal estibado. El carpintero ya se mueve, pero necesita indicaciones. Un barco en llamas en alta mar es una sentencia de muerte si no se contiene de inmediato.",
       "options": {
-        "1": { "text": "All hands — form a bucket chain.", "effect": { "ship_health": -20, "morale": -5 }, "requires": null },
-        "2": { "text": "The carpenter knows where to cut the fire off. (Requires: Carpenter)", "effect": { "ship_health": -8, "morale": 2 }, "requires": { "crew_occupation": "carpenter" } },
-        "3": { "text": "Jettison the burning cargo into the sea.", "effect": { "gold": -15, "ship_health": -5 }, "requires": null },
-        "4": { "text": "If calm under fire crewman present, direct calmly and efficiently.", "effect": { "ship_health": -5, "morale": 5 }, "requires": { "crew_trait": "calm_under_fire" } }
+        "1": { "text": "All hands — form a bucket chain.", "text_es": "Todo el mundo — formar una cadena de cubos.", "effect": { "ship_health": -20, "morale": -5 }, "requires": null },
+        "2": { "text": "The carpenter knows where to cut the fire off. (Requires: Carpenter)", "text_es": "El carpintero sabe dónde atajar el fuego. (Requiere: Carpintero)", "effect": { "ship_health": -8, "morale": 2 }, "requires": { "crew_occupation": "carpenter" } },
+        "3": { "text": "Jettison the burning cargo into the sea.", "text_es": "Arrojar la carga en llamas al mar.", "effect": { "gold": -15, "ship_health": -5 }, "requires": null },
+        "4": { "text": "If calm under fire crewman present, direct calmly and efficiently.", "text_es": "Si hay a bordo alguien Sereno bajo el fuego, dirigir con calma y eficacia.", "effect": { "ship_health": -5, "morale": 5 }, "requires": { "crew_trait": "calm_under_fire" } }
       },
       "pool": "sea_events"
     },
     {
       "id": "strange_island",
       "description": "A small island not on any chart you carry. It may be unmapped, or it may be known only by the local peoples. Smoke rises from the interior. A beach shows signs of recent habitation. Your curiosity and your caution are at war.",
+      "description_es": "Una pequeña isla que no figura en ninguna carta que llevéis. Puede que no esté cartografiada, o que sólo la conozcan los pueblos de la zona. Humo asciende del interior. Una playa muestra señales de habitación reciente. Vuestra curiosidad y vuestra cautela están en guerra.",
       "options": {
-        "1": { "text": "Land and explore cautiously.", "effect": { "morale": 5, "gold": 10 }, "requires": null },
-        "2": { "text": "Send the scout in first. (Requires: Scout)", "effect": { "morale": 3, "gold": 15 }, "requires": { "crew_occupation": "scout" } },
-        "3": { "text": "Circle the island and take soundings for the chart. No landing.", "effect": { "morale": 2 }, "requires": null },
-        "4": { "text": "The island is in pirate territory — sail past.", "effect": { "morale": -2 }, "requires": null }
+        "1": { "text": "Land and explore cautiously.", "text_es": "Desembarcar y explorar con cautela.", "effect": { "morale": 5, "gold": 10 }, "requires": null },
+        "2": { "text": "Send the scout in first. (Requires: Scout)", "text_es": "Enviar al explorador primero. (Requiere: Explorador)", "effect": { "morale": 3, "gold": 15 }, "requires": { "crew_occupation": "scout" } },
+        "3": { "text": "Circle the island and take soundings for the chart. No landing.", "text_es": "Rodear la isla y hacer sondeos para la carta. Sin desembarco.", "effect": { "morale": 2 }, "requires": null },
+        "4": { "text": "The island is in pirate territory — sail past.", "text_es": "La isla está en territorio pirata — pasar de largo.", "effect": { "morale": -2 }, "requires": null }
       },
       "pool": "sea_events"
     },
     {
       "id": "cargo_spoilage",
       "description": "The hold smells wrong. The carpenter opens a cask: the rice or pepper inside is damp, beginning to rot. A quarter of a valuable cargo may be unsellable if you don't act now.",
+      "description_es": "La bodega huele mal. El carpintero abre un tonel: el arroz o la pimienta que contiene está húmedo, comenzando a pudrirse. Una cuarta parte de una carga valiosa puede resultar invendible si no actuáis ahora.",
       "options": {
-        "1": { "text": "Jettison the spoiled goods and seal what remains.", "effect": { "gold": -10 }, "requires": null },
-        "2": { "text": "Dry what you can in the sun — takes time.", "effect": { "gold": -5, "morale": -2 }, "requires": null },
-        "3": { "text": "Sell it at a discount at the next village. (Partial recovery)", "effect": { "gold": -5 }, "requires": null },
-        "4": { "text": "The herbalist can identify what's salvageable. (Requires: Herbalist)", "effect": { "gold": -3 }, "requires": { "crew_occupation": "herbalist" } }
+        "1": { "text": "Jettison the spoiled goods and seal what remains.", "text_es": "Arrojar la mercancía echada a perder y sellar lo que queda.", "effect": { "gold": -10 }, "requires": null },
+        "2": { "text": "Dry what you can in the sun — takes time.", "text_es": "Secar lo que se pueda al sol — lleva tiempo.", "effect": { "gold": -5, "morale": -2 }, "requires": null },
+        "3": { "text": "Sell it at a discount at the next village. (Partial recovery)", "text_es": "Venderlo con descuento en la próxima aldea. (Recuperación parcial)", "effect": { "gold": -5 }, "requires": null },
+        "4": { "text": "The herbalist can identify what's salvageable. (Requires: Herbalist)", "text_es": "El herborista puede identificar qué es rescatable. (Requiere: Herborista)", "effect": { "gold": -3 }, "requires": { "crew_occupation": "herbalist" } }
       },
       "pool": "sea_events"
     }
@@ -225,10 +245,11 @@
     {
       "id": "harbormaster_intro",
       "description": "The harbor master {harbormaster_name} eyes your manifest with the practiced disinterest of a man who has seen a thousand captains. He quotes you a fee of {harbor_fee} gold, then adds, almost casually, that there have been problems in the port lately.",
+      "description_es": "El capitán del puerto {harbormaster_name} examina vuestro manifiesto con el desinterés practicado de quien ha visto a mil capitanes. Os cita una tasa de {harbor_fee} oro y añade, casi de pasada, que últimamente ha habido problemas en el puerto.",
       "options": {
-        "1": { "text": "Pay the fee and ask no questions. ({harbor_fee} gold)", "effect": { "gold": -12 }, "requires": null },
-        "2": { "text": "Negotiate — your reputation may help.", "effect": { "gold": -8 }, "requires": null },
-        "3": { "text": "Ask what problems. Listen carefully.", "effect": { "gold": -12, "morale": 3 }, "requires": null }
+        "1": { "text": "Pay the fee and ask no questions. ({harbor_fee} gold)", "text_es": "Pagar la tasa sin hacer preguntas. ({harbor_fee} oro)", "effect": {}, "requires": null },
+        "2": { "text": "Negotiate — your reputation may help.", "text_es": "Negociar — vuestra reputación puede ayudar.", "effect": {}, "requires": null },
+        "3": { "text": "Ask what problems. Listen carefully.", "text_es": "Preguntar qué problemas. Escuchar con atención.", "effect": { "morale": 3 }, "requires": null }
       },
       "once": true,
       "pool": "harbor_events"
@@ -236,55 +257,60 @@
     {
       "id": "brawl_in_tavern",
       "description": "One of your crew — the violent type, or simply unlucky — has started a brawl in a waterfront establishment. By the time word reaches you, there is already blood and a crowd. The local watch is coming.",
+      "description_es": "Uno de vuestra tripulación — el tipo violento, o simplemente desafortunado — ha armado una reyerta en un establecimiento del muelle. Para cuando la noticia os llega, ya hay sangre y una muchedumbre. La guardia local se acerca.",
       "options": {
-        "1": { "text": "Pay the fine and collect your man. (Cost: 5 gold)", "effect": { "gold": -5, "morale": -3 }, "requires": { "gold": 5 } },
-        "2": { "text": "Leave him. One less problem.", "effect": { "morale": -8 }, "requires": null },
-        "3": { "text": "Talk your way out of it. (Requires: Interpreter or Worldly crew)", "effect": { "morale": 3 }, "requires": { "crew_trait": "worldly" } },
-        "4": { "text": "Bribe the watch captain quietly. (Cost: 8 gold)", "effect": { "gold": -8, "morale": 2 }, "requires": { "gold": 8 } }
+        "1": { "text": "Pay the fine and collect your man. (Cost: 5 gold)", "text_es": "Pagar la multa y recuperar al hombre. (Coste: 5 oro)", "effect": { "gold": -5, "morale": -3 }, "requires": { "gold": 5 } },
+        "2": { "text": "Leave him. One less problem.", "text_es": "Dejarlo. Un problema menos.", "effect": { "morale": -8 }, "requires": null },
+        "3": { "text": "Talk your way out of it. (Requires: Interpreter or Worldly crew)", "text_es": "Salir del paso con palabras. (Requiere: Intérprete o tripulación con Mundo)", "effect": { "morale": 3 }, "requires": { "crew_trait": "worldly" } },
+        "4": { "text": "Bribe the watch captain quietly. (Cost: 8 gold)", "text_es": "Sobornar discretamente al jefe de la guardia. (Coste: 8 oro)", "effect": { "gold": -8, "morale": 2 }, "requires": { "gold": 8 } }
       },
       "pool": "harbor_events"
     },
     {
       "id": "rumor_of_goods",
       "description": "A dockside broker pulls you aside — there is a shipment of pepper or cloves moving through the port tonight, quietly, avoiding the guild traders. He can get you a price below market if you move fast.",
+      "description_es": "Un corredor del muelle os lleva aparte — hay un cargamento de pimienta o clavos que esta noche pasa por el puerto, en silencio, evitando a los comerciantes del gremio. Puede conseguiros un precio por debajo del mercado si actuáis rápido.",
       "options": {
-        "1": { "text": "Buy in. (Cost: 20 gold, reward in spices)", "effect": { "gold": -20, "spices": 8 }, "requires": { "gold": 20 } },
-        "2": { "text": "Pass — could be a setup.", "effect": { "morale": 0 }, "requires": null },
-        "3": { "text": "Have your merchant verify the goods first. (Requires: Merchant)", "effect": { "gold": -15, "spices": 8 }, "requires": { "crew_occupation": "merchant" } },
-        "4": { "text": "Report it to the guild and collect a finder's fee.", "effect": { "gold": 10, "morale": -3 }, "requires": null }
+        "1": { "text": "Buy in. (Cost: 20 gold, reward in spices)", "text_es": "Entrar en el trato. (Coste: 20 oro, recompensa en especias)", "effect": { "gold": -20, "spices": 8 }, "requires": { "gold": 20 } },
+        "2": { "text": "Pass — could be a setup.", "text_es": "Pasar — podría ser una trampa.", "effect": { "morale": 0 }, "requires": null },
+        "3": { "text": "Have your merchant verify the goods first. (Requires: Merchant)", "text_es": "Que vuestro comerciante verifique primero la mercancía. (Requiere: Comerciante)", "effect": { "gold": -15, "spices": 8 }, "requires": { "crew_occupation": "merchant" } },
+        "4": { "text": "Report it to the guild and collect a finder's fee.", "text_es": "Denunciarlo al gremio y cobrar la recompensa del informante.", "effect": { "gold": 10, "morale": -3 }, "requires": null }
       },
       "pool": "harbor_events"
     },
     {
       "id": "ruler_audience",
       "description": "An invitation arrives from the palace — or rather from the chamberlain's secretary. The local ruler will receive you, if you are presentable and your gifts are appropriate.",
+      "description_es": "Llega una invitación del palacio — o más bien del secretario del chambelán. El gobernante local os recibirá si vuestra presencia es digna y vuestros regalos son apropiados.",
       "options": {
-        "1": { "text": "Present yourself with a modest gift. (Cost: 10 gold)", "effect": { "gold": -10, "morale": 5 }, "requires": { "gold": 10 } },
-        "2": { "text": "Present yourself with an impressive gift. (Cost: 25 gold)", "effect": { "gold": -25, "morale": 10 }, "requires": { "gold": 25 } },
-        "3": { "text": "Send a polite refusal. You have business to attend to.", "effect": { "morale": -3 }, "requires": null },
-        "4": { "text": "Attend with your interpreter present. (Requires: Interpreter)", "effect": { "gold": -10, "morale": 8 }, "requires": { "crew_occupation": "interpreter" } }
+        "1": { "text": "Present yourself with a modest gift. (Cost: 10 gold)", "text_es": "Presentaros con un regalo modesto. (Coste: 10 oro)", "effect": { "gold": -10, "morale": 5 }, "requires": { "gold": 10 } },
+        "2": { "text": "Present yourself with an impressive gift. (Cost: 25 gold)", "text_es": "Presentaros con un regalo impresionante. (Coste: 25 oro)", "effect": { "gold": -25, "morale": 10 }, "requires": { "gold": 25 } },
+        "3": { "text": "Send a polite refusal. You have business to attend to.", "text_es": "Enviar una negativa cortés. Tenéis asuntos que atender.", "effect": { "morale": -3 }, "requires": null },
+        "4": { "text": "Attend with your interpreter present. (Requires: Interpreter)", "text_es": "Asistir con vuestro intérprete. (Requiere: Intérprete)", "effect": { "gold": -10, "morale": 8 }, "requires": { "crew_occupation": "interpreter" } }
       },
       "pool": "harbor_events"
     },
     {
       "id": "ship_repair_needed",
       "description": "Your carpenter emerges from the hold looking grave. The keel has been gnawed by teredo worms — the curse of tropical waters. She needs careening and recaulking before the next long voyage. It will cost time and money.",
+      "description_es": "El carpintero sale de la bodega con semblante grave. La quilla ha sido roída por las barcas de San Pedro — la maldición de los mares tropicales. Necesita carenar y recalafatear antes del próximo viaje largo. Costará tiempo y dinero.",
       "options": {
-        "1": { "text": "Pay the local shipwrights. (Cost: 20 gold)", "effect": { "gold": -20, "ship_health": 30 }, "requires": { "gold": 20 } },
-        "2": { "text": "Have your carpenter lead the repair. (Requires: Carpenter, Cost: 8 gold)", "effect": { "gold": -8, "ship_health": 25 }, "requires": { "crew_occupation": "carpenter", "gold": 8 } },
-        "3": { "text": "Patch it and press on. She'll hold — probably.", "effect": { "ship_health": 5 }, "requires": null },
-        "4": { "text": "Negotiate with the harbor master to use his dry facilities. (Requires: Diplomat)", "effect": { "gold": -12, "ship_health": 30 }, "requires": { "gold": 12 } }
+        "1": { "text": "Pay the local shipwrights. (Cost: 20 gold)", "text_es": "Pagar a los carpinteros de ribera locales. (Coste: 20 oro)", "effect": { "gold": -20, "ship_health": 30 }, "requires": { "gold": 20 } },
+        "2": { "text": "Have your carpenter lead the repair. (Requires: Carpenter, Cost: 8 gold)", "text_es": "Que vuestro carpintero dirija las reparaciones. (Requiere: Carpintero, Coste: 8 oro)", "effect": { "gold": -8, "ship_health": 25 }, "requires": { "crew_occupation": "carpenter", "gold": 8 } },
+        "3": { "text": "Patch it and press on. She'll hold — probably.", "text_es": "Remendar y continuar. Aguantará — probablemente.", "effect": { "ship_health": 5 }, "requires": null },
+        "4": { "text": "Negotiate with the harbor master to use his dry facilities. (Requires: Diplomat)", "text_es": "Negociar con el capitán del puerto para usar su varadero. (Requiere: Diplomático)", "effect": { "gold": -12, "ship_health": 30 }, "requires": { "gold": 12 } }
       },
       "pool": "harbor_events"
     },
     {
       "id": "religious_procession",
       "description": "A festival day. The port has come alive with processions — incense, chanting, music. Commerce is suspended. Your crew has mingled with the crowd. Some are moved; some are merely curious. The local faithful notice your presence.",
+      "description_es": "Día de fiesta. El puerto ha cobrado vida con procesiones — incienso, cánticos, música. El comercio está suspendido. Vuestra tripulación se ha mezclado con la multitud. Algunos están conmovidos; otros, simplemente curiosos. Los fieles locales notan vuestra presencia.",
       "options": {
-        "1": { "text": "Participate respectfully — show deference to local faith.", "effect": { "morale": 8 }, "requires": null },
-        "2": { "text": "Keep to the ship. You are guests, not converts.", "effect": { "morale": 2 }, "requires": null },
-        "3": { "text": "If your priest joins the local clergy for discussion, it may build trust.", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
-        "4": { "text": "Some of your crew are of this faith. Let them lead.", "effect": { "morale": 12 }, "requires": null }
+        "1": { "text": "Participate respectfully — show deference to local faith.", "text_es": "Participar con respeto — mostrar deferencia hacia la fe local.", "effect": { "morale": 8 }, "requires": null },
+        "2": { "text": "Keep to the ship. You are guests, not converts.", "text_es": "Quedarse en el barco. Sois huéspedes, no conversos.", "effect": { "morale": 2 }, "requires": null },
+        "3": { "text": "If your priest joins the local clergy for discussion, it may build trust.", "text_es": "Si vuestro clérigo se une al clero local para conversar, puede generar confianza.", "effect": { "morale": 10 }, "requires": { "crew_occupation": "priest" } },
+        "4": { "text": "Some of your crew are of this faith. Let them lead.", "text_es": "Algunos de vuestra tripulación profesan esta fe. Dejadles tomar la iniciativa.", "effect": { "morale": 12 }, "requires": null }
       },
       "pool": "harbor_events"
     }
@@ -293,33 +319,36 @@
     {
       "id": "village_elder_welcome",
       "description": "The headman of the village greets you at the beach, flanked by two younger men with spears. His expression is cautious but not hostile. He has seen ships before — and he knows they can bring trouble as easily as trade.",
+      "description_es": "El jefe de la aldea os saluda en la playa, flanqueado por dos hombres más jóvenes con lanzas. Su expresión es cautelosa, pero no hostil. Ha visto barcos antes — y sabe que pueden traer problemas con la misma facilidad que el comercio.",
       "options": {
-        "1": { "text": "Offer a gift. (Cost: 3 gold)", "effect": { "gold": -3, "morale": 5 }, "requires": { "gold": 3 } },
-        "2": { "text": "Speak through a Malay interpreter.", "effect": { "morale": 7 }, "requires": { "crew_language": "Malay" } },
-        "3": { "text": "Trade food for local knowledge of the area.", "effect": { "morale": 4 }, "requires": null },
-        "4": { "text": "State your business and be done with it.", "effect": { "morale": -2 }, "requires": null }
+        "1": { "text": "Offer a gift. (Cost: 3 gold)", "text_es": "Ofrecer un regalo. (Coste: 3 oro)", "effect": { "gold": -3, "morale": 5 }, "requires": { "gold": 3 } },
+        "2": { "text": "Speak through a Malay interpreter.", "text_es": "Hablar por mediación de un intérprete malayo.", "effect": { "morale": 7 }, "requires": { "crew_language": "Malay" } },
+        "3": { "text": "Trade food for local knowledge of the area.", "text_es": "Cambiar comida por conocimiento local de la zona.", "effect": { "morale": 4 }, "requires": null },
+        "4": { "text": "State your business and be done with it.", "text_es": "Decir a qué habéis venido y acabar con ello.", "effect": { "morale": -2 }, "requires": null }
       },
       "pool": "village_events"
     },
     {
       "id": "local_guide_offer",
       "description": "A young man approaches your camp at night — quietly, so the village elder won't see. He says he knows the passage through the reef that no chart shows. He wants passage to the next port. His price is reasonable.",
+      "description_es": "Un joven se acerca a vuestro campamento de noche — en silencio, para que el jefe de la aldea no lo vea. Dice que conoce el paso por el arrecife que no figura en ninguna carta. Quiere pasaje hasta el próximo puerto. Su precio es razonable.",
       "options": {
-        "1": { "text": "Take him on. He may prove useful.", "effect": { "morale": 3 }, "requires": null },
-        "2": { "text": "Ask what he is running from first.", "effect": { "morale": 2 }, "requires": null },
-        "3": { "text": "Decline. You don't know this man.", "effect": { "morale": 0 }, "requires": null },
-        "4": { "text": "Pay him for the information alone — no passage.", "effect": { "gold": -4, "morale": 3 }, "requires": { "gold": 4 } }
+        "1": { "text": "Take him on. He may prove useful.", "text_es": "Llevarlo. Puede resultar útil.", "effect": { "morale": 3 }, "requires": null },
+        "2": { "text": "Ask what he is running from first.", "text_es": "Preguntar primero de qué está huyendo.", "effect": { "morale": 2 }, "requires": null },
+        "3": { "text": "Decline. You don't know this man.", "text_es": "Rechazarlo. No conocéis a este hombre.", "effect": { "morale": 0 }, "requires": null },
+        "4": { "text": "Pay him for the information alone — no passage.", "text_es": "Pagarle sólo por la información — sin pasaje.", "effect": { "gold": -4, "morale": 3 }, "requires": { "gold": 4 } }
       },
       "pool": "village_events"
     },
     {
       "id": "jungle_fever",
       "description": "Two of your men went ashore to fill water casks from a stream inland. They have returned — but slowly, complaining of chills and sweating through their shirts. The water was bad, or there were insects. Either way you have sick men.",
+      "description_es": "Dos de vuestros hombres fueron a tierra a llenar los toneles de agua en un arroyo del interior. Han regresado — pero lentamente, quejándose de escalofríos y empapados en sudor. El agua era mala, o había insectos. En cualquier caso, tenéis hombres enfermos.",
       "options": {
-        "1": { "text": "Rest here a day and hope they recover.", "effect": { "morale": -3 }, "requires": null },
-        "2": { "text": "The herbalist gathers local plants for treatment. (Requires: Herbalist)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "herbalist" } },
-        "3": { "text": "Sail immediately. The healthy crew can manage.", "effect": { "morale": -7 }, "requires": null },
-        "4": { "text": "Ask the village for medicine. It costs in trade goods.", "effect": { "gold": -5, "morale": 4 }, "requires": { "gold": 5 } }
+        "1": { "text": "Rest here a day and hope they recover.", "text_es": "Descansar aquí un día y esperar que se recuperen.", "effect": { "morale": -3 }, "requires": null },
+        "2": { "text": "The herbalist gathers local plants for treatment. (Requires: Herbalist)", "text_es": "El herborista recoge plantas locales para el tratamiento. (Requiere: Herborista)", "effect": { "morale": 3 }, "requires": { "crew_occupation": "herbalist" } },
+        "3": { "text": "Sail immediately. The healthy crew can manage.", "text_es": "Zarpar de inmediato. La tripulación sana puede arreglárselas.", "effect": { "morale": -7 }, "requires": null },
+        "4": { "text": "Ask the village for medicine. It costs in trade goods.", "text_es": "Pedir medicina a la aldea. Se paga en mercancías.", "effect": { "gold": -5, "morale": 4 }, "requires": { "gold": 5 } }
       },
       "pool": "village_events"
     }
@@ -328,24 +357,41 @@
     {
       "id": "harbormaster_intro_special",
       "description": "You have arrived at {current_port} for the first time. {harbormaster_name} receives you in a small stone office overlooking the anchorage. He sets your harbor fee at {harbor_fee} gold and says little else — but his eyes are measuring you carefully.",
+      "description_es": "Habéis llegado a {current_port} por primera vez. {harbormaster_name} os recibe en una pequeña oficina de piedra con vistas al fondeadero. Fija vuestra tasa portuaria en {harbor_fee} oro y dice poco más — pero sus ojos os miden con cuidado.",
       "when": { "once": true, "type": "major_port" },
       "variants": {
         "Portuguese Conquistador": {
-          "description": "You have arrived at {current_port}. {harbormaster_name} stiffens when he sees your flag. He quotes the fee at {harbor_fee} gold — above standard — and does not offer refreshment. Portuguese ships carry a certain reputation here."
+          "description": "You have arrived at {current_port}. {harbormaster_name} stiffens when he sees your flag. He quotes the fee at {harbor_fee} gold — above standard — and does not offer refreshment. Portuguese ships carry a certain reputation here.",
+          "description_es": "Habéis llegado a {current_port}. {harbormaster_name} se tensa al ver vuestra bandera. Os cita la tasa en {harbor_fee} oro — por encima de lo habitual — y no ofrece refrigerio. Los navíos portugueses cargan aquí con cierta reputación."
         },
-        "Arab Muslim Dāʿī": {
-          "description": "You have arrived at {current_port}. {harbormaster_name} greets you with the briefest inclination of his head. The fee is {harbor_fee} gold. For a dāʿī, the network of Muslim merchants will have already whispered your name through the port. Some doors may open more easily."
+        "Ottoman Trader": {
+          "description": "You have arrived at {current_port}. {harbormaster_name} greets you with measured respect. The fee is {harbor_fee} gold. An Ottoman trader at this latitude carries the implicit weight of Istanbul behind him — for now, that is worth something. Eyes in the port note your dhow's flag.",
+          "description_es": "Habéis llegado a {current_port}. {harbormaster_name} os saluda con respeto medido. La tasa es de {harbor_fee} oro. Un comerciante otomano a esta latitud lleva el peso implícito de Estambul tras de sí — por ahora, eso vale algo. Los ojos del puerto notan la bandera de vuestro dhow."
         },
         "Chinese Trader": {
-          "description": "You have arrived at {current_port}. {harbormaster_name} has dealt with Chinese merchants for years. The fee is {harbor_fee} gold. He assumes you carry silk or porcelain and his manner is professional, if transactional."
+          "description": "You have arrived at {current_port}. {harbormaster_name} has dealt with Chinese merchants for years. The fee is {harbor_fee} gold. He assumes you carry silk or porcelain and his manner is professional, if transactional.",
+          "description_es": "Habéis llegado a {current_port}. {harbormaster_name} lleva años tratando con comerciantes chinos. La tasa es de {harbor_fee} oro. Asume que lleváis seda o porcelana y su trato es profesional, aunque transaccional."
         }
       },
       "options": {
-        "1": { "text": "Pay and proceed. ({harbor_fee} gold)", "effect": { "gold": -12 }, "requires": null },
-        "2": { "text": "Negotiate on the basis of your cargo and origin.", "effect": { "gold": -8 }, "requires": null },
-        "3": { "text": "Ask about the port — who is in power, what is trading.", "effect": { "gold": -12, "morale": 3 }, "requires": null }
+        "1": { "text": "Pay and proceed. ({harbor_fee} gold)", "text_es": "Pagar y continuar. ({harbor_fee} oro)", "effect": {}, "requires": null },
+        "2": { "text": "Negotiate on the basis of your cargo and origin.", "text_es": "Negociar sobre la base de vuestra carga y origen.", "effect": {}, "requires": null },
+        "3": { "text": "Ask about the port — who is in power, what is trading.", "text_es": "Preguntar sobre el puerto — quién gobierna, qué se comercia.", "effect": { "morale": 3 }, "requires": null }
       },
+      "npc_id": "harbor_master",
       "pool": "special_events"
     }
+  ],
+  "lore_fragments": [
+    "Old sailors say Admiral Zheng He's treasure fleet still sails these waters in fog, crewed by men who do not know they are dead.",
+    "The crocodile king of Patani remembers every debt. He has never forgotten one in three hundred years.",
+    "There is an Orang Laut navigator who can read the current three days ahead by the colour of the water. He has never been wrong. He does not tell you how he knows.",
+    "A Portuguese sailor married a Pontianak south of Pulau Tioman. He cannot die, but he also cannot sleep. He has been seen on three different ships in the same week.",
+    "At the bottom of the Gulf of Hormuz there is a pearl that shows the diver one true vision. Every man who has brought it to the surface has put it back.",
+    "The woman in the doorway at Malacca — the one who did not run — has been seen at Calicut, at Aden, at Bantam. Always watching. Always a different age.",
+    "There is a chart drawn by a blind cartographer in Quanzhou that shows every reef between here and the Banda Sea. He drew it from memory. He has never been to sea.",
+    "Somewhere in the Java Sea there is an island that appears for three days after every monsoon and is not on any map. The Bugis call it Pulau Bayang — the Shadow Island.",
+    "A Tamil merchant at Calicut swears he bought a bolt of silk from a trader who had been dead six months. The silk was still warm.",
+    "The Banda nutmeg trees do not grow where blood has not been spilled first. The oldest trees are very old."
   ]
 }
