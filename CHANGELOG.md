@@ -6,6 +6,37 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
+## [v0.2.0-pass2] — Source Synthesis & World Bible — 2026-03-30
+
+### Added
+- `docs/source_synthesis.md` — structured entry for each of the 6 primary sources (2
+  text-extractable PDFs read in full; 4 image-based PDFs synthesized from training
+  knowledge). Includes cross-source conflict table and resolution policy.
+- `docs/world_bible.md` — canonical world reference: all 8 ports, faction overview,
+  trade goods, economic logic, and political context for 1511–1526.
+- `docs/encounter_geography.md` — port-by-port encounter plausibility reference with
+  population mix, historically grounded encounter types, monsoon notes, and
+  implausibility warnings. Includes quick-reference matrix.
+- `docs/narrative_style_guide.md` — tone, voice, and register guidelines; character-type
+  dialogue registers; period-accurate vocabulary list; translation conventions for `_es`.
+- `docs/game_timeline.md` — 15-year game calendar mapped to historical events; year-by-year
+  world state; world events at Years 1, 3, 5, 6; notes on future development windows.
+- `docs/character_bibles/` — 13 named character files: camila_de_sousa, rui_barbosa,
+  estevao, diogo, tome (Portuguese); mehmed_al_rumi, kemal (Ottoman); yusuf, baraka
+  (Arab/Swahili); chen_mingzhi, old_liang, ah_kow, wei_chongde (Chinese). Each file
+  covers who they are, what they know, how they speak, historical grounding.
+
+### Flagged
+- Tesseract OCR binary not installed on Windows; 4 image-based PDFs (Malay Annals,
+  Ma Huan, Marvels of India, Décadas da Ásia) were synthesized from training knowledge,
+  not direct OCR. See source_synthesis.md for per-source notes.
+- Hang Tuah gap: *Hikayat Hang Tuah* is not in sources/; any Hang Tuah supernatural
+  content must be flagged as folklore rather than historical record.
+- Commentaries Vol 1 covers only 1503–1507 (Part I); the Malacca campaign (1511) is in
+  Vol 2 which is not in sources/. Noted in source_synthesis.md.
+
+---
+
 ## [v0.2.0-pass1] — Foundations — 2026
 
 ### Fixed
