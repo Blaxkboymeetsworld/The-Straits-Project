@@ -1,6 +1,7 @@
 *.pyc
 .venv/
 __pycache__/
-*.pyc .venv/
-__pycache__/
-*.pyc
+sources/
+_extracted/
+.claude/
+saves/
