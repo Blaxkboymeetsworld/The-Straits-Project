@@ -1,55 +1,41 @@
-# Character Bible: Mehmed al-Rumi
+# Character Bible — Mehmed al-Rumi (Ottoman Protagonist)
 
-**Full name:** Mehmed ibn Qasim al-Rumi
-**Nationality:** Ottoman (Anatolian Turkish; born in Bursa)
-**Location:** Hormuz (primary); occasionally Aden
-**Role:** Ottoman commercial agent; intelligence gatherer; operating under the cover of a spice merchant from Anatolia
-**Appears in:** Hormuz events; intelligence-related encounters; Ottoman faction events in Years 4–6
+## Who He Is
+The player character for the Ottoman route. A sophisticated trader-diplomat who operates at the intersection of Ottoman court politics and Indian Ocean commerce. "Al-Rumi" designates his Anatolian/Roman origin — he is ethnically Turkish but identifies with the Ottoman cosmopolitan world, not a single tribal heritage.
 
----
+**Full name:** Mehmed Bey al-Rumi (Mehmed Bey in formal address; al-Rumi as identifier)
+**Origin:** Anatolia (western Turkey; former Byzantine lands — "Rum")
+**Age at Year 1:** ~35–40
+**Role:** Independent merchant-captain with Ottoman court connections; operates in the Arabian Sea and Indian Ocean trade routes
 
-## Who he is
+## What He Knows
+- Ottoman Turkish, Arabic, Persian; some Gujarati trade phrases
+- The Mamluk world — its politics, merchant families, and how quickly it is crumbling
+- The Indian Ocean trade routes from Aden to Hormuz to Malabar; less familiar with SE Asian routes
+- How to operate within bureaucratic structures while maintaining personal independence
+- The Portuguese threat: he understands what Albuquerque built and what it means for Muslim merchants
 
-Mehmed ibn Qasim arrived in Hormuz in 1510 under the cover of a trader in dried fruits, copper ware, and Anatolian textiles. He has been in the Indian Ocean trade network for four years; his commercial cover is good enough that most people who deal with him do not think about what else he might be.
+## What He Is Navigating
+The collapse of the old order. The Mamluk-Karimi trade network that made Red Sea commerce reliable is dying. The Portuguese have taken the key spice entrepôt. Istanbul is expanding but has not yet extended full imperial support to Indian Ocean operations. Mehmed operates in the gap — too connected to the old world, too aware to pretend the new one isn't coming.
 
-He is, in fact, an agent of the Ottoman imperial chancery — specifically of the network reporting to the Grand Vizier's office on the military-commercial situation in the Indian Ocean. His assignment: assess Portuguese military strength at Hormuz and report on the feasibility of an Ottoman naval intervention through the Red Sea and Persian Gulf.
+## How He Speaks
+Formal in courts; direct in business; careful with strangers. He uses compliment as a tool — a sincere compliment has a value, a calculated compliment has a different value, and both are visible to a skilled observer. He wants to be the skilled observer, and often is.
 
-He is thirty-six, highly educated (he reads Arabic, Persian, and Ottoman Turkish; speaks enough Portuguese to follow a conversation), theologically orthodox but not devout in manner. He has been in the field long enough to have developed genuine relationships in Hormuz that complicate his professional detachment.
+He is not devout in a performative sense but his Islamic faith is structurally present in his worldview: what is permitted, what is prohibited, what God ordains. He does not moralize to others but lives his own practice.
 
----
+**Characteristic line:**
+> "The Gujaratis think the Portuguese will be gone in a generation. The Portuguese think the same of the Gujaratis. I am taking no position. I am taking the cargo."
 
-## What he knows
+## Relationship to Ottoman Politics
+- Year 1–5: Semi-independent; maintains connections but is not an Ottoman agent
+- Year 6: Fall of Mamluks changes everything. Istanbul is now the patron. Does Mehmed embrace this (resources, protection) or resist (independence, old network loyalty)?
+- Year 7+: Selman Reis represents the Ottoman state's formal Indian Ocean commitment; Mehmed's relationship to Selman Reis is a late-game arc choice
 
-- Portuguese military capacity at Hormuz: current garrison strength, artillery, the tribute system's mechanics
-- The Shah of Hormuz's real relationship with the Portuguese: the tribute is paid; resentment is genuine; but Hormuz has no alternative right now
-- The Persian Gulf trade network: what goods move where, at what prices, through whose hands
-- The Ottoman imperial plan (in broad outline): build a Red Sea fleet, challenge the Portuguese at sea, re-establish the traditional spice route through Aden and Egypt
-- The limits of his own intelligence: he does not know Portuguese naval strength at Goa or Malacca
+## Historical Grounding
+- Ottoman merchants of this period operated throughout the Indian Ocean world; "Ottoman" did not mean Turkish ethnicity — the empire was multi-ethnic
+- The al-Rumi designation was used for people from Anatolia/former Byzantine lands, distinct from Arab, Persian, or Kurdish Ottoman subjects
+- Commentaries Vol I gives the Ormuz negotiation detail: treaties in Arabic on leaf-gold and Persian on paper — this is Mehmed's world
+- The Marvels of India's Arab sea-captain voices (Siraf/Basra/Aden captains) give texture to the older tradition Mehmed inherits
 
----
-
-## How he speaks
-
-Excellent formal Arabic with a slight Anatolian accent. His commercial conversations are professional and efficient. His political conversations, which he always initiates carefully and in private, are conducted in the elaborate Persian diplomatic register — compliment, indirect statement, implication, withdrawal.
-
-He will not say "I work for the Sultan of the Ottomans." He will say: "Men of good judgment understand that the current situation cannot persist. One wonders what arrangements might be made by persons who share this understanding."
-
-He is genuinely curious about people — a quality that makes him a good agent and a good conversationalist. He will ask the player questions that seem like commercial small talk and are not.
-
----
-
-## What he wants
-
-His mission: to assess whether an Ottoman naval expedition through the Red Sea could challenge Portuguese control of the Indian Ocean approaches. He needs to know Portuguese fort placements, gun counts, patrol patterns, and the degree to which Indian and Southeast Asian powers would support an Ottoman intervention.
-
-His personal interest: he has been in Hormuz long enough to know that the Gulf's merchants are suffering under the tribute system. He believes, genuinely, that Ottoman intervention would be better for these merchants than Portuguese monopoly. This is not cynical cover; it is a real conviction.
-
-He would pay well — in Ottoman gold, in letters of introduction to Ottoman-aligned merchants, in intelligence about Portuguese movements — for reliable information about Goa or Malacca.
-
----
-
-## Historical grounding
-
-The Ottoman interest in the Indian Ocean was concrete and documented in this period. After the Portuguese defeat of the Mamluk fleet at the Battle of Diu (1509), and after the Ottoman absorption of the Mamluk Sultanate (1517), the Ottomans inherited both the ambition and some of the infrastructure for Indian Ocean intervention. The Ottoman fleet under Selman Reis operated in the Red Sea from the mid-1510s; the major Ottoman expedition to India was in 1538 (Battle of Diu II). Intelligence agents operating in Hormuz and Aden in the 1510s are historically plausible.
-
-Mehmed al-Rumi (al-Rumi = "from Rum," i.e., Anatolia/Byzantine successor lands) is a plausible name for an Ottoman agent of this period.
+## Opening Scene Context
+Mehmed and Baraka's first exchange at sea — establishing their dynamic before the world's chaos hits them. Baraka's moral clarity vs. Mehmed's strategic calculation; the scene should show that both are intelligent and that their intelligence manifests differently.

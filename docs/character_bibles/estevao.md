@@ -1,49 +1,43 @@
-# Character Bible: Estêvão
+# Character Bible — Estêvão da Guiné
 
-**Full name:** Estêvão de Beja (rarely uses the surname)
-**Nationality:** Portuguese (from Beja, Alentejo)
-**Location:** At sea; no fixed port. Encountered as crew or as transient contact at multiple ports.
-**Role:** Navigator/pilot; former royal fleet pilot now operating independently
-**Appears in:** Crew recruitment events; navigation-critical events; pilot-for-hire encounters
+## Who He Is
+A Luso-African crew member — born in West Africa (Guinea coast) to an African mother and a Portuguese father, or the son of a *degredado* and a local woman. He has been in Portuguese service long enough to have traveled the African coast, then east. He is technically Portuguese in the Estado da India's records. He is received differently at every port.
 
----
+**Full name:** Estêvão da Guiné ("da Guiné" = from Guinea; a naming convention for African-born Portuguese subjects)
+**Origin:** Guinea coast, West Africa; came east through Goa
+**Age at Year 1:** ~25–30
+**Role:** General crew; translator (African languages not useful here, but his facility with language means he picks up Malay and Tamil faster than anyone); sometimes cultural interpreter
 
-## Who he is
+## What He Knows
+- Portuguese
+- Some Arabic (picked up in West African Muslim contact zones)
+- Swahili phrases (the Swahili coast connection runs through the same Indian Ocean world)
+- How to read a room where he is not welcome and find the one person who might talk to him
+- What it is to be useful to people who would rather not need you
 
-Estêvão de Beja is fifty-one years old and has been at sea since he was fourteen. He served as a pilot on the India run (the *Carreira da India*) under Vasco da Gama's later voyages, then on Albuquerque's fleet, then under the Estado da India's official dispatch vessels. He left official service in 1510 after a disciplinary dispute — he refused to certify a captain's navigational log that was falsified, and the captain had better connections.
+## How He Speaks
+Careful in formal settings; more open when he trusts the company. He has learned that his words are quoted and used against him in ways that other crew members' words are not. He is not bitter about this — bitterness would be a luxury — but he is precise.
 
-He is the most experienced navigator the player can encounter. He knows the Indian Ocean's currents, the South China Sea's typhoon season, the Persian Gulf's spring winds, and the East African coast's northward-setting current. This knowledge was accumulated across more than thirty-five years of passage.
+He does not explain himself to people who have already decided what he is.
 
-He is not a comfortable man to travel with. He is blunt to the point of rudeness about seamanship errors, pessimistic about weather, and contemptuous of anyone who sails by instinct rather than calculation. He is also unfailingly correct about all of the above.
+**Characteristic line:**
+> "In Calicut they asked if I was a slave. In Malacca they thought I was from the cannibal islands. In Goa, the priest wanted to know if I had been baptized. I told them all what they needed to hear."
 
----
+## Port-by-Port Reaction
+Estêvão's reception changes by port — and this is the mechanical hook the character provides. His presence opens some conversations and closes others:
+- **Malacca (Chinese Gores):** Curiosity; some of the Chinese community has seen Africans through the Arab trade network; he is a known quantity if unusual
+- **Calicut (Mappila Muslims):** Respect from some Arab-descended Mappilas who know the Swahili coast; wariness from Nayar warriors who see foreigners as threats
+- **Aden:** Most comfortable here; the Swahili-East African connection means he is not a novelty; treated as a man with connections to the Zanj world
+- **Bantam:** Cautious; Javanese have their own complex hierarchy of outsiders
+- **Hormuz:** Treated as simply foreign — no specific reaction
 
-## What he knows
+## Historical Grounding
+- The Portuguese brought West Africans into their eastern operations from early in the Estado da India period; there were Africans in Goa and Malacca by 1511
+- Baraka (Swahili character, Ottoman route) is from the same broad cultural zone — they might recognize each other's references
+- The Marvels of India describes the "sea of Zindj" (East Africa) and Arab contact with African coast populations; this world is not new to the Indian Ocean
+- *Degredados* and their children operated in the spaces between cultures; Estêvão's facility with cultural navigation reflects this
 
-- Navigation by the stars in all Indian Ocean regions: the Southern Cross (visible south of about 10° N), Polaris, the Arabic star-catalogue names he learned from the Indian Ocean pilots who taught him
-- The monsoon calendar with extreme precision: departure windows, risk periods, the transitional *cabo de vento* (wind shift) days
-- Every major hazard in the Straits of Malacca, the South China Sea, the Persian Gulf, and the East African coast
-- Where the Portuguese hydrographic charts (*roteiros*) are wrong and what the correction is
-- How to read cloud patterns, water color, and bird behavior as navigational aids
-
----
-
-## How he speaks
-
-Flat Alentejo Portuguese; few words; no decoration. Navigation is described in practical terms. When he says "we cannot make that passage in this season," it is not an opinion — it is a calculation he has already made. He does not argue; he states. If overruled, he records his objection and maintains a grim silence.
-
-He is capable of humor that arrives so dry it can be missed. When something goes as predicted (badly), he says nothing. When something goes unexpectedly well, he says: "This time."
-
----
-
-## What he wants
-
-To accumulate enough savings to retire to Beja and never see saltwater again. He has been saying this for twenty years. He will not retire because there is nothing in Beja that interests him as much as a difficult passage.
-
-He carries a well-used *roteiro* (pilot book) that contains corrections he has written into the margins in tiny careful script. This document would be enormously valuable to the right buyer; he treats any inquiry about it with suspicion and hostility.
-
----
-
-## Historical grounding
-
-Portuguese pilots (*pilotos*) were among the most skilled navigators in the world in this period; their knowledge of the Indian Ocean was systematically gathered, compiled into *roteiros*, and fiercely guarded. The pilot class occupied an unusual position: technically below the fidalgos in social rank, but practically indispensable in a way that gave them real leverage. Pilots who left official service and hired out independently were common; the knowledge could not be easily confiscated.
+## Relationship to Other Crew
+- Rui Barbosa: respects competence; treats Estêvão the same as any crew member capable of doing the job
+- Camila de Sousa: they have a natural understanding — both navigate being defined by others' assumptions
+- Simão: can be uncomfortable; his attitudes reflect the range in the period's Portuguese population

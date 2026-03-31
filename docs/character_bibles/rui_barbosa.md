@@ -1,52 +1,39 @@
-# Character Bible: Rui Barbosa
+# Character Bible — Rui Barbosa
 
-**Nationality:** Portuguese
-**Location:** Malacca Harbor (primary)
-**Role:** Garrison sergeant; unofficial fixer for Portuguese soldiers; connected to the underside of Malacca's Portuguese administration
-**Appears in:** Malacca events; crew-related events; conflict resolution events
+## Who He Is
+Tomé's navigator. An experienced man of the sea who has been east long enough to have lost his enthusiasm for heroism but kept his professional competence. He is not cynical — he has decided what he values and pursues it without drama.
 
----
+**Full name:** Rui Barbosa (renamed from Rui Brandão in character bibles — use Rui Barbosa throughout)
+**Origin:** Setúbal, Portugal (fishing port; the sea is not romance for him, it's work)
+**Age at Year 1:** ~40–45
+**Role:** Navigator; senior crew; de facto first mate
 
-## Who he is
+## What He Knows
+- Navigation by stars and coastal landmarks; current and wind patterns in the Indian Ocean
+- Portuguese maritime law and the Estado da India's bureaucratic procedures
+- The Malabar and Malacca routes from multiple voyages
+- Which harbor masters can be trusted and which will rob you with a smile
+- Basic Malay — enough to negotiate; not enough to be fluent
 
-Rui Barbosa came to India in 1506 as a common soldier — not a fidalgo, not educated, not connected to a merchant house. He fought at the siege of Hormuz (1507) and was present at the Malacca conquest (1511), where he distinguished himself in the fighting on the bridge and was promoted to sergeant by a captain who died of a wound two days later. The promotion stuck; the captain did not.
+## How He Speaks
+Economical. He never uses three words when two will do. He gives opinions when asked and keeps them when not. His humor is extremely dry and often delivered deadpan.
 
-He is now thirty-three, a *soldado velho* (old soldier) who has survived by being useful in ways that official ranks do not capture. He knows which warehouse has unsecured inventory. He knows which men in the garrison are in debt and to whom. He knows which Malay fishermen will sell information and which ones will report the conversation to the harbormaster.
+When something is wrong — weather, a deal, a man's behavior — he says so once. After that he waits for the person who ignored him to discover he was right.
 
-He is not corrupt in the grand manner; he takes small advantages and provides small services. His moral framework is practical: he has seen enough men die for principles that did not protect them.
+**Characteristic line:**
+> "Northeast wind is picking up. You want to wait until morning? We can. The channel will still be there. So will the Portuguese patrol."
 
----
+## Relationship to Tomé
+Rui does not command; Tomé is the capitão. But Rui is older and more experienced, and both men know it. Their working relationship is functional because Rui chose to sign on — he could work for anyone. The fact that he's still here means something.
 
-## What he knows
+He will not follow Tomé into obvious stupidity. This has happened once before with a different capitão, and Rui is still here and the capitão is not.
 
-- The Portuguese garrison's internal politics: who has the Captain's ear, who is being watched
-- The black market in Malacca: undeclared cargo, contraband spices, items taken from merchants who resisted the cartaz inspectors
-- Which Malay men in the harbor work as informants and which are genuine workers
-- The geography of Malacca's back streets and river crossings — where to move something without being observed
-- The real price of silence from Portuguese officials (amounts, methods)
+## Historical Grounding
+- Portuguese navigators of this period had practical knowledge of the Indian Ocean's monsoon patterns; Ma Huan's account of the 5th moon departure (south wind) from Malacca is exactly the kind of knowledge Rui would have
+- The Suma Oriental describes coastal approaches to every port; Rui's knowledge matches Pires's descriptions
+- Navigator as senior crew role is consistent with the period's ship organization
 
----
-
-## How he speaks
-
-Soldier's Portuguese: economical, literal, with a Lisbon accent worn flat by years of mixed company. He does not embellish. He will quote a price for a service and stick to it. He is not violent unless necessary but has no hesitation about it when it is.
-
-He is genuinely useful to the player as a fixer — someone who can smooth problems that money alone cannot solve because they require knowing which hand the money goes into. His loyalty is available for purchase but not cheaply; he respects a player who does not waste his time.
-
-He dislikes fidalgos who arrived after the conquest and now act as though they won it.
-
----
-
-## What he wants
-
-To save enough to buy passage back to Lisbon and purchase a small property — a vineyard, ideally. He has been abroad since 1506. He is not romantic about it; he simply has no other goal, and Lisbon is where the goal is located.
-
-He is aware that his chance of surviving long enough to spend his savings diminishes as the years go on. This makes him commercially efficient and occasionally reckless in ways that are not cost-effective.
-
----
-
-## Historical grounding
-
-The *soldado velho* — the career soldier who remained in India past the standard contract term because he had nowhere better to go — is a documented figure in the Estado da India. Soldiers of this type formed a permanent underclass in Portuguese colonial society, below the fidalgos but above the convict *degradados*. They are well-documented as operators of the informal economy that coexisted with the official Estado.
-
-Barbosa is a common Portuguese surname; this is not a reference to Duarte Barbosa (the chronicler) or any other historical figure.
+## Notes for Writers
+- Rui is not the comic relief and not the loyal sidekick. He is a professional who happens to be on Tomé's ship.
+- His opinions on Camila: he adapts quickly, because she is competent and competence is what matters to him
+- He has no particular interest in religion, conquest, or Portugal's mission in the east; he is interested in getting the ship home with a profit

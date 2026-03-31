@@ -6,34 +6,56 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
-## [v0.2.0-pass2] — Source Synthesis & World Bible — 2026-03-30
+## [v0.2.0-pass2] — Source Synthesis & World Bible (REDO) — 2026-03-30
+
+**Note:** This supersedes the previous v0.2.0-pass2 tag (deleted). Previous pass2 docs
+were built on image-based PDFs with incomplete extraction. All 7 sources are now full
+.txt extractions from Internet Archive; every source was read in full before writing.
 
 ### Added
-- `docs/source_synthesis.md` — structured entry for each of the 6 primary sources (2
-  text-extractable PDFs read in full; 4 image-based PDFs synthesized from training
-  knowledge). Includes cross-source conflict table and resolution policy.
-- `docs/world_bible.md` — canonical world reference: all 8 ports, faction overview,
-  trade goods, economic logic, and political context for 1511–1526.
+- `docs/source_synthesis.md` — structured entry for all 7 sources read in full (.txt
+  extractions). Includes cross-source conflict table with resolutions and source gaps.
+- `docs/world_bible.md` — canonical world reference: 7 major ports + 2 minor locations,
+  faction overview (5 factions), full trade goods table, economic logic, temporal arcs
+  per port, and cartaz system mechanics. Grounded in Pires, Commentaries, and Ma Huan.
 - `docs/encounter_geography.md` — port-by-port encounter plausibility reference with
-  population mix, historically grounded encounter types, monsoon notes, and
-  implausibility warnings. Includes quick-reference matrix.
-- `docs/narrative_style_guide.md` — tone, voice, and register guidelines; character-type
-  dialogue registers; period-accurate vocabulary list; translation conventions for `_es`.
-- `docs/game_timeline.md` — 15-year game calendar mapped to historical events; year-by-year
-  world state; world events at Years 1, 3, 5, 6; notes on future development windows.
-- `docs/character_bibles/` — 13 named character files: camila_de_sousa, rui_barbosa,
-  estevao, diogo, tome (Portuguese); mehmed_al_rumi, kemal (Ottoman); yusuf, baraka
-  (Arab/Swahili); chen_mingzhi, old_liang, ah_kow, wei_chongde (Chinese). Each file
-  covers who they are, what they know, how they speak, historical grounding.
+  population mix, historically grounded encounter types, monsoon notes, implausibility
+  warnings, and sea route encounter types. Includes quick-reference matrix.
+- `docs/narrative_style_guide.md` — tone, voice, and register guidelines; dialogue
+  register per character type (Portuguese, Ottoman, Chinese, Arab/Swahili); period-
+  accurate vocabulary list with modern terms to avoid; event and lore fragment standards;
+  translation conventions for `_es` keys.
+- `docs/game_timeline.md` — 15-year game calendar mapped to historical events; world
+  events at Years 1, 2, 5, 6, 15 with role-variant forms; year-by-year world state;
+  notes on future development windows.
+- `docs/character_bibles/` — 13 named character files: tome_de_faro, camila_de_sousa,
+  rui_barbosa, estevao, diogo (Portuguese); mehmed_al_rumi, kemal (Ottoman); yusuf,
+  baraka (Arab/Swahili); chen_mingzhi, old_liang, ah_kow, wei_chongde (Chinese). Each
+  file covers: who they are, what they know, how they speak, historical grounding, and
+  relationship dynamics with other characters.
+
+### Key Source Findings (from full .txt reads)
+- Pires Vol I ends at page 228 (Madura); Malacca chapter is in Vol II (absent from
+  sources/). Commentaries Vol III + Ma Huan fully cover Malacca without Pires Vol II.
+- Commentaries Vol III (not Vol I) contains the Malacca conquest narrative (Ch XVII–XXX).
+  Vol III also covers Goa post-conquest and all governance/customs detail.
+- Ma Huan confirms the wooden bridge with 20+ trading pavilions independently from
+  Commentaries — a key consistent detail for Malacca encounter design.
+- Sejarah Melayu contains 82 Hang Tuah references (primarily Ch VIII, Majapahit
+  embassy). The full Hikayat Hang Tuah epic is a separate work not in sources/.
+- Da Ásia (Barros) is entirely in archaic Portuguese; used for post-conquest Bintan
+  detail (300 bronze artillery, poisoned chevaux-de-frise stockades).
+- Marvels of India (Buzurg ibn Shahriyar, ~943 CE) is sailors' tall tales, not a
+  geographic manual. Value: Arab/Persian seafarer voice, sea encounter lore, slave trade
+  detail (Waqwaq island story), sea monster encounters.
 
 ### Flagged
-- Tesseract OCR binary not installed on Windows; 4 image-based PDFs (Malay Annals,
-  Ma Huan, Marvels of India, Décadas da Ásia) were synthesized from training knowledge,
-  not direct OCR. See source_synthesis.md for per-source notes.
-- Hang Tuah gap: *Hikayat Hang Tuah* is not in sources/; any Hang Tuah supernatural
-  content must be flagged as folklore rather than historical record.
-- Commentaries Vol 1 covers only 1503–1507 (Part I); the Malacca campaign (1511) is in
-  Vol 2 which is not in sources/. Noted in source_synthesis.md.
+- Pires Vol II (Malacca chapter, pages 229+): not in sources/. Covered by Commentaries
+  Vol III + Ma Huan.
+- Hikayat Hang Tuah: not in sources/. Sejarah Melayu provides sufficient grounding for
+  game content but the full epic is a separate text.
+- Da Ásia (Barros): archaic Portuguese; key facts extracted but full translation
+  impossible without specialist knowledge.
 
 ---
 

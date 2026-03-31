@@ -1,53 +1,40 @@
-# Character Bible: Kemal
+# Character Bible — Kemal
 
-**Full name:** Kemal Reis ibn Hasan (uses "Kemal" only)
-**Nationality:** Ottoman (Greek-origin; born in the Aegean islands, brought up in Istanbul)
-**Location:** Aden (primary); at sea between Aden and the Indian coast
-**Role:** Sea captain; corsair with Ottoman letters of marque; supplier of military intelligence to the Ottoman Red Sea fleet
-**Appears in:** Aden events; sea encounter events (Years 4–6 especially); events involving piracy and Ottoman expansion
+## Who He Is
+Mehmed's second — a younger man who functions as first mate, factor, and when necessary, muscle. Kemal is from a military family but chose commerce; his father disapproves, which is still present in how he talks about honor.
 
----
+**Full name:** Kemal (surname not established; family from somewhere on the Aegean coast)
+**Origin:** Western Anatolia; Ottoman Aegean world
+**Age at Year 1:** ~25–28
+**Role:** First mate; factor's assistant; sometimes negotiator when Mehmed needs a less visible presence
 
-## Who he is
+## What He Knows
+- Ottoman Turkish and Arabic; some Greek (Aegean upbringing)
+- Navigation in the Mediterranean and Red Sea; learning the Indian Ocean
+- The Ottoman military hierarchy (by osmosis from his family); how it applies to commerce
+- That he is not yet the man Mehmed is, but that this is a matter of time and experience
 
-Kemal arrived in the Indian Ocean in 1513, sailing a fast brigantine via the Red Sea after the Ottoman conquest of Egypt (which was still coming — he was ahead of the official policy, operating on informal authorization from a rising faction in the Ottoman court). He is thirty years old, the son of an Aegean Greek merchant who converted to Islam and rose in Ottoman naval service.
+## How He Speaks
+Direct in a way that sometimes reads as blunt. He has not yet learned to smooth his speech the way Mehmed does. This is sometimes useful — people who want a straight answer go to Kemal. Sometimes it creates friction.
 
-He is not an ideologue. He fights for profit, with Ottoman authorization providing cover. His business model: he preys on Portuguese-allied vessels, sells what he takes, and transmits intelligence to the Ottoman fleet building at Suez. He is not a pirate in his own self-understanding — he is a private naval contractor for the most powerful empire in the world.
+He has strong opinions about debt, honor, and what the Ottoman expansion means for their work. He is not sophisticated enough yet to be strategically patient about it.
 
-He is physically striking: dark-complexioned, heavily scarred on his left forearm from a cable that parted under load, speaks with a slight Greek vowel pattern even in his Arabic. He is enormously capable at sea and somewhat dangerous on shore, where he becomes restless.
+**Characteristic line:**
+> "The harbor fees went up again. Same as last time. I wrote it down."
+> (beat)
+> "I'm going to keep writing it down until someone in Istanbul does something about it."
 
----
+## Relationship to Mehmed
+Loyalty with friction. Kemal thinks Mehmed is occasionally too cautious; Mehmed thinks Kemal is occasionally too sure. Both assessments are correct. The tension keeps both men sharper.
 
-## What he knows
+After Year 6 (fall of Mamluks), Kemal is more enthusiastic about Ottoman imperial backing than Mehmed. He sees Istanbul's expansion as opportunity. Mehmed sees it as constraint. This difference is a Year 7+ tension point.
 
-- Indian Ocean seamanship: he has learned it quickly, partly from Hadrami pilots who sail with him
-- Portuguese patrol patterns between Aden and the Malabar coast
-- The locations of freshwater sources on the East African coast and the Arabian coast
-- The Ottoman Red Sea fleet's current strength and timeline (approximate)
-- Which Aden merchants will move unlicensed cargo and what percentage they take
+## Historical Grounding
+- The Ottoman Empire in 1511 had absorbed many cultures into its administrative and merchant class; a man with Greek and Turkish heritage in the same family was not unusual in the Aegean
+- The military-commerce tension in Ottoman society was real; families alternated between state service and independent commerce
+- The Red Sea and Arabian Sea were not unfamiliar to Ottoman sailors of this period; Mediterranean maritime knowledge transferred to the Indian Ocean with some adjustment
 
----
-
-## How he speaks
-
-Direct to the point of aggression, in a fast Arabic with Turkish cadences. He does not do elaborate courtesy; he does the minimum required by social norms and then gets to the point. He respects competence and despises evasion.
-
-With people he respects, he is warm, funny, and generous with information. With people he does not respect, he is curt. With people he considers enemies, he is efficient.
-
-He will offer the player a straight deal: carry this cargo (or this passenger, or this sealed document) past the Portuguese patrol zone, and receive payment in Aden currency at market rate plus the risk premium. He does not haggle beyond the first counteroffer.
-
----
-
-## What he wants
-
-Prize money. His immediate objective is a Portuguese nao — capturing one would yield enough artillery and cargo to retire on. He is also accumulating a geographic intelligence report on Portuguese fort placements that he intends to sell to the Ottoman admiral at Suez.
-
-He is not interested in territory. He wants money, and then he wants to go home to Istanbul and buy a house near the Bosphorus with a view he has been imagining since 1513.
-
----
-
-## Historical grounding
-
-The name Kemal Reis was borne by a famous Ottoman admiral of an earlier generation (died 1511). This character is not that person; the name is a common Ottoman-era name. Greek-origin Muslims in Ottoman naval service were common throughout the 15th and 16th centuries; the Ottoman navy drew heavily from the Aegean Greek population.
-
-Ottoman corsairs operating in the Indian Ocean before the official fleet is historically marginal but not impossible; the fluid relationship between private maritime contractors and Ottoman imperial authority is well-documented in the Mediterranean and plausibly extended to the Indian Ocean context.
+## Notes for Writers
+- Kemal should never be comic relief. He is serious about his work.
+- His growth arc over the 15 years: from direct but blunt to direct and effective
+- Year 6+: his enthusiasm for Ottoman expansion creates real dramatic tension with Mehmed's more ambivalent position

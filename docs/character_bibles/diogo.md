@@ -1,50 +1,39 @@
-# Character Bible: Diogo
+# Character Bible — Diogo
 
-**Full name:** Diogo Fernandes
-**Nationality:** Portuguese
-**Location:** Malacca Harbor (primary); moves between Malacca and Goa
-**Role:** Scrivener (notary/secretary); keeper of records for the Malacca factory
-**Appears in:** Administrative events; document-related quests; events involving Portuguese official records
+## Who He Is
+Tomé's soldier — the armed presence on board. Not an officer; a fighting man from the lower ranks of the Portuguese military machine that followed Albuquerque east. He has participated in violence and is matter-of-fact about it.
 
----
+**Full name:** Diogo (surname not established; from a minor town in Portugal)
+**Origin:** Interior Portugal; farmer's son turned soldier
+**Age at Year 1:** ~22–26
+**Role:** Soldier/guard; boarding actions; shore protection when trading
 
-## Who he is
+## What He Knows
+- How to use a sword, a buckler, a short pike, and a crossbow
+- How to assess a threat before it materializes
+- The terrain of combat around Portuguese-held ports
+- Little else about the world he is in — he has not sought to know it
 
-Diogo Fernandes is twenty-eight years old, educated, the son of a Lisbon notary who arranged his posting to the Estado da India through a connection at court. He arrived in Malacca six months after the conquest, assigned to the Portuguese factory as its official scrivener — the man who writes the manifests, certifies the cartazes, records the warehouse inventories, and keeps the accounts of the commercial operation.
+## How He Speaks
+Simple and direct. He does not have opinions about trade or politics — these are above his station and interest. He has opinions about danger, about whether a man is lying, and about what the crew needs to survive. These opinions are usually correct.
 
-He is not a soldier and knows it. He is not particularly brave, not physically strong, and not good at the informal violence that underpins Portuguese authority in Malacca. What he has is near-total command of what the Portuguese operation in Malacca officially says it is doing — and therefore intimate knowledge of the gap between that official record and what is actually happening.
+He is not stupid. He is focused.
 
-He has been working in this gap for three years by Year 1's start, not because he is corrupt exactly, but because he was naive when he arrived and is no longer naive, and the knowledge has made him useful to several parties simultaneously.
+**Characteristic line:**
+> "The man at the gate has a creese under his sarong and he's watched us since the dock. That's my report. What you do with it is yours."
 
----
+## Relationship to Other Crew
+- Respects Rui Barbosa automatically (older, more experienced man)
+- Initially skeptical of Camila; adapts when she proves useful in a crisis
+- Has no hostility toward Estêvão; sees competence and that's sufficient
+- His primary loyalty is to Tomé — not from admiration necessarily, but because Tomé is the capitão and the capitão feeds him
 
-## What he knows
+## Historical Grounding
+- The Portuguese fighting men who came east were typically from the lower gentry or common stock; unlike *fidalgos*, they had no inheritance waiting at home
+- Albuquerque's assault on Malacca was executed by exactly these men: first confession at dawn, then fighting on the bridge
+- The detail from Commentaries Vol III — that poisoned arrow wounds killed all but one Portuguese wounded (saved by cauterization) — provides Diogo's practical knowledge: respect the creese, treat wounds immediately
 
-- The official records of every significant cargo that has passed through Portuguese Malacca
-- The discrepancies between those records and what was actually declared
-- Which Portuguese merchants are using the Estado's commercial infrastructure for unofficial purposes
-- The names of the Gujarati and Kling merchants who have accounts with the factory and what those accounts conceal
-- How cartazes are actually issued — the formal process and the informal payments that accompany it
-- Where the physical records are stored and which of them are, let us say, subject to revision
-
----
-
-## How he speaks
-
-Careful, slightly formal. He has the scrivener's habit of precise language — he dislikes ambiguity in professional contexts. In personal conversation he is more relaxed, occasionally funny in a self-deprecating way. He is aware that he knows things that could get people killed, and he is aware that this is a precarious position.
-
-He will not do anything that is explicitly illegal — he will frame everything as a clerical correction, a legitimate query, an administrative clarification. He is very good at finding the frame.
-
----
-
-## What he wants
-
-Promotion to a more comfortable posting. He would like Lisbon, or at worst Goa. He has been in Malacca for three years and the heat is destroying his lungs. He has a fiancée in Lisbon whose letters are becoming shorter.
-
-He would trade significant information for a credible letter of recommendation to the Governor's secretary at Goa. He knows this is also a form of corruption, which bothers him, and he has written two letters to the priest at the factory confessing it.
-
----
-
-## Historical grounding
-
-The scrivener (*escrivão*) was essential to Portuguese commercial administration. The factory (*feitoria*) system required documentation for all transactions; scriveners had both legal authority and practical access to the financial reality of the Estado. Their position made them natural intermediaries between official Portuguese interests and the unofficial economy. The tension between official loyalty and practical accommodation is well-documented in Estado da India records.
+## Notes for Writers
+- Diogo is not comic relief. Do not write him as a dull foil.
+- His function in events: the player often needs Diogo's assessment before making a physical decision. His read on a situation is almost always correct about danger; his read on people is limited to threat/no-threat.
+- He carries Catholic faith unreflectively: crosses himself before combat, does not pray otherwise.

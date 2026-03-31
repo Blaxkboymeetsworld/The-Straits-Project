@@ -1,51 +1,36 @@
-# Character Bible: Yusuf
+# Character Bible — Yusuf al-Halabi
 
-**Full name:** Yusuf ibn Abd al-Rahman al-Hadrami
-**Nationality:** Hadrami Arab (from the Hadhramaut valley, southern Yemen)
-**Location:** Moves between Aden, Hormuz, Calicut, and Malacca — the classic Hadrami circuit
-**Role:** Long-distance merchant; letter-carrier between Hadrami communities across the Indian Ocean; informal notary for the diaspora
-**Appears in:** Events requiring long-distance information; Hadrami community events; events in Aden and Calicut especially
+## Who He Is
+A Levantine Arab long-distance trader — specifically from Aleppo (al-Halabi = from Aleppo), which places him in the Syrian/Palestinian Arab world that connects the Mediterranean to the Red Sea to the Indian Ocean. He has been operating in the Indian Ocean world for years before joining Mehmed's crew, or meeting Mehmed as a partner.
 
----
+**Full name:** Yusuf al-Halabi
+**Origin:** Aleppo, Syria (then Mamluk territory; soon to be Ottoman)
+**Age at Year 1:** ~40–45
+**Role:** Trade factor; market intelligence; languages; connection to the Levantine merchant networks
 
-## Who he is
+## What He Knows
+- Arabic, Turkish, Persian, some Gujarati, some Malay trade phrases
+- The Karimi merchant network from the inside — its structure, its families, its vulnerabilities
+- Every port's market dynamics from Aleppo to Calicut; less familiar with SE Asian ports
+- How to calculate risk and whether a deal is worth the risk
+- How the Mamluk collapse (Year 6) will devastate the network he has spent 20 years building
 
-Yusuf ibn Abd al-Rahman is forty-three years old. He left the Hadhramaut valley at nineteen with a small starting capital and a letter of introduction from his father to a cousin in Aden. He has been circulating the Indian Ocean ever since, in the pattern that Hadrami merchants have followed for centuries: Aden to Hormuz, Hormuz to Calicut, Calicut to Malacca, Malacca to Bantam and sometimes to Champa, then the return.
+## How He Speaks
+He speaks in prices, proportions, and network analysis. He does not emote about the end of the Mamluk world — he calculates its consequences. This reads as cold to people who don't know him; to people who do, it is how he shows care. He maps the world in terms of who is connected to whom.
 
-His commercial specialty is information as much as goods. He carries pepper when pepper is profitable and indigo when indigo is profitable; what he always carries is news. He knows which Gujarati house has extended more credit than it can collect; which Kling merchant in Calicut has been underpaying his Malaccan suppliers; which Portuguese captain is looking the other way on unlicensed cargo. This information circulates through the Hadrami network and is available in exchange for similar information about wherever Yusuf is going next.
+**Characteristic line:**
+> "The Gujarati house in Calicut — the Chaul family — they've been carrying Mamluk-route spices since Yusuf ibn Khalid's grandfather started the business. When the Mamluks go, that family either adapts or it doesn't. I have two nephews and a brother-in-law connected to that family. So yes, I am watching."
 
-He is deeply, quietly pious — Shafi'i Muslim, regular prayers regardless of circumstance, fasting in Ramadan whether at sea or ashore. His faith is not political; it is structural. He does not proselytize.
+## Relationship to the Year 6 Event
+Yusuf's personal crisis point. He has built his life inside the Karimi-Mamluk system. Its collapse is not abstract — it is the destruction of his network, his creditors, his extended family's livelihood. How Mehmed helps or doesn't help Yusuf navigate this is a character relationship choice.
 
----
+## Historical Grounding
+- Aleppo was a major trading hub connecting Mediterranean and Indian Ocean goods
+- The Karimi merchant network (based in Cairo/Aden/Red Sea) was real; it dominated Red Sea spice trade through the 14th–15th centuries and declined with Portuguese competition before collapsing with the Mamluk fall
+- Levantine Arab merchants operated across the whole Indian Ocean system; the "Yusuf" name pattern (and al-Halabi) is historically accurate for this world
+- The Marvels of India's ship captain voices from Siraf/Basra are Yusuf's cultural ancestors
 
-## What he knows
-
-- The complete Hadrami merchant network across the Indian Ocean: who is where, what they carry, who they owe
-- Current prices at every major port on his circuit, updated within one season
-- The credit status of most major trading houses — who can be trusted to pay, who is over-extended
-- Islamic law as it applies to commercial transactions: contract forms, debt resolution, the proper form of *hawala* (informal value transfer)
-- Aden's political situation: the Tahirid dynasty's weaknesses, the Ottoman pressure, who in Aden is actually in charge versus who holds the title
-
----
-
-## How he speaks
-
-Hadrami Arabic: formal, precise, with elaborate courtesy that is genuine rather than performed. Negotiations begin with inquiries about health, family, and journey; business arrives in the third or fourth exchange. His professional opinions are stated with confidence; his political opinions are stated only in private, and then cautiously.
-
-He has the long-distance merchant's calm. Nothing surprises him much. He has seen ports in chaos and ports at peace and knows that both states are temporary. His baseline assumption is that reasonable people can find reasonable terms; his experience confirms this more often than not.
-
----
-
-## What he wants
-
-He wants his son, currently being educated at a madrasa in Aden, to have enough starting capital and enough connections that he does not have to spend twenty-five years establishing himself from scratch. Everything Yusuf does commercially contributes to this goal.
-
-He will genuinely help the player if the player is useful to the Hadrami network — not because of loyalty to any ideology but because the network operates on reciprocity. Information given is information earned. He will not lie to the player, but he will withhold information that is not yet his to share.
-
----
-
-## Historical grounding
-
-The Hadrami diaspora is one of the most important and least-discussed phenomena in Indian Ocean history. Hadrami merchants (from the Hadhramaut valley, famous for frankincense and trade) spread across the Indian Ocean from East Africa to Southeast Asia from the 9th century onward. Their network was maintained by kinship, religious identity (Shafi'i Sunni Islam), and the *hawala* credit system. By 1511 they were embedded in every major port the game covers.
-
-The figure of the information-carrier who moves the full circuit — Aden, Hormuz, Calicut, Malacca — is historically representative of how the Hadrami network actually functioned.
+## Notes for Writers
+- Yusuf is not a villain even when he makes decisions that hurt others; he operates by a merchant's code that has its own logic
+- His faith is practical rather than zealous: he prays, he fasts, he avoids the prohibited, but he does not lecture
+- Do not write him as the "mysterious Arab" stereotype; he is a businessman with deep expertise and personal stakes

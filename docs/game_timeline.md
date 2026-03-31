@@ -1,184 +1,148 @@
-# The Straits Project — Game Timeline
+# Game Timeline — The Straits Project
 
-The game runs from Year 1 (1511) to Year 15 (1525). Each year corresponds to a real historical year. This document maps the historical events that occur during this period to the game's timeline, showing what the world is doing around the player at each stage.
-
----
-
-## Calendar conventions
-
-- **Year 1 = 1511** (game opens immediately after the fall of Malacca)
-- **Year 5 = 1515** (Albuquerque dies in December; major political shift)
-- **Year 6 = 1516** (Ottoman conquest of Egypt; Mamluk Sultanate ends)
-- **Year 7 = 1517** (Portuguese envoy to China fails; haijin pressure increases)
-- **Year 15 = 1525** (game end)
-
-In-game time moves at the rate of one game year per real-world play session (rough design target). The monsoon calendar advances; world events occur at pre-defined points.
+Year 1 = 1511. The game spans 15 years (Years 1–15 = 1511–1525/26).
+World events are fixed historical moments that all protagonists experience; their form varies by role.
 
 ---
 
-## Year 1 (1511): The Conquest
+## Historical Calendar (1511–1526)
 
-**Historical events:**
-- July–August 1511: Albuquerque takes Malacca with 15–18 ships and ~1,600 fighting men
-- August–December 1511: Portuguese build the fortress of São Paulo on the site of the great mosque; Nina Chatu appointed Bendahara
-- November 1511: Javanese armada (~100 sail) arrives to retake Malacca; destroyed by Portuguese artillery and seamanship; fleet from Pati Unus of Demak
-- Late 1511: Sultan Mahmud Shah withdraws to Bintan with the Malaccan court in exile
-
-**Game situation at Year 1 start:**
-The player arrives in Malacca harbor within months of the conquest. The city is physically intact but politically transformed. The Portuguese fortress is under construction. Merchants are cautiously returning. The Javanese threat has just been defeated but not permanently resolved. The exiled sultan at Bintan is a looming presence.
-
-**World events (Year 1 in game):** The Javanese armada event fires. The harbormaster introduces the cartaz system. The Chinese community cautiously re-establishes contact.
-
----
-
-## Year 2 (1512): The Settlement
-
-**Historical events:**
-- February 1512: Albuquerque leads unsuccessful attack on Aden — the city is too well-fortified; Portuguese cannot take it
-- 1512: Portuguese establish trading relations with Siam and the Ryukyu Kingdom
-- 1512: Portuguese map-maker Francisco Rodrigues produces the first European maps of the Spice Islands
-- 1512: First Portuguese expedition to the Banda Islands (nutmeg and mace source)
-
-**Game situation:**
-Trade is normalizing under the new Portuguese regime. The cartaz system is being enforced. Gujarati and Kling merchants have mostly returned; Javanese merchants have not. The Aden failure means the Red Sea route remains open to the Muslim merchant network.
-
-**What this means for the player:** Aden is available as a trade destination without Portuguese interference. The Banda Islands are a long-haul opportunity for spice runners. The Ryukyuan connection opens a legal alternative to the haijin for Chinese goods.
+| Game Year | Real Year | Event |
+|-----------|-----------|-------|
+| 1 | 1511 | Fall of Malacca (July); Sultan Mahmud flees to Pahang then Bintan; Portuguese fort construction begins |
+| 2 | 1512 | Albuquerque's first expedition east (Maluku); Tomé Pires arrives in Malacca |
+| 2 | 1513 | Pati Unus (Demak) assault on Malacca — fails; Javanese junks defeated |
+| 3 | 1513 | Pires begins writing Suma Oriental in Malacca |
+| 4 | 1514 | Portuguese trade consolidation in Malacca; cartaz system operational |
+| 5 | 1515 | Death of Albuquerque (Goa, December 1515) |
+| 6 | 1516–17 | Fall of Mamluks; Selim I conquers Egypt; Ottoman empire expands to Red Sea |
+| 6 | 1517 | Karimi merchant network collapses without Mamluk political protection |
+| 7 | 1518 | Ottoman naval interest in Indian Ocean grows; Selman Reis era begins |
+| 8 | 1519 | Ferdinand Magellan departs Spain (circumnavigation) |
+| 9 | 1520 | Magellan's route known; Portuguese-Spanish tension over Moluccas |
+| 10 | 1521 | Magellan killed in Philippines; spice trade competition intensifies |
+| 11 | 1522 | First circumnavigation completed; Moluccas question becomes urgent |
+| 12–14 | 1523–25 | Sultan Mahmud's court at Bintan continues raids; Malay resistance ongoing |
+| 15 | 1526 | Bintan raid — Portuguese attack Sultan Mahmud's exile court; Sultan Mahmud's subsequent death at Kampar |
 
 ---
 
-## Year 3 (1513): The Widening Net
+## World Events (Fixed, Role-Variant)
 
-**Historical events:**
-- April 1513: Albuquerque's second Aden attempt fails again; the city repulses the assault
-- 1513: Portuguese expedition to Maluku (Spice Islands); first contact with Ternate
-- 1513: Albuquerque sends Jorge Álvares' junk toward China — the beginning of Portuguese-China contact
-- 1513: Battle at Flodden in Scotland (irrelevant to the game; included for historical calibration only)
-- 1513: Nina Chatu's death — the Malaccan Bendahara dies (some sources say grief, some say suicide)
+### YEAR 1: Fall of Malacca
+**When:** Game start / first arrival at Malacca
+**What happened:** Albuquerque's fleet took the city in July 1511 after two assaults. The city was sacked for 10 days. 3,000 pieces of artillery captured. Sultan Ahmad led the defense; Sultan Mahmud fled. Guineans, Tamil Indians, Chinese, and Pegu merchants were welcomed back. Malay population killed or displaced.
 
-**Game situation:**
-Nina Chatu's death removes the most important non-Portuguese authority in Malacca. The Chinese community loses its most effective advocate. The power vacuum at the Bendahara position creates political instability. The king of Kampar is appointed with a new title (*Macubuma*), which the Malay community resents.
+**Portuguese protagonist (Tomé de Faro):** Optional participation in the conquest. Choices affect starting reputation with Malacca community and with surviving Malay population. Can loot the royal pavilion site (gold, risk of Malay revenge), protect a Malay family (loyalty reward later), or simply observe.
 
-The first Portuguese contacts with Ternate open the clove trade to direct Portuguese participation, cutting into the existing Javanese and Malay middleman position.
+**Ottoman protagonist (Mehmed al-Rumi):** Learns of Malacca's fall as news reaching the Arabian Sea. Implications for his trade routes are immediate. The Gujaratis flooding into Calicut and Aden are potential allies — or competitors for scarce harbor space.
 
-**Year 3 world event in game:** Nina Chatu death event fires. Malacca's Malay political situation becomes more unstable.
+**Chinese protagonist (Chen Mingzhi):** His community in Malacca was protected by Albuquerque (Portuguese needed Chinese merchants as traders). But the old Gores compound is under Portuguese oversight now. First quest involves navigating new Portuguese authority without surrendering independence.
 
 ---
 
-## Year 4 (1514): The Turn
+### YEAR 2: Pati Unus's Assault on Malacca
+**When:** Year 2, early (any season)
+**What happened:** The ruler of Demak (Pati Unus) led a fleet of ~100 ships against Malacca to revenge the conquest. The Portuguese defeated the Javanese fleet. Pati Unus retreated. Javanese junks burned.
 
-**Historical events:**
-- 1514: Albuquerque's health begins to decline seriously
-- 1514: Portuguese envoy Fernão Peres de Andrade reaches Guangzhou harbor — first official Portuguese contact with Ming China
-- 1514: Ottoman Sultan Selim I defeats Safavid Persia at the Battle of Chaldiran — opening the road toward the Arabic-speaking lands
-- 1514: João de Barros begins receiving materials that will become the *Décadas*
+**How experienced:** An overheard event for most protagonists — news arrives at whatever port the player is in. Portuguese players may have been in Malacca (direct encounter). Others learn through merchants.
 
-**Game situation:**
-The Ottoman military success at Chaldiran makes Ottoman expansion into the Arab world more likely. This is not felt in the Indian Ocean immediately, but the intelligence networks (Mehmed al-Rumi at Hormuz, Ottoman agents in Aden) are reading the pattern.
-
-The Portuguese-China contact at Guangzhou opens a political possibility that will destabilize the Quanzhou Chinese community's position: if the Portuguese get official Ming trading rights, the unofficial Hokkien traders lose their competitive advantage.
-
-**Year 4 world event:** Ottoman signal fires. Players with intelligence contacts in Hormuz or Aden may learn of the Ottoman-Safavid war and its implications.
+**Mechanical effect:** Bantam reputation shift (Demak-aligned merchants become slightly more hostile to Portuguese; slightly more open to Ottoman/Chinese as alternative trade partners). News of the defeat increases Portuguese prestige across the region temporarily.
 
 ---
 
-## Year 5 (1515): Albuquerque's Death
+### YEAR 5: Death of Albuquerque
+**When:** Year 5, late (December equivalent)
+**What happened:** Albuquerque died en route to Goa, December 1515. He heard in his final days that the King of Portugal had replaced him. He died at sea off Goa.
 
-**Historical events:**
-- December 1515: Afonso de Albuquerque dies at sea off Goa, returning from Hormuz
-- 1515: Lopo Soares de Albergaria becomes Governor of Portuguese India (Albuquerque's replacement)
-- 1515: Lopo Soares immediately reverses several of Albuquerque's policies; tensions with established Portuguese community in Goa
-- 1515: Magellan in Lisbon, beginning to plan the circumnavigation that he would eventually make (1519–1522)
+**All protagonists:** A minor world event — brief scene or news arrival. The tone differs:
+- Portuguese: a death in the family; complicated feelings (he was brutal and effective)
+- Ottoman: political calculation (his successor may be weaker; time to test the cartaz system)
+- Chinese: neutral but noting the shift in power; who is the new man?
 
-**Game situation:**
-This is the first major world event in the game's structured timeline. Albuquerque's death removes the dominant personality from Portuguese India. The new Governor, Soares, is less aggressive, less visionary, and less trusted by both the Portuguese garrison and the Indian allies. Portuguese authority becomes less predictable.
-
-For the player: the stable Portuguese power structure that defined Years 1–4 becomes more uncertain. Opportunities open in the gaps of changing Portuguese policy; risks increase from Portuguese factional conflict that can reach down to affect individual traders.
-
-**Year 5 world event in game (explicitly coded):** Albuquerque death event fires. Disposition changes with Portuguese faction. New Governor has different policies toward cartaz enforcement and slave trade.
+**Mechanical effect:** In Goa, Portuguese NPCs are in a period of uncertainty. Tribute and inspection strictness briefly decreases while leadership transition happens.
 
 ---
 
-## Year 6 (1516): The Ottoman Shift
+### YEAR 6: Fall of the Mamluks
+**When:** Year 6 (any season)
+**What happened:** Ottoman Sultan Selim I defeated the Mamluk Sultanate at the Battle of Marj Dabiq (1516) and Battle of Ridaniyya (1517). Egypt became an Ottoman province. The Karimi merchant network lost its political protection. Aden shifted into the Ottoman sphere.
 
-**Historical events:**
-- August 1516: Ottomans defeat Mamluks at the Battle of Marj Dabiq; Mamluk Sultanate effectively ends (formal annexation 1517)
-- October 1516: Portuguese receive Fernão Peres de Andrade's favorable report from Guangzhou; planning official China mission
-- 1516: Malay Annals text is being composed around this period (retrospective historical note)
+**Ottoman protagonist (Mehmed al-Rumi):** Full scene. This is the Ottoman arc's central world event. The fall changes the balance of the entire Indian Ocean. Ottoman expansion eastward becomes policy. Mehmed must choose: does he serve the new Ottoman order (access to state resources, but constraints), or maintain his independence (freedom, but no imperial backing)?
 
-**Game situation:**
-The Mamluk collapse changes the Red Sea trade equation. Mamluk merchant houses that operated the Cairo-Aden-Calicut spice route either convert their operations to Ottoman patronage or collapse. Egyptian merchants in Aden are now Ottoman subjects, whether they wanted to be or not.
+**Portuguese protagonist (Tomé de Faro):** Brief scene. A Gujarati merchant brings the news to whatever port the player is in. The immediate implication is that Ottoman naval power may now reach the Indian Ocean. Tension increases.
 
-For players with Aden connections: the political landscape shifts visibly. Ibrahim al-Yamani (harbor master) must navigate new relationships with Ottoman merchants and officials. Amir Salim al-Tahiri (Tahirid governor) is now calculating his position against Ottoman power rather than Mamluk.
+**Chinese protagonist (Chen Mingzhi):** News arrives from an Arab merchant in Malacca. Impacts pepper prices (see below). Chen must decide whether the Ottoman expansion changes his route planning.
 
-**Year 6 world event in game (explicitly coded):** Mamluk collapse event fires. Aden's political situation changes; new Ottoman merchant contacts appear; Tahirid authority weakens.
+**Price shift:** Aden pepper prices rise (Karimi collapse removes competition). Quanzhou pepper prices fall slightly (Ottoman rerouting increases supply through Hormuz). Malacca prices stable (Portuguese control insulates them from Red Sea politics).
 
 ---
 
-## Years 7–9 (1517–1519): The Portuguese-China Failure
+### YEAR 15: Bintan Raid (Near end of game)
+**When:** Year 15
+**What happened:** Portuguese attacked Sultan Mahmud's exile court at Bintan. Sultan Mahmud fled again; eventually died at Kampar (outside game window).
 
-**Historical events:**
-- 1517–1518: Fernão Peres de Andrade's official Portuguese embassy to China initially received at Guangzhou, then expelled after conflict with Chinese officials
-- 1517: Ottoman consolidation of Egypt; Red Sea now under Ottoman control
-- 1519: Magellan departs from Spain on the circumnavigation
-- 1519–1521: The Spanish circumnavigation opens the Pacific route to the Spice Islands, threatening the Portuguese monopoly from a new direction
+**All protagonists:** End-of-game reflection event. Fifteen years after the fall of Malacca, the last independent Malay sultan is broken. The old world is gone. What has the player built in its ruins?
 
-**Game situation:**
-The Portuguese failure to establish official China relations means the Quanzhou Chinese community (Wu Liangchen, Chen Mingzhi) retains its commercial advantage; the unofficial trade through Hokkien merchants remains the only Chinese route.
-
-The Spanish circumnavigation is not directly playable but its implications arrive in Year 9: there is now a competing European claim on the Spice Islands. The Maluku sultanates (Ternate) begin to play Portuguese and Spanish against each other.
+**Mechanical effect:** Malay faction dissolves. Any quests or reputation with Bintan court are resolved (one way or another).
 
 ---
 
-## Years 10–12 (1520–1522): The Reformation and its Indian Ocean echoes
+## Year-by-Year World State
 
-**Historical events:**
-- 1520: Luther's excommunication and the beginning of the Protestant Reformation in Europe (echoes in Portuguese religious policy in India)
-- 1521: Magellan dies in the Philippines; the circumnavigation continues under Elcano and returns to Spain in 1522
-- 1521: Portuguese establish a fort at Ternate — the Spice Islands now have a Portuguese garrison
-- 1522: Spanish arrive at Tidore (neighboring island to Ternate); dual European presence in Maluku creates a crisis
+### Year 1 (1511)
+- Malacca: Portuguese garrison; reconstruction; chaos/opportunity
+- Goa: Albuquerque in personal command; 450 married Portuguese settlers; mint newly established
+- Hormuz: Portuguese tributary; young king; stable
+- Calicut: Actively hostile to Portuguese; Gujarati refugees arriving from Malacca
+- Bantam: Hostile to Portuguese; Demak planning retaliation
+- Aden: Mamluk-aligned; Karimi network operational
+- Quanzhou: Haijin laws; private trade continues covertly; news of Malacca fall arriving
 
-**Game situation:**
-The Ternate-Tidore situation is geographically distant but commercially significant: clove prices destabilize as the Portuguese monopoly faces Spanish competition. A player engaged in the Maluku spice trade will notice price volatility.
+### Year 2 (1512–13)
+- Pati Unus assault on Malacca (Year 2): fails; Javanese power checked
+- Malacca: cartaz system being set up; trade slowly recovering
+- Chinese Gores: operating under Portuguese oversight; adapting
 
-The Portuguese garrison at Ternate creates a new point of Portuguese power but also a point of vulnerability; the sultanate will eventually turn against them.
+### Year 3–4 (1513–14)
+- Cartaz system fully operational: all ships must comply or risk seizure
+- Portuguese trade routes consolidating: Malacca-Goa-Hormuz axis functioning
+- Gujarati accommodation beginning: some accept cartaz; others maintain overland routes
+
+### Year 5 (1515)
+- Albuquerque dies: transition uncertainty in Goa
+- Malacca: sufficiently consolidated that a successor can manage it
+
+### Year 6 (1516–17)
+- Mamluks fall: Ottoman empire expands to Egypt, Yemen, Aden
+- Karimi network collapses: Red Sea trade restructures
+- Aden becomes Ottoman sphere: new political alignment
+- Price shifts as above
+
+### Year 7 (1518)
+- Ottoman Indian Ocean policy becomes active
+- Selman Reis named Ottoman naval commander
+- Mehmed al-Rumi arc conclusion window (if not resolved earlier)
+
+### Year 8–14 (1519–1525)
+- Magellan's circumnavigation (Years 8–11) creates political anxiety over Moluccas
+- Bintan raids on Malacca shipping continue; Sultan Mahmud never entirely subdued
+- Portuguese Estado consolidates; more priests, more forts, more bureaucracy
+- Chinese private trade expands despite haijin; Fujian merchant networks grow
+
+### Year 15 (1526)
+- Bintan raid: Malay exile court broken
+- Game end approaches
 
 ---
 
-## Years 13–15 (1523–1525): The Banten Rise
+## Notes on Future Development Windows
 
-**Historical events:**
-- 1522–1526: Maulana Hasanuddin (Raden Aria's successor in the game world) begins consolidating Muslim power in West Java; the Sunda Kingdom weakens
-- 1524: Portuguese attempt to establish a factory at Sunda Kelapa (the port that will become Batavia/Jakarta); blocked by Demak-aligned forces
-- 1525: End of game
-
-**Game situation:**
-West Java's political transformation is nearing a tipping point. Bantam's role as an alternative pepper port grows as Portuguese Malacca's reputation for reliable trade ebbs and flows with the governance of each new Governor.
-
-The game's end in Year 15 catches the Indian Ocean world at a moment of maximum complexity: Portuguese control is established but contested; the Ottoman challenge is growing; Spanish competition has materialized; the Chinese trade is expanding without Portuguese control; the Malay world is reorganizing around new nodes (Patani, Johor, eventually Bantam).
-
----
-
-## Timeline quick-reference
-
-| Year | Calendar | Key event | Game impact |
-|---|---|---|---|
-| 1 | 1511 | Malacca conquered | Game start |
-| 1 | 1511 | Javanese armada defeated | World event |
-| 3 | 1513 | Nina Chatu dies | Malacca power vacuum |
-| 4 | 1514 | Chaldiran (Ottoman victory) | Ottoman intelligence events |
-| 5 | 1515 | Albuquerque dies | Major world event (coded) |
-| 6 | 1516 | Mamluk collapse | Major world event (coded) |
-| 7–9 | 1517–19 | Portuguese-China failure | Quanzhou events shift |
-| 9 | 1519 | Magellan's circumnavigation | Spice island prices shift |
-| 11 | 1521 | Portuguese fort at Ternate | Clove trade disruption |
-| 13–15 | 1523–25 | Banten rise begins | Bantam political events |
-
----
-
-## Notes for future development
-
-**Year 6 aftermath:** The Ottoman presence in the Red Sea will become militarily significant after the game's current 15-year window. An expansion covering Years 16–25 (1526–1535) would include the Ottoman Red Sea fleet, the Battle of Diu II (1538 is outside the range, but the buildup starts in this period), and the fall of the Tahirid dynasty in Aden.
-
-**The Johor Sultanate:** After Sultan Mahmud Shah's death at Kampar (c. 1528), his successor establishes the Johor Sultanate, which becomes the primary successor to Malacca's political and commercial legacy. This is just outside the current 15-year window.
-
-**Hang Tuah gap:** The legendary Hang Tuah, hero of the *Hikayat Hang Tuah*, is often associated with this period but his textual tradition (the Hikayat) is a later literary work and is NOT in the sources directory. Any game content referencing Hang Tuah's legendary exploits should be clearly marked as folklore (heard from an NPC storyteller) rather than historical record.
+- **Wei Chongde reveal arc (Year 7+):** Character arc built to resolve in Year 7 but can extend to Year 10
+- **Camila de Sousa marriage arc (Year 7):** Calibrated to mid-game natural pause point
+- **Mahjong minigame:** Appropriate Year 1+ in Malacca Chinese quarter or Quanzhou
+- **Mancala minigame:** Appropriate in Aden, Swahili coast contexts; Year 1+
+- **Javanese dice game:** Bantam; Year 1+
+- **Bintan as playable port (Year 3+):** Sultan Mahmud's exile court becomes accessible after initial chaos settles; hostile to Portuguese
+- **Ternate/Moluccas (future expansion):** Referenced in Pires (spice source) but not in current port network; potential Year 3+ addition
+- **Patani (Gulf of Thailand):** Mentioned as trading port in Pires; potential future port

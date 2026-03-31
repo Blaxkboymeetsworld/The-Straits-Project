@@ -1,175 +1,288 @@
-# The Straits Project — World Bible
+# World Bible — The Straits Project
 
-This document maps the historical world of 1511–1526 onto the game's port system, faction framework, and economic logic. Everything here should be treated as canonical game-world fact unless overridden by a specific design decision.
-
----
-
-## The Indian Ocean System
-
-The world the player navigates is not a collection of independent ports. It is a single, interdependent trade system held together by two forces: monsoon winds and credit networks.
-
-**The monsoon calendar governs everything.** The northeast monsoon (roughly November–March) carries ships from India and Arabia eastward to Malacca and beyond. The southwest monsoon (roughly May–September) carries them back. Ships from the Persian Gulf and Red Sea cannot reach Malacca in a single season — they must winter in Gujarat, which is why Gujarati merchants became the dominant carriers of western goods to Malacca. The Strait of Malacca itself has local winds that are less seasonal; the South China Sea above it has its own cycle.
-
-**Credit networks replaced physical currency over most distances.** Gujarati and Hadrami merchants used *hundis* (letters of credit) across the ocean. A Malaccan merchant could purchase goods from a Gujarati ship captain with a letter redeemable in Cambay. This is why the destruction of trust (the Portuguese cartaz system, Albuquerque's seizures) was so devastating: it shattered the credit infrastructure that made long-distance trade possible.
+Canonical reference for all ports, factions, trade goods, and political context. Year 1 = 1511.
+Do not contradict this document in events, quests, or NPC dialogue without updating it first.
 
 ---
 
-## Malacca Harbor
+## The World at Year 1 (1511)
 
-**Historical date:** Conquered by Albuquerque, July–August 1511. The game's Year 1 (1511) opens immediately after the conquest.
+The Portuguese have just taken Malacca. The Indian Ocean trade network — built over centuries by Arab, Persian, Indian, Malay, Javanese, and Chinese merchants — has been severed at its hub. Every port in this document is reconfiguring. Prices are volatile. Loyalties are shifting. The player arrives in the immediate aftermath.
 
-**Geographic situation:** Located on the narrowest point of the Malacca Strait, where all traffic between the Indian Ocean and the South China Sea must pass. No natural deep harbor — ships anchor in the roadstead. The town sits on a hill (Bukit Cina on the east bank, the main settlement on the west). The Malacca River divides the city; the bridge over it was the military key to the conquest.
-
-**Portuguese fortress:** Built on the site of the great mosque, using stone from Malay tombstones and shells for lime. By 1512 it had two wells and artillery on all sides. It is the power center of the Portuguese Indian Ocean in the game.
-
-**Population after conquest (Pires' account):** Mixed and recovering. Many merchants returned quickly because Malacca's geographic advantage is permanent. Gujaratis, Klings (Tamil merchants), Javanese, Malays, Chinese, Bengalis all present. The native Malay population was reduced; the conquered king (Sultan Mahmud) was at Bintan with a rump court. Portuguese soldiers and officials occupied the hill.
-
-**Key social divisions:**
-- *Casados* — married Portuguese settlers; the permanent colonial population
-- *Soldados* — soldiers of the garrison
-- *Cristãos novos* — converso (Jewish-origin) merchants and factors; present but liminal
-- Kling merchants (Tamil Hindus/Muslims) — most commercially powerful after conquest; their leader Nina Chatu held the bendahara office until his death
-- Chinese community — present since before the conquest; grew rapidly after Portuguese secured the strait
-- Malay population — reduced but present; suspicious of the Portuguese; many ties to Sultan Mahmud in exile
-
-**Trade goods flowing through Malacca (game-relevant):**
-- East → West: cloves (Maluku), nutmeg and mace (Banda), sandalwood (Timor/Solor), camphor (Borneo), pepper (Sumatra/Banten), tin (Malayan peninsula), Chinese porcelain and silk, benzoin, gold
-- West → East: cotton textiles (Gujarat, Coromandel), opium (Aden), horses (Arabia/Persia), coral (Mediterranean via Gujarat), copper (Arabian Peninsula), rose water, dyes
-
-**Harbor master in game:** Hang Kassim — a Malay harbor official who survived the conquest by accommodating the Portuguese. His cooperation is calculated, not loyal; he supplies information to both sides. He knows the Malay community's mood and can warn of unrest.
-
-**Tun Mutahir (Bendahara):** Historical figure; killed by Sultan Mahmud before the conquest. In the game he exists in the pre-conquest timeline (Years before game start) as a source of backstory and lore. NPCs who knew him speak of him with grief.
+**The fundamental tension:** Portuguese sea power (cannon, carracks, controlled straits) versus established Muslim-majority merchant networks (deeper port relationships, overland alternatives, political marriages, intelligence networks). Neither side wins cleanly. This is 1511, not 1550.
 
 ---
 
-## Goa Harbor
+## Major Ports
 
-**Historical date:** Conquered by Albuquerque, November 1510 (second capture; first was March 1510, then retaken by Bijapur, then reconquered).
+### MALACCA
+**Historical period:** Taken by Albuquerque, July 1511. Portuguese fort built on site of sultan's palace.
+**Population mix:** Portuguese garrison + administration; surviving Chinese merchant community (Gores); Indian merchants (Gujaratis mostly fled, Klings/Tamils remain); Malay population reduced, those who stayed are working people and craftsmen; small Javanese merchant presence
+**Governance:** Portuguese captain of the fort (Ruy de Brito Patalim, Year 1); Bendahara system destroyed; Ninachatu (Hindu Indian) and Utemutaraja (Javanese) appointed as governor-proxies for non-Portuguese merchants
+**Harbor master:** Portuguese military officer; fees collected formally at the fort
 
-**Geographic situation:** The island of Goa, split from the mainland by a river channel; excellent natural harbor on the Mandovi River. Portuguese headquarters for the Estado da India; the Governor (Viceroy from 1526) resides here.
+**Trade goods available:**
+- IN: Spices (cloves, nutmeg from Moluccas); pepper (from Java/Bantam); tin (Malay peninsula); camphor; black pepper; sandalwood
+- OUT: Portuguese cloth, weapons, wine; Chinese porcelain and silk (through Chinese merchants still operating)
 
-**Political situation:** The Hindu population of Goa (Konkani-speaking) supported the Portuguese against the Muslim Bijapur Sultanate. Bijapur still controls the mainland around Goa and periodically threatens to retake it. The game should treat this threat as a constant low-level tension rather than open war during Years 1–5.
+**Key facts (sourced):**
+- 3,000 pieces of artillery captured at fall (2,000 bronze) — Commentaries Vol III
+- Wooden bridge with 20+ trading pavilions over the main river — confirmed Ma Huan + Commentaries
+- City sacked for 10 days after conquest — Commentaries Vol III
+- Foreign merchants (Pegu, Chinese, Indian non-Muslim) welcomed back immediately — Commentaries Vol III
+- Gujarati merchants fled or were expelled; their departure creates major trade vacuum
+- Utemutaraja had 5,000–6,000 slaves at the time of conquest — Commentaries Vol III
 
-**Portuguese power center:** All cartazes (safe-passage licenses) are issued from Goa. Tribute from subordinate ports flows to Goa. The factor (treasury official) based here handles customs revenue from the entire Estado.
+**Temporal arc:**
+- Year 1: Raw conquest. Fort under construction. Mixed chaos/opportunity. Portuguese favor non-Muslim merchants.
+- Year 2–4: Consolidation. Portuguese trade system imposed. Pati Unus (Javanese) attempted assault on Malacca (historical: 1513). Chinese trade partially restored.
+- Year 5+: Stable Portuguese administration but chronic raiding threats from Sultan Mahmud at Bintan.
+- Year 15: Bintan raid (historical: 1526, just outside game window).
 
-**Dom Afonso de Albuquerque:** Governor-General until his death in December 1515. In game Years 1–4, he is the supreme Portuguese authority; his death (Year 4/5 boundary) is a significant in-game event. He is in Goa or at sea, but his authority is felt everywhere.
-
-**Ruler noted in world.json:** Dom Afonso de Albuquerque — with death note flagging his 1515 death as a turning point.
-
-**Trade:** Goa is the main node for the Gujarat-Portugal axis. Horses from Arabia and Persia (via Hormuz) transit through Goa to the Vijayanagara empire and Deccan sultans; this horse trade is enormously profitable. Spices come in from Malacca; textiles go out from Gujarat.
-
-**Harbor master:** Rodrigo Rabelo — a Portuguese casado (married settler) of mixed Goan descent; his mother was likely Konkani. He knows the street life of Goa and the unofficial trade that the official system ignores.
-
----
-
-## Hormuz
-
-**Geographic situation:** An island at the mouth of the Persian Gulf. Extreme aridity — no freshwater on the island. Water shipped from mainland (Nabandah/Bandar-e Khamir) or from the island of Qeshm. Heat so severe that merchants reportedly lived underground in summer.
-
-**Political situation (1511):** Hormuz is a tributary state under Portuguese suzerainty after Albuquerque's campaign of 1507–1508. The Shah (Shah Salghur in game) is nominally sovereign but the Portuguese maintain a fortress and demand annual tribute of 15,000 xerafins. The real power historically was Cogeatar (Khoja Atar), who had the chancellery; by 1511 a new political equilibrium had been reached.
-
-**Strategic significance:** Every ship traveling between India, Arabia, East Africa, and the Persian Gulf must pass through the Strait of Hormuz. Control here means leverage over Gulf trade: horses, pearls, dates, silk, and the luxury goods of Persia.
-
-**Key goods:** Persian Gulf pearls (from the Bahrain banks, certified by the Shah's jeweler — as in quest q_hormuz_pearl_merchant); horses (sent to India); dates; silk from Persia; copper.
-
-**Harbor master:** Abbas ibn Yusuf — a Hadrami Arab merchant who serves as harbor master under the Portuguese umbrella. His family has traded here for generations; he knows the Persian Gulf's politics and the Ottoman threat from Egypt/the Red Sea.
-
-**Ottoman presence:** Mustafa al-Rumi (in game) is an Ottoman agent at Hormuz. Historically, Ottoman interest in the Indian Ocean intensified after the Mamluk defeat at Diu (1509) — the first Portuguese-Muslim naval engagement in the Gulf. The Ottomans were trying to establish a Red Sea fleet to counter the Portuguese; Hormuz was a key intelligence post. This becomes more significant in Years 5–6 (see game_timeline.md).
+**Encounter flavor:** Portuguese garrison tension with Muslim locals; Malay craftsmen and fishing community; Chinese Gores operating carefully under Portuguese protection; ghost of pre-conquest grandeur
 
 ---
 
-## Aden Harbor
+### GOA
+**Historical period:** Taken by Albuquerque 1510; consolidated by Year 1.
+**Population mix:** Portuguese administration and growing settler community; local Konkani Hindus (Nayars, Brahman community); Bijapuri Muslims (some remained); Arab traders on restricted basis; increasingly mixed Portuguese-Indian marriages promoted by Albuquerque
+**Governance:** Portuguese captain-general; Albuquerque himself in Year 1 (dies Year 5, 1515); after death, appointed successors
 
-**Geographic situation:** At the mouth of the Red Sea, on a volcanic peninsula. Natural harbor protected by cliffs; excellent strategic position. Commands all traffic between the Indian Ocean and the Red Sea/Mediterranean trade route.
+**Trade goods available:**
+- IN: Horses (Arabia → Persia → Ormuz → Goa; 500–700 xerafins for best Arabian) — Pires; Portuguese cloth; European weapons
+- OUT: Spices (redistributed from Malacca); Indian cotton textiles; teak wood for shipbuilding
 
-**Political situation:** Aden was controlled by the Tahirid dynasty (a local Arab dynasty) in the early 16th century, under nominal Rasulid and then Mamluk suzerainty. The Ottomans were expanding into the Red Sea; Aden fell to Ottoman forces in 1538, but Ottoman pressure was felt earlier. In the game's timeline, Aden is independent but under threat.
+**Key facts (sourced):**
+- Primary armada-building center; abundant wood and skilled craftsmen — Pires Vol I
+- Albuquerque establishes mint in Goa — Commentaries Vol III
+- 450 married Portuguese men in Goa by Year 1 — Commentaries Vol III
+- Albuquerque promotes mixed marriages with local Indian women — Commentaries Vol III
+- Horse trade is the dominant economic engine: Arabian horses are non-renewable imports for Deccan kingdoms
 
-**Trade significance:** Everything moving between the Indian Ocean and Egypt/Europe passed through Aden. The spice route: Malacca → Calicut → Aden → Cairo → Venice. Aden's harbor master collected dues on this entire flow. Albuquerque attempted to take Aden in 1513 and failed; the city was too strongly fortified.
+**Temporal arc:**
+- Year 1–4: Albuquerque's personal authority holds. Goa is becoming a city.
+- Year 5: Albuquerque dies. Transition period, political uncertainty.
+- Year 6+: Stable Portuguese viceroyalty; horse trade continues; Estado da India bureaucracy expands.
 
-**Key goods:** Coffee (already traded in small quantities); pepper (from Malabar and Malacca); opium; Arabian horses (going to India); textiles from Gujarat; gold and slaves from East Africa.
-
-**Harbor master:** Ibrahim al-Yamani — a Yemeni Arab. His loyalties are local: he serves the Tahirid governor but has his own relationships with Hadrami and Egyptian merchants.
-
-**Tahirid Governor:** Amir Salim al-Tahiri — the game's political power at Aden. He holds a precarious position: the Mamluks are weakening, the Ottomans are expanding, and the Portuguese are threatening from the sea. He needs intelligence and may use the player as an unofficial channel.
-
-**Hadrami network:** The Hadhramaut (southern Yemen coast) produced a diaspora of Muslim merchants who spread across the Indian Ocean from East Africa to Malacca. The game's hadrami_figure contacts at Hormuz and Aden are part of this network: long-established, multilingual, with relationships across the entire system.
-
----
-
-## Calicut
-
-**Geographic situation:** The dominant pepper port of the Malabar (Kerala) coast. No natural harbor — ships anchor in the roadstead and use small boats (tongues). The beach landing is dangerous in the wrong season.
-
-**Political situation:** The Zamorin (Samuthiri) of Calicut was the most powerful Hindu ruler on the Malabar coast and Albuquerque's most persistent enemy. Calicut had been the center of the Indian Ocean pepper trade for centuries; Portuguese attempts to monopolize pepper cut directly into the Zamorin's revenues. The Zamorin maintained a policy of war or near-war with the Portuguese throughout this period.
-
-**In game Years 1–5:** The player can operate in Calicut but with Portuguese-faction penalties. The Zamorin's court is not inherently hostile to trade — just to Portuguese monopoly claims. A player with low Portuguese-faction or good Muslim-merchant relationships can navigate Calicut more freely.
-
-**Key goods:** Pepper (Malabar's primary export); cardamom; rice; Indian textiles.
-
-**Harbor master:** Koya Moopan — a Muslim Tamil merchant (Koya = honorific for senior Muslim trading families). The Koya Moopan tradition was the Zamorin's designated trading contact for Muslim merchants; Koya Moopan in the game is the man the Portuguese deliver cartazes to (quest q_goa_cartaz_delivery) and who provides intelligence.
-
-**Zamorin:** Mana Vikraman — the ruling Zamorin. He is not a quest-giver in the game's current design but appears as a figure in NPC lore and knowledge entries.
+**Encounter flavor:** Construction everywhere; priests and soldiers; Konkani merchants navigating Portuguese rules; horse-traders from Arabia and Persia passing through; shipwrights
 
 ---
 
-## Bantam
+### HORMUZ (ORMUZ)
+**Historical period:** Under tribute to Portugal since 1507 (Commentaries Vol I). Nominally independent.
+**Population mix:** Persian and Arab merchants dominant; Indian (Gujarati, Sindhi) traders; young king (~22 by Year 1) and his court; Portuguese factor resident but not a garrison
+**Governance:** Boy-king (was 15 in 1507 — now ~22 in 1511) under Portuguese tributary obligation; 15,000 xerafins/year tribute; local administration intact
 
-**Geographic situation:** At the western tip of Java, commanding the Sunda Strait (the alternative route to the Malacca Strait). Not yet a major power in 1511 — Bantam's rise begins after the fall of the Hindu Sunda kingdom in the 1520s–1530s. In game Year 1 it is a secondary port.
+**Trade goods available:**
+- IN: Horses (best Arabian, 500–700 xerafins each) — Pires; Persian goods; Indian cotton
+- OUT: Pearls (from Bahrain, best in the world) — Pires; dates; salt
 
-**Political situation:** The Sunda Kingdom (Hindu) controls West Java. Islam is arriving from Demak and the north Java coast ports. The game's Bantam is at this cusp: the harbor master Raden Aria is a Muslim noble, but the hinterland is still Hindu Sundanese.
+**Key facts (sourced):**
+- Island with no fresh water — all cisterns — Pires Vol I
+- 60 great vessels + 200 galleons in the Ormuz fleet (before Portuguese arrival) — Commentaries Vol I
+- Tribute negotiated at 15,000 xerafins/year + 5,000 expenses — Commentaries Vol I
+- Treaty written in Arabic on leaf-gold and in Persian on paper — Commentaries Vol I (this detail is usable in quests)
+- Pearl fisheries from Bahrain are the premier luxury export of the entire region
+- Albuquerque met the young king on the jetty: king in crimson satin petticoat, white cap, golden dagger — Commentaries Vol I
 
-**Trade significance:** Bantam is the closest port to the Sunda Strait pepper-growing region. West Java pepper was an alternative to Malabar pepper. As Portuguese pressure on Malabar intensified, Bantam's importance grew.
+**Temporal arc:**
+- Year 1–5: Nominal Portuguese tributary; mostly autonomous in practice
+- Year 6: Fall of Mamluks shifts Ottoman pressure eastward; Hormuz becomes more contested
+- Year 7+: Ottoman naval interest in Gulf increases (Selman Reis, Mamluk arc)
 
-**Key goods:** Pepper (primary); rice; timber; Javanese textiles.
-
-**Political figures in game:** Maulana Hasanuddin (heir who becomes Sultan and defeats the Sunda kingdom), Sultan Hasanuddin (the future ruler), Maulana Yusuf (religious figure). These are historical figures whose rise is in the game's future (Years 5+).
-
----
-
-## Quanzhou
-
-**Geographic situation:** The major port of Fujian province, southern China. Not the capital of the Chinese state — Quanzhou's role was as the center of the overseas Chinese merchant community. By 1511 Quanzhou's official status had declined in favor of Guangzhou, but the Hokkien (Fujianese) diaspora that originated here was spread across Southeast Asia.
-
-**Political situation:** Under the Ming Dynasty, which had banned private overseas trade (*haijin*). The Zheng He voyages (1405–1433) had ended; official Chinese presence in Southeast Asia was minimal. The Quanzhou merchants who appear in the game are operating outside the *haijin* prohibition, either through corruption or under the umbrella of Portuguese or Malay trade.
-
-**The Chinese community at Quanzhou vs. abroad:** The game distinguishes between Quanzhou (the home port, official and restricted) and the overseas Chinese communities at places like Malacca, Bantam, and Patani. Abbot Mingzhi in the game represents the monastery-merchant hybrid common in Chinese coastal trade — temples served as storehouses and neutral meeting points.
-
-**Harbor master:** Wu Liangchen — a Hokkien merchant who has obtained a position as harbor registrar. He navigates between official Ming prohibition and the practical reality that merchants will trade regardless.
-
-**Prefect Chen Bao:** The official Chinese magistrate; he and Wu Liangchen have an uncomfortable mutual dependence.
+**Encounter flavor:** Persian court culture; Arab merchant guilds; pearl divers; horse-dealers from the interior; Portuguese factor watching the tribute flow; extreme heat
 
 ---
 
-## Secondary ports
+### CALICUT (MALABAR COAST)
+**Historical period:** Portuguese-hostile. Zamorin (ruler) has never accepted Portuguese terms; ongoing conflict.
+**Population mix:** Muslim merchants (Arab-descended Mappilas) dominant in trade; Hindu Nayar warrior caste controls military; Brahman elite controls religious/administrative functions; small number of Portuguese informants and traders operating covertly
+**Governance:** Zamorin (ruler) — powerful, independent, anti-Portuguese; Nayar warriors under his command
 
-**Patani:** A Muslim sultanate on the east coast of the Malay Peninsula (modern southern Thailand). During the 15th–16th centuries, Patani was a major alternative to Malacca after the conquest, particularly for Chinese traders seeking to avoid the Portuguese. Important for Chinese-Malay trade in game Years 3+.
+**Trade goods available:**
+- IN: European cloth; gold; silver
+- OUT: Pepper (20,000 bahars/year) — Pires; ginger; cardamom; coconuts; areca; coir (rope/matting)
 
-**Ternate:** In the Maluku (Spice Islands). The origin of cloves. Sultan Baab Ullah's predecessors held clove monopoly rights. Portuguese established a presence at Ternate after Magellan's circumnavigation (1519–1521), building a fortress. In game Years 1–5, Ternate is a distant prize; the player may encounter Ternate goods but not visit the port directly in the base game.
+**Key facts (sourced):**
+- 150,000 Nayar warriors available — Pires Vol I (probably exaggerated but reflects Zamorin's real military strength)
+- Brahman caste hierarchy governs social life: Brahman → Nayar → lower castes — Pires Vol I
+- 20,000 bahars pepper per year from Malabar — Pires Vol I
+- Calicut is the chief trade center of the Malabar coast — Pires Vol I
+- Nayars must be ever-ready for war; warrior identity is total — Pires Vol I
+- Mappila Muslims (Arab-descended) control most of the long-distance trade; deeply connected to Gujarati and Arab networks
+- Zamorin's court uses coconut-shell cups; specific food and hospitality protocols
 
-**Pulau Tioman:** A small island off the Malay coast, used as a resupply and shelter stop on the South China Sea route. No significant political power; important as a waypoint. A "neutral ground" between Chinese and Malay maritime spheres.
+**Temporal arc:**
+- Year 1–6: Hostile to Portuguese; safe haven for Muslim merchants expelled from Malacca and Goa
+- Year 6: Fall of Mamluks weakens Calicut's Arab merchant allies
+- Year 8+: Calicut's power gradually eroded by Portuguese raids; Cochin (pro-Portuguese rival) grows
+
+**Encounter flavor:** Nayar warriors everywhere; Brahman ritual authority; smell of pepper and coconut oil; Arab merchants in the market quarter; tension when Portuguese ships are sighted
 
 ---
 
-## Faction overview
+### BANTAM (JAVA)
+**Historical period:** Sunda kingdom; Bantam is "almost the most important" Sunda port — Pires.
+**Population mix:** Sundanese (indigenous); Javanese (from the east); Gujarati and Bengali merchants; Chinese traders; some Malay traders; slave market
+**Governance:** Local Sunda raja; Demak (Javanese Muslim sultanate) is the rising regional power after Majapahit's collapse; Bantam increasingly in Demak's orbit
 
-**Estado da India (Portuguese):** The official Portuguese empire in Asia. Goa is the capital; Malacca the eastern anchor. The cartaz system is their primary economic tool. Their military advantage is naval artillery; their disadvantage is small numbers and long supply lines. Albuquerque's death in 1515 creates a succession crisis.
+**Trade goods available:**
+- IN: Indian cloth (especially Gujarati); Chinese porcelain
+- OUT: Pepper (good quality from Sunda); rice (Java is the granary); slaves (major trade); sandalwood
 
-**Muslim merchant network:** The informal alliance of Gujarati, Hadrami, and Tamil Muslim merchants who had dominated Indian Ocean trade before the Portuguese. After Malacca's fall they re-routed trade through Aden, Calicut, and Patani. Not a unified faction but a shared interest group.
+**Key facts (sourced):**
+- Bantam "almost the most important" Sunda port — Pires Vol I
+- Rice, pepper, slaves are the primary Javanese exports — Pires Vol I
+- Gresik (east Java) is "jewel of Java in trading ports" — Pires Vol I; Gujaratis, Bengalis, Siamese, Chinese all present
+- Pate Unus led attack on Malacca with ~100 ships; Javanese junks lost in attack — Pires Vol I
+- Demak rose as the dominant Javanese power after Majapahit's collapse — Pires Vol I
+- Majapahit's memory is still politically active in Year 1 — nostalgia for Javanese Hindu empire among older merchants
 
-**Javanese pates:** The north Java coastal cities (Demak, Gresik, Tuban, Surabaya) were Muslim and commercially powerful. They organized the armada that tried to retake Malacca (defeated 1511) and continued sponsoring piracy against Portuguese shipping. Java remains a hostile power throughout the game.
+**Temporal arc:**
+- Year 1: Javanese (Demak) hostile to Portuguese for destroying their Malacca trade
+- Year 2: Pati Unus's assault on Malacca fails (historical: 1513). Javanese power checked.
+- Year 5+: Bantam grows as alternative pepper port as Malacca Portuguese trade stabilizes (or doesn't)
 
-**Chinese imperial/merchant:** The Ming state officially prohibits private trade but cannot enforce it. The overseas Chinese community (Hokkien diaspora) operates commercially in Southeast Asia with tacit acceptance. Not a political faction in the game but a cultural-commercial network with enormous commercial weight.
-
-**Malay sultans in exile:** Sultan Mahmud at Bintan; various Malay nobles scattered through the peninsula and Sumatra. They represent the displaced legitimate authority and can activate Malay loyalists against Portuguese Malacca. The ex-sultan's faction becomes increasingly relevant in Years 3–5.
+**Encounter flavor:** Open market with slaves in pens; rice warehouses; Javanese gamelan music from the inland; Gujarati cloth merchants; hostility from Demak-aligned Muslims; strange fruits and foods
 
 ---
 
-## Economic logic of the game world
+### ADEN
+**Historical period:** Independent sultanate; controls the Red Sea entry from the south.
+**Population mix:** Arab (dominant); Persian merchants; Indian (Gujarati) long-distance traders; African (Swahili coast, Zanj/Zindj connection); Ethiopian merchants; Yemeni population
+**Governance:** Tahirid/later Mamluk-aligned sultanate; will fall to Ottoman control by Year 6 (1516–1517 historically)
 
-**Why goods are expensive:** Distance, risk, monsoon timing, and tolls. A sack of cloves is worth roughly ten times its Ternate price by the time it reaches Malacca; twenty times in Gujarat; forty times in Cairo.
+**Trade goods available:**
+- IN: Indian cotton; spices (redistributed from Malacca/Indian Ocean); East African ivory and gold
+- OUT: Frankincense; myrrh; horses (some); coffee (early cultivation, not yet widely traded)
 
-**Why the Portuguese are hated:** They demand cartazes (tolls) on top of existing port duties. They seize non-licensed ships. Their fortress cannon can destroy any merchant vessel. They have upended century-old credit networks by establishing monopoly claims.
+**Key facts (sourced):**
+- Aden mentioned 9 times in Marvels of India as departure/destination port — confirms it as a major hub in the Arab trade world
+- Siraf/Basra-based captains considered Aden a routine stop
+- Red Sea route: Aden → Jeddah (for Mecca pilgrims and Red Sea trade) — Marvels of India
+- Karimi merchant network historically based in Aden/Cairo axis (merchant guild controlling Red Sea spice trade through 14th–15th century)
+- Fall of Mamluks (Year 6/1516–17) ends the Karimi network's political protection; Aden becomes Ottoman
 
-**Why merchants still come:** Malacca's geographic position is non-negotiable. The Strait cannot be avoided. The Portuguese have better artillery than anyone and (initially) a reputation for enforcing their own merchants' contracts fairly. Some merchants, like Nina Chatu, calculated that cooperation produced more profit than resistance.
+**Temporal arc:**
+- Year 1–5: Aden as independent Arab trade hub; Karimi network still functional
+- Year 6: Fall of Mamluks; Aden's political structure shifts toward Ottoman sphere
+- Year 7+: Ottoman naval operations from Aden; Selman Reis era
 
-**What the player can exploit:** Information asymmetry. The player can learn, through NPC knowledge queries, what goods are scarce at which ports, which factions are about to move, where Portuguese inspections are lax. Trade intelligence is as valuable as cargo.
+**Encounter flavor:** Frankincense and myrrh smoke from the port market; Swahili coast merchants; pilgrimage trade mixed with commerce; dhow culture; fierce heat; water sellers
+
+---
+
+### QUANZHOU (CHINESE PORT — ZAYTON)
+**Historical period:** Not a Portuguese-controlled port. China is under Ming dynasty (Zhengde Emperor in Year 1). Chinese trade is officially restricted (haijin laws) but in practice Fujian merchants operate freelance.
+**Population mix:** Han Chinese (dominant); Fujian merchant community; Muslim Hui merchant community (long-established in Quanzhou from Arab trade era); some Malay and Javanese traders anchoring offshore
+**Governance:** Prefect (imperial official); local merchant guilds; customs officers; tension between official haijin restrictions and practical trade needs
+
+**Trade goods available:**
+- IN: Pepper (Chinese buy pepper above all — Pires); spices; tin; tropical wood; exotic animals/birds
+- OUT: Raw white silk; satins; damask; porcelain; musk; camphor; iron goods
+
+**Key facts (sourced):**
+- Chinese pay 20% duty on pepper; 10% on other goods — Pires Vol I
+- Chamcheo (near Quanzhou/Changzhou) is the silk source — Pires Vol I
+- Malacca junks anchor at Turnon island 20–30 leagues from Canton (Guangzhou) — Pires Vol I
+- Chinese merchants are "very reserved speech" — Commentaries Vol III; Ma Huan confirms reserved, formal behavior
+- Chinese cantonment in Malacca: stockaded, with granaries; organized and self-contained — Ma Huan
+- Chinese emperor raised Malacca to city status and freed it from Siamese tribute (1409) — Ma Huan; this diplomatic debt matters in Year 1 when Sultan Mahmud appeals to China for help
+- Sultan Mahmud sends ambassador to China requesting military help to retake Malacca (Year 1) — Commentaries Vol III; China did not intervene
+
+**Temporal arc:**
+- Year 1: China officially uninvolved; private merchants continue trade cautiously
+- Year 3+: Malacca Chinese community under Portuguese protection; Quanzhou trade routes shift
+- Year 7: Wei Chongde subplot (optional) reaches resolution point
+
+**Encounter flavor:** Quiet efficiency; formal business protocols; Confucian social hierarchy; Hui Muslim quarter with mosque; silk warehouses; porcelain packed in straw; suspicion of outsiders
+
+---
+
+## Minor Villages
+
+### BINTAN (EXILE COURT)
+Post-conquest refuge of Sultan Mahmud. City on a river, 70 leagues east of Malacca. Fortified with 300 bronze artillery; stockades with poisoned chevaux-de-frise — Barros. The Malay court in exile; Sultan Mahmud reorganizes court here; names successors. A hostile port for Portuguese, cautiously welcoming for Muslim merchants.
+
+### SINGAPORE (SELAT)
+The Lassamane (80-year-old admiral) withdrew here after Malacca fell — Commentaries Vol III. Old strategic position. Shallow waters; fishing communities; ghost of older Singapura kingdom (Sejarah Melayu).
+
+---
+
+## Trade Goods Reference
+
+| Good | Source Region | Destination | Price Tier | Notes |
+|------|--------------|-------------|------------|-------|
+| Pepper | Malabar, Java/Bantam, Sumatra | Everywhere; China pays most | High | 20,000 bahars/year from Malabar alone |
+| Cloves | Maluku (Ternate/Tidore) | Malacca, then everywhere | Very high | Portuguese now control Malacca hub |
+| Nutmeg | Banda Islands | As above | Very high | Only source in the world |
+| Horses | Arabia/Persia | Goa → Deccan kingdoms | Highest luxury | 500–700 xerafins for best; Deccan kingdoms need constant re-supply |
+| Pearls | Bahrain | Ormuz → everywhere | Luxury | Best pearls in the world |
+| Silk (raw) | China (Chamcheo/Quanzhou) | Malacca, India, Arab world | High | Raw white silk; satins; damask |
+| Porcelain | China | Everywhere | Medium-high | Mass-produced but high demand |
+| Tin | Malay peninsula | China (for bronze); everywhere | Medium | Cast into flower-tin blocks as currency |
+| Cotton cloth | Gujarat | Everywhere in SE Asia | Medium | Gujarat textiles dominate lower-end trade |
+| Camphor | Borneo, China | Arab world, India | High | Medicinal and funerary use |
+| Ebony | Malacca region | Arab world, India | Medium | Luxury wood |
+| Dammar resin | Malacca region | Ships (caulking), lamps | Low-medium | Called ta-ma-erh by Chinese |
+| Rice | Java | Malacca, island ports | Low (bulk) | Java is the granary; Malacca always imports rice |
+| Slaves | East Africa, SE Asia | Arab world, Portuguese Goa, Malacca | Varies | Utemutaraja had 5–6,000 at Malacca fall |
+| Frankincense | South Arabia/East Africa | India, China (temple use) | Medium | Aden specialty |
+| Gold | Sumatra ("Ophir"), East Africa | Everywhere | Highest | Sumatra gold mines; gold dust as medium of exchange |
+
+---
+
+## Faction Overview
+
+### PORTUGUESE ESTADO DA INDIA
+**Base:** Goa (capital), Malacca (forward base), Hormuz (tributary)
+**Goal:** Control Indian Ocean spice trade through naval dominance and port capture; convert populations; extract tribute
+**Method:** Carrack firepower; cartaz (protection pass) system — all ships must buy Portuguese passes or be treated as pirates; control of straits
+**Weakness:** Chronically undermanned; dependent on local allies (Ninachatu, Utemutaraja); corrupt captains; distance from Lisbon
+**Player relationship:** Portuguese player = insider; Ottoman and Chinese players = operating under Portuguese threat
+
+### GUJARATI MERCHANT NETWORK
+**Base:** Dispersed — fled Malacca, operating from Calicut, Aden, Diu, Hormuz
+**Goal:** Restore spice trade access; fund anti-Portuguese alliances
+**Method:** Finance Zamorin's resistance; lobby Ottoman court for naval intervention; maintain overland routes
+**Weakness:** No military force of their own; dependent on political patrons
+**Year 6 event:** Gujarati political position weakens when Mamluks fall; some accommodation with Portuguese begins
+
+### CHINESE MERCHANT COMMUNITY (GORES)
+**Base:** Malacca (living under Portuguese protection); Quanzhou/Fujian coast
+**Goal:** Continue the profitable Malacca trade under whoever controls the port
+**Method:** Political neutrality; use Portuguese protection; maintain separate social structure
+**Historical note:** China did not intervene militarily when Sultan Mahmud appealed — realpolitik over dynastic loyalty
+**Key NPC connection:** Chen Mingzhi, Old Liang, Ah Kow, Wei Chongde
+
+### MALAY COURT IN EXILE (BINTAN)
+**Base:** Bintan island
+**Goal:** Recover Malacca; maintain dynastic legitimacy
+**Method:** Raids on Portuguese shipping; diplomatic appeals to Java and China; rebuilding Malay fleet
+**Reality:** Internally divided; Sultan Mahmud murdered his own son; succession instability
+**Year 15 event:** Final Bintan raid on Malacca (outside game window but known future)
+
+### OTTOMAN EMPIRE (EMERGING THREAT)
+**Base:** Cairo (from Year 6); Red Sea; beginning Indian Ocean projection
+**Goal:** Secure spice trade access against Portuguese encirclement; protect Muslim merchant networks
+**Method:** Naval expeditions from Suez; alliances with Calicut and Gujarat; Selman Reis as naval commander
+**Year 6:** Fall of Mamluks incorporates Egypt into Ottoman empire; Indian Ocean strategy accelerates
+**Key NPC connection:** Mehmed al-Rumi, Kemal
+
+### KARIMI MERCHANT NETWORK
+**Base:** Aden, Cairo, Red Sea
+**Goal:** Maintain Red Sea spice trade monopoly through Mamluk political protection
+**Reality in Year 1:** Already under pressure from Portuguese rerouting of spice trade around the Cape
+**Year 6:** Collapses when Mamluks fall; some Karimi merchants absorbed into Ottoman networks, some accommodate Portuguese
+
+---
+
+## Economic Logic
+
+**The broken circuit:** Pre-1511, spices flowed: Maluku → Malacca → Calicut/Malabar → Aden → Alexandria → Venice. Portuguese have broken Malacca and the Cape route bypasses Aden. The circuit is not dead — it adapts — but Year 1 is maximum disruption.
+
+**Price principle:** Any good that normally passes through a Portuguese-controlled port is now priced higher at alternative routes and lower at Portuguese ports (because Portuguese need to fill their hold). Pepper is the index commodity. Everything else prices relative to pepper.
+
+**The cartaz system:** Portuguese require all merchant ships to buy a cartaz (protection pass) or be treated as pirates. This is not yet fully enforced in Year 1 — the system is being set up. By Year 3–4 it is operational. This creates a protection racket mechanic: pay the Portuguese or risk confiscation.
+
+**Year 6 price shift:** When Mamluks fall, pepper prices in Aden rise (less competition), fall in Quanzhou (rerouting increases supply), and stabilize in Malacca as Portuguese control becomes accepted by Chinese merchants.

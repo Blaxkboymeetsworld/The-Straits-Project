@@ -1,214 +1,280 @@
-# The Straits Project — Encounter Geography
+# Encounter Geography — The Straits Project
 
-This document maps historical plausibility to specific encounter types at each port. It answers the question: *what could actually happen here, based on the sources?*
-
----
-
-## Methodology
-
-"Plausibility" means: given what the historical sources document about this port's population, economy, politics, and geography, what kinds of encounters are believable? The sources (Pires, Commentaries, Sejarah Melayu, Ma Huan, Barros, Marvels of India) are the ground truth.
-
-Each port entry covers:
-- **Population mix** — who is actually present in 1511
-- **Plausible encounter types** — what events could plausibly arise
-- **Implausible encounters** — what would be anachronistic or wrong
-- **Monsoon notes** — seasonal timing affects what's possible
+Port-by-port plausibility reference. Consult before adding any event, NPC, or encounter to ensure historical grounding. Each section covers: population mix, plausible encounter types, implausibility warnings, and monsoon/seasonal notes.
 
 ---
 
-## Malacca Harbor
+## Quick-Reference Matrix
 
-**Population mix (post-conquest, Year 1 onward):**
-Portuguese garrison (soldiers, officials, casados); Tamil/Kling merchants (largest commercial community); Malay residents (reduced, suspicious); Chinese community (growing); Javanese (present but hostile); Bengali, Parsee, Arab merchants (present); Celate sea-people (nominally subject, actually piratical).
+| Port | Portuguese? | Muslim-majority? | Chinese present? | Monsoon window | Primary danger |
+|------|-------------|-----------------|-----------------|----------------|----------------|
+| Malacca | YES (garrison) | Mixed (post-conquest) | YES (Gores community) | Nov–Mar (NE monsoon to Java) | Portuguese-Muslim tension |
+| Goa | YES (capital) | Minority | Small | Jun–Sep (SW monsoon from Arabia) | Religious pressure |
+| Hormuz | Tributary | YES | Small | Jun–Sep | Heat; political intrigue |
+| Calicut | HOSTILE | YES (Mappila majority in trade) | NO | Jun–Sep | Portuguese naval raids |
+| Bantam | NO | Mixed (Islamizing) | YES | Nov–Mar | Demak hostility to Portuguese |
+| Aden | NO | YES | Small | Jun–Sep | Red Sea politics; Year 6 upheaval |
+| Quanzhou | NO | Partial (Hui quarter) | YES (dominant) | Varies | Haijin officials; inspection |
+
+---
+
+## MALACCA
+
+**Population mix (Year 1–4):**
+- Portuguese garrison and officials (small, ~200–400 men)
+- Chinese Gores (established merchant community; under Portuguese protection)
+- Tamil/Kling Indian merchants (non-Muslim; welcomed back after conquest)
+- Pegu merchants (Buddhist Burmese; welcomed back)
+- Surviving Malay working population (craftsmen, fishermen, porters)
+- Small Javanese presence (Utemutaraja's people)
+- Gujaratis mostly absent (fled or expelled as Muslim agitators)
 
 **Plausible encounters:**
-- Dispute over cartaz fees with a Gujarati captain (Portuguese officials demand payment; Gujarati claims exemption through a patron)
-- A Kling merchant offering goods taken from a Javanese ship — were they lawfully seized or pirated?
-- Celate men seeking work as oarsmen; at least one of them is actually a spy for the exiled sultan
-- A Franciscan friar demanding the player stop trading with Muslims on pain of denunciation
-- Malay mandarin's servant brings a message — the mandarin wants to talk privately, away from Portuguese ears
-- Chinese junk captain needs to offload camphor before the monsoon reverses; offers below-market price for immediate sale
-- A former Portuguese prisoner (from the Sequeira incident, 1509) recently ransomed; he has inside knowledge of the Malayan court at Bintan but is now erratic
-- Nina Chatu's representative (even after Nina Chatu's death, his network persists) offering a discreet cargo
+- Portuguese soldier demanding cartaz inspection
+- Chinese Gores merchant negotiating carefully under Portuguese oversight
+- Malay craftsman or fisherman (cautious, displaced)
+- Hindu Tamil merchant (comfortable under Portuguese; hostile to Malay rajas)
+- Javanese merchant navigating dual loyalties (Demak hostility vs. practical trade)
+- Rumors of Bintan raiders; fear at night
+- Orphaned Malay children in the port quarter
+- Memorial service at a former mosque (now converted or abandoned)
+- Artillery salvage work (3,000 pieces captured; being inventoried and moved)
 
-**Portuguese faction pressure:** High. Any open dealings with the exiled sultan's agents will be noticed. Harbormasters (Portuguese) watch for unlicensed vessels.
+**Implausibility warnings:**
+- Do NOT place Ottoman merchants prominently in Malacca in Year 1 (they operate from the Arabian Sea, not SE Asia yet)
+- Gujarati merchants would be extremely cautious and disguised; do not place openly
+- The Sultan's wooden pavilion (on 30 wheels, inlaid gold) burned — do not reference as standing
+- The Bendahara system of governance is destroyed; do not reference it as functioning
 
-**Implausible encounters:**
-- Full Muslim trade networks operating openly (they existed but quietly)
-- Any encounter implying Hang Tuah's supernatural abilities (those stories are Hikayat Hang Tuah, not historical)
-- A functioning Malay court operating publicly (the bendahara structure was dismantled)
-
-**Monsoon notes:** November–March: ships arrive from India and Arabia (northeast monsoon). May–September: the great westward departure. The harbor is fullest November–December when the crossing has just been made, and March–April when everyone prepares to leave.
+**Monsoon notes:**
+- NE monsoon (November–March): Chinese junks arrive from Quanzhou; best time for trade
+- SW monsoon (May–September): Chinese depart; Malabar ships arrive; rough weather in straits
 
 ---
 
-## Goa Harbor
+## GOA
+
+**Population mix (Year 1–4):**
+- Portuguese military and administrative class (growing: 450 married settlers by Year 1)
+- Konkani Hindu population (Nayar and Brahman; largely intact)
+- Indian women married to Portuguese men (Albuquerque's policy)
+- Horse traders from Arabia and Persia (passing through)
+- Arab merchants (restricted; operating cautiously)
+- Shipwrights and craftsmen (Konkani; the reason Portuguese wanted Goa)
+- Priests (Franciscans, Dominican friars; active conversion pressure)
+
+**Plausible encounters:**
+- Portuguese captain negotiating horse purchase price
+- Konkani Hindu craftsman or merchant navigating Portuguese authority
+- Arabian horse-dealer with 10 horses and 2 Persian attendants
+- Shipwright discussing carrack repair (abundant wood; skilled labor)
+- Priest pressuring a new convert (or recently baptized local)
+- Albuquerque himself (Year 1–4 only; dies Year 5)
+- Mixed-heritage child (already in Year 2–3 — Albuquerque's marriages policy started early)
+- Mint official (new mint established; coins being struck)
+
+**Implausibility warnings:**
+- Goa is NOT a traditional Muslim port; open Muslim merchant activity would be restricted
+- Do not place Chinese merchants prominently (they are in Malacca, not Goa)
+- The Bijapur Sultanate is still a threat beyond Goa's walls (Albuquerque holds the island; interior is contested)
+
+**Monsoon notes:**
+- SW monsoon (June–September): Arabian ships arrive with horses; most active trade season
+- NE monsoon: quieter; Portuguese ships can sail south toward Malabar more easily
+
+---
+
+## HORMUZ (ORMUZ)
 
 **Population mix:**
-Portuguese military and administrative officials; Goan Konkani Hindus (generally cooperative, beneficiaries of Bijapur's expulsion); small Muslim community (surviving from Bijapur administration, suspect); Armenian and Jewish merchants (present as intermediaries); some East African slaves; Kannada and Marathi-speaking traders from the Deccan.
+- Young Persian king (~22 in Year 1) and his court (Persian/Arab nobles)
+- Arab merchants (dominant in trade)
+- Gujarati Indian traders (significant presence; Hormuz-Diu-Gujarat is a connected axis)
+- Persian inland merchants (come by land to trade)
+- Portuguese factor (resident agent; collecting tribute; watching)
+- Pearl traders from Bahrain (seasonal)
 
 **Plausible encounters:**
-- A Konkani broker who supplies the Portuguese garrison needs the player to carry a private message to a contact at Calicut — but the message is coded
-- Portuguese official demands a bribe to clear a cartaz; standard; the amount is negotiable
-- An Armenian merchant offers horses: genuine breeding stock from Persia (via Hormuz), expensive, but the Vijayanagara buyers at Goa will pay double
-- A degradado (Portuguese convict-exile used as advance agent) returned from somewhere up the Konkan coast; he has information about a ship carrying unlicensed spices
-- Dom Afonso (in Years 1–4) sends for the player directly; he wants a message carried to Hormuz without using official dispatch vessels
-- A Franciscan convent is receiving goods donated by a Portuguese widow — one crate feels too heavy for its declared contents
-- A Bijapur spy is working the harbor disguised as a Konkani spice broker; his cover is good but not perfect
+- Pearl trader from Bahrain with a bag of loose pearls
+- Persian nobleman navigating the tribute requirement with dignity
+- Gujarati merchant passing intelligence about Malacca situation
+- The young king's court official making a formal visit to the harbor
+- Arabic treaty document being witnessed (leaf-gold and paper — treaty format)
+- Water-seller (island has no fresh water; all cisterns; water is precious commodity)
+- Horse auction (best Arabians; price discussion at 500–700 xerafins range)
 
-**Portuguese faction pressure:** Maximum. This is the headquarters. Unofficial dealings will be reported.
+**Implausibility warnings:**
+- Ormuz is an island with NO fresh water — this should color all encounters (dehydration risk, water price)
+- The Portuguese are tributaries here, not garrison — do not place Portuguese soldiers aggressively
+- Do not place Chinese merchants (no Chinese presence documented in Hormuz sources)
 
-**Implausible encounters:**
-- Open Muslim political gatherings
-- Any encounter set in a working mosque (Albuquerque converted or destroyed most)
-- Large-scale Bijapur military action within the harbor (they were contained, not eliminated)
-
-**Monsoon notes:** Goa's harbor is usable year-round but the southwest monsoon (June–September) makes the approaches dangerous. Major Portuguese fleets depart March–April for the eastern run; return October–November.
+**Monsoon notes:**
+- Seasonal winds in the Gulf of Oman; pearl diving season is summer months
+- Overland caravans from Persia arrive independent of monsoon
 
 ---
 
-## Hormuz
+## CALICUT (MALABAR)
 
 **Population mix:**
-Arab, Persian, and Turkish merchants; local Hormuz population (Gulf Arabs, some Persian-speakers); Portuguese garrison (small, in the fortress); Hadrami traders; agents from across the Persian and Arabian worlds; slave traders (East African and Indian slaves both present).
+- Zamorin's court and Nayar warriors (Hindu; dominant military)
+- Mappila Muslim merchants (Arab-descended; dominant in trade; anti-Portuguese)
+- Brahman elite (religious and administrative authority; very few, very powerful)
+- Arab long-distance traders (feel safer here than Portuguese ports)
+- Gujarati merchants (many fled Malacca to Calicut)
+- Some Chinese merchants (rare; occasional)
+- Local fishing community (various castes; complex hierarchy below Nayar)
 
 **Plausible encounters:**
-- A pearl merchant from the Bahrain banks needs the player to carry certified pearls to a buyer in Malacca; the seals must not be broken (quest q_hormuz_pearl_merchant)
-- An Ottoman agent (Mustafa al-Rumi) approaches with commercial cover but is clearly gathering military intelligence about the Portuguese
-- The Shah's eunuch chancellor requests a meeting — he wants to understand Portuguese intentions toward a particular Gujarat ship that is arriving
-- A Hadrami merchant just arrived from Aden with information about the Ottoman fleet building at Suez; he wants to sell this intelligence
-- Portuguese garrison commander is embezzling tribute — needs the player to carry a message to Goa without going through official channels
-- Water shortage: a trader who normally carries water from Nabandah is being shaken down by a Portuguese officer; he needs the player to intervene or to carry his water cargo past the checkpoint
-- A Persian merchant carrying silk from Isfahan needs a cartaz; the Portuguese clerk insists on a fee the merchant cannot pay; arbitration opportunity
+- Nayar warrior at the port gate (armed, watchful, physically imposing)
+- Mappila merchant offering to hide a Portuguese-wanted cargo
+- Gujarati merchant recently fled from Malacca with intelligence
+- Brahman official setting tax rates with absolute calm
+- Market with coconuts, areca, ginger, pepper bales, coir rope
+- Rumor that the Zamorin is planning another alliance against Portuguese
+- Spy from Goa trying to identify Portuguese enemies
 
-**Portuguese faction presence:** Moderate. The Portuguese have a fortress and collect tribute, but the actual commercial activity is not dominated by them.
+**Implausibility warnings:**
+- This port is HOSTILE to Portuguese players; Portuguese protagonist cannot operate openly here
+- Do not place Portuguese soldiers or officials in Calicut without strong narrative justification
+- The Zamorin never fully submitted to Portuguese terms; any Portuguese presence is covert
+- Caste protocols are strict: Brahman > Nayar > lower castes; outsiders are watched carefully
 
-**Implausible encounters:**
-- Persian land army arriving at the harbor (Safavid pressure was real but operated through blockade, not direct assault in this period)
-- Any encounter suggesting the Mongols are still relevant (they are not; the Safavids replaced them)
-
-**Monsoon notes:** Persian Gulf has its own wind patterns — the shamal (north wind) dominates in summer; ships can travel year-round but conditions vary. The *kharif* (southwest monsoon) brings dust storms and dangerous seas June–September.
+**Monsoon notes:**
+- SW monsoon (June–September): Malabar pepper harvest; main Arab/Gujarati trading season
+- A Portuguese naval raid is always possible — Calicut was bombarded multiple times
 
 ---
 
-## Aden Harbor
+## BANTAM (JAVA/SUNDA)
 
 **Population mix:**
-Yemeni Arabs (Shafi'i Muslim); Hadrami merchants and scholars; Egyptian and Mamluk-linked traders; Indian merchants (Gujarati, Malabar); East African traders; some Somali and Swahili sailors; Ottoman agents increasing in frequency after Year 4.
+- Sundanese local population (Hindu-influenced; slowly Islamizing)
+- Javanese merchants from Demak and Gresik (Muslim; hostile to Portuguese)
+- Gujarati traders (active; using Bantam as alternative to Malacca)
+- Bengali merchants (some)
+- Chinese traders (passing through; not permanently based)
+- Slaves for sale (major trade good)
+- Portuguese operating very cautiously (not welcome; disguise required)
 
 **Plausible encounters:**
-- A Hadrami merchant has a consignment of opium from somewhere in India — needs a neutral carrier to move it past the Portuguese patrol zone near Hormuz
-- The Tahirid governor's secretary wants market intelligence: what are Portuguese spice prices at Malacca? What are they paying for tin?
-- An Egyptian merchant is stranded — his bill of credit from a Mamluk house is no longer honored because the Mamluk Sultanate fell to the Ottomans (1517, so Year 6 onward; before Year 6, the Mamluks are still standing but weakening)
-- A Yemeni navigator who knows the East African coast offers to guide the player for a share of the cargo
-- A religious scholar (mawlana) is traveling from Aden to Calicut to establish a madrasa; he needs safe passage past a Portuguese patrol and can offer letters of introduction to Muslim communities throughout the Indian Ocean
-- Coffee (qahwa) — available in Aden before anywhere else; exotic cargo, niche buyers but high margins
-- An Ethiopian (Habshi) Christian merchant — unusual but present; Aden was the entry point for Ethiopian trade in gold and ivory
+- Slave market with varied origins (East African, Malay, Javanese war captives)
+- Demak-affiliated merchant denouncing Portuguese crimes at Malacca
+- Gujarati cloth merchant with sacks of Indian cotton textile
+- Local Sundanese rice farmer selling harvest in port
+- Chinese trader checking pepper quality before purchase
+- Javanese musician playing gamelan near the warehouse district
+- Memory of Pate Unus's defeat at Malacca (anger and mourning)
+- Shipwreck salvage offer (burned Javanese junks from the Malacca attack)
 
-**Portuguese faction presence:** Low. Portuguese never controlled Aden; Albuquerque's 1513 assault failed completely. Portuguese ships occasionally threaten Aden's approaches but do not operate in harbor.
+**Implausibility warnings:**
+- Portuguese protagonist should not operate openly in Bantam (Year 1–4 especially)
+- The Islamic conversion of Bantam is in progress — do not treat it as fully Muslim OR fully Hindu
+- Do not place Portuguese officials or garrisons here
 
-**Implausible encounters:**
-- Portuguese officials inside the city
-- Ottoman occupation (before 1538)
-
-**Monsoon notes:** The Red Sea has its own reversal: northeast in winter (November–April, favorable for going north/west), southwest in summer. Aden is at the mouth of the Red Sea where the Indian Ocean meets it; timing is critical for any Red Sea-bound voyage.
+**Monsoon notes:**
+- NW monsoon (November–March): best time to sail from Malacca to Bantam
+- Pepper harvest in Sunda peaks in dry season
 
 ---
 
-## Calicut
+## ADEN
 
 **Population mix:**
-Zamorin's Hindu court (Nair warrior caste, Nambudiri Brahmin priests); Tamil Muslim merchant community (Mappilas/Moplahs); Zamorin's Koya Moopan trading contacts; Arab merchants (Hadrami and Yemeni); Bengali traders; Gujarati factors; some Kling (Coromandel) merchants; visiting Chinese and Southeast Asian traders.
+- Arab population (dominant; mixed Yemeni tribes and urban merchant class)
+- Persian merchants (present; Siraf/Hormuz connection)
+- Gujarati traders (coming and going; Red Sea/Indian axis)
+- African merchants (Swahili coast connection; Zanj/Ethiopia trade)
+- Mamluk-affiliated officials (Year 1–5; military presence)
+- Ottoman agents (appearing Year 4–5; increasingly present before Year 6 takeover)
+- Hajj pilgrims in transit (seasonal)
 
 **Plausible encounters:**
-- A Mappila Muslim merchant needs the player to carry a message to the Gujarati factor at Goa; the message concerns a consortium to bypass the cartaz system
-- Nair soldier hired as a guard by a merchant; his loyalty is to the Zamorin first; he will report Portuguese movement to the court
-- A Brahmin intermediary at the Zamorin's court offers access for a "gift" — normal transaction; the Zamorin is not hostile to trade, only to Portuguese monopoly
-- The harbor master (Koya Moopan) receives the cartaz delivery (quest q_goa_cartaz_delivery) with barely concealed contempt; the player can read his attitude as information about the Zamorin's current mood
-- A Kling merchant consortium is organizing a voyage to Malacca — they need one more cargo to balance the load; opportunity to join or invest
-- A Mappila boat-builder will sell the player a fast dhow at a good price, no questions, but the boat is probably stolen
-- Portuguese patrol boats are stopping vessels in the roadstead and demanding cartaz inspection; a Zamorin noble observes from the shore with undisguised anger
+- Frankincense merchant from the Hadramaut hinterland
+- Ethiopian merchant with ivory and gold dust
+- Karimi guild representative negotiating spice passage fees
+- Hajj pilgrim stranded by wrong monsoon timing
+- Mamluk official collecting port taxes with bureaucratic formality
+- Ottoman agent asking careful questions about Portuguese shipping routes
+- Dhow captain from Swahili coast (Year 1–5 only; the dhow world before Ottoman disruption)
+- Rumor that the Mamluks' power is failing (Year 4–5)
 
-**Portuguese faction pressure:** Negative baseline. Trading here is read as anti-Portuguese by Portuguese observers. The Zamorin is not at war with the Portuguese every moment but is chronically hostile.
+**Implausibility warnings:**
+- Year 6+ encounter flavor changes dramatically: Ottoman officers replace Mamluk officials
+- The Karimi network collapses Year 6; do not place Karimi merchants as active after Year 6
+- Do not place Portuguese openly in Aden at any point in the game period (they never controlled it)
+- Coffee is being cultivated in Yemen now but is NOT yet a major trade good in 1511
 
-**Implausible encounters:**
-- Portuguese officials operating comfortably in the Zamorin's city
-- Any suggestion that Calicut's Hindus are sympathetic to Christianity
-
-**Monsoon notes:** Malabar coast is subject to violent southwest monsoon (June–September). The harbor is dangerous in this period. This season is the off-season for Calicut; major trading happens November–May.
+**Monsoon notes:**
+- SW monsoon (June–September): best sailing from India to Red Sea
+- Hajj season brings pilgrims from all directions regardless of trade winds
 
 ---
 
-## Bantam
+## QUANZHOU (ZAYTON)
 
 **Population mix:**
-West Javanese (Sundanese) population, Hindu; Muslim traders and missionaries from the north Java coast; Malay merchants; some Chinese traders; Arab merchants (small presence, but religious influence is growing).
+- Han Chinese (dominant; Fujian merchants)
+- Hui Muslim community (established since Tang dynasty Arab trade; mosque in city)
+- Customs officials (Ming imperial; enforcing haijin restrictions with variable strictness)
+- Malay and Javanese traders (rare; anchor offshore; buy through intermediaries)
+- Occasional Japanese merchants (pirates or traders depending on context)
+- Portuguese: absolutely not here
 
 **Plausible encounters:**
-- Raden Aria (harbor master) is navigating between the Hindu Sunda king's authority and the Muslim north Java traders who are bringing new religious ideas; the player can observe this tension
-- A Javanese Muslim preacher (wali?) is building a following in the Sundanese market town; local Hindu priests are worried; the player is caught in a religious-political dispute
-- North Javanese Muslim merchants from Demak are offering pepper at competitive prices but require payment in kind with goods they can't easily get elsewhere (Chinese porcelain, Malaccan tin)
-- An opportunity to trade with the Sunda kingdom's interior — pepper growing regions — through a Sundanese broker; but this must be kept quiet from the Muslim-aligned harbor authorities
-- A Javanese fighter (armed, ex-military) seeks passage to Malacca; he has reasons he won't fully explain; possibly a spy for the Demak sultanate
+- Silk warehouse inspection (official checking provenance and tax)
+- Hui merchant praying at the mosque; willing to discuss Indian Ocean news
+- Fujian private merchant offering to smuggle goods around haijin restrictions
+- Prefect's official demanding extra "gift" to clear porcelain shipment
+- Chen family merchant receiving news from Malacca (bad news; Year 1 is devastating for Malacca Chinese)
+- Old man who sailed with Cheng Ho's voyages (now in his 80s; legendary figure)
+- Japanese smuggler offering silver for silk
 
-**Portuguese faction presence:** Absent. Portuguese never controlled Bantam in this period.
+**Implausibility warnings:**
+- Official Chinese policy does not welcome foreign merchants directly into Quanzhou — trade is through intermediaries and regulated
+- The haijin (sea prohibition) laws mean private trade is semi-illicit even though it is constant
+- Do not place Portuguese, Ottoman, or Arab merchants prominently inside the city
 
-**Implausible encounters:**
-- Portuguese officials
-- Large Chinese trading junks calling regularly (they visited but not frequently)
-
-**Monsoon notes:** Java is governed by the Java Sea monsoon, which roughly mirrors the Strait of Malacca cycle but is shifted. The inter-island passages between Java and Sumatra are navigable year-round but require local knowledge.
-
----
-
-## Quanzhou
-
-**Population mix:**
-Hokkien Chinese merchants; Ming dynasty officials (harbormaster, customs); Buddhist and Daoist monks who function as warehouse operators; some Muslim traders (Quanzhou had a significant Muslim population from the Arab-era trade); a few foreign merchants who have made long-term home here.
-
-**Plausible encounters:**
-- Wu Liangchen (harbor master) needs a discreet carrier for goods that cannot pass official customs — because they are from overseas, which is technically prohibited under the haijin
-- A Hokkien merchant captain is preparing a junk for Malacca; he needs a non-Chinese member of the party who can serve as the "foreign merchant" face of the transaction (Chinese-foreign joint ventures were a way around the haijin)
-- Abbot Mingzhi at the local monastery has goods stored in the temple complex; he wants them moved to a contact in Bantam; this is the normal monastery-trade network
-- A Ming customs official is demanding a "full inspection" of a junk's cargo; everyone knows this is extortion; the amount of the bribe is the negotiation
-- A Ryukyuan (Okinawan) merchant envoy is in Quanzhou on official tribute mission; he has legitimate access to Chinese goods the player cannot otherwise buy; but dealing with an official tribute envoy risks attracting Ming attention
-- Prefect Chen Bao has received a complaint about a foreign merchant (possibly the player) operating without proper documentation; the hearing is tomorrow morning
-
-**Portuguese faction presence:** None. China is entirely outside Portuguese reach in this period.
-
-**Implausible encounters:**
-- Portuguese officials
-- Open acknowledgment by Chinese officials that the haijin is being violated (they know but maintain deniability)
-- Ming warships enforcing the haijin actively (they did not in this period)
-
-**Monsoon notes:** The China coast is governed by East Asian monsoon patterns. The northeast monsoon (winter) carries ships south; the southwest monsoon (summer) carries them back north. Voyages from Quanzhou to Malacca typically departed September–October and returned April–May.
+**Seasonal notes:**
+- Chinese New Year shuts down commerce for weeks
+- Sailing season to Malacca is November–March (NE monsoon favorable)
 
 ---
 
-## Sea encounters (between ports)
+## SEA ROUTES
 
-**Straits of Malacca:** Celate piracy — fast proas attacking slower merchant vessels; usually not fighting to the death, prefer to take cargo and run. Portuguese patrol vessels checking cartazes. Malay fishing communities along the coasts who can provide intelligence for a price.
+### Malacca Strait
+The central chokepoint. Portuguese patrols in Year 1. Any non-Portuguese ship without a cartaz is at risk. Narrow waters; monsoon funneling effect.
+- **Encounter types:** Portuguese carrack inspection; pirate (Malay or Javanese opportunists in the disruption); refugee boat from fallen Malacca; junk convoy heading east; wreck debris
+- **Season:** Use carefully — the strait is navigable year-round but storms worse during monsoon transitions (April, October)
 
-**South China Sea:** Seasonal typhoon risk (July–October). Chinese piracy, less common than Celate but more organized. Shoals around the Paracel Islands require navigation knowledge.
+### Arabian Sea / Malabar Coast
+Open water between Aden, Hormuz, and Malabar. Portuguese naval patrols increasing. Gujarati and Arab dhow traffic heavy.
+- **Encounter types:** Gujarati fleet (neutral/friendly to Muslim players); Portuguese carrack (hostile to non-cartaz ships); Arab dhow with frankincense and dates; storm in monsoon season; whale sighting
+- **Danger:** Portuguese carracks carry heavier guns; sea battles are asymmetric
 
-**Arabian Sea:** Hadrami pirates (small-scale compared to reputation); Portuguese patrol zones around Goa and Hormuz. Weather can be extreme during the southwest monsoon.
+### South China Sea
+Between Malacca and Bantam/Quanzhou. Less Portuguese presence in Year 1. Chinese junk routes. Piracy from Malay and Javanese opportunists.
+- **Encounter types:** Chinese junk fleet (large, well-organized); Javanese pirate vessel; storm; island refuge; flying fish (sea wonder); fog near coast
 
-**Indian Ocean crossings:** Open water voyages require navigator knowledge of currents and stars. The Maldive Islands serve as a waypoint; their rulers provided lodging and fresh water in exchange for information. Socotra (Portuguese garrisoned after 1507) is another waypoint but controlled.
+### Red Sea
+Between Aden and Jeddah. Shallow, treacherous navigation. Coral reefs. Pilgrimage ships.
+- **Encounter types:** Hajj pilgrim ship; Mamluk naval patrol (Year 1–5); Ottoman warships (Year 6+); storm in narrows; coral reef navigation danger
 
 ---
 
-## Encounter plausibility quick-reference
+## Implausibility Quick-Reference
 
-| Encounter type | Malacca | Goa | Hormuz | Aden | Calicut | Bantam | Quanzhou |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Portuguese official confrontation | ✓ | ✓✓ | ✓ | ✗ | ✗ | ✗ | ✗ |
-| Muslim merchant conspiracy | ✓ | ~ | ✓ | ✓✓ | ✓✓ | ✓ | ~ |
-| Chinese trader interaction | ✓ | ~ | ~ | ~ | ~ | ~ | ✓✓ |
-| Slave trade encounter | ✓ | ✓ | ✓✓ | ✓ | ~ | ~ | ✗ |
-| Diplomatic message carrying | ✓ | ✓✓ | ✓ | ✓✓ | ✓ | ✓ | ✓ |
-| Religious conflict | ~ | ~ | ~ | ~ | ✓ | ✓✓ | ~ |
-| Piracy / seizure | ✓ | ~ | ~ | ✓ | ✓ | ✓ | ~ |
-| Artillery / military encounter | ✓ | ✓ | ✓ | ~ | ~ | ✗ | ✗ |
-| Market price manipulation | ✓✓ | ✓ | ✓ | ✓ | ✓✓ | ✓ | ✓ |
+**Never:**
+- Portuguese soldiers openly in Calicut, Bantam, Aden, or Quanzhou
+- Ormuz with fresh water (island has none — all cisterns)
+- Sultan's wooden pavilion standing after Year 1 (it burned)
+- Chinese merchants operating as an Ottoman player's allies in Malacca (they are under Portuguese protection; cautious)
+- Guns in hand-to-hand encounters in a port market (too public; creese/knife culture applies)
 
-✓✓ = highly characteristic, ✓ = plausible, ~ = possible but unusual, ✗ = implausible
+**Check the year:**
+- Albuquerque is alive Year 1–4 only (dies Year 5, 1515)
+- Karimi network active Year 1–5 only
+- Mamluk officials in Aden Year 1–5 only
+- Ottoman presence in SE Asia grows only after Year 6
+- Pati Unus's Malacca assault is Year 2 (1513)
