@@ -26,11 +26,14 @@ TRAIT_EXCLUSIONS: Dict[str, Set[str]] = {
     "inspiring":     {"xenophobic"},
     # zealot blocks worldly unless the interfaith_respect bypass is present
     "zealot":        {"worldly"},
-    "coward":        {"calm_under_fire", "intimidating"},
+    "coward":        {"calm_under_fire", "intimidating", "brave"},
     "calm_under_fire": {"coward"},
     "intimidating":  {"coward"},
+    "brave":         {"coward"},
     "womanizer":     {"pious"},
     "pious":         {"womanizer"},
+    "generous":      {"miserly"},
+    "miserly":       {"generous"},
     "insubordinate": {"inspiring", "prideful"},
     "prideful":      {"insubordinate"},
     "gossip":        {"worldly"},
@@ -415,6 +418,20 @@ class CrewManager:
             bonus += 1
         return bonus
 
+    def navigator_skill_level(self) -> Optional[str]:
+        """
+        Returns 'skilled', 'basic', or None.
+        Skilled: has a navigator with veteran_sailor OR any positive trait.
+        Basic: has a navigator with no positive traits.
+        None: no navigator aboard.
+        """
+        for m in self.alive_members():
+            if m.occupation == "navigator":
+                if m.positive_traits:
+                    return "skilled"
+                return "basic"
+        return None
+
     def combat_rating(self) -> int:
         base = 5
         for m in self.alive_members():
@@ -442,6 +459,11 @@ class CrewManager:
                 incidents.append(f"⚠  {m.name} lost badly at dice. He is asking to borrow from ship's funds.")
             if m.has_trait("kleptomaniac") and random.random() < 0.10:
                 incidents.append(f"⚠  {m.name} was found with goods from the cargo hold he didn't purchase.")
+            if m.has_trait("womanizer") and random.random() < 0.15:
+                incidents.append(
+                    f"⚠  {m.name} has caused a scandal — a merchant's wife, they say, or perhaps a harbor official's daughter. "
+                    f"The injured party is demanding satisfaction. Expect complications at this port."
+                )
         return incidents
 
     def roster_display(self):

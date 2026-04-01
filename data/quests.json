@@ -17,6 +17,7 @@
       "reward_item": null,
       "failure_disposition": -20,
       "difficulty": "moderate",
+      "quest_tier": 2,
       "lore": "The Indian Ocean trade in the early 16th century was sustained by credit networks between Gujarati merchants and local rulers. The disappearance of a factor was not merely personal — it could destabilize regional credit.",
       "lore_es": "El comercio del océano Índico a principios del siglo XVI se sostenía sobre redes de crédito entre comerciantes gujaratíes y gobernantes locales. La desaparición de un factor no era sólo un asunto personal — podía desestabilizar el crédito regional."
     },
@@ -37,6 +38,7 @@
       "reward_item": "cartaz",
       "failure_disposition": -15,
       "difficulty": "easy",
+      "quest_tier": 1,
       "lore": "The cartaz system was the Portuguese attempt to monopolize Indian Ocean trade by force. Every non-Portuguese vessel was required to purchase a cartaz or risk seizure.",
       "lore_es": "El sistema del cartaz fue el intento portugués de monopolizar el comercio del océano Índico por la fuerza. Todo navío no portugués estaba obligado a adquirir un cartaz o arriesgarse a ser confiscado."
     },
@@ -57,6 +59,7 @@
       "reward_item": null,
       "failure_disposition": -25,
       "difficulty": "hard",
+      "quest_tier": 3,
       "lore": "Gulf pearls were among the most valued trade goods of the medieval and early modern Indian Ocean world. Persian Gulf rulers maintained exclusive diving concessions.",
       "lore_es": "Las perlas del Golfo figuraban entre las mercancías más valiosas del mundo del océano Índico medieval y de la primera modernidad. Los gobernantes del Golfo Pérsico mantenían concesiones de buceo exclusivas."
     },
@@ -77,6 +80,7 @@
       "reward_item": null,
       "failure_disposition": -10,
       "difficulty": "easy",
+      "quest_tier": 1,
       "lore": "The Zamorin of Calicut was the primary rival to Portuguese commercial dominance on the Malabar Coast. Information about Portuguese buying patterns was genuinely strategic.",
       "lore_es": "El Zamorín de Calicut era el principal rival del dominio comercial portugués en la costa de Malabar. La información sobre los patrones de compra portugueses era auténticamente estratégica."
     },
@@ -97,6 +101,7 @@
       "reward_item": null,
       "failure_disposition": -15,
       "difficulty": "moderate",
+      "quest_tier": 2,
       "lore": "The Spice Islands traded not only cloves but also timber, critical for shipbuilding in a world where naval power was existential.",
       "lore_es": "Las Islas de las Especias comerciaban no sólo con clavos sino también con madera, esencial para la construcción naval en un mundo donde el poder naval era cuestión de supervivencia."
     },
@@ -117,6 +122,7 @@
       "reward_item": null,
       "failure_disposition": -20,
       "difficulty": "hard",
+      "quest_tier": 3,
       "lore": "The Ming dynasty officially banned private maritime trade in several periods (haijin), but enforcement was inconsistent. Treasury junks moved tribute goods and official cargoes between Fujian and Southeast Asian ports.",
       "lore_es": "La dinastía Ming prohibió oficialmente el comercio marítimo privado en varios períodos (haijin), pero la aplicación era irregular. Los juncos del tesoro trasladaban bienes tributo y cargas oficiales entre Fujian y los puertos del Sudeste Asiático."
     }
@@ -143,6 +149,7 @@
       "reward_item": null,
       "failure_disposition": -15,
       "difficulty": "moderate",
+      "quest_tier": 2,
       "req_rep_tier": 1,
       "southeast_asia_consequence": "Aden governor disposition affects prices and quest access at Hormuz and Aden, which affect spice route costs east to Bantam and Ternate.",
       "lore": "The Mamluk fleet's preparation in the Red Sea — the fleet that would eventually clash with the Portuguese at Diu in 1509 — required timber and copper that were difficult to source locally. Ottoman trading networks were critical supply lines.",
@@ -169,6 +176,7 @@
       "reward_item": null,
       "failure_disposition": -20,
       "difficulty": "hard",
+      "quest_tier": 2,
       "req_rep_tier": 1,
       "risk_note": "If Portuguese patrol event fires during this quest and player is searched, quest fails and Estado da India disposition -20.",
       "lore": "Ottoman intelligence efforts in the Indian Ocean in the early 16th century were conducted largely through merchant intermediaries — men who could move through Portuguese-controlled waters without triggering immediate suspicion.",
@@ -195,6 +203,7 @@
       "reward_item": "karimi_ledger_copy",
       "failure_disposition": -10,
       "difficulty": "hard",
+      "quest_tier": 2,
       "req_rep_tier": 2,
       "player_choices": ["deliver_intact", "copy_for_ottoman", "sell_to_portuguese"],
       "consequence_note": "This choice determines Mehmed's identity in the post-Mamluk world. Locks in a disposition trajectory that affects the final quest.",
@@ -222,6 +231,7 @@
       "reward_item": null,
       "failure_disposition": -25,
       "difficulty": "hard",
+      "quest_tier": 3,
       "req_rep_tier": 2,
       "player_choices": ["read_letter", "deliver_sealed"],
       "read_consequence": "Gain intelligence about late-game Ottoman plans. Mustafa finds out. Trust -15 but information advantage gained.",
@@ -288,6 +298,7 @@
       "reward_item": null,
       "failure_disposition": -20,
       "difficulty": "hard",
+      "quest_tier": 3,
       "req_rep_tier": 2,
       "note": "This quest has no combat option. It resolves through the text query system and dialogue engine only.",
       "lore": "The transition from Mamluk to Ottoman authority in the Red Sea and Gulf was not smooth. Local governors and merchants had to navigate competing loyalties — old Mamluk patrons, new Ottoman masters, and the ever-present Portuguese threat.",
@@ -315,6 +326,7 @@
       "reward_item": "ottoman_letter_of_introduction",
       "failure_disposition": -15,
       "difficulty": "hard",
+      "quest_tier": 3,
       "req_rep_tier": 3,
       "southeast_asia_anchor": "Bantam stage requires faction rep 2+ with Sultanate of Bantam. Ties Ottoman arc directly to Southeast Asian core content.",
       "lore": "The Ottoman interest in the Indian Ocean spice trade was strategic as well as commercial. Control of spice routes meant leverage over European powers and revenue that could fund further expansion.",
@@ -341,6 +353,7 @@
       "reward_item": "ottoman_commission",
       "failure_disposition": -5,
       "difficulty": "narrative",
+      "quest_tier": 3,
       "req_rep_tier": 3,
       "player_choices": ["accept_commission", "decline_remain_free"],
       "accept_consequence": "Ottoman faction +25. Naval protection in Gulf. New Ottoman-gated quests unlock. Mehmed is now an instrument of empire.",
@@ -370,9 +383,71 @@
       "reward_item": "prefect_letter_of_passage",
       "failure_disposition": -15,
       "difficulty": "moderate",
+      "quest_tier": 2,
       "req_rep_tier": 1,
       "lore": "The Ming court's response to major shifts in the Indian Ocean political order was primarily commercial — they wanted to know what it meant for trade, not for geopolitics. The fall of the Mamluks disrupted the Red Sea spice route, pushing more trade through Southeast Asia.",
       "lore_es": "La respuesta de la corte Ming a los grandes cambios en el orden político del océano Índico era principalmente comercial — querían saber qué significaba para el comercio, no para la geopolítica. La caída de los mamelucos perturbó la ruta de especias del mar Rojo, empujando más comercio hacia el Sudeste Asiático."
+    }
+  ],
+  "adventure_quests": [
+    {
+      "id": "adv_hidden_village",
+      "title": "A Village No Chart Marks",
+      "title_es": "Una Aldea que Ningún Mapa Señala",
+      "quest_type": "adventure",
+      "quest_tier": 1,
+      "giver_port": null,
+      "time_limit_days": 0,
+      "reward_gold": 0,
+      "reward_disposition": 10,
+      "reward_item": "hidden_village_chart",
+      "failure_disposition": 0,
+      "difficulty": "exploration",
+      "unlock_requires": { "navigator_skill": "skilled", "route_choices": 3 },
+      "description": "Your navigator has been tracking anomalies in the current patterns. He believes there is a settlement on an uncharted island — someone has been burning fires there for decades. Finding it requires skilled navigation and patience.",
+      "description_es": "Vuestro navegante ha estado rastreando anomalías en los patrones de corrientes. Cree que hay un asentamiento en una isla sin cartografiar — alguien ha estado encendiendo fuegos allí durante décadas. Encontrarlo requiere navegación experta y paciencia.",
+      "lore": "The early 16th-century Indian Ocean world contained numerous small fishing and trading communities that never appeared on any European or Chinese chart — too small, too mobile, or too deliberate in their concealment."
+    },
+    {
+      "id": "adv_coastal_australia",
+      "title": "South of the Known World",
+      "title_es": "Al Sur del Mundo Conocido",
+      "quest_type": "adventure",
+      "quest_tier": 1,
+      "giver_port": null,
+      "time_limit_days": 0,
+      "reward_gold": 0,
+      "reward_disposition": 5,
+      "reward_item": "trepang_trade_knowledge",
+      "failure_disposition": 0,
+      "difficulty": "exploration",
+      "unlock_requires": { "route": "Ternate_south", "crew_has_region": "Southeast Asia" },
+      "description": "ADVENTURE QUEST STUB — narrative pass will expand. Makassan trepang traders from Sulawesi know a coast far to the south. A crew member who speaks Malay mentions it. The people there speak a few words of Malay — old words, trade words, from generations of contact. The Portuguese protagonist does not believe it. The Chinese and Ottoman protagonists want to know the price of trepang.",
+      "description_es": "QUEST DE AVENTURA — expansión narrativa pendiente. Los comerciantes makasares de trepang de Sulawesi conocen una costa muy al sur. Un tripulante que habla malayo la menciona. La gente de allí habla unas pocas palabras en malayo — palabras antiguas, palabras de comercio, de generaciones de contacto. El protagonista portugués no lo cree. Los protagonistas chino y otomano quieren saber el precio del trepang.",
+      "lore": "Makassan trepang traders from what is now Sulawesi made regular seasonal voyages to the northern Australian coast from at least the 17th century, and possibly earlier. Aboriginal communities in the Arnhem Land region had regular trade contact with these visitors, acquiring Malay words, metal tools, and tobacco.",
+      "protagonist_reactions": {
+        "portuguese": "Disbelief at finding people who were 'never undiscovered' — a crack in the colonial logic.",
+        "ottoman": "Pragmatic curiosity: what do they trade, and is there a route worth knowing?",
+        "chinese": "Old Liang has heard of this coast from a Makassan trader. He is not surprised. He asks about the sea cucumber harvest."
+      }
+    },
+    {
+      "id": "adv_artifact_quest",
+      "title": "The Object in the Hold",
+      "title_es": "El Objeto en la Bodega",
+      "quest_type": "adventure",
+      "quest_tier": 1,
+      "giver_port": null,
+      "time_limit_days": 0,
+      "reward_gold": 80,
+      "reward_disposition": 0,
+      "reward_item": "artifact_unknown",
+      "failure_disposition": 0,
+      "difficulty": "exploration",
+      "unlock_requires": { "crew_has_trait": "worldly", "specific_port_sequence": ["Hormuz", "Aden Harbor"] },
+      "description": "ADVENTURE QUEST STUB — narrative pass will expand. A particular crew member, under particular circumstances, notices something in the cargo you acquired at Hormuz. It is not spice. It is not trade goods. It is older than the ship. What it is requires a specific person to recognize it, and recognizing it changes things.",
+      "description_es": "QUEST DE AVENTURA — expansión narrativa pendiente. Un tripulante concreto, en circunstancias concretas, nota algo en la carga adquirida en Hormuz. No es especia. No son mercancías. Es más antiguo que el barco. Lo que es requiere una persona concreta para reconocerlo, y reconocerlo cambia las cosas.",
+      "lore": "The Indian Ocean trade world moved antiquities, manuscripts, and objects of unclear provenance alongside pepper and tin. The transit of a pre-Islamic artifact through Muslim trading networks, or a Buddhist relic through Portuguese cargo, was not impossible — merely unremarked."
     }
   ]
 }

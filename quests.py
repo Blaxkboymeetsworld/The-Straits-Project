@@ -46,8 +46,12 @@ class ActiveQuest:
         self.reward_item = quest_data.get("reward_item")
         self.failure_disposition = quest_data["failure_disposition"]
         self.lore = quest_data.get("lore", "")
+        self.quest_type = quest_data.get("quest_type", "main")
+        self.quest_tier = quest_data.get("quest_tier", 1)
         self.accepted_on_day = accepted_on_day
-        self.deadline = accepted_on_day + quest_data["time_limit_days"]
+        # Non-expiring adventure quests use time_limit_days: 0
+        tlimit = quest_data["time_limit_days"]
+        self.deadline = 999999 if tlimit == 0 else accepted_on_day + tlimit
         self.completed = False
         self.failed = False
         self.contact_found = False  # set True when player finds target_character at port
@@ -56,6 +60,8 @@ class ActiveQuest:
         return self.deadline - current_day
 
     def is_expired(self, current_day: int) -> bool:
+        if self.quest_type == "adventure" or self.deadline == 999999:
+            return False
         return current_day > self.deadline and not self.completed
 
     def status_line(self, current_day: int) -> str:
@@ -79,6 +85,8 @@ class ActiveQuest:
             "reward_item": self.reward_item,
             "failure_disposition": self.failure_disposition,
             "lore": self.lore,
+            "quest_type": self.quest_type,
+            "quest_tier": self.quest_tier,
             "accepted_on_day": self.accepted_on_day,
             "deadline": self.deadline,
             "completed": self.completed,
@@ -96,6 +104,7 @@ class ActiveQuest:
             "time_limit_days": d["time_limit_days"], "reward_gold": d["reward_gold"],
             "reward_disposition": d["reward_disposition"], "reward_item": d["reward_item"],
             "failure_disposition": d["failure_disposition"], "lore": d.get("lore", ""),
+            "quest_type": d.get("quest_type", "main"), "quest_tier": d.get("quest_tier", 1),
         }
         obj = cls(pseudo_data, d["accepted_on_day"])
         obj.deadline = d["deadline"]
@@ -222,7 +231,15 @@ class QuestManager:
             if req_event and req_event not in state_flags:
                 continue
 
-            # Rep tier gating
+            # Quest tier gating (global reputation_tier vs quest_tier)
+            # Tier 1: rep 0+ (always), Tier 2: rep 1+, Tier 3: rep 3+
+            QUEST_TIER_MIN_REP = {1: 0, 2: 1, 3: 3}
+            qt = q.get("quest_tier", 1)
+            player_rep = getattr(state, "reputation_tier", 0) if state else 0
+            if player_rep < QUEST_TIER_MIN_REP.get(qt, 0):
+                continue
+
+            # Faction rep tier gating (faction-specific)
             req_tier = q.get("req_rep_tier", 0)
             if req_tier > 0 and faction_manager is not None:
                 faction_id = port_to_faction(port_name)
@@ -320,16 +337,25 @@ class QuestManager:
             if q.reward_item:
                 print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")
                 state.items.append(q.reward_item)
-            # Lore throttle: only show if under the max display count
-            if q.lore and not self.lore_throttled(q.lore):
-                print(f"\n  ─ Historical Note ─\n  {q.lore}\n")
-                self.record_lore_shown(q.lore)
+            # Lore cap: suppress after 3 total displays (acceptance + completions)
+            if q.lore:
+                lore_count = getattr(state, "seen_lore_flags", {}).get(q.id, 0)
+                if lore_count < 3:
+                    lang = getattr(state, "lang", "en")
+                    lore_text = getattr(q, f"lore_{lang}", q.lore) if lang != "en" else q.lore
+                    print(f"\n  ─ Historical Note ─\n  {lore_text}\n")
+                    if hasattr(state, "seen_lore_flags"):
+                        state.seen_lore_flags[q.id] = lore_count + 1
 
             state.gold += q.reward_gold
             self.adjust_disposition(port_name, q.reward_disposition)
             q.completed = True
             self.completed_ids.append(q.id)
             self.active.remove(q)
+
+            # Global reputation increment (capped at 5)
+            if hasattr(state, "reputation_tier"):
+                state.reputation_tier = min(5, state.reputation_tier + 1)
 
             # Faction rep increase on quest completion
             from faction import port_to_faction
@@ -405,9 +431,16 @@ class QuestManager:
                     available.pop(idx)
                     clear_fn()
                     print(f"\n  '{q_data['title']}'\n")
-                    print(f"  {q_data['description']}\n")
-                    if q_data.get("lore"):
-                        print(f"  ─ Context ─\n  {q_data['lore']}\n")
+                    lang = getattr(state, "lang", "en")
+                    desc_text = q_data.get(f"description_{lang}", q_data["description"]) if lang != "en" else q_data["description"]
+                    print(f"  {desc_text}\n")
+                    lore_id = q_data.get("id", "")
+                    lore_count = getattr(state, "seen_lore_flags", {}).get(lore_id, 0)
+                    if q_data.get("lore") and lore_count < 3:
+                        lore_text = q_data.get(f"lore_{lang}", q_data["lore"]) if lang != "en" else q_data["lore"]
+                        print(f"  ─ Context ─\n  {lore_text}\n")
+                        if hasattr(state, "seen_lore_flags"):
+                            state.seen_lore_flags[lore_id] = lore_count + 1
                     print(f"  You have {q_data['time_limit_days']} days.")
                     press_enter_fn()
 

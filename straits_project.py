@@ -30,7 +30,8 @@ from crew import CrewManager, CrewMember, load_crew_data, recruitment_menu, slav
 from economy import Economy, GOODS_CATALOG, MAX_CARGO, haggle
 from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
-from time_system import TimeSystem, TRAVEL_TIMES, DEFAULT_TRAVEL_TIME
+from time_system import (TimeSystem, TRAVEL_TIMES, DEFAULT_TRAVEL_TIME,
+                         get_at_sea_description, get_waterway)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -182,7 +183,7 @@ class GameState:
         self.reputation_tier: int = 0       # 0=Unknown 1=Noted 2=Familiar 3=Well Received 4=Trusted 5=Insider
         self.faction_standing: Dict[str, int] = {}  # faction_id -> tier 0-5
         self.assignments_completed: int = 0         # increments on quest completion
-        self.seen_lore_flags: List[str] = []        # tracks which historical blurbs have been shown
+        self.seen_lore_flags: Dict[str, int] = {}   # {quest_id: display_count} — suppressed at 3
         self.player_traits: List[str] = []          # STUB — empty for now, do not implement trait logic yet
         # NOTE: self.crew is already a CrewManager above
         self.slaves_aboard: int = 0                 # count (separate from slave_cargo in holds)
@@ -296,7 +297,9 @@ class GameState:
         obj.reputation_tier = int(d.get("reputation_tier", 0))
         obj.faction_standing = d.get("faction_standing", {})
         obj.assignments_completed = int(d.get("assignments_completed", 0))
-        obj.seen_lore_flags = d.get("seen_lore_flags", [])
+        raw_lf = d.get("seen_lore_flags", {})
+        # Backward compat: old saves stored a flat list — migrate gracefully to empty dict
+        obj.seen_lore_flags = raw_lf if isinstance(raw_lf, dict) else {}
         obj.player_traits = d.get("player_traits", [])
         obj.slaves_aboard = int(d.get("slaves_aboard", 0))
         obj.combat_enabled = bool(d.get("combat_enabled", False))
@@ -382,7 +385,8 @@ class GameState:
             f"  {t('status_location')}: {self.current_location} ({self.current_location_type.replace('_',' ')})\n"
             f"  {t('status_gold')}: {self.gold}  |  Provisions: {self.provisions}{prov_warn}  |  Cargo: {cargo_used}/{self.cargo_capacity()}\n"
             f"  {t('status_ship_health')}: {self.ship_health}  |  {t('status_morale')}: {self.morale}\n"
-            f"  Crew: {self.crew.count()} aboard  |  Active quests: {active_q}"
+            f"  Crew: {self.crew.count()} aboard  |  Active quests: {active_q}\n"
+            f"  {t('status_reputation_tier')}: {self.reputation_tier}  |  {t('status_faction_note')}"
         )
 
 
@@ -530,6 +534,93 @@ class EventEngine:
             "harbor_fee": harbor_fee,
         }
 
+    def _determine_dialogue_track(self, state: GameState, port_name: str) -> str:
+        """
+        Determine dialogue track for entry/interpreter checks.
+        Returns 'favorable', 'neutral', or 'unfavorable'.
+        Influenced by: faction standing, role/culture match, crew interpreter, reputation tier.
+        """
+        score = 0
+
+        # Faction disposition at this port
+        from faction import port_to_faction
+        faction_id = port_to_faction(port_name)
+        if faction_id:
+            disp = state.factions.get_disposition(faction_id)
+            if disp >= 70:
+                score += 2
+            elif disp >= 55:
+                score += 1
+            elif disp <= 30:
+                score -= 2
+            elif disp <= 45:
+                score -= 1
+
+        # Role/culture match
+        from economy import MUSLIM_PORTS, PORTUGUESE_CONTROLLED_PORTS, CHINESE_HOME_PORTS
+        if state.role == "Ottoman Trader" and port_name in MUSLIM_PORTS:
+            score += 1
+        elif state.role == "Portuguese Conquistador" and port_name in PORTUGUESE_CONTROLLED_PORTS:
+            score += 1
+        elif state.role == "Chinese Trader" and port_name in CHINESE_HOME_PORTS:
+            score += 1
+        elif state.role == "Portuguese Conquistador" and port_name in MUSLIM_PORTS:
+            score -= 1
+
+        # Crew interpreter
+        if state.crew.has_occupation("interpreter"):
+            score += 1
+
+        # Reputation tier
+        score += min(2, state.reputation_tier // 2)
+
+        if score >= 2:
+            return "favorable"
+        elif score <= -1:
+            return "unfavorable"
+        return "neutral"
+
+    def _resolve_dialogue_check(self, event: Dict[str, Any], state: GameState, track: str,
+                                 once_key: Optional[str] = None):
+        """Resolve an event with dialogue_check: true through Favorable/Neutral/Unfavorable tracks."""
+        lang = getattr(state, "lang", "en")
+        tracks = event.get("tracks", {})
+        track_data = tracks.get(track, tracks.get("neutral", {}))
+
+        lines = track_data.get("lines", [])
+        lines_es = track_data.get("lines_es", lines)
+        display_lines = lines_es if (lang != "en" and lines_es) else lines
+
+        for line in display_lines:
+            print(f"\n  {line}")
+
+        effect = track_data.get("effect", {})
+        if effect:
+            state.apply_effect(effect)
+
+        # Unfavorable consequences
+        consequence = track_data.get("consequence")
+        if consequence == "denied_entry":
+            print(f"\n  {t('dialogue_denied_entry')}")
+            state.morale = max(0, state.morale - 5)
+        elif consequence == "higher_fees":
+            fee = track_data.get("fee_penalty", 10)
+            if state.gold >= fee:
+                state.gold -= fee
+                print(f"\n  {t('dialogue_higher_fees').format(fee=fee)}")
+            else:
+                state.morale = max(0, state.morale - 5)
+                print(f"\n  {t('dialogue_cant_pay_fee')}")
+        elif consequence == "faction_penalty":
+            from faction import port_to_faction
+            fid = port_to_faction(state.current_location)
+            if fid:
+                state.factions.adjust_rep(fid, -1)
+
+        if once_key:
+            state.once_flags.append(once_key)
+        press_enter()
+
     def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None):
         clear()
         lang = getattr(state, "lang", "en")
@@ -541,6 +632,12 @@ class EventEngine:
         if lang != "en":
             desc = event.get(f"description_{lang}", desc)
         print(f"  {desc}\n")
+
+        # Dialogue check events: resolve through track system
+        if event.get("dialogue_check"):
+            track = self._determine_dialogue_track(state, state.current_location)
+            self._resolve_dialogue_check(event, state, track, once_key)
+            return
 
         options = event.get("options", {})
         if not options:
@@ -567,9 +664,17 @@ class EventEngine:
         if choice not in available_keys:
             print(f"\n  {t('you_hesitate')}")
         else:
-            effect = options[choice].get("effect", {})
+            opt = options[choice]
+            effect = opt.get("effect", {})
             state.apply_effect(effect)
-            print(f"\n  {t('outcome_applied')}")
+            # Print resolution text (KODP rule: every choice must have a narrative outcome)
+            result_text = opt.get("result", "")
+            if lang != "en":
+                result_text = opt.get(f"result_{lang}", result_text)
+            if result_text:
+                print(f"\n  {result_text}")
+            else:
+                print(f"\n  {t('outcome_applied')}")
 
         if once_key:
             state.once_flags.append(once_key)
@@ -587,6 +692,12 @@ class EventEngine:
         pool = self.events.get(pool_name, [])
         if not pool:
             return
+        # Filter by waterway region if this is a sea event and waterway is set
+        waterway = getattr(state, "_current_waterway", None)
+        if waterway and pool_name == "sea_events":
+            eligible = [e for e in pool
+                        if not e.get("regions") or waterway in e.get("regions", [])]
+            pool = eligible if eligible else pool
         ev = random.choice(pool)
         ctx = self._context_for_event(state)
         ev_fmt = self._apply_templating(ev, ctx)
@@ -977,6 +1088,149 @@ def _check_ibu_malam(state: GameState, trigger: str):
 
 
 # ─────────────────────────────────────────
+# Slave market & prisoner actions
+# ─────────────────────────────────────────
+
+def _apply_baraka_bonus(state: "GameState", amount: int = 2):
+    """If Baraka is aboard, apply morale bonus and display note."""
+    baraka = next((m for m in state.crew.alive_members() if m.name == "Baraka"), None)
+    if baraka:
+        state.morale = min(100, state.morale + amount)
+        print(f"\n  {t('slave_market_baraka_approves')} (+{amount} morale)")
+
+
+def slave_market_menu(state: "GameState", port_data: Dict[str, Any], clear_fn, press_enter_fn):
+    """Slave market port actions: free one, keep, free all, purchase."""
+    LOCAL_FREE_COST = 15      # gold to free one slave at market rate
+    PURCHASE_COST   = 15      # average cost per slave purchased
+
+    total_aboard = state.slave_cargo + state.slaves_aboard
+
+    clear_fn()
+    print("═" * 52)
+    print(f"  {t('slave_market_title')} — {port_data['name']}")
+    print("═" * 52)
+    print(f"\n  {t('slave_market_aboard')}: {total_aboard}")
+
+    if total_aboard == 0:
+        print(f"\n  {t('slave_market_none')}")
+        press_enter_fn()
+        return
+
+    free_one_cost = LOCAL_FREE_COST
+    free_all_cost = LOCAL_FREE_COST * total_aboard
+
+    print(f"\n  [{t('slave_market_free_one').format(cost=free_one_cost)}]  → [1]")
+    print(f"  [{t('slave_market_keep')}]  → [2]")
+    print(f"  [{t('slave_market_free_all').format(cost=free_all_cost)}]  → [3]")
+    print(f"  [{t('slave_market_purchase')}]  → [4]")
+    print()
+
+    choice = input("  > ").strip()
+
+    if choice == "1":
+        if state.gold < free_one_cost:
+            print(f"\n  Not enough gold. You need {free_one_cost} gold.")
+        else:
+            state.gold -= free_one_cost
+            if state.slave_cargo > 0:
+                state.slave_cargo -= 1
+            else:
+                state.slaves_aboard -= 1
+            print(f"\n  {t('slave_market_freed').format(name='One person')}")
+            _apply_baraka_bonus(state, 2)
+            # Morale bonus for Ottoman and Chinese on freeing
+            if state.role == "Ottoman Trader":
+                state.morale = min(100, state.morale + 3)
+                print("  (+3 morale — your crew respects this decision)")
+            elif state.role == "Chinese Trader":
+                state.morale = min(100, state.morale + 2)
+                print("  (+2 morale)")
+
+    elif choice == "2":
+        print(f"\n  You leave things as they are.")
+
+    elif choice == "3":
+        if state.gold < free_all_cost:
+            print(f"\n  Not enough gold. You need {free_all_cost} gold.")
+        else:
+            state.gold -= free_all_cost
+            freed = total_aboard
+            state.slave_cargo = 0
+            state.slaves_aboard = 0
+            print(f"\n  {t('slave_market_freed_all').format(count=freed)}")
+            _apply_baraka_bonus(state, freed * 2)
+            if state.role == "Ottoman Trader":
+                state.morale = min(100, state.morale + 3 * freed)
+                print(f"  (+{3 * freed} morale)")
+            elif state.role == "Chinese Trader":
+                state.morale = min(100, state.morale + 2 * freed)
+                print(f"  (+{2 * freed} morale)")
+            # Portuguese ports: disposition penalty for freeing
+            from faction import port_to_faction
+            faction_id = port_to_faction(port_data["name"])
+            if faction_id == "estado_da_india":
+                state.factions.adjust_disposition(faction_id, -10)
+                print("  (Estado da India disapproves — disposition -10)")
+
+    elif choice == "4":
+        how_many = 1
+        cost = PURCHASE_COST * how_many
+        if state.gold < cost:
+            print(f"\n  Not enough gold.")
+        else:
+            state.gold -= cost
+            state.slave_cargo += how_many
+            print(f"\n  {t('slave_market_purchased').format(count=how_many, cost=cost)}")
+            print("  (This is noted.)")
+
+    press_enter_fn()
+
+
+def handle_prisoner_choice(state: "GameState", captive_type: str = "soldier", clear_fn = None, press_enter_fn = None):
+    """
+    # PLACEHOLDER — narrative pass will expand captive-specific dialogue.
+    Called after a sea event with captured enemies. Offers ransom/enslave/release.
+    captive_type: 'soldier', 'officer', 'noble'
+    """
+    RANSOM_VALUES = {"soldier": (10, 20), "officer": (40, 80), "noble": (150, 300)}
+
+    if clear_fn:
+        clear_fn()
+    print("═" * 52)
+    print(f"  {t('prisoner_action_title')}")
+    print("═" * 52)
+    ransom_lo, ransom_hi = RANSOM_VALUES.get(captive_type, (10, 20))
+
+    print(f"\n  [{t('prisoner_take')}] ({ransom_lo}–{ransom_hi}g at next port)  → [1]")
+    print(f"  [{t('prisoner_enslave')}]  → [2]")
+    print(f"  [{t('prisoner_release')}]  → [3]")
+    print()
+
+    choice = input("  > ").strip()
+
+    if choice == "1":
+        state.slaves_aboard += 1   # reuse field; ransom-flagged separately in Pass 4
+        print(f"\n  You take them prisoner. Ransom to be arranged.")
+
+    elif choice == "2":
+        state.slave_cargo += 1
+        print(f"\n  They are taken for the market. A grim transaction.")
+
+    elif choice == "3":
+        print(f"\n  {t('prisoner_released_bonus')}")
+        if state.role == "Ottoman Trader":
+            state.morale = min(100, state.morale + 3)
+            print("  (+3 morale)")
+        elif state.role == "Chinese Trader":
+            state.morale = min(100, state.morale + 2)
+            print("  (+2 morale)")
+
+    if press_enter_fn:
+        press_enter_fn()
+
+
+# ─────────────────────────────────────────
 # Port UI
 # ─────────────────────────────────────────
 
@@ -1062,6 +1316,10 @@ def port_action_menu(
         opt("9", "View active quests")
         opt("P", "Restock provisions")
         opt("F", "Faction standing")
+        has_slave_market = port_data.get("slave_market", False)
+        if has_slave_market:
+            total_aboard = state.slave_cargo + state.slaves_aboard
+            opt("M", f"Slave market actions  ({total_aboard} aboard)")
         opt("S", "Set sail (leave port)")
         opt("V", "Save game")
 
@@ -1160,6 +1418,14 @@ def port_action_menu(
         # ── Restock provisions ──
         elif choice == "P":
             _restock_provisions(state, port_data, clear, press_enter)
+
+        # ── Slave market ──
+        elif choice == "M":
+            if port_data.get("slave_market"):
+                slave_market_menu(state, port_data, clear, press_enter)
+            else:
+                print("\n  No slave market here.")
+                press_enter()
 
         # ── Faction standing ──
         elif choice == "F":
@@ -1395,20 +1661,30 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
 
 
 def _travel_estimate(origin: str, dest: str, state: Any) -> str:
-    """Return a human-readable travel time estimate string."""
+    """Return a human-readable travel time estimate string.
+
+    Variance by navigator skill:
+      skilled:  ±10% of base days
+      basic:    ±20% of base days
+      none:     ±40% of base days
+    """
     base = TRAVEL_TIMES.get((origin, dest), DEFAULT_TRAVEL_TIME)
-    has_nav = state.crew.has_occupation("navigator") if state else False
-    if has_nav:
-        lo = max(1, base - 1)
-        hi = base + 1
+    nav_level = state.crew.navigator_skill_level() if state else None
+    if nav_level == "skilled":
+        variance_pct = 0.10
+        nav_note = " (skilled navigator)"
+    elif nav_level == "basic":
+        variance_pct = 0.20
         nav_note = " (navigator)"
     else:
-        lo = base + 4
-        hi = base + 6
+        variance_pct = 0.40
         nav_note = " (no navigator)"
+    variance_days = max(1, round(base * variance_pct))
+    lo = max(1, base - variance_days)
+    hi = base + variance_days
     provision_drain = 1 if (state and state.crew.has_occupation("cook")) else 2
     prov_cost = (lo + hi) // 2 * provision_drain
-    return f"Estimated: {lo}–{hi} days{nav_note}  |  ~{prov_cost} provisions"
+    return f"{lo}–{hi} days{nav_note}  |  ~{prov_cost} provisions"
 
 
 def choose_from_list(
@@ -1423,7 +1699,7 @@ def choose_from_list(
             est = _travel_estimate(origin, n, state)
             barred, _ = state.factions.port_access_modifier(n)
             bar_tag = "  [BARRED]" if not barred else ""
-            print(f"  {idx}) {n:<26} {est}{bar_tag}")
+            print(f"  {idx}) {n:<26} — {est}{bar_tag}")
         else:
             print(f"  {idx}) {n}")
     print(f"  {len(names)+1}) Cancel\n")
@@ -1470,6 +1746,40 @@ def sea_action_menu(state: GameState) -> str:
 
 
 # ─────────────────────────────────────────
+# Port-arrival encounter trigger
+# ─────────────────────────────────────────
+
+# Ports near the Malacca Strait — highest encounter frequency
+_MALACCA_STRAIT_PORTS = {"Malacca Harbor", "Pulau Tioman", "Bantam", "Patani"}
+# Faction home ports — elevated encounter frequency
+_FACTION_HOME_PORTS = {"Goa Harbor", "Hormuz", "Quanzhou", "Aden Harbor"}
+# Remote/quiet ports — lowest encounter frequency
+_REMOTE_PORTS = {"Ternate", "Banda Islands", "Keelung Outpost", "Cham Coast Anchorage"}
+
+
+def _maybe_port_encounter(state: GameState, engine: "EventEngine"):
+    """
+    Trigger a random harbor encounter on arrival with location-varying probability.
+      Malacca Strait ports:    33%
+      Faction home ports:      25%
+      Remote/quiet ports:      17%
+      Default:                 20%
+    """
+    loc = state.current_location
+    if loc in _MALACCA_STRAIT_PORTS:
+        chance = 0.33
+    elif loc in _FACTION_HOME_PORTS:
+        chance = 0.25
+    elif loc in _REMOTE_PORTS:
+        chance = 0.17
+    else:
+        chance = 0.20
+
+    if roll_check(chance):
+        engine.trigger_random("harbor_events", state)
+
+
+# ─────────────────────────────────────────
 # Handle Landfall
 # ─────────────────────────────────────────
 
@@ -1508,6 +1818,9 @@ def handle_landfall(
     if port_data:
         # Special events (once-per-port narrative beats)
         engine.trigger_special_if_any(state)
+
+        # Port-arrival random encounter (frequency varies by location)
+        _maybe_port_encounter(state, engine)
 
         if state.current_location_type == "major_port":
             port_action_menu(state, port_data, engine, crew_data, all_quests)
@@ -1599,9 +1912,13 @@ def run_game(
                     state.__dict__.pop("_sneak_in_success", None)
 
                 clear()
+                origin_port = state.current_location
                 speed_bonus = state.crew.travel_speed_bonus()
                 crew_before = set(id(m) for m in state.crew.alive_members())
-                actual_days = state.time.travel(state.current_location, dest, speed_bonus)
+                # Set location to waypoint description during transit
+                state.current_location = get_at_sea_description(origin_port, dest)
+                state.current_location_type = "sea"
+                actual_days = state.time.travel(origin_port, dest, speed_bonus)
                 # Apply sea events during travel proportionally
                 for _ in range(actual_days):
                     state.apply_daily_crew_effects()
@@ -1610,21 +1927,24 @@ def run_game(
                     if lore:
                         print(lore)
                     if state.has_visited_port and roll_check(0.40):
+                        # Pass current waterway context for location-specific filtering
+                        state._current_waterway = get_waterway(origin_port, dest)
                         engine.trigger_random("sea_events", state)
                         if state.is_game_over():
                             press_enter()
                             return
+                state._current_waterway = None
                 # Check for crew deaths during travel (Ibu Malam trigger)
                 crew_after = set(id(m) for m in state.crew.alive_members())
                 if crew_before - crew_after:
                     _check_ibu_malam(state, "ibu_malam_after_crew_death")
 
-                # Navigator absence warning
-                has_nav = state.crew.has_occupation("navigator")
+                # Navigator absence note
+                nav_level = state.crew.navigator_skill_level()
                 print(f"\n  You arrive at {dest} after {actual_days} day(s).")
                 if speed_bonus:
-                    print(f"  (Your navigator's skill saved {speed_bonus} day(s))")
-                elif not has_nav:
+                    print(f"  (Your navigator's skill saved {speed_bonus} day(s).)")
+                elif nav_level is None:
                     print("  (No navigator — the crossing took longer than it should.)")
                 press_enter()
 

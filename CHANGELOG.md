@@ -6,6 +6,31 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
+## [v0.2.0-pass3b] — Layered Systems — 2026-03-31
+
+### Added
+- Quest lore repetition cap: `seen_lore_flags` migrated from `List[str]` to `Dict[str, int]`; lore suppressed after 3 displays (acceptance + completions combined)
+- NPC trait expansion: `womanizer` now has `random_encounter_trigger: "womanizer_trouble"` with specific social scandal narrative; `xenophobic` has `disposition_foreign_penalty: -15` and `home_water_morale_bonus: +10`
+- Trait balance audit: added `brave` (counterpart to `coward`), `generous`, `miserly` with mutual exclusions in `TRAIT_EXCLUSIONS`
+- Womanizer port incident in `check_for_incidents()`: merchant's wife scandal narrative
+- `quest_tier` field (1/2/3) on all quests in `quests.json`; gating in `available_quests_at_port` by `state.reputation_tier`
+- Reputation increment on quest completion (+1, capped at 5)
+- 3 adventure quest stubs (`quest_type: "adventure"`, `time_limit_days: 0`): hidden village discovery, coastal Australia encounter (Makassan trade contact context), artifact quest
+- `ActiveQuest` handles non-expiring quests (`deadline: 999999`, `is_expired()` returns `False`)
+- Faction standing ladder expanded: 6 tiers, culture-specific tier 4 names (Sahabat/Homem de confiança/Rafiq/Zhiji 知己); `REP_TIER4_TITLE` dict in `faction.py`
+- Updated price modifiers: tier 1→0.95, 2→0.90, 3→0.85, 4→0.80, 5→0.75
+- Faction standing line added to `status_text()` in `straits_project.py`
+- Slave market port actions (`slave_market_menu`): free one, keep, free all, purchase — at `slave_market: true` ports
+- `handle_prisoner_choice()`: ransom/enslave/release options with role-specific morale effects
+- `_apply_baraka_bonus()`: +2 morale per slave freed when Baraka is aboard
+- All new UI strings in `lang_en.json` and `lang_es.json`
+
+### Changed
+- `seen_lore_flags` type changed from `List[str]` to `Dict[str, int]`; `from_dict()` migrates old list saves gracefully
+- `REP_POSITIVE_LABELS` tier 3 updated to "Well Received"; tier 5 updated to "Trusted Insider"
+
+---
+
 ## [v0.2.0-pass2] — Source Synthesis & World Bible (REDO) — 2026-03-30
 
 **Note:** This supersedes the previous v0.2.0-pass2 tag (deleted). Previous pass2 docs

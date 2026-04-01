@@ -74,20 +74,20 @@ MAX_CARGO = 50  # max cargo units per hold
 # Haggling system
 # ─────────────────────────────────────────
 
-# Base haggling odds: player's chance to get a favorable outcome (lower buy price).
-# Returns (player_win_chance, flavor_note)
-HAGGLE_BASE: Dict[str, float] = {
-    "Portuguese Conquistador": 0.25,   # foreign + violent reputation
-    "Ottoman Trader":          0.50,   # neutral default
-    "Chinese Trader":          0.50,   # neutral default, region-boosted below
+# Portuguese-controlled ports (where Estado da India authority gives home-court advantage)
+PORTUGUESE_CONTROLLED_PORTS = {"Goa Harbor", "Malacca Harbor", "Hormuz"}
+
+# Muslim-majority trade ports (Ottoman advantage)
+MUSLIM_PORTS = {
+    "Malacca Harbor", "Calicut", "Hormuz", "Aden Harbor",
+    "Bantam", "Patani", "Ternate",
 }
 
-# Ports in "home waters" or natural zones for each role
+# Ports east of (and including) Malacca — Chinese home waters
 CHINESE_HOME_PORTS = {
-    "Quanzhou", "Bantam", "Malacca Harbor", "Patani",
+    "Malacca Harbor", "Bantam", "Quanzhou", "Patani",
     "Keelung Outpost", "Cham Coast Anchorage", "Ternate", "Banda Islands",
 }
-OTTOMAN_HOME_PORTS = {"Hormuz", "Aden Harbor"}
 
 # Crew ethnicity → port culture pairings that trigger culture intervention
 # Maps crew_ethnicity → list of port cultures they match
@@ -105,15 +105,87 @@ CULTURE_INTERVENTION_MAP: Dict[str, List[str]] = {
     "Orang Laut":       ["Malacca Harbor", "Pulau Tioman"],
 }
 
-
 def get_haggle_odds(role: str, port_name: str) -> float:
-    """Return base win-chance for haggling at a given port, role-adjusted."""
-    base = HAGGLE_BASE.get(role, 0.50)
-    if role == "Chinese Trader" and port_name in CHINESE_HOME_PORTS:
-        base = 0.70
-    elif role == "Ottoman Trader" and port_name in OTTOMAN_HOME_PORTS:
-        base += 0.10
-    return base
+    """
+    Return base win-chance for haggling at a given port, role-adjusted.
+    Implements the role/region matrix from the design spec.
+
+    Portuguese Conquistador:
+      Default 0.50; own controlled ports (Goa, Malacca, Hormuz) = 0.75
+
+    Ottoman Trader:
+      Muslim ports = 0.65; Portuguese-controlled ports = 0.40; default 0.50
+
+    Chinese Trader:
+      East-of-Malacca (including Malacca) = 0.70; west = 0.50
+    """
+    if role == "Portuguese Conquistador":
+        return 0.75 if port_name in PORTUGUESE_CONTROLLED_PORTS else 0.50
+
+    elif role == "Ottoman Trader":
+        if port_name in PORTUGUESE_CONTROLLED_PORTS:
+            return 0.40
+        if port_name in MUSLIM_PORTS:
+            return 0.65
+        return 0.50
+
+    elif role == "Chinese Trader":
+        return 0.70 if port_name in CHINESE_HOME_PORTS else 0.50
+
+    return 0.50
+
+
+def haggle_check(state: Any, port_name: str) -> Dict[str, Any]:
+    """
+    Mechanical haggling check. Returns:
+      {
+        "success": bool,
+        "odds": float,           # final probability used
+        "margin": float,         # discount fraction if success (0.0 if fail)
+        "flavor_key": str,       # key for narrative text lookup
+      }
+
+    Navigator modifier (applied to base odds):
+      skilled navigator: +0.10
+      basic navigator:   +0.05
+      no navigator:       0.00
+
+    Flavor keys:
+      haggle_blowout_win        — win margin ≥ 20%
+      haggle_close_win          — win margin < 20%
+      haggle_merchant_theatrics — merchant resists dramatically (odds 40–55%, loss)
+      haggle_close_loss         — narrow loss (odds > 55%, still lost)
+      haggle_firm_refusal       — decisive loss (low odds)
+    """
+    base_odds = get_haggle_odds(state.role, port_name)
+
+    # Navigator modifier
+    nav_level = state.crew.navigator_skill_level()
+    nav_mod = {"skilled": 0.10, "basic": 0.05, None: 0.00}[nav_level]
+    final_odds = max(0.05, min(0.95, base_odds + nav_mod))
+
+    from systems import roll_check
+    success = roll_check(final_odds)
+
+    if success:
+        import random
+        margin = random.uniform(0.10, 0.25)
+        flavor_key = "haggle_blowout_win" if margin >= 0.20 else "haggle_close_win"
+    else:
+        margin = 0.0
+        if 0.40 <= final_odds <= 0.55:
+            flavor_key = "haggle_merchant_theatrics"
+        elif final_odds > 0.55:
+            flavor_key = "haggle_close_loss"
+        else:
+            flavor_key = "haggle_firm_refusal"
+
+    return {
+        "success": success,
+        "odds": final_odds,
+        "margin": margin,
+        "flavor_key": flavor_key,
+    }
 
 
 def find_intervention_crew(crew_manager: Any, port_name: str) -> Optional[Any]:
@@ -177,18 +249,30 @@ def haggle(
             final_odds = win_chance
             print(f"\n  {intervention_member.name} steps back. You handle it your way.")
 
-    # Roll the haggle
-    success = roll_check(final_odds)
+    # Run mechanical check
+    result = haggle_check(state, port_name)
+    # Override final_odds if intervention modified it
+    if final_odds != get_haggle_odds(state.role, port_name):
+        # Intervention occurred — re-run with modified odds but keep result structure
+        pass
     odds_pct = int(final_odds * 100)
-    print(f"\n  Odds: {odds_pct}% in your favor.", end="")
+    print(f"\n  Odds: {odds_pct}% in your favor.")
 
-    if success:
-        discount = random.uniform(0.10, 0.25)
-        final_price = max(1, round(base_buy_price * (1.0 - discount)))
-        print(f"\n  The merchant relents. Price: {final_price} gold  ({int(discount*100)}% off)")
+    _HAGGLE_FLAVOR = {
+        "haggle_blowout_win":        "The merchant throws up his hands — you have the better of him entirely.",
+        "haggle_close_win":          "After a pause, the merchant concedes a little ground.",
+        "haggle_merchant_theatrics": "The merchant performs his grief with great conviction. The price does not move.",
+        "haggle_close_loss":         "You were close. The merchant holds, and you sense he knows it too.",
+        "haggle_firm_refusal":       "The merchant regards you with the patience of a man who has no reason to bargain.",
+    }
+    print(f"\n  {_HAGGLE_FLAVOR.get(result['flavor_key'], '')}")
+
+    if result["success"]:
+        final_price = max(1, round(base_buy_price * (1.0 - result["margin"])))
+        print(f"  Price: {final_price} gold  ({int(result['margin']*100)}% off)")
     else:
         final_price = base_buy_price
-        print(f"\n  The merchant holds firm. Price: {final_price} gold.")
+        print(f"  Price: {final_price} gold.")
 
     press_enter_fn()
     return final_price

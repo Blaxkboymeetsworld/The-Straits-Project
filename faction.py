@@ -94,9 +94,21 @@ REP_POSITIVE_LABELS: Dict[int, str] = {
     0: "Unknown",
     1: "Noted",
     2: "Familiar",
-    3: "Well-Regarded",
-    4: "Trusted",
-    5: "Insider",   # Zìjǐrén / Quase da Casa / Orang Dalam
+    3: "Well Received",
+    4: "Trusted",        # Overridden per-faction by REP_TIER4_TITLE below
+    5: "Trusted Insider",  # Overridden per-faction by REP_INSIDER_TITLE below
+}
+
+# Culture-specific tier 4 titles — carry weight of obligation and trust
+REP_TIER4_TITLE: Dict[str, str] = {
+    "malacca_sultanate":   "Sahabat",            # Malay: close friend with weight of obligation
+    "estado_da_india":     "Homem de confiança",  # Portuguese: man of trust
+    "hadrami_silsila":     "Rafiq",              # Sufi commercial brotherhood: companion of the road
+    "karimi_merchants":    "Rafiq",
+    "ming_dynasty":        "Zhiji (知己)",        # Chinese: one who truly knows you
+    "sultanate_of_bantam": "Sahabat",
+    "kingdom_of_calicut":  "Nambiar",            # Nair honorific: trusted associate
+    "chen_zuyi_ghost":     "Saudara Dalam",       # Malay: inner brother
 }
 
 # Negative reputation tiers (0 to −5, stored as negative ints)
@@ -205,6 +217,8 @@ class FactionManager:
         score = self.get_rep(faction_id)
         if score >= 5:
             return REP_INSIDER_TITLE.get(faction_id, REP_POSITIVE_LABELS[5])
+        if score == 4:
+            return REP_TIER4_TITLE.get(faction_id, REP_POSITIVE_LABELS[4])
         if score >= 1:
             return REP_POSITIVE_LABELS.get(score, "Noted")
         if score <= -1:
@@ -256,9 +270,15 @@ class FactionManager:
         if score <= -1:
             return 1.10   # Suspected
         if score >= 5:
-            return 0.85   # Insider — best prices
+            return 0.75   # Trusted Insider — 25% improvement
         if score >= 4:
-            return 0.90
+            return 0.80   # Culture-specific tier — 20% improvement
+        if score >= 3:
+            return 0.85   # Well Received — 15% improvement
+        if score >= 2:
+            return 0.90   # Familiar — 10% improvement
+        if score >= 1:
+            return 0.95   # Noted — 5% improvement
         return 1.0
 
     def record_faction_quest(self, faction_id: str) -> Optional[str]:

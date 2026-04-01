@@ -6,8 +6,13 @@ time_system.py — Day/night cycle, travel time between ports,
                   simple but meaningful time system).
 """
 
+import json
+import os
 import random
 from typing import Dict, Any, Optional, Tuple
+
+_ROOT = os.path.dirname(os.path.abspath(__file__))
+_ROUTES_PATH = os.path.join(_ROOT, "data", "routes.json")
 
 # Rough travel times between ports in days (one-way)
 # Reflects the actual geography of the Indian Ocean / Southeast Asia
@@ -72,6 +77,37 @@ for (a, b), days in TRAVEL_TIMES.items():
 TRAVEL_TIMES = _FILLED
 
 DEFAULT_TRAVEL_TIME = 6  # fallback if route not in table
+
+# ── Route waypoints (loaded from routes.json) ────────────────────────────────
+# Maps (origin, dest) → {waterway: str, at_sea: str}
+ROUTE_WAYPOINTS: Dict[Tuple[str, str], Dict[str, str]] = {}
+
+try:
+    with open(_ROUTES_PATH, encoding="utf-8") as _f:
+        _routes_data = json.load(_f)
+    for _r in _routes_data.get("routes", []):
+        _a, _b = _r["from"], _r["to"]
+        _entry = {"waterway": _r["waterway"], "at_sea": _r["at_sea"]}
+        ROUTE_WAYPOINTS[(_a, _b)] = _entry
+        ROUTE_WAYPOINTS[(_b, _a)] = _entry
+except (FileNotFoundError, KeyError):
+    pass  # graceful fallback — no waypoints
+
+
+def get_at_sea_description(origin: str, destination: str) -> str:
+    """Return a descriptive location string for transit between two ports."""
+    entry = ROUTE_WAYPOINTS.get((origin, destination))
+    if entry:
+        return entry["at_sea"]
+    return f"At Sea, en route to {destination}"
+
+
+def get_waterway(origin: str, destination: str) -> str:
+    """Return the waterway region for a given route (for encounter filtering)."""
+    entry = ROUTE_WAYPOINTS.get((origin, destination))
+    if entry:
+        return entry["waterway"]
+    return "open_ocean"
 
 # Hours of the day (simplified)
 HOURS_PER_DAY = 24
