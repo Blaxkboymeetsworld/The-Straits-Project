@@ -6,6 +6,96 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
+## [v0.2.0] — The Bones Update — 2026-04-01
+
+### Fixed
+- `harbor_master_for()` now correctly reads harbor master data from within
+  `major_ports` entries rather than the empty `harbor_masters` array in
+  `world.json`. `EventEngine._context_for_event()` updated accordingly.
+
+### Changed
+- Role renamed: Arab Muslim Dāʿī → Ottoman Trader
+- Ottoman Trader starting stats adjusted: gold +20, spices +3, morale +8
+- Haggling now uses role/region odds matrix instead of flat check
+- Location display shows specific waterway and position, never bare "At Sea"
+- Portuguese crew: Rui Brandão → Rui Barbosa; Camila de Faro → Camila de Sousa;
+  Simão removed; Diogo and Tomé added
+- Ottoman crew: Ibrahim removed; Mehmed al-Rumi (factor) and Kemal added
+- `seen_lore_flags` migrated from `List[str]` to `Dict[str, int]`; old saves
+  migrate gracefully
+
+### Added
+- Internationalization (i18n) system with language selection at startup
+- Full Latin American Spanish translation: `lang_es.json`
+- Language stored in save file and restored on load
+- All event/quest/intro text fields carry `_es` parallel key
+- `EventEngine` falls back to English if Spanish key absent
+- `data/intros.json` — full intro sequences for all three protagonists,
+  loaded at startup and run via `_run_intro_scene()` JSON interpreter
+- Portuguese intro: "A Woman On My Ship" — Rui Barbosa / Camila de Sousa
+  confrontation; four-branch scene grounded in period sailor register
+- Ottoman intro: "The Man Baraka Chose" — narrated backstory of Baraka's Zanj
+  lineage, the owner's death, Mehmed Bey's qadi intervention; three morale-
+  weighted responses
+- Chinese intro: "Prefect Guo's Credentials" — Old Liang and Ah Kow introduced
+  first; Wei Chongde as false eunuch "Prefect Guo"; full Zheng He lecture with
+  parenthetical Chinese term glosses (朽木不可雕也, 士大夫, 郑和, 海禁)
+- Crew milestone dialogue: 9 scenes (3 per protagonist), triggered every 5
+  `assignments_completed`, each granting +5 morale and once-flagged
+  - Portuguese: Rui admits Camila's storm handling; Estêvão on shared languages;
+    Diogo's quiet measure of survival
+  - Ottoman: Baraka and Kemal on the fisherman's knot; Kemal corrects himself
+    on navigation; Yusuf shares his Karimi contact list
+  - Chinese: Old Liang and Ah Kow argue pepper grades; Wei reveals a prior
+    identity to the captain; Old Liang remembers the bridge before the conquest
+- Travel time estimates with navigator skill modifier on destination list
+- Starting positions per protagonist with home port lockout
+  (Portuguese → Goa; Ottoman → Hormuz; Chinese → Quanzhou; gate: assignments ≥ 3)
+- Fall of Malacca world event trigger system:
+  - Rumor phase (day 30–45): port flavor text from nervous traders
+  - Announcement (day 45–60): once-only "Word reaches you" scene, role-variant
+  - Fall (day 75–90): witnessed (Malacca/Pulau Tioman/Strait) vs heard
+  - Mechanical effects: Portuguese faction +1; Malay standing zeroed; price
+    disruption +30% at Malacca/Bantam/Patani/Pulau Tioman for 15 days
+  - Malacca port control indicator; Hang Tuah chain stub (v0.3+ flag set)
+- Dialogue tracks (Favorable/Neutral/Unfavorable) for interpreter/entry checks
+- Quest lore repetition cap: historical blurbs suppressed after 3 viewings
+- Quest giver stratification by reputation tier
+- Non-expiring adventure quest type; 3 adventure quest stubs
+- Faction standing ladder (6 tiers, culture-specific tier 4 terms:
+  Sahabat / Homem de confiança / Rafiq / Zhiji 知己)
+- NPC traits expanded: xenophobic, womanizer with mechanical effects
+- Prisoner mechanic: ransom / enslave / release with morale consequences
+- Slave market actions at ports: free one, free all, purchase, keep
+- Baraka morale system: +5 per slave freed, unique dialogue
+- Social class system with Southeast Asian titles
+- Named rival captains system
+- Bodyguard / soldier protection system for negative reputation events
+- `GameState` new fields: `reputation_tier`, `faction_standing`,
+  `assignments_completed`, `seen_lore_flags`, `player_traits`, `slaves_aboard`,
+  `combat_enabled`, `lang`, Fall of Malacca state flags
+- Comprehensive documentation: source synthesis, world bible (7 primary sources
+  read in full), 13 character bibles, encounter geography, narrative style guide,
+  game timeline
+
+### Stubbed for future release
+- Combat system (v0.3) — flag in `GameState`, TODO in `run_game()`
+- Mini-games: Mahjong, Mancala, third TBD (v0.4) — TODO in port handler
+- Player trait assignment at character creation (v0.3)
+- Hang Tuah event chain — design brief required before implementation
+- Coastal Australia adventure quest — stub in `quests.json`
+- Artifact quest — stub in `quests.json`
+
+### Sources (PDFs in sources/ directory)
+- Commentaries of Afonso de Albuquerque Vol. I and III
+- Décadas da Ásia — João de Barros (Estado politics) [archaic Portuguese]
+- Yingya Shenglan — Ma Huan (Chinese route, Malacca at height)
+- Kitāb ʿAjāʾib al-Hind — Buzurg ibn Shahriyar (Arab/Persian seafarer lore)
+- Sejarah Melayu — The Malay Annals (Fall of Malacca narrative, Hang Tuah)
+- Suma Oriental — Tomé Pires (ground truth, all ports)
+
+---
+
 ## [v0.2.0-pass3c] — World State — 2026-04-01
 
 ### Added

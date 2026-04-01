@@ -254,6 +254,8 @@
       "reward_disposition": 0,
       "reward_item": null,
       "failure_disposition": 0,
+      "description": "Word arrives in the eastern waters: the Ottoman Sultan has taken Cairo. The Mamluk Sultanate, guardians of the holy cities and the old spice road, is finished. Every trading network in the Indian Ocean feels the change.",
+      "description_es": "La noticia llega a las aguas orientales: el sultán otomano ha tomado El Cairo. El sultanato mameluco, guardián de las ciudades santas y de la antigua ruta de las especias, ha terminado. Cada red comercial del océano Índico siente el cambio.",
       "description_ottoman": "Mustafa finds you at the Aden anchorage at dawn. He says: 'Cairo has fallen. Selim has the caliphate. The Mamluks are finished.' He sits. 'We won.' He does not look like a man who has won.",
       "description_ottoman_es": "Mustafa os encuentra en el fondeadero de Adén al amanecer. Dice: 'El Cairo ha caído. Selim tiene el califato. Los mamelucos han terminado.' Se sienta. 'Hemos ganado.' No tiene el aspecto de un hombre que ha ganado.",
       "description_portuguese": "A despatch from the Estado: Egypt is Ottoman. All Portuguese vessels in the Gulf on heightened alert. You fold the letter and watch the horizon.",
@@ -406,7 +408,8 @@
       "unlock_requires": { "navigator_skill": "skilled", "route_choices": 3 },
       "description": "Your navigator has been tracking anomalies in the current patterns. He believes there is a settlement on an uncharted island — someone has been burning fires there for decades. Finding it requires skilled navigation and patience.",
       "description_es": "Vuestro navegante ha estado rastreando anomalías en los patrones de corrientes. Cree que hay un asentamiento en una isla sin cartografiar — alguien ha estado encendiendo fuegos allí durante décadas. Encontrarlo requiere navegación experta y paciencia.",
-      "lore": "The early 16th-century Indian Ocean world contained numerous small fishing and trading communities that never appeared on any European or Chinese chart — too small, too mobile, or too deliberate in their concealment."
+      "lore": "The early 16th-century Indian Ocean world contained numerous small fishing and trading communities that never appeared on any European or Chinese chart — too small, too mobile, or too deliberate in their concealment.",
+      "lore_es": "El mundo del océano Índico de principios del siglo XVI contenía numerosas pequeñas comunidades de pesca y comercio que nunca aparecieron en ningún mapa europeo o chino — demasiado pequeñas, demasiado móviles, o demasiado deliberadas en su ocultamiento."
     },
     {
       "id": "adv_coastal_australia",
@@ -422,9 +425,10 @@
       "failure_disposition": 0,
       "difficulty": "exploration",
       "unlock_requires": { "route": "Ternate_south", "crew_has_region": "Southeast Asia" },
-      "description": "ADVENTURE QUEST STUB — narrative pass will expand. Makassan trepang traders from Sulawesi know a coast far to the south. A crew member who speaks Malay mentions it. The people there speak a few words of Malay — old words, trade words, from generations of contact. The Portuguese protagonist does not believe it. The Chinese and Ottoman protagonists want to know the price of trepang.",
-      "description_es": "QUEST DE AVENTURA — expansión narrativa pendiente. Los comerciantes makasares de trepang de Sulawesi conocen una costa muy al sur. Un tripulante que habla malayo la menciona. La gente de allí habla unas pocas palabras en malayo — palabras antiguas, palabras de comercio, de generaciones de contacto. El protagonista portugués no lo cree. Los protagonistas chino y otomano quieren saber el precio del trepang.",
+      "description": "Makassan trepang traders from Sulawesi know a coast far to the south. A crew member who speaks Malay mentions it. The people there speak a few words of Malay — old words, trade words, from generations of contact. No chart marks it. No factor has a price for it.",
+      "description_es": "Los comerciantes makasares de trepang de Sulawesi conocen una costa muy al sur. Un tripulante que habla malayo la menciona. La gente de allí habla unas pocas palabras en malayo — palabras antiguas, palabras de comercio, de generaciones de contacto. Ningún mapa la señala. Ningún factor tiene su precio.",
       "lore": "Makassan trepang traders from what is now Sulawesi made regular seasonal voyages to the northern Australian coast from at least the 17th century, and possibly earlier. Aboriginal communities in the Arnhem Land region had regular trade contact with these visitors, acquiring Malay words, metal tools, and tobacco.",
+      "lore_es": "Los comerciantes makasares de trepang de lo que hoy es Sulawesi realizaban viajes estacionales regulares a la costa norte de Australia desde al menos el siglo XVII, y posiblemente antes. Las comunidades aborígenes de la región de Tierra de Arnhem tenían contacto comercial regular con estos visitantes, adquiriendo palabras en malayo, herramientas de metal y tabaco.",
       "protagonist_reactions": {
         "portuguese": "Disbelief at finding people who were 'never undiscovered' — a crack in the colonial logic.",
         "ottoman": "Pragmatic curiosity: what do they trade, and is there a route worth knowing?",
@@ -445,9 +449,10 @@
       "failure_disposition": 0,
       "difficulty": "exploration",
       "unlock_requires": { "crew_has_trait": "worldly", "specific_port_sequence": ["Hormuz", "Aden Harbor"] },
-      "description": "ADVENTURE QUEST STUB — narrative pass will expand. A particular crew member, under particular circumstances, notices something in the cargo you acquired at Hormuz. It is not spice. It is not trade goods. It is older than the ship. What it is requires a specific person to recognize it, and recognizing it changes things.",
-      "description_es": "QUEST DE AVENTURA — expansión narrativa pendiente. Un tripulante concreto, en circunstancias concretas, nota algo en la carga adquirida en Hormuz. No es especia. No son mercancías. Es más antiguo que el barco. Lo que es requiere una persona concreta para reconocerlo, y reconocerlo cambia las cosas.",
-      "lore": "The Indian Ocean trade world moved antiquities, manuscripts, and objects of unclear provenance alongside pepper and tin. The transit of a pre-Islamic artifact through Muslim trading networks, or a Buddhist relic through Portuguese cargo, was not impossible — merely unremarked."
+      "description": "Something in the cargo acquired at Hormuz is wrong. A crew member notices it — not the weight, not the smell, something else. It is older than the ship. It is older than the port. What it is requires a specific person to recognize it, and recognizing it changes things.",
+      "description_es": "Algo en la carga adquirida en Hormuz está mal. Un tripulante lo nota — no es el peso, no es el olor, es otra cosa. Es más antiguo que el barco. Es más antiguo que el puerto. Lo que es requiere una persona concreta para reconocerlo, y reconocerlo cambia las cosas.",
+      "lore": "The Indian Ocean trade world moved antiquities, manuscripts, and objects of unclear provenance alongside pepper and tin. The transit of a pre-Islamic artifact through Muslim trading networks, or a Buddhist relic through Portuguese cargo, was not impossible — merely unremarked.",
+      "lore_es": "El mundo comercial del océano Índico movía antigüedades, manuscritos y objetos de procedencia incierta junto con pimienta y estaño. El tránsito de un artefacto preislámico por redes comerciales musulmanas, o de una reliquia budista en carga portuguesa, no era imposible — simplemente pasaba desapercibido."
     }
   ]
 }

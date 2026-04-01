@@ -46,6 +46,7 @@ WORLD_PATH  = os.path.join(DATA_DIR, "world.json")
 SAVE_PATH   = os.path.join(SAVE_DIR, "slot1.json")
 
 NPC_KNOWLEDGE_PATH = os.path.join(DATA_DIR, "npc_knowledge.json")
+INTROS_PATH        = os.path.join(DATA_DIR, "intros.json")
 
 VALID_EVENT_POOLS = {"sea_events", "harbor_events", "village_events", "special_events"}
 
@@ -911,6 +912,325 @@ def _sneak_in_menu(
 
 
 # ─────────────────────────────────────────
+# Crew milestone dialogue
+# ─────────────────────────────────────────
+
+# Each entry: (flag_suffix, crew_name, en_text, es_text)
+# fired when assignments_completed reaches 5, 10, 15 for each role
+_MILESTONE_SCENES: Dict[str, List[tuple]] = {
+    "Portuguese Conquistador": [
+        (
+            "pt_milestone_1",
+            "Rui Barbosa",
+            (
+                "  At {location}. The hold is full and accounts are settled.\n\n"
+                "  Rui Barbosa finds you on deck that evening. He stands for a\n"
+                "  moment without speaking — his version of a preamble.\n\n"
+                "  'That storm off Pedir,' he says. 'The way she brought us about.'\n"
+                "  He pauses. 'I would have held the heading longer. She was right\n"
+                "  not to.' Another pause. 'Just saying.'\n\n"
+                "  He goes back to his work. He will not mention Camila again today.\n"
+                "  He may never mention it again at all. But he said it."
+            ),
+            (
+                "  En {location}. La bodega está llena y las cuentas saldadas.\n\n"
+                "  Rui Barbosa os encuentra en cubierta esa tarde. Se queda un\n"
+                "  momento sin hablar — su versión de un preámbulo.\n\n"
+                "  «Aquella tormenta frente a Pedir», dice. «La manera en que nos\n"
+                "  puso a través.» Hace una pausa. «Yo habría mantenido el rumbo\n"
+                "  más tiempo. Ella tenía razón en no hacerlo.» Otra pausa.\n"
+                "  «Solo lo digo.»\n\n"
+                "  Vuelve a su trabajo. No volverá a mencionar a Camila hoy.\n"
+                "  Quizá no lo mencione nunca más. Pero lo ha dicho."
+            ),
+        ),
+        (
+            "pt_milestone_2",
+            "Estêvão da Guiné",
+            (
+                "  At {location}. The streets here speak four languages at once.\n\n"
+                "  You find Estêvão da Guiné at the edge of the market, listening\n"
+                "  to a Tamil factor negotiate with a Javanese ship's boy. He is\n"
+                "  not involved. He is cataloguing.\n\n"
+                "  'Twelve languages I've heard this week,' he says, when he notices\n"
+                "  you. 'The boy speaks three and doesn't know it. He just calls\n"
+                "  them all talking.'\n\n"
+                "  He watches the negotiation conclude to both parties' satisfaction.\n"
+                "  'That's how it works when it works,' he says. 'Nobody owns the\n"
+                "  language. Everybody uses it.'\n\n"
+                "  He looks at you. 'You don't need me to translate that.'"
+            ),
+            (
+                "  En {location}. Las calles aquí hablan cuatro idiomas a la vez.\n\n"
+                "  Encontráis a Estêvão da Guiné al borde del mercado, escuchando\n"
+                "  a un factor tamil negociar con un grumete javanés. No está\n"
+                "  involucrado. Está catalogando.\n\n"
+                "  «Doce idiomas he oído esta semana», dice, cuando os nota.\n"
+                "  «El chico habla tres y no lo sabe. Para él todo es simplemente\n"
+                "  hablar.»\n\n"
+                "  Observa concluir la negociación a satisfacción de ambas partes.\n"
+                "  «Así funciona cuando funciona», dice. «Nadie posee el idioma.\n"
+                "  Todo el mundo lo usa.»\n\n"
+                "  Os mira. «No necesitáis que os traduzca eso.»"
+            ),
+        ),
+        (
+            "pt_milestone_3",
+            "Diogo",
+            (
+                "  At {location}. A long season, and the crew shows it.\n\n"
+                "  Diogo is cleaning his blade — again, always — when you pass\n"
+                "  him at the rail. He does not look up.\n\n"
+                "  'I've served four captains,' he says. 'Two dead, one disgraced,\n"
+                "  one who got rich and went home.' He runs the cloth along the\n"
+                "  steel. 'You're different from the others.'\n\n"
+                "  You wait for the rest of the sentence.\n\n"
+                "  'Still alive,' he says. He means it as a compliment.\n\n"
+                "  He goes back to the blade."
+            ),
+            (
+                "  En {location}. Una larga temporada, y la tripulación lo acusa.\n\n"
+                "  Diogo está limpiando su hoja — de nuevo, siempre — cuando\n"
+                "  pasáis junto a él en la borda. No levanta la vista.\n\n"
+                "  «He servido a cuatro capitanes», dice. «Dos muertos, uno\n"
+                "  deshonrado, uno que se enriqueció y volvió a casa.» Pasa\n"
+                "  el paño por el acero. «Vos sois diferente a los demás.»\n\n"
+                "  Esperáis el resto de la frase.\n\n"
+                "  «Seguís vivo», dice. Lo dice como un cumplido.\n\n"
+                "  Vuelve a la hoja."
+            ),
+        ),
+    ],
+    "Ottoman Trader": [
+        (
+            "ot_milestone_1",
+            "Baraka",
+            (
+                "  At {location}. The nets go out at first light here, the same\n"
+                "  way they go out everywhere the sea is the livelihood.\n\n"
+                "  Baraka has been watching the local fishermen from the dock.\n"
+                "  Kemal approaches him to ask what he is looking at.\n\n"
+                "  'The knots,' Baraka says. He points to the corner-fastening of\n"
+                "  the net. 'My grandfather's people used that same knot on the\n"
+                "  East African coast. I used to think it was our knot. It's\n"
+                "  just the best knot for that load.' He looks at Kemal. 'The\n"
+                "  sea teaches the same lessons to everyone who pays attention.'\n\n"
+                "  Kemal considers this. 'Does that mean everyone is the same?'\n\n"
+                "  'No,' Baraka says. 'It means the sea doesn't care.'"
+            ),
+            (
+                "  En {location}. Las redes salen al amanecer aquí, igual que\n"
+                "  salen en cualquier lugar donde el mar es el sustento.\n\n"
+                "  Baraka ha estado observando a los pescadores locales desde\n"
+                "  el muelle. Kemal se acerca a preguntarle qué mira.\n\n"
+                "  «Los nudos», dice Baraka. Señala la unión de la esquina de la\n"
+                "  red. «La gente de mi abuelo usaba ese mismo nudo en la costa\n"
+                "  de África Oriental. Solía pensar que era nuestro nudo. Es\n"
+                "  simplemente el mejor nudo para esa carga.» Mira a Kemal.\n"
+                "  «El mar enseña las mismas lecciones a todos los que prestan\n"
+                "  atención.»\n\n"
+                "  Kemal lo considera. «¿Eso significa que todos somos iguales?»\n\n"
+                "  «No», dice Baraka. «Significa que al mar no le importa.»"
+            ),
+        ),
+        (
+            "ot_milestone_2",
+            "Kemal",
+            (
+                "  At {location}. An argument has been circling the ship for\n"
+                "  three days about whether the northwest passage saves time.\n\n"
+                "  Kemal comes to you directly. He has Yusuf's calculation in\n"
+                "  one hand and his own in the other. 'Yusuf is right about the\n"
+                "  currents,' he says. 'I was wrong. I checked three times.' He\n"
+                "  puts both papers down. 'I wanted to be right about this one.'\n\n"
+                "  He does not explain why. He does not need to — you know him\n"
+                "  well enough now to know this is what loyalty costs him.\n\n"
+                "  'Good,' you say. 'We take Yusuf's route.'\n\n"
+                "  He nods once. That is the whole conversation."
+            ),
+            (
+                "  En {location}. Una discusión ha estado rondando el barco\n"
+                "  tres días sobre si la ruta del noroeste ahorra tiempo.\n\n"
+                "  Kemal viene a vos directamente. Tiene el cálculo de Yusuf\n"
+                "  en una mano y el suyo en la otra. «Yusuf tiene razón en las\n"
+                "  corrientes», dice. «Yo estaba equivocado. Lo comprobé tres\n"
+                "  veces.» Deposita ambos papeles. «Quería tener razón en esto.»\n\n"
+                "  No explica por qué. No necesita hacerlo — le conocéis lo\n"
+                "  suficiente ahora para saber que esto es lo que le cuesta\n"
+                "  la lealtad.\n\n"
+                "  «Bien», decís. «Tomamos la ruta de Yusuf.»\n\n"
+                "  Asiente una vez. Eso es toda la conversación."
+            ),
+        ),
+        (
+            "ot_milestone_3",
+            "Yusuf al-Halabi",
+            (
+                "  At {location}. Yusuf al-Halabi has been quiet for four days.\n\n"
+                "  He comes to you the evening before departure. He sets a folded\n"
+                "  paper on the chart table. It is a list of names and ports, in\n"
+                "  a hand you do not recognise.\n\n"
+                "  'These are Karimi contacts,' he says. 'Old network. Most of\n"
+                "  them are still active. I've been carrying this since Aden and\n"
+                "  deciding whether to give it to you.'\n\n"
+                "  You look at the list. Some of those ports are very useful.\n\n"
+                "  'Why now?' you ask.\n\n"
+                "  'Because we are past the point where I could simply leave.'\n"
+                "  He pauses. 'That is when trust becomes actual.'"
+            ),
+            (
+                "  En {location}. Yusuf al-Halabi ha estado callado cuatro días.\n\n"
+                "  Viene a vos la tarde anterior a la partida. Deposita un papel\n"
+                "  doblado sobre la mesa de cartas. Es una lista de nombres y\n"
+                "  puertos, en una letra que no reconocéis.\n\n"
+                "  «Estos son contactos karimi», dice. «Red antigua. La mayoría\n"
+                "  siguen activos. Lo llevo desde Adén decidiendo si dároslo.»\n\n"
+                "  Miráis la lista. Algunos de esos puertos son muy útiles.\n\n"
+                "  «¿Por qué ahora?», preguntáis.\n\n"
+                "  «Porque ya hemos pasado el punto en que simplemente podría\n"
+                "  marcharme.» Hace una pausa. «Ese es el momento en que la\n"
+                "  confianza se vuelve real.»"
+            ),
+        ),
+    ],
+    "Chinese Trader": [
+        (
+            "zh_milestone_1",
+            "Old Liang",
+            (
+                "  At {location}. The pepper market here has a particular smell —\n"
+                "  the best grade cut with the second grade, done skillfully.\n\n"
+                "  Old Liang and Ah Kow have been arguing about it for an hour.\n\n"
+                "  'The top bin is clean,' Ah Kow says. 'The rest is mixed.'\n"
+                "  'The rest is skillfully mixed,' Old Liang says. 'There's a\n"
+                "  difference. The factor knows what he's doing. That's a price\n"
+                "  for knowledge, not deception.'\n"
+                "  'It's deception,' Ah Kow says.\n\n"
+                "  They both look at you. You are the captain. You are required\n"
+                "  to have an opinion.\n\n"
+                "  Old Liang watches you think. 'He's learning,' he says to Ah\n"
+                "  Kow. Ah Kow makes a sound that is not agreement but might be\n"
+                "  respect."
+            ),
+            (
+                "  En {location}. El mercado de pimienta aquí tiene un olor\n"
+                "  particular — el de primera calidad mezclado con el de segunda,\n"
+                "  hecho con habilidad.\n\n"
+                "  El viejo Liang y Ah Kow llevan una hora discutiendo sobre ello.\n\n"
+                "  «El compartimento superior es limpio», dice Ah Kow. «El resto\n"
+                "  está mezclado.» «El resto está mezclado con habilidad», dice el\n"
+                "  viejo Liang. «Hay una diferencia. El factor sabe lo que hace.\n"
+                "  Eso es un precio por el conocimiento, no por el engaño.»\n"
+                "  «Es engaño», dice Ah Kow.\n\n"
+                "  Ambos os miran. Sois el capitán. Se os exige tener una opinión.\n\n"
+                "  El viejo Liang os observa pensar. «Está aprendiendo», le dice\n"
+                "  a Ah Kow. Ah Kow emite un sonido que no es asentimiento pero\n"
+                "  podría ser respeto."
+            ),
+        ),
+        (
+            "zh_milestone_2",
+            "Wei Chongde",
+            (
+                "  At {location}. There is a Ming official here — a minor one,\n"
+                "  sent to oversee the community census. Wei Chongde has been\n"
+                "  avoiding him since the ship docked.\n\n"
+                "  You find Wei on the ship's stern that evening, watching the\n"
+                "  official's residence.\n\n"
+                "  'He would know my face,' Wei says. 'Not from the court. From\n"
+                "  before the court.' He pauses. 'There are people who knew me\n"
+                "  as something other than what my credentials say.'\n\n"
+                "  He turns to look at you. He is waiting to see what you do\n"
+                "  with this.\n\n"
+                "  'The census will be filed in three days,' you say. 'We leave\n"
+                "  in two.'\n\n"
+                "  He nods once. 'Yes,' he says. 'That is why I told you.'"
+            ),
+            (
+                "  En {location}. Hay un funcionario Ming aquí — uno menor,\n"
+                "  enviado a supervisar el censo de la comunidad. Wei Chongde\n"
+                "  lo ha estado evitando desde que la nave atracó.\n\n"
+                "  Encontráis a Wei en la popa del barco esa tarde, observando\n"
+                "  la residencia del funcionario.\n\n"
+                "  «Conocería mi cara», dice Wei. «No de la corte. De antes de\n"
+                "  la corte.» Hace una pausa. «Hay personas que me conocieron\n"
+                "  como algo distinto a lo que dicen mis credenciales.»\n\n"
+                "  Se gira para miraros. Está esperando ver qué hacéis con eso.\n\n"
+                "  «El censo se archivará en tres días», decís. «Partimos en dos.»\n\n"
+                "  Asiente una vez. «Sí», dice. «Por eso os lo he dicho.»"
+            ),
+        ),
+        (
+            "zh_milestone_3",
+            "Old Liang",
+            (
+                "  At {location}. You are close enough to Malacca now that Old\n"
+                "  Liang has been talking about it for two days.\n\n"
+                "  He does not talk about the Portuguese. He talks about what\n"
+                "  was there before.\n\n"
+                "  'The bridge,' he says. 'Twenty-some pavilions on a wooden\n"
+                "  bridge over the river. Every language in the world being\n"
+                "  spoken at once. The factor for Coromandel cloth next to the\n"
+                "  factor for Banda nutmeg next to the factor for Khorasani\n"
+                "  horses.' He stops. 'I was twenty-two. I had never seen\n"
+                "  anything like it. I thought: this is what the world is.'\n\n"
+                "  He is quiet for a while.\n\n"
+                "  'I was right,' he says. 'That is what the world is. It's\n"
+                "  just that this particular version of it is gone.'"
+            ),
+            (
+                "  En {location}. Estáis suficientemente cerca de Malaca ahora\n"
+                "  que el viejo Liang lleva dos días hablando de ella.\n\n"
+                "  No habla de los portugueses. Habla de lo que había antes.\n\n"
+                "  «El puente», dice. «Más de veinte pabellones en un puente\n"
+                "  de madera sobre el río. Todos los idiomas del mundo\n"
+                "  hablándose a la vez. El factor de la tela de Coromandel\n"
+                "  junto al factor de la nuez moscada de Banda junto al factor\n"
+                "  de los caballos de Jorasán.» Se detiene. «Tenía veintidós\n"
+                "  años. Nunca había visto nada igual. Pensé: esto es lo que\n"
+                "  es el mundo.»\n\n"
+                "  Permanece en silencio un rato.\n\n"
+                "  «Tenía razón», dice. «Eso es lo que es el mundo. Solo que\n"
+                "  esta versión particular de él ha desaparecido.»"
+            ),
+        ),
+    ],
+}
+
+
+def _check_crew_milestone(state: "GameState") -> None:
+    """Fire a crew milestone scene when assignments_completed hits a multiple of 5."""
+    ac = state.assignments_completed
+    if ac == 0 or ac % 5 != 0:
+        return
+
+    milestone_num = ac // 5  # 1 at 5, 2 at 10, 3 at 15, ...
+    scenes = _MILESTONE_SCENES.get(state.role, [])
+    if milestone_num > len(scenes):
+        return
+
+    flag_suffix, crew_name, en_text, es_text = scenes[milestone_num - 1]
+    flag = f"crew_milestone_{flag_suffix}"
+    if flag in state.once_flags:
+        return
+
+    state.once_flags.append(flag)
+    lang = getattr(state, "lang", "en")
+    text = es_text if lang == "es" else en_text
+    loc = state.current_location or "at sea"
+    text = text.replace("{location}", loc)
+
+    clear()
+    print("\n" + "─" * 52)
+    print(f"  ─ {crew_name} ─")
+    print("─" * 52)
+    print(text)
+    print("─" * 52)
+    state.morale = min(100, state.morale + 5)
+    press_enter()
+
+
+# ─────────────────────────────────────────
 # World events
 # ─────────────────────────────────────────
 
@@ -1428,7 +1748,6 @@ def slave_market_menu(state: "GameState", port_data: Dict[str, Any], clear_fn, p
 
 def handle_prisoner_choice(state: "GameState", captive_type: str = "soldier", clear_fn = None, press_enter_fn = None):
     """
-    # PLACEHOLDER — narrative pass will expand captive-specific dialogue.
     Called after a sea event with captured enemies. Offers ransom/enslave/release.
     captive_type: 'soldier', 'officer', 'noble'
     """
@@ -1525,6 +1844,7 @@ def port_action_menu(
     state.quests.check_return_to_giver(
         port_data["name"], state.day, state, clear, press_enter
     )
+    _check_crew_milestone(state)
 
     # Check for quest expirations
     failed = state.quests.check_expirations(state.day)
@@ -2439,25 +2759,30 @@ def _make_crew_member(
 def _build_portuguese_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
     return [
         _make_crew_member(
-            "Camila de Faro", "Portuguese", "Portuguese", "soldier",
+            "Camila de Sousa", "Portuguese", "Portuguese", "sailor",
             [], "Catholic", "Europe",
-            ["calm_under_fire", "quick"], [], 8, crew_data
+            ["calm_under_fire", "quick", "veteran_sailor"], [], 8, crew_data
         ),
         _make_crew_member(
-            "Rui Brandão", "Portuguese", "Portuguese", "sailor",
+            "Rui Barbosa", "Portuguese", "Portuguese", "sailor",
             [], "Catholic", "Europe",
             ["veteran_sailor"], ["superstitious"], 5, crew_data
         ),
         _make_crew_member(
-            "Simão", "Portuguese", "Portuguese", "soldier",
-            [], "Catholic", "Europe",
-            ["strong", "pious"], [], 6, crew_data
+            "Estêvão da Guiné", "Portuguese", "Portuguese", "interpreter",
+            ["Arabic", "Malay"],
+            "Catholic", "Africa",
+            ["worldly", "polyglot"], [], 7, crew_data
         ),
         _make_crew_member(
-            "Estêvão da Guiné", "Portuguese", "Portuguese", "interpreter",
-            ["Arabic", "Malay"],  # developing
-            "Catholic", "Europe",
-            ["worldly", "polyglot"], [], 7, crew_data
+            "Diogo", "Portuguese", "Portuguese", "soldier",
+            [], "Catholic", "Europe",
+            ["brave", "strong"], [], 6, crew_data
+        ),
+        _make_crew_member(
+            "Tomé", "African", "Portuguese", "sailor",
+            [], "Catholic", "Africa",
+            [], [], 4, crew_data
         ),
     ]
 
@@ -2465,14 +2790,19 @@ def _build_portuguese_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
 def _build_ottoman_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
     return [
         _make_crew_member(
-            "Yusuf al-Halabi", "Persian", "Persian", "navigator",
-            ["Arabic", "Turkish"], "Islam", "Ottoman",
-            ["worldly", "veteran_sailor"], [], 8, crew_data
+            "Mehmed al-Rumi", "Turkish", "Turkish", "merchant",
+            ["Arabic", "Persian"], "Islam", "Ottoman",
+            ["sharp_trader", "polyglot"], [], 7, crew_data
         ),
         _make_crew_member(
-            "Ibrahim", "Arab", "Arabic", "merchant",
-            ["Turkish", "Persian"], "Islam", "Ottoman",
-            ["sharp_trader", "polyglot"], [], 7, crew_data
+            "Kemal", "Turkish", "Turkish", "soldier",
+            [], "Islam", "Ottoman",
+            ["brave", "strong"], [], 6, crew_data
+        ),
+        _make_crew_member(
+            "Yusuf al-Halabi", "Arab", "Arabic", "navigator",
+            ["Turkish", "Persian"], "Islam", "Arab",
+            ["worldly", "veteran_sailor"], [], 8, crew_data
         ),
         _make_crew_member(
             "Baraka", "East African", "Swahili", "physician",
@@ -2502,6 +2832,72 @@ def _build_chinese_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
     ]
 
 
+def _run_intro_scene(state: "GameState", intro: Dict[str, Any]) -> None:
+    """Run a structured intro scene from an intros.json definition."""
+    if intro.get("once_flag") in state.once_flags:
+        return
+    if intro.get("once_flag"):
+        state.once_flags.append(intro["once_flag"])
+
+    lang = getattr(state, "lang", "en")
+
+    for beat in intro.get("beats", []):
+        btype = beat.get("type")
+
+        if btype == "narration":
+            clear()
+            text = beat.get(f"text_{lang}") if lang != "en" else None
+            text = text or beat.get("text", "")
+            print(text)
+            if beat.get("pause", True):
+                press_enter()
+
+        elif btype == "scene_header":
+            clear()
+            title = beat.get(f"title_{lang}") if lang != "en" else None
+            title = title or beat.get("title", "")
+            print(f"\n  ── {title} ──\n")
+
+        elif btype == "choice":
+            preamble = beat.get(f"preamble_{lang}") if lang != "en" else None
+            preamble = preamble or beat.get("preamble", "")
+            if preamble:
+                print(preamble)
+
+            options = beat.get("options", [])
+            for i, opt in enumerate(options, 1):
+                label = opt.get(f"label_{lang}") if lang != "en" else None
+                label = label or opt.get("label", "")
+                print(f"  [{i}] {label}")
+            print()
+            raw = input("  > ").strip()
+
+            if raw.isdigit() and 1 <= int(raw) <= len(options):
+                chosen = options[int(raw) - 1]
+            else:
+                chosen = options[-1]
+
+            response = chosen.get(f"response_{lang}") if lang != "en" else None
+            response = response or chosen.get("response", "")
+            aftermath = chosen.get(f"aftermath_{lang}") if lang != "en" else None
+            aftermath = aftermath or chosen.get("aftermath", "")
+
+            if response:
+                print(f"\n{response}")
+            if aftermath:
+                print(f"\n{aftermath}")
+
+            effects = chosen.get("effects", {})
+            delta = effects.get("morale", 0)
+            if delta:
+                state.morale = min(100, max(0, state.morale + delta))
+            for flag in effects.get("once_flags", []):
+                if flag not in state.once_flags:
+                    state.once_flags.append(flag)
+
+            press_enter()
+
+
 def _opening_scene_portuguese(state: GameState):
     clear()
     print(
@@ -2518,7 +2914,7 @@ def _opening_scene_portuguese(state: GameState):
     print("  ── A WOMAN ON MY SHIP ──\n")
     print(
         "  At sea. Before first port.\n"
-        "  Rui Brandão corners you at the tiller.\n\n"
+        "  Rui Barbosa corners you at the tiller.\n\n"
         "  Rui: \"Captain. A word. About your cousin.\"\n"
     )
 
@@ -2528,8 +2924,8 @@ def _opening_scene_portuguese(state: GameState):
     print("  [4] [Deliver a rousing speech about equality]\n")
     choice = input("  > ").strip()
 
-    camila = next((m for m in state.crew.alive_members() if m.name == "Camila de Faro"), None)
-    rui = next((m for m in state.crew.alive_members() if m.name == "Rui Brandão"), None)
+    camila = next((m for m in state.crew.alive_members() if m.name == "Camila de Sousa"), None)
+    rui = next((m for m in state.crew.alive_members() if m.name == "Rui Barbosa"), None)
 
     if choice == "1":
         print("\n  Rui goes quiet. He nods once and returns to the rigging.")
@@ -2674,6 +3070,7 @@ def start_new_game(
     world: Dict[str, Any],
     crew_data: Dict[str, Any],
     all_quests: List[Dict[str, Any]],
+    intros: Dict[str, Any],
     lang: str = "en",
 ):
     role = choose_role()
@@ -2684,9 +3081,8 @@ def start_new_game(
     if role == "Portuguese Conquistador":
         for member in _build_portuguese_crew(crew_data):
             state.crew.add(member)
-        # Portuguese starting gear
         state.items.append("rapier")
-        _opening_scene_portuguese(state)
+        _run_intro_scene(state, intros.get("portuguese", {}))
         # Starting position: approaching the Strait from the west (Change 10)
         state.current_location = "Indian Ocean, southeast of Calicut"
         state.current_location_type = "sea"
@@ -2694,7 +3090,7 @@ def start_new_game(
     elif role == "Ottoman Trader":
         for member in _build_ottoman_crew(crew_data):
             state.crew.add(member)
-        _opening_scene_ottoman(state)
+        _run_intro_scene(state, intros.get("ottoman", {}))
         # Starting position: departing Hormuz eastward (Change 10)
         state.current_location = "Arabian Sea, departing Hormuz"
         state.current_location_type = "sea"
@@ -2702,7 +3098,7 @@ def start_new_game(
     elif role == "Chinese Trader":
         for member in _build_chinese_crew(crew_data):
             state.crew.add(member)
-        _opening_scene_chinese(state)
+        _run_intro_scene(state, intros.get("chinese", {}))
         # Starting position: south of the Fujian coast (Change 10)
         state.current_location = "South China Sea, south of Quanzhou"
         state.current_location_type = "sea"
@@ -2795,6 +3191,7 @@ def main():
         with open(NPC_KNOWLEDGE_PATH, encoding="utf-8") as _f:
             _raw_knowledge = json.load(_f)
         knowledge = {npc["id"]: npc for npc in _raw_knowledge.get("npcs", [])}
+        intros = load_json(INTROS_PATH)
     except FileNotFoundError as e:
         print(f"\n  Missing data file: {e}")
         sys.exit(1)
@@ -2812,7 +3209,7 @@ def main():
     while True:
         choice = main_menu()
         if choice == "1":
-            start_new_game(engine, world, crew_data, all_quests, lang=selected_lang)
+            start_new_game(engine, world, crew_data, all_quests, intros, lang=selected_lang)
         elif choice == "2":
             state = load_game(world)
             if state:

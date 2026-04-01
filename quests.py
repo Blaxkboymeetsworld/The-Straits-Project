@@ -353,9 +353,11 @@ class QuestManager:
             self.completed_ids.append(q.id)
             self.active.remove(q)
 
-            # Global reputation increment (capped at 5)
+            # Global reputation and assignment tracking
             if hasattr(state, "reputation_tier"):
                 state.reputation_tier = min(5, state.reputation_tier + 1)
+            if hasattr(state, "assignments_completed"):
+                state.assignments_completed += 1
 
             # Faction rep increase on quest completion
             from faction import port_to_faction
