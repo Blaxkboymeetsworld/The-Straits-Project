@@ -61,5 +61,6 @@
   "prisoner_take": "Tomar como prisioneros (rescate en el próximo puerto)",
   "prisoner_enslave": "Esclavizar (vender en puertos con mercado de esclavos)",
   "prisoner_release": "Liberarlos",
-  "prisoner_released_bonus": "Liberáis a los cautivos. Vuestra tripulación lo nota."
+  "prisoner_released_bonus": "Liberáis a los cautivos. Vuestra tripulación lo nota.",
+  "homeport_locked": "Aún no tenéis motivos para regresar. Hay más que aprender en estas aguas."
 }

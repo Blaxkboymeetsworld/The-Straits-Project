@@ -190,6 +190,13 @@ class GameState:
         self.combat_enabled: bool = False           # STUB — do not implement combat yet
         self.lang: str = "en"                       # language selection, saved and restored
 
+        # v0.2.0-pass3c: Fall of Malacca world-state flags
+        self.malacca_rumor_heard = False          # set True when rumor fires (day 30–45)
+        self.malacca_announced = False            # set True when formal announcement fires (day 45–60)
+        self.fall_of_malacca_witnessed = False    # True if player at/near Malacca during the fall
+        self.fall_of_malacca_heard = False        # True if player elsewhere during the fall
+        self.malacca_price_disruption_end = 0     # game day when +30% price disruption expires
+
         # TODO v0.3: Player traits assigned at character creation
         # player_traits field stubbed and ready
         # Traits will be selected during intro sequences and affect
@@ -264,6 +271,12 @@ class GameState:
             "slaves_aboard": self.slaves_aboard,
             "combat_enabled": self.combat_enabled,
             "lang": self.lang,
+            # v0.2.0-pass3c fields
+            "malacca_rumor_heard": self.malacca_rumor_heard,
+            "malacca_announced": self.malacca_announced,
+            "fall_of_malacca_witnessed": self.fall_of_malacca_witnessed,
+            "fall_of_malacca_heard": self.fall_of_malacca_heard,
+            "malacca_price_disruption_end": self.malacca_price_disruption_end,
         }
 
     @classmethod
@@ -304,6 +317,12 @@ class GameState:
         obj.slaves_aboard = int(d.get("slaves_aboard", 0))
         obj.combat_enabled = bool(d.get("combat_enabled", False))
         obj.lang = d.get("lang", "en")
+        # v0.2.0-pass3c fields — backward-compatible defaults
+        obj.malacca_rumor_heard = bool(d.get("malacca_rumor_heard", False))
+        obj.malacca_announced = bool(d.get("malacca_announced", False))
+        obj.fall_of_malacca_witnessed = bool(d.get("fall_of_malacca_witnessed", False))
+        obj.fall_of_malacca_heard = bool(d.get("fall_of_malacca_heard", False))
+        obj.malacca_price_disruption_end = int(d.get("malacca_price_disruption_end", 0))
         return obj
 
     def apply_effect(self, effect: Dict[str, Any]):
@@ -907,6 +926,34 @@ def _check_world_events(state: GameState, engine: "EventEngine"):
         state.once_flags.append("world_event_malacca_fall")
         _world_event_fall_of_malacca(state)
 
+    # ── Malacca rumor phase — days 30–45, at port, 50% chance ─────────
+    if (
+        30 <= state.day <= 45
+        and not state.malacca_rumor_heard
+        and not state.malacca_announced
+        and state.current_location_type in ("major_port", "village")
+        and roll_check(0.50)
+    ):
+        _world_event_malacca_rumor(state)
+
+    # ── Malacca announcement — days 45–60, fires once ─────────────────
+    if (
+        45 <= state.day <= 60
+        and not state.malacca_announced
+        and "world_event_malacca_announcement" not in state.once_flags
+    ):
+        state.once_flags.append("world_event_malacca_announcement")
+        state.malacca_announced = True
+        _world_event_malacca_announcement(state)
+
+    # ── Fall of Malacca — days 75–90, fires once ──────────────────────
+    if (
+        75 <= state.day <= 90
+        and "world_event_malacca_fallen" not in state.once_flags
+    ):
+        state.once_flags.append("world_event_malacca_fallen")
+        _world_event_malacca_fallen(state)
+
     # ── Albuquerque's Death — Year 5 ──────────────────────────────────
     if (
         state.year >= 5
@@ -922,6 +969,198 @@ def _check_world_events(state: GameState, engine: "EventEngine"):
     ):
         state.once_flags.append("world_event_mamluks_fall")
         _world_event_fall_of_mamluks(state)
+
+
+def _world_event_malacca_fallen(state: GameState):
+    """
+    Day 75–90: Malacca has fallen. Fixed outcome.
+    Determines witnessed vs heard based on player location.
+    Applies faction shifts, price disruption, lore flags, port control change.
+    """
+    # "Near Malacca" = at Malacca, Pulau Tioman, or in transit on the Strait
+    near_malacca = state.current_location in (
+        "Malacca Harbor", "Pulau Tioman",
+        "At Sea — Strait of Malacca",
+        "Strait of Malacca",
+    )
+
+    clear()
+    print("═" * 52)
+    print("  MALACCA HAS FALLEN")
+    print("═" * 52)
+
+    if near_malacca:
+        state.fall_of_malacca_witnessed = True
+        if state.role == "Portuguese Conquistador":
+            print(
+                "\n  You are close enough to hear the cannon.\n\n"
+                "  The city burns in sections — not the whole city, but enough.\n"
+                "  Albuquerque has taken the bridge. The sultan's pavilion is gone.\n"
+                "  The 3,000 pieces of artillery the Sultanate held are now\n"
+                "  Portuguese artillery. The richest port in the world is\n"
+                "  a Portuguese possession.\n\n"
+                "  You watch from the deck. You are not sure what you feel.\n"
+            )
+        elif state.role == "Ottoman Trader":
+            print(
+                "\n  You are in the strait when it happens.\n\n"
+                "  The smoke reaches you before the news does.\n"
+                "  Then a Malay fishing boat passes, running south,\n"
+                "  and the fisherman's face tells you everything.\n\n"
+                "  Malacca is Portuguese. The spice routes rewire\n"
+                "  around a new reality — one that your empire\n"
+                "  has not yet decided how to answer.\n"
+            )
+        else:  # Chinese Trader
+            print(
+                "\n  You are at Pulau Tioman when the word arrives.\n\n"
+                "  A Gores merchant — sweating, out of breath — comes aboard.\n"
+                "  The city has fallen. Albuquerque welcomed the Chinese merchants\n"
+                "  back immediately; Ninachatu and Utemutaraja are being named\n"
+                "  governor-proxies. The Gores community survives.\n\n"
+                "  But the old order is gone. Everything your family\n"
+                "  built in that city is built on different ground now.\n"
+            )
+    else:
+        state.fall_of_malacca_heard = True
+        print(
+            "\n  The news comes to you at sea — or at a distant port.\n\n"
+            "  It travels in fragments: a merchant heard it from a sailor\n"
+            "  who heard it from a captain just in from the strait.\n"
+            "  By the time it reaches you, it has been told many times.\n\n"
+            "  But the core of it does not change in the telling:\n"
+            "  Malacca has fallen. Albuquerque holds the city.\n"
+            "  The world you arrived in no longer exists.\n"
+        )
+
+    # ── Mechanical effects ────────────────────────────────────────────
+
+    # Portuguese faction standing +1 with Portuguese-aligned ports
+    if state.role == "Portuguese Conquistador":
+        state.factions.adjust_rep("estado_da_india", +1)
+        state.factions.adjust_disposition("estado_da_india", +10)
+    else:
+        state.factions.adjust_rep("estado_da_india", +1)
+
+    # Malay faction standing → 0 for all players
+    # The old court is destroyed; remnant factions come later.
+    current_malay = state.factions.get_disposition("malacca_sultanate")
+    state.factions.adjust_disposition("malacca_sultanate", -current_malay)  # zeroes it
+    if "malacca_sultanate" in state.faction_standing:
+        state.faction_standing["malacca_sultanate"] = 0
+
+    # Price disruption: +30% for 15 days at Malacca-adjacent ports
+    state.malacca_price_disruption_end = state.day + 15
+
+    # Lore flags
+    state.seen_lore_flags["fall_of_malacca_event"] = \
+        state.seen_lore_flags.get("fall_of_malacca_event", 0) + 1
+    state.seen_lore_flags["malacca_sultanate_destroyed"] = \
+        state.seen_lore_flags.get("malacca_sultanate_destroyed", 0) + 1
+
+    # Port control change flag (harbor master becomes Portuguese)
+    state.once_flags.append("malacca_under_portuguese")
+    # Ibu Malam window: if player arrives at Malacca now, she may appear
+    if "ibu_malam_malacca_available" not in state.once_flags:
+        state.once_flags.append("ibu_malam_malacca_available")
+
+    print(
+        "\n  [Faction shifts: Portuguese standing rises.\n"
+        "   Malay Sultanate ties broken — old relationships reset.\n"
+        "   Trade disruption spreads through the strait.]\n"
+    )
+
+    # TODO v0.3+: Hang Tuah event chain
+    # The Fall of Malacca sets a flag that enables future Hang Tuah encounters.
+    # The Sejarah Melayu (Malay Annals) has 82 references to Hang Tuah — enough
+    # to ground game content without a separate source text.
+    # Do not write his chain yet. Design principle: he never knows he is the
+    # protagonist. His interiority is entirely legible on his own terms. He
+    # confounds the Portuguese not through resistance but through full personhood
+    # their categories cannot contain. His chain uses the existing once_flag +
+    # special_events architecture, triggered by port + day conditions.
+    # Brief comes separately.
+    state.once_flags.append("hang_tuah_chain_available")
+
+    press_enter()
+
+
+def _world_event_malacca_announcement(state: GameState):
+    """Day 45–60: formal announcement that Malacca is under assault. Fires once."""
+    clear()
+    print("═" * 52)
+    print("  WORD REACHES YOU")
+    print("═" * 52)
+
+    if state.role == "Portuguese Conquistador":
+        print(
+            "\n  A fast dispatch boat catches you at anchor.\n"
+            "  The letter is sealed with the Estado da India.\n\n"
+            "  \"Albuquerque has begun the assault on Malacca.\n"
+            "  The city will fall or hold within the month.\n"
+            "  All Portuguese vessels are to clear the strait\n"
+            "  or hold position awaiting orders.\"\n\n"
+            "  You fold the letter. The moment you have been\n"
+            "  sailing toward has arrived.\n"
+        )
+    elif state.role == "Ottoman Trader":
+        print(
+            "\n  An Arab dhow captain finds you at the anchorage.\n"
+            "  He speaks quietly, as though the news itself has weight.\n\n"
+            "  \"Albuquerque is at Malacca. Not a raid — a conquest.\n"
+            "  They have their fleet and they mean to keep the city.\n"
+            "  The Gujarati factors have all left. Every Muslim merchant\n"
+            "  who could get out has gotten out.\"\n\n"
+            "  He pauses.\n\n"
+            "  \"The world is changing shape. You understand me?\"\n"
+        )
+    else:  # Chinese Trader
+        print(
+            "\n  Old Liang hears it from a Hokkien captain just in from\n"
+            "  the strait. He comes to you at dawn, before the crew wakes.\n\n"
+            "  \"Albuquerque. He is there. The Portuguese fleet — many ships.\n"
+            "  The Gores community sent a runner to every Chinese vessel\n"
+            "  they could find: hold position, do not approach the harbor\n"
+            "  until the fighting is over.\"\n\n"
+            "  Old Liang's voice is flat. He has lived through worse news.\n"
+            "  That is not reassuring.\n"
+        )
+
+    press_enter()
+
+
+def _world_event_malacca_rumor(state: GameState):
+    """Day 30–45: rumor-phase flavor. Fires once at a port visit."""
+    clear()
+    print("═" * 52)
+    print("  WORD AT THE DOCKS")
+    print("═" * 52)
+
+    # Two voice types, chosen by which region the player is in
+    if state.current_location in ("Bantam", "Pulau Tioman", "Patani"):
+        print(
+            "\n  A Javanese captain — short man, nervous hands — corners you\n"
+            "  near the water barrels. He speaks in fragments.\n\n"
+            "  \"The Portuguese. Very many ships. More than the last time.\n"
+            "  People are saying Albuquerque. I don't know. People say many things.\n"
+            "  But the Gujarati factors left three weeks ago. All of them.\n"
+            "  You understand what I'm saying? All of them.\"\n\n"
+            "  He does not wait for your reply. He goes back to loading his junk.\n"
+        )
+    else:
+        print(
+            "\n  A Gujarati merchant — calm man, expensive turban, coffee going\n"
+            "  cold in his hand — sits across from you in the shade.\n\n"
+            "  \"I have heard three versions of this story,\" he says,\n"
+            "  \"and they agree on one thing: Albuquerque's fleet is moving east.\n"
+            "  The first version says ten ships. The second says twenty.\n"
+            "  The third says it has already happened and we are discussing history.\"\n\n"
+            "  He drinks his coffee.\n\n"
+            "  \"I would not be holding Malaccan tin right now, is all I will say.\"\n"
+        )
+
+    state.malacca_rumor_heard = True
+    press_enter()
 
 
 def _world_event_albuquerque_death(state: GameState):
@@ -1234,6 +1473,9 @@ def handle_prisoner_choice(state: "GameState", captive_type: str = "soldier", cl
 # Port UI
 # ─────────────────────────────────────────
 
+_MALACCA_DISRUPTED_PORTS = {"Malacca Harbor", "Bantam", "Patani", "Pulau Tioman"}
+
+
 def port_action_menu(
     state: GameState,
     port_data: Dict[str, Any],
@@ -1243,6 +1485,12 @@ def port_action_menu(
 ):
     """Full port interaction hub."""
     econ = Economy(port_data)
+
+    # Price disruption: +30% at Malacca-adjacent ports for 15 days after the Fall
+    if (port_data["name"] in _MALACCA_DISRUPTED_PORTS
+            and getattr(state, "malacca_price_disruption_end", 0) > state.day):
+        for good in econ.live_prices:
+            econ.live_prices[good] = max(1, round(econ.live_prices[good] * 1.30))
 
     # Goa temporal modifier: Albuquerque present Years 1-4
     if port_data["name"] == "Goa Harbor":
@@ -1300,6 +1548,11 @@ def port_action_menu(
         print("═" * 52)
         print(state.status_text())
         print()
+
+        # Malacca port control note (Change 11f)
+        if (port_data["name"] == "Malacca Harbor"
+                and "malacca_under_portuguese" in state.once_flags):
+            print("  ⚑  Under Portuguese control — harbor master: Portuguese officer")
 
         options = []
         def opt(key, label, available=True, reason=None):
@@ -1638,6 +1891,26 @@ def _tavern_rumor(state: GameState, port_data: Dict[str, Any], clear_fn, press_e
 
 
 # ─────────────────────────────────────────
+# Home port lockout (Change 10)
+# ─────────────────────────────────────────
+
+# Each protagonist's faction home port — locked until assignments_completed >= 3
+_HOME_PORTS: Dict[str, str] = {
+    "Portuguese Conquistador": "Goa Harbor",
+    "Ottoman Trader":          "Hormuz",
+    "Chinese Trader":          "Quanzhou",
+}
+
+
+def _is_home_port_locked(state: "GameState", dest: str) -> bool:
+    """Return True if the player is trying to return to their home port too early."""
+    home = _HOME_PORTS.get(state.role)
+    return (home is not None
+            and dest == home
+            and state.assignments_completed < 3)
+
+
+# ─────────────────────────────────────────
 # Travel & Sea Passage
 # ─────────────────────────────────────────
 
@@ -1699,6 +1972,8 @@ def choose_from_list(
             est = _travel_estimate(origin, n, state)
             barred, _ = state.factions.port_access_modifier(n)
             bar_tag = "  [BARRED]" if not barred else ""
+            if not bar_tag and _is_home_port_locked(state, n):
+                bar_tag = "  [LOCKED]"
             print(f"  {idx}) {n:<26} — {est}{bar_tag}")
         else:
             print(f"  {idx}) {n}")
@@ -1898,6 +2173,13 @@ def run_game(
         elif selection == "2":
             dest, dest_type = travel_menu(state.world, state)
             if dest and dest_type:
+                # Home port lockout (Change 10)
+                if _is_home_port_locked(state, dest):
+                    clear()
+                    print(f"\n  {t('homeport_locked')}")
+                    press_enter()
+                    continue
+
                 # Check if player is barred at this destination
                 can_dock, bar_reason = state.factions.port_access_modifier(dest)
                 if not can_dock:
@@ -2405,16 +2687,25 @@ def start_new_game(
         # Portuguese starting gear
         state.items.append("rapier")
         _opening_scene_portuguese(state)
+        # Starting position: approaching the Strait from the west (Change 10)
+        state.current_location = "Indian Ocean, southeast of Calicut"
+        state.current_location_type = "sea"
 
     elif role == "Ottoman Trader":
         for member in _build_ottoman_crew(crew_data):
             state.crew.add(member)
         _opening_scene_ottoman(state)
+        # Starting position: departing Hormuz eastward (Change 10)
+        state.current_location = "Arabian Sea, departing Hormuz"
+        state.current_location_type = "sea"
 
     elif role == "Chinese Trader":
         for member in _build_chinese_crew(crew_data):
             state.crew.add(member)
         _opening_scene_chinese(state)
+        # Starting position: south of the Fujian coast (Change 10)
+        state.current_location = "South China Sea, south of Quanzhou"
+        state.current_location_type = "sea"
 
     run_game(state, engine, crew_data, all_quests)
 

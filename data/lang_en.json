@@ -61,5 +61,6 @@
   "prisoner_take": "Take as prisoners (ransom at next port)",
   "prisoner_enslave": "Enslave (sell at slave market ports)",
   "prisoner_release": "Release them",
-  "prisoner_released_bonus": "You release the captives. Your crew notes it."
+  "prisoner_released_bonus": "You release the captives. Your crew notes it.",
+  "homeport_locked": "You have no reason to return yet. There is more to learn in these waters."
 }

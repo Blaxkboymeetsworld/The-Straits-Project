@@ -6,6 +6,27 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
+## [v0.2.0-pass3c] — World State — 2026-04-01
+
+### Added
+- Starting positions per protagonist: "Indian Ocean, southeast of Calicut" (Portuguese), "Arabian Sea, departing Hormuz" (Ottoman), "South China Sea, south of Quanzhou" (Chinese)
+- Home port lockout until `assignments_completed >= 3`; locked ports tagged `[LOCKED]` in travel list; message: "You have no reason to return yet."
+- Fall of Malacca world event trigger system — three-phase escalation:
+  - Rumor phase (day 30–45): port flavor text — nervous Javanese captain, skeptical Gujarati merchant
+  - Announcement event (day 45–60): formal once-only "Word reaches you" scene, role-variant
+  - Fall event (day 75–90): Malacca falls; witnessed vs heard based on proximity
+- Fall of Malacca mechanical effects: Portuguese faction standing +1, Malay faction standing zeroed, price disruption +30% at Malacca/Bantam/Patani/Pulau Tioman for 15 days, lore flags, Ibu Malam window
+- Malacca port control indicator after fall: "⚑ Under Portuguese control"
+- Hang Tuah event chain stub (design notes only; `hang_tuah_chain_available` flag set at fall)
+- State flags: `malacca_rumor_heard`, `malacca_announced`, `fall_of_malacca_witnessed`, `fall_of_malacca_heard`, `malacca_price_disruption_end`
+- Lang keys: `homeport_locked` in both `lang_en.json` and `lang_es.json`
+
+### Changed
+- Complete lang file audit: all 54 `t()` keys confirmed present in both en/es
+- All JSON event/quest files confirmed to have `_es` parallel keys (0 missing)
+
+---
+
 ## [v0.2.0-pass3b] — Layered Systems — 2026-03-31
 
 ### Added
