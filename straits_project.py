@@ -87,6 +87,12 @@ def clear():
 def press_enter():
     input(f"\n  {t('press_enter')}")
 
+def get_menu_choice(valid_keys):
+    while True:
+        choice = input("  > ").strip().upper()
+        if choice in valid_keys:
+            return choice
+
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)
     os.makedirs(SAVE_DIR, exist_ok=True)
@@ -815,7 +821,7 @@ def _sneak_in_menu(
     print("  [4] Force entry (risky — low success, severe consequences)")
     print("  [Q] Turn back\n")
 
-    choice = input("  > ").strip().upper()
+    choice = get_menu_choice({"1", "2", "3", "4", "Q"})
 
     if choice == "Q":
         state._sneak_in_success = False
@@ -1685,7 +1691,7 @@ def slave_market_menu(state: "GameState", port_data: Dict[str, Any], clear_fn, p
     print(f"  [{t('slave_market_purchase')}]  → [4]")
     print()
 
-    choice = input("  > ").strip()
+    choice = get_menu_choice({"1", "2", "3", "4"})
 
     if choice == "1":
         if state.gold < free_one_cost:
@@ -1765,7 +1771,7 @@ def handle_prisoner_choice(state: "GameState", captive_type: str = "soldier", cl
     print(f"  [{t('prisoner_release')}]  → [3]")
     print()
 
-    choice = input("  > ").strip()
+    choice = get_menu_choice({"1", "2", "3"})
 
     if choice == "1":
         state.slaves_aboard += 1   # reuse field; ransom-flagged separately in Pass 4
@@ -1901,7 +1907,7 @@ def port_action_menu(
             print(f"  {marker}[{key}] {label}")
 
         print()
-        choice = input("  > ").strip().upper()
+        choice = get_menu_choice({key for key, _, _, _ in options})
 
         # ── Market ──
         if choice == "1":
@@ -2106,7 +2112,7 @@ def ship_repair_menu(state: GameState, port_data: Dict[str, Any], clear_fn, pres
     print("  [P] Partial repair (specify gold)")
     print("  [Q] Cancel\n")
 
-    choice = input("  > ").strip().upper()
+    choice = get_menu_choice({"F", "P", "Q"})
 
     if choice == "F":
         if state.gold >= effective_cost:
@@ -2156,7 +2162,7 @@ def tavern_menu(state: GameState, port_data: Dict[str, Any], engine: EventEngine
     print("  [4] Trigger a random harbor event (stay a while)")
     print("  [Q] Leave\n")
 
-    choice = input("  > ").strip().upper()
+    choice = get_menu_choice({"1", "2", "3", "4", "Q"})
 
     if choice == "1":
         if state.gold >= 5:
@@ -2337,7 +2343,7 @@ def sea_action_menu(state: GameState) -> str:
     print("  [5] View active quests")
     print(f"  [6] {t('action_save')}")
     print(f"  [Q] {t('action_quit')}\n")
-    return input("  > ").strip().upper()
+    return get_menu_choice({"1", "2", "3", "4", "5", "6", "Q"})
 
 
 # ─────────────────────────────────────────
@@ -2922,7 +2928,7 @@ def _opening_scene_portuguese(state: GameState):
     print("  [2] \"Watch your tone, Rui.\"")
     print("  [3] \"You want to tell her yourself?\"")
     print("  [4] [Deliver a rousing speech about equality]\n")
-    choice = input("  > ").strip()
+    choice = get_menu_choice({"1", "2", "3", "4"})
 
     camila = next((m for m in state.crew.alive_members() if m.name == "Camila de Sousa"), None)
     rui = next((m for m in state.crew.alive_members() if m.name == "Rui Barbosa"), None)
@@ -2984,7 +2990,7 @@ def _opening_scene_ottoman(state: GameState):
         print("  [1] Leave him to his thoughts")
         print("  [2] Stand beside him. Say nothing.")
         print("  [3] \"You all right?\"\n")
-        choice = input("  > ").strip()
+        choice = get_menu_choice({"1", "2", "3"})
         if choice == "1":
             print("\n  You leave him. He does not move for another hour.")
         elif choice == "2":
@@ -3031,7 +3037,7 @@ def _opening_scene_chinese(state: GameState):
     print("  [2] \"Are you... actually a eunuch?\"")
     print("  [3] \"I've sailed with stranger men.\"")
     print("  [4] Press the question.\n")
-    choice = input("  > ").strip()
+    choice = get_menu_choice({"1", "2", "3", "4"})
 
     loyalty_flag = "wei_loyalty_standard"
 
