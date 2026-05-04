@@ -67,6 +67,24 @@ TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
     ("Cham Coast Anchorage", "Quanzhou"):  6,
     ("Cham Coast Anchorage", "Malacca Harbor"): 5,
     ("Cham Coast Anchorage", "Patani"): 4,
+    # At-sea starting positions
+    ("Indian Ocean, southeast of Calicut", "Malacca Harbor"): 8,
+    ("Indian Ocean, southeast of Calicut", "Goa Harbor"):     3,
+    ("Indian Ocean, southeast of Calicut", "Calicut"):        2,
+    ("Indian Ocean, southeast of Calicut", "Hormuz"):         9,
+    ("Indian Ocean, southeast of Calicut", "Quanzhou"):       18,
+    ("Indian Ocean, southeast of Calicut", "Bantam"):         12,
+    ("Indian Ocean, southeast of Calicut", "Aden Harbor"):    7,
+    ("Arabian Sea, departing Hormuz", "Hormuz"):              1,
+    ("Arabian Sea, departing Hormuz", "Aden Harbor"):         5,
+    ("Arabian Sea, departing Hormuz", "Calicut"):             8,
+    ("Arabian Sea, departing Hormuz", "Goa Harbor"):          9,
+    ("Arabian Sea, departing Hormuz", "Malacca Harbor"):      16,
+    ("South China Sea, south of Quanzhou", "Quanzhou"):       2,
+    ("South China Sea, south of Quanzhou", "Malacca Harbor"): 10,
+    ("South China Sea, south of Quanzhou", "Bantam"):         8,
+    ("South China Sea, south of Quanzhou", "Patani"):         6,
+    ("South China Sea, south of Quanzhou", "Keelung Outpost"): 3,
 }
 
 # Fill in reverse directions automatically (roughly symmetric)
