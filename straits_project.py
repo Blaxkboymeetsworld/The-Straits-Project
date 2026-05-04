@@ -152,6 +152,8 @@ class GameState:
 
         # First port gate — sea events only fire after visiting one port
         self.has_visited_port: bool = False
+        # Count of distinct port/village arrivals (used for Malacca event gating)
+        self.ports_visited: int = 0
 
         # Cargo: {good_id: qty}
         self.cargo: Dict[str, int] = {}
@@ -255,6 +257,7 @@ class GameState:
             "current_location": self.current_location,
             "current_location_type": self.current_location_type,
             "has_visited_port": self.has_visited_port,
+            "ports_visited": self.ports_visited,
             "cargo": self.cargo,
             "slave_cargo": self.slave_cargo,
             "items": self.items,
@@ -299,6 +302,7 @@ class GameState:
         obj.current_location = d.get("current_location", "At Sea")
         obj.current_location_type = d.get("current_location_type", "sea")
         obj.has_visited_port = d.get("has_visited_port", False)
+        obj.ports_visited = int(d.get("ports_visited", 0))
         obj.cargo = d.get("cargo", {})
         obj.slave_cargo = int(d.get("slave_cargo", 0))
         obj.items = d.get("items", [])
@@ -1237,28 +1241,33 @@ def _check_crew_milestone(state: "GameState") -> None:
 def _check_world_events(state: GameState, engine: "EventEngine"):
     """Check and fire timed world events based on game year."""
 
-    # ── Fall of Malacca — Year 1, days 1–30 ──────────────────────────
+    # ── Malacca rumor phase — days 30–60, at port, 50% chance ──────────
+    # Requires ports_visited >= 3 AND assignments_completed >= 2 (pacing gate)
     if (
-        state.year == 1
-        and state.day <= 30
-        and "world_event_malacca_fall" not in state.once_flags
-    ):
-        state.once_flags.append("world_event_malacca_fall")
-        _world_event_fall_of_malacca(state)
-
-    # ── Malacca rumor phase — days 30–45, at port, 50% chance ─────────
-    if (
-        30 <= state.day <= 45
+        state.day >= 30
         and not state.malacca_rumor_heard
         and not state.malacca_announced
         and state.current_location_type in ("major_port", "village")
+        and state.ports_visited >= 3
+        and state.assignments_completed >= 2
         and roll_check(0.50)
     ):
         _world_event_malacca_rumor(state)
 
-    # ── Malacca announcement — days 45–60, fires once ─────────────────
+    # ── Malacca announcement — fires once after rumor, days 45–75 ─────
     if (
-        45 <= state.day <= 60
+        state.day >= 45
+        and state.malacca_rumor_heard
+        and not state.malacca_announced
+        and "world_event_malacca_announcement" not in state.once_flags
+    ):
+        state.once_flags.append("world_event_malacca_announcement")
+        state.malacca_announced = True
+        _world_event_malacca_announcement(state)
+
+    # ── Late variant — day > 60, rumor never heard, skip straight to announcement ─
+    if (
+        state.day > 60
         and not state.malacca_announced
         and "world_event_malacca_announcement" not in state.once_flags
     ):
@@ -1291,6 +1300,13 @@ def _check_world_events(state: GameState, engine: "EventEngine"):
         _world_event_fall_of_mamluks(state)
 
 
+def _ls(state: GameState, en: str, es: str) -> str:
+    """Return es if state.lang == 'es' and es is non-empty, else en."""
+    if getattr(state, "lang", "en") == "es" and es:
+        return es
+    return en
+
+
 def _world_event_malacca_fallen(state: GameState):
     """
     Day 75–90: Malacca has fallen. Fixed outcome.
@@ -1306,52 +1322,80 @@ def _world_event_malacca_fallen(state: GameState):
 
     clear()
     print("═" * 52)
-    print("  MALACCA HAS FALLEN")
+    print("  " + _ls(state, "MALACCA HAS FALLEN", "MALACA HA CAÍDO"))
     print("═" * 52)
 
     if near_malacca:
         state.fall_of_malacca_witnessed = True
         if state.role == "Portuguese Conquistador":
-            print(
+            print(_ls(state,
                 "\n  You are close enough to hear the cannon.\n\n"
                 "  The city burns in sections — not the whole city, but enough.\n"
                 "  Albuquerque has taken the bridge. The sultan's pavilion is gone.\n"
                 "  The 3,000 pieces of artillery the Sultanate held are now\n"
                 "  Portuguese artillery. The richest port in the world is\n"
                 "  a Portuguese possession.\n\n"
-                "  You watch from the deck. You are not sure what you feel.\n"
-            )
+                "  You watch from the deck. You are not sure what you feel.\n",
+                "\n  Estás lo bastante cerca para oír los cañones.\n\n"
+                "  La ciudad arde en partes — no entera, pero suficiente.\n"
+                "  Albuquerque ha tomado el puente. El pabellón del sultán ha desaparecido.\n"
+                "  Las tres mil piezas de artillería del Sultanato son ahora\n"
+                "  artillería portuguesa. El puerto más rico del mundo es\n"
+                "  posesión portuguesa.\n\n"
+                "  Observas desde cubierta. No sabes bien lo que sientes.\n"
+            ))
         elif state.role == "Ottoman Trader":
-            print(
+            print(_ls(state,
                 "\n  You are in the strait when it happens.\n\n"
                 "  The smoke reaches you before the news does.\n"
                 "  Then a Malay fishing boat passes, running south,\n"
                 "  and the fisherman's face tells you everything.\n\n"
                 "  Malacca is Portuguese. The spice routes rewire\n"
                 "  around a new reality — one that your empire\n"
-                "  has not yet decided how to answer.\n"
-            )
+                "  has not yet decided how to answer.\n",
+                "\n  Estás en el estrecho cuando ocurre.\n\n"
+                "  El humo llega antes que la noticia.\n"
+                "  Luego pasa un barco de pesca malayo rumbo al sur\n"
+                "  y la cara del pescador te lo dice todo.\n\n"
+                "  Malaca es portuguesa. Las rutas de las especias se reconfiguran\n"
+                "  en torno a una nueva realidad — una que tu imperio\n"
+                "  aún no ha decidido cómo responder.\n"
+            ))
         else:  # Chinese Trader
-            print(
+            print(_ls(state,
                 "\n  You are at Pulau Tioman when the word arrives.\n\n"
                 "  A Gores merchant — sweating, out of breath — comes aboard.\n"
                 "  The city has fallen. Albuquerque welcomed the Chinese merchants\n"
                 "  back immediately; Ninachatu and Utemutaraja are being named\n"
                 "  governor-proxies. The Gores community survives.\n\n"
                 "  But the old order is gone. Everything your family\n"
-                "  built in that city is built on different ground now.\n"
-            )
+                "  built in that city is built on different ground now.\n",
+                "\n  Estás en Pulau Tioman cuando llega la noticia.\n\n"
+                "  Un mercader Gores — sudoroso, sin aliento — sube a bordo.\n"
+                "  La ciudad ha caído. Albuquerque acogió enseguida a los mercaderes chinos;\n"
+                "  Ninachatu y Utemutaraja están siendo nombrados gobernadores-procuradores.\n"
+                "  La comunidad Gores sobrevive.\n\n"
+                "  Pero el viejo orden ha desaparecido. Todo lo que tu familia\n"
+                "  construyó en esa ciudad se alza ahora sobre terreno diferente.\n"
+            ))
     else:
         state.fall_of_malacca_heard = True
-        print(
+        print(_ls(state,
             "\n  The news comes to you at sea — or at a distant port.\n\n"
             "  It travels in fragments: a merchant heard it from a sailor\n"
             "  who heard it from a captain just in from the strait.\n"
             "  By the time it reaches you, it has been told many times.\n\n"
             "  But the core of it does not change in the telling:\n"
             "  Malacca has fallen. Albuquerque holds the city.\n"
-            "  The world you arrived in no longer exists.\n"
-        )
+            "  The world you arrived in no longer exists.\n",
+            "\n  La noticia te llega en el mar — o en un puerto lejano.\n\n"
+            "  Viaja en fragmentos: un mercader lo oyó de un marinero\n"
+            "  que lo oyó de un capitán recién llegado del estrecho.\n"
+            "  Para cuando te alcanza, ha sido contada muchas veces.\n\n"
+            "  Pero el núcleo no cambia en el relato:\n"
+            "  Malaca ha caído. Albuquerque controla la ciudad.\n"
+            "  El mundo al que llegaste ya no existe.\n"
+        ))
 
     # ── Mechanical effects ────────────────────────────────────────────
 
@@ -1384,11 +1428,14 @@ def _world_event_malacca_fallen(state: GameState):
     if "ibu_malam_malacca_available" not in state.once_flags:
         state.once_flags.append("ibu_malam_malacca_available")
 
-    print(
+    print(_ls(state,
         "\n  [Faction shifts: Portuguese standing rises.\n"
         "   Malay Sultanate ties broken — old relationships reset.\n"
-        "   Trade disruption spreads through the strait.]\n"
-    )
+        "   Trade disruption spreads through the strait.]\n",
+        "\n  [Cambios de facción: influencia portuguesa asciende.\n"
+        "   Lazos con el Sultanato Malayo rotos — relaciones antiguas reiniciadas.\n"
+        "   La perturbación comercial se extiende por el estrecho.]\n"
+    ))
 
     # TODO v0.3+: Hang Tuah event chain
     # The Fall of Malacca sets a flag that enables future Hang Tuah encounters.
@@ -1409,11 +1456,11 @@ def _world_event_malacca_announcement(state: GameState):
     """Day 45–60: formal announcement that Malacca is under assault. Fires once."""
     clear()
     print("═" * 52)
-    print("  WORD REACHES YOU")
+    print("  " + _ls(state, "WORD REACHES YOU", "LA NOTICIA TE ALCANZA"))
     print("═" * 52)
 
     if state.role == "Portuguese Conquistador":
-        print(
+        print(_ls(state,
             "\n  A fast dispatch boat catches you at anchor.\n"
             "  The letter is sealed with the Estado da India.\n\n"
             "  \"Albuquerque has begun the assault on Malacca.\n"
@@ -1421,10 +1468,18 @@ def _world_event_malacca_announcement(state: GameState):
             "  All Portuguese vessels are to clear the strait\n"
             "  or hold position awaiting orders.\"\n\n"
             "  You fold the letter. The moment you have been\n"
-            "  sailing toward has arrived.\n"
-        )
+            "  sailing toward has arrived.\n",
+            "\n  Un barco de despacho rápido te alcanza en el ancladero.\n"
+            "  La carta lleva el sello del Estado da India.\n\n"
+            "  \"Albuquerque ha iniciado el asalto sobre Malaca.\n"
+            "  La ciudad caerá o resistirá antes de un mes.\n"
+            "  Todos los navíos portugueses deben despejar el estrecho\n"
+            "  o mantenerse en posición aguardando órdenes.\"\n\n"
+            "  Doblas la carta. El momento hacia el que has\n"
+            "  navegado ha llegado.\n"
+        ))
     elif state.role == "Ottoman Trader":
-        print(
+        print(_ls(state,
             "\n  An Arab dhow captain finds you at the anchorage.\n"
             "  He speaks quietly, as though the news itself has weight.\n\n"
             "  \"Albuquerque is at Malacca. Not a raid — a conquest.\n"
@@ -1432,10 +1487,18 @@ def _world_event_malacca_announcement(state: GameState):
             "  The Gujarati factors have all left. Every Muslim merchant\n"
             "  who could get out has gotten out.\"\n\n"
             "  He pauses.\n\n"
-            "  \"The world is changing shape. You understand me?\"\n"
-        )
+            "  \"The world is changing shape. You understand me?\"\n",
+            "\n  Un capitán árabe de dhow te encuentra en el fondeadero.\n"
+            "  Habla en voz baja, como si la noticia tuviera peso en sí misma.\n\n"
+            "  \"Albuquerque está en Malaca. No es una incursión — es una conquista.\n"
+            "  Tiene su flota y pretende quedarse con la ciudad.\n"
+            "  Los factores gujarati se han marchado todos. Cada mercader\n"
+            "  musulmán que pudo salir se ha ido.\"\n\n"
+            "  Hace una pausa.\n\n"
+            "  \"El mundo está cambiando de forma. ¿Me entiendes?\"\n"
+        ))
     else:  # Chinese Trader
-        print(
+        print(_ls(state,
             "\n  Old Liang hears it from a Hokkien captain just in from\n"
             "  the strait. He comes to you at dawn, before the crew wakes.\n\n"
             "  \"Albuquerque. He is there. The Portuguese fleet — many ships.\n"
@@ -1443,8 +1506,16 @@ def _world_event_malacca_announcement(state: GameState):
             "  they could find: hold position, do not approach the harbor\n"
             "  until the fighting is over.\"\n\n"
             "  Old Liang's voice is flat. He has lived through worse news.\n"
-            "  That is not reassuring.\n"
-        )
+            "  That is not reassuring.\n",
+            "\n  El Viejo Liang lo oye de un capitán hokien recién llegado\n"
+            "  del estrecho. Viene a buscarte al amanecer, antes de que despierte la tripulación.\n\n"
+            "  \"Albuquerque. Está allí. La flota portuguesa — muchos barcos.\n"
+            "  La comunidad Gores envió un mensajero a cada barco chino\n"
+            "  que encontraron: mantened posición, no os acerquéis al puerto\n"
+            "  hasta que termine el combate.\"\n\n"
+            "  La voz del Viejo Liang es plana. Ha sobrevivido noticias peores.\n"
+            "  Eso no tranquiliza.\n"
+        ))
 
     press_enter()
 
@@ -1453,22 +1524,29 @@ def _world_event_malacca_rumor(state: GameState):
     """Day 30–45: rumor-phase flavor. Fires once at a port visit."""
     clear()
     print("═" * 52)
-    print("  WORD AT THE DOCKS")
+    print("  " + _ls(state, "WORD AT THE DOCKS", "NOTICIAS EN EL MUELLE"))
     print("═" * 52)
 
     # Two voice types, chosen by which region the player is in
     if state.current_location in ("Bantam", "Pulau Tioman", "Patani"):
-        print(
+        print(_ls(state,
             "\n  A Javanese captain — short man, nervous hands — corners you\n"
             "  near the water barrels. He speaks in fragments.\n\n"
             "  \"The Portuguese. Very many ships. More than the last time.\n"
             "  People are saying Albuquerque. I don't know. People say many things.\n"
             "  But the Gujarati factors left three weeks ago. All of them.\n"
             "  You understand what I'm saying? All of them.\"\n\n"
-            "  He does not wait for your reply. He goes back to loading his junk.\n"
-        )
+            "  He does not wait for your reply. He goes back to loading his junk.\n",
+            "\n  Un capitán javanés — hombre bajo, manos inquietas — te intercepta\n"
+            "  junto a los barriles de agua. Habla a retazos.\n\n"
+            "  \"Los portugueses. Muchos barcos. Más que la última vez.\n"
+            "  La gente habla de Albuquerque. No sé. La gente dice muchas cosas.\n"
+            "  Pero los factores gujarati se fueron hace tres semanas. Todos.\n"
+            "  ¿Entiendes lo que te digo? Todos.\"\n\n"
+            "  No espera tu respuesta. Vuelve a cargar su junco.\n"
+        ))
     else:
-        print(
+        print(_ls(state,
             "\n  A Gujarati merchant — calm man, expensive turban, coffee going\n"
             "  cold in his hand — sits across from you in the shade.\n\n"
             "  \"I have heard three versions of this story,\" he says,\n"
@@ -1476,8 +1554,16 @@ def _world_event_malacca_rumor(state: GameState):
             "  The first version says ten ships. The second says twenty.\n"
             "  The third says it has already happened and we are discussing history.\"\n\n"
             "  He drinks his coffee.\n\n"
-            "  \"I would not be holding Malaccan tin right now, is all I will say.\"\n"
-        )
+            "  \"I would not be holding Malaccan tin right now, is all I will say.\"\n",
+            "\n  Un mercader gujarati — hombre sereno, turbante costoso, café\n"
+            "  enfriándose en la mano — está sentado frente a ti a la sombra.\n\n"
+            "  \"He oído tres versiones de esta historia,\" dice,\n"
+            "  \"y coinciden en una cosa: la flota de Albuquerque avanza hacia el este.\n"
+            "  La primera versión dice diez barcos. La segunda dice veinte.\n"
+            "  La tercera dice que ya ha ocurrido y que estamos hablando de historia.\"\n\n"
+            "  Bebe su café.\n\n"
+            "  \"Yo no tendría estaño de Malaca en este momento, es todo lo que diré.\"\n"
+        ))
 
     state.malacca_rumor_heard = True
     press_enter()
@@ -2390,6 +2476,7 @@ def handle_landfall(
     # First-time port flag
     if state.current_location_type in ("major_port", "village"):
         state.has_visited_port = True
+        state.ports_visited += 1
 
     # Ibu Malam — first port appearance
     if is_first_port:

@@ -288,6 +288,8 @@ class QuestManager:
         for q in self.active:
             if q.completed or q.failed:
                 continue
+            if q.contact_found:
+                continue
             if q.target_port != port_name:
                 continue
             # Quest resolution
