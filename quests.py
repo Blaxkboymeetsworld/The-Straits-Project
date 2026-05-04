@@ -248,6 +248,11 @@ class QuestManager:
                     if player_tier < req_tier:
                         continue
 
+            # Role lock
+            req_role = q.get("requires_role")
+            if req_role and state_role != req_role:
+                continue
+
             result.append(q)
         return result
 
