@@ -2888,6 +2888,7 @@ def _run_intro_scene(state: "GameState", intro: Dict[str, Any]) -> None:
             aftermath = chosen.get(f"aftermath_{lang}") if lang != "en" else None
             aftermath = aftermath or chosen.get("aftermath", "")
 
+            clear()
             if response:
                 print(f"\n{response}")
             if aftermath:
