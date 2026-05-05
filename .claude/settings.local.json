@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m py_compile economy.py)",
+      "Bash(python -m py_compile time_system.py)",
+      "Bash(python -m py_compile faction.py)",
+      "Bash(python -m py_compile straits_project.py)",
+      "Bash(python -m py_compile straits_project.py crew.py economy.py faction.py ships.py time_system.py quests.py)",
+      "Bash(python -m py_compile straits_project.py crew.py economy.py faction.py time_system.py quests.py)",
+      "Bash(printf \"\\\\n1\\\\n1\\\\n\\\\n2\\\\n1\\\\n1\\\\n\\\\n1\\\\n\\\\n1\\\\nB\\\\n1\\\\n2\\\\n\\\\nQ\\\\n3\\\\nQ\\\\n6\\\\n\\\\n4\\\\nQ\\\\n5\\\\n\\\\nV\\\\n\\\\nS\\\\nQ\\\\n\")",
+      "Bash(timeout 60 env PYTHONIOENCODING=utf-8 python straits_project.py)",
+      "Bash(printf \"\\\\n1\\\\n1\\\\n\\\\n2\\\\n1\\\\n1\\\\n\\\\n1\\\\n\\\\n1\\\\nB\\\\n1\\\\n2\\\\n\\\\nQ\\\\n3\\\\nQ\\\\n7\\\\n\\\\n6\\\\n2\\\\n\\\\nQ\\\\n4\\\\nQ\\\\n5\\\\n\\\\nV\\\\n\\\\nS\\\\nQ\\\\n\")",
+      "Bash(timeout 60 python straits_project.py)",
+      "Bash(printf \"1\\\\n1\\\\n\\\\n2\\\\n1\\\\n1\\\\n\\\\n1\\\\n\\\\n1\\\\nB\\\\n1\\\\n2\\\\n\\\\nQ\\\\n3\\\\nQ\\\\n7\\\\n\\\\n6\\\\n2\\\\n\\\\nQ\\\\n4\\\\nQ\\\\n5\\\\n\\\\nV\\\\n\\\\nS\\\\nQ\\\\n\")",
+      "Bash(printf \"1\\\\n1\\\\n\\\\n2\\\\n1\\\\n1\\\\n\\\\n1\\\\n\\\\n1\\\\nB\\\\n1\\\\n2\\\\n\\\\nQ\\\\n3\\\\nQ\\\\n7\\\\n\\\\n6\\\\n2\\\\n\\\\n4\\\\nQ\\\\n5\\\\n\\\\nV\\\\n\\\\nS\\\\nQ\\\\n\")",
+      "Bash(python -c \":*)",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/world.json'', encoding=''utf-8''\\)\\); print\\(''world.json OK''\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\(''data/events.json'', encoding=''utf-8''\\)\\); print\\(''events.json OK''\\)\")",
+      "Bash(echo \"2:*)",
+      "Bash(python straits_project.py)",
+      "Bash(printf \"1\\\\n2\\\\n\\\\n2\\\\n1\\\\nQ\\\\nS\\\\nV\\\\n3\\\\n\")",
+      "Bash(ls -la data/*.json)",
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pip install:*)",
+      "Bash(where tesseract:*)",
+      "Bash(wc -l C:/Users/jonat/Desktop/The-Straits-Project/docs/*.md C:/Users/jonat/Desktop/The-Straits-Project/docs/character_bibles/*.md)",
+      "Bash(rm -rf docs/)",
+      "Bash(mkdir docs:*)",
+      "Bash(mkdir docs/character_bibles)",
+      "Bash(cd:*)",
+      "Bash(wc -c \"C:/Users/jonat/Desktop/The-Straits-Project/sources/\"*.txt)",
+      "Bash(claude install:*)",
+      "Bash(python3:*)",
+      "Bash(grep -v \"^[0-9]*:\\\\s*$\")"
+    ]
+  }
+}
