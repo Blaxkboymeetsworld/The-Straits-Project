@@ -1243,13 +1243,34 @@ def _check_crew_milestone(state: "GameState") -> None:
 def _check_world_events(state: GameState, engine: "EventEngine"):
     """Check and fire timed world events based on game year."""
 
-    # ── Fall of Malacca — Year 1, days 1–30 ──────────────────────────
+    # ── Fall of Malacca — Year 1, days 10–30 (Portuguese) ────────────
     if (
         state.year == 1
-        and state.day <= 30
-        and "world_event_malacca_fall" not in state.once_flags
+        and 10 <= state.day <= 30
+        and state.role == "Portuguese Conquistador"
+        and "world_event_malacca_fall_portuguese" not in state.once_flags
     ):
-        state.once_flags.append("world_event_malacca_fall")
+        state.once_flags.append("world_event_malacca_fall_portuguese")
+        _world_event_fall_of_malacca(state)
+
+    # ── Fall of Malacca — Year 1, days 20–30 (Ottoman) ───────────────
+    if (
+        state.year == 1
+        and 20 <= state.day <= 30
+        and state.role == "Ottoman Trader"
+        and "world_event_malacca_fall_ottoman" not in state.once_flags
+    ):
+        state.once_flags.append("world_event_malacca_fall_ottoman")
+        _world_event_fall_of_malacca(state)
+
+    # ── Fall of Malacca — Year 1, days 25–30 (Chinese) ───────────────
+    if (
+        state.year == 1
+        and 25 <= state.day <= 30
+        and state.role == "Chinese Trader"
+        and "world_event_malacca_fall_chinese" not in state.once_flags
+    ):
+        state.once_flags.append("world_event_malacca_fall_chinese")
         _world_event_fall_of_malacca(state)
 
     # ── Malacca rumor phase — days 30–45, at port, 50% chance ─────────
@@ -1570,6 +1591,16 @@ def _world_event_fall_of_malacca(state: GameState):
 
     print("  [Arrive at Malacca to witness the siege]")
     print("  [Or continue your current course]\n")
+
+    if state.role == "Portuguese Conquistador":
+        print(
+            '\n  — DISPATCH — ESTADO DA INDIA —\n\n'
+            '  Albuquerque fleet — seventeen ships, twelve hundred men —\n'
+            '  has departed Goa this season bound for Malacca.\n'
+            '  The Governor expects the city to fall before the monsoon turns.\n\n'
+            '  Portuguese captains who present themselves at the harbor\n'
+            '  with Estado credentials will be received as allies.\n'
+        )
     press_enter()
 
     # Ibu Malam at Malacca trigger (fires if player reaches Malacca during this window)
