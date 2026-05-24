@@ -73,6 +73,8 @@ PORT_HARBOR_MASTERS: Dict[str, str] = {
     "Calicut":        "koya_moopan_calicut",
 }
 
+MONTH_NAMES = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"]
+
 
 # ─────────────────────────────────────────
 # Utility
@@ -411,7 +413,7 @@ class GameState:
         active_q = len([q for q in self.quests.active if not q.completed and not q.failed])
         prov_warn = "  ⚠ LOW" if self.provisions < 10 else ""
         return (
-            f"  {t('status_day')}: {self.time.display}  •  Year {self.year} ({self.calendar_year})\n"
+            f"  {t('status_day')}: {self.time.display}  •  {MONTH_NAMES[self.month]} {self.calendar_year} (Year {self.year})\n"
             f"  {t('status_role')}: {self.role}  —  {self.protagonist_name}\n"
             f"  {t('status_location')}: {self.current_location} ({self.current_location_type.replace('_',' ')})\n"
             f"  {t('status_gold')}: {self.gold}  |  Provisions: {self.provisions}{prov_warn}  |  Cargo: {cargo_used}/{self.cargo_capacity()}\n"
