@@ -33,7 +33,7 @@
         },
         {
           "topic": "sultan mahmud",
-          "aliases": ["the sultan", "mahmud shah", "exiled sultan", "mahmud"],
+          "aliases": ["the sultan", "mahmud shah", "exiled sultan", "mahmud", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
           "response": "He glances toward the fort the Portuguese are building where the mosque used to stand. 'The Sultan is at Bintan. He has not forgotten. Neither have we.'",
           "response_es": "Dirige la mirada hacia el fuerte que los portugueses están levantando donde antes estaba la mezquita. 'El Sultán está en Bintan. No ha olvidado. Nosotros tampoco.'",
           "min_disposition": 35,
@@ -89,6 +89,13 @@
           "min_disposition": 10,
           "locked_response": "'Bantam.' He repeats the word without inflection. 'A port to the south.'",
           "locked_response_es": "'Bantam.' Repite la palabra sin inflexión. 'Un puerto al sur.'"
+        },
+        {
+          "topic": "port orientation",
+          "aliases": ["malacca overview", "about this port", "what is traded here", "malacca prices", "goods available", "trade here", "what can i buy"],
+          "response": "Kassim is quiet for a moment before he answers. 'Malacca is the Sultan's city — Sultan Mahmud Shah. Muslim, and the richest trading port in the world. Half the spice trade passes through this harbor. Chinese, Javanese, Gujarati, Tamil, Arab — every nation has a community here, its own laws, its own quarter.' He pauses, and something shifts in his expression. 'The Portuguese fleet is coming. You may already know this. Albuquerque has seventeen ships and he does not make courtesy calls.' He names prices quickly, as if completing a formality. 'Pepper, cloves from the Moluccas, nutmeg, tin from the peninsula, camphor, sandalwood. The prices are fair today. Whether they are fair next month is a different question.'",
+          "response_es": "Kassim guarda silencio un momento antes de responder. 'Malaca es la ciudad del Sultán — el Sultán Mahmud Shah. Musulmana, y el puerto comercial más rico del mundo. La mitad del comercio de especias pasa por este puerto. Chinos, javaneses, gujaratis, tamiles, árabes — cada nación tiene una comunidad aquí, sus propias leyes, su propio barrio.' Pausa, y algo cambia en su expresión. 'La flota portuguesa viene. Puede que ya lo sepas. Albuquerque tiene diecisiete barcos y no hace visitas de cortesía.' Nombra los precios rápidamente, como cumpliendo un trámite. 'Pimienta, clavos de las Molucas, nuez moscada, estaño de la península, alcanfor, sándalo. Los precios son justos hoy. Si lo serán el mes que viene es otra pregunta.'",
+          "min_disposition": 0
         }
       ]
     },
