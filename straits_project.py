@@ -73,7 +73,7 @@ PORT_HARBOR_MASTERS: Dict[str, str] = {
     "Calicut":        "koya_moopan_calicut",
 }
 
-MONTH_NAMES = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"]
+MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 DAY_PORTUGUESE_HEARS_FLEET  =  90   # April  — fleet left Goa
 DAY_OTTOMAN_HEARS_FLEET     = 120   # May    — Islamic merchant network
@@ -254,7 +254,7 @@ class GameState:
 
     @property
     def month(self) -> int:
-        """0-indexed month within current year. 0 = April."""
+        """0-indexed month within current year. 0 = January."""
         return ((self.time.day - 1) % 365) // 30
 
     def cargo_capacity(self) -> int:
