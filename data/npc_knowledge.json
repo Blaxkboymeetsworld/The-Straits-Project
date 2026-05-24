@@ -314,9 +314,9 @@
         },
         {
           "topic": "mamluks",
-          "aliases": ["mamluk", "cairo", "egypt", "mamluk fleet", "mamluk sultan"],
-          "response": "He measures his words. 'The Mamluks controlled the Red Sea. Now the Ottomans do. The trade continues. The faces change.' He does not look pleased about this, exactly. 'Aden has survived many masters.'",
-          "response_es": "Mide sus palabras. 'Los mamelucos controlaban el Mar Rojo. Ahora los otomanos lo hacen. El comercio continúa. Los rostros cambian.' No parece del todo satisfecho con esto. 'Adén ha sobrevivido a muchos señores.'",
+          "aliases": ["mamluk", "cairo", "egypt", "mamluk fleet", "mamluk sultan", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
+          "response": "He measures his words. 'The Mamluks hold the Red Sea — Cairo to Jeddah, the fleet is theirs. They are the power here, for now. But the Ottomans press from the north, and men who watch these things say the pressure will not stop.' A pause. 'Aden has survived many masters. It will survive whoever comes next.'",
+          "response_es": "Mide sus palabras. 'Los mamelucos dominan el Mar Rojo — de El Cairo a Yeda, la flota es suya. Son el poder aquí, por ahora. Pero los otomanos presionan desde el norte, y quienes observan estas cosas dicen que la presión no cesará.' Una pausa. 'Adén ha sobrevivido a muchos señores. Sobrevivirá a quien venga después.'",
           "min_disposition": 15,
           "locked_response": "He is briefly still. 'Political matters are above my station.' He does not sound convinced by this himself.",
           "locked_response_es": "Queda brevemente inmóvil. 'Los asuntos políticos están por encima de mi rango.' No suena convencido él mismo."
