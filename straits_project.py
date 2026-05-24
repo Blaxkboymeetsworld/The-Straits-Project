@@ -2003,7 +2003,7 @@ def port_action_menu(
             print("\n  The crew stands down for several hours. The ship rocks gently at anchor.")
             state.time.advance_hours(8)
             state.morale = min(100, state.morale + 5)
-            print(f"\n  Time passes. {state.time.display}")
+            print(f"\n  Time passes. {MONTH_NAMES[state.month]} {state.calendar_year} (Year {state.year})  •  {state.time.display}")
             print(f"  Morale +5. Current morale: {state.morale}")
             press_enter()
 
