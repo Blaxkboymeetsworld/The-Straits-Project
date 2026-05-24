@@ -685,7 +685,7 @@ class EventEngine:
             print(f"\n  (Some options unavailable — crew lacks the required skill, item, or gold)")
 
         print()
-        choice = input("  > ").strip()
+        choice = get_menu_choice(available_keys)
 
         if choice not in available_keys:
             print(f"\n  {t('you_hesitate')}")
@@ -2093,7 +2093,7 @@ def weapons_shop(
             print()
 
         print("  [Q] Leave\n")
-        choice = input("  Buy which? > ").strip().upper()
+        choice = get_menu_choice([str(i) for i in range(1, len(weapons_list)+1)] + ["Q"])
 
         if choice == "Q":
             break
@@ -2277,7 +2277,7 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
     print(f"  [1] {t('travel_major_ports')}")
     print(f"  [2] {t('travel_villages')}")
     print(f"  [3] {t('travel_cancel')}\n")
-    top = input("  > ").strip()
+    top = get_menu_choice(["1", "2", "3"])
 
     if top == "1":
         return choose_from_list(
@@ -2335,7 +2335,7 @@ def choose_from_list(
         else:
             print(f"  {idx}) {n}")
     print(f"  {len(names)+1}) Cancel\n")
-    sel = input("  > ").strip()
+    sel = get_menu_choice([str(i) for i in range(1, len(names)+2)])
     try:
         k = int(sel)
     except ValueError:
@@ -2659,7 +2659,7 @@ def choose_role() -> str:
     print("       The diaspora knows your name before you arrive.")
     print()
     mapping = {"1": "Portuguese Conquistador", "2": "Ottoman Trader", "3": "Chinese Trader"}
-    return mapping.get(input("\n  > ").strip(), "Portuguese Conquistador")
+    return mapping.get(get_menu_choice(["1", "2", "3"]), "Portuguese Conquistador")
 
 
 # ─────────────────────────────────────────
@@ -2755,7 +2755,7 @@ def select_language() -> str:
     print("\n  Select your language / Selecciona tu idioma")
     print("  1) English")
     print("  2) Español\n")
-    choice = input("  > ").strip()
+    choice = get_menu_choice(["1", "2"])
     return "es" if choice == "2" else "en"
 
 
@@ -2765,7 +2765,7 @@ def main_menu() -> str:
     print(f"  [1] {t('menu_start')}")
     print(f"  [2] {t('menu_load')}")
     print(f"  [3] {t('menu_quit')}\n")
-    return input("  > ").strip()
+    return get_menu_choice(["1", "2", "3"])
 
 
 def _make_crew_member(
@@ -2907,7 +2907,7 @@ def _run_intro_scene(state: "GameState", intro: Dict[str, Any]) -> None:
                 label = label or opt.get("label", "")
                 print(f"  [{i}] {label}")
             print()
-            raw = input("  > ").strip()
+            raw = get_menu_choice([str(i) for i in range(1, len(options)+1)])
 
             if raw.isdigit() and 1 <= int(raw) <= len(options):
                 chosen = options[int(raw) - 1]
