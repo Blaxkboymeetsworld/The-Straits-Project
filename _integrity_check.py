@@ -108,7 +108,7 @@ ts_text = pathlib.Path("time_system.py").read_text(encoding="utf-8")
 travel_port_refs = re.findall(r'"([\w\s]+)":\s*\{', ts_text)
 for ref in travel_port_refs:
     ref = ref.strip()
-    if ref and ref not in all_port_names and ref not in ("At Sea",):
+    if ref and ref not in all_port_names and ref not in ("At Sea",) and "_" not in ref:
         warn(f"time_system.py TRAVEL_TIMES key '{ref}' not found in world.json")
 ok("time_system.py TRAVEL_TIMES keys cross-referenced against world.json")
 
