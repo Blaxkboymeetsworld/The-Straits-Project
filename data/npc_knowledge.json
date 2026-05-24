@@ -441,7 +441,7 @@
         },
         {
           "topic": "zamorin",
-          "aliases": ["the zamorin", "mana vikraman", "ruler of calicut", "king"],
+          "aliases": ["the zamorin", "mana vikraman", "ruler of calicut", "king", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
           "response": "'The Zamorin has fought the Portuguese twice and is preparing to fight them a third time. He is not a patient man, but he is a thorough one. He does not lose without learning.' A pause. 'He learns quickly.'",
           "response_es": "'El Zamorín ha combatido a los portugueses dos veces y se prepara para combatirlos una tercera. No es un hombre paciente, pero sí minucioso. No pierde sin aprender.' Una pausa. 'Aprende rápido.'",
           "min_disposition": 20,
@@ -486,6 +486,13 @@
           "min_disposition": 10,
           "locked_response": "'They come and go with the monsoon. As they always have.' He offers nothing more.",
           "locked_response_es": "'Vienen y van con el monzón. Como siempre.' No ofrece nada más."
+        },
+        {
+          "topic": "port orientation",
+          "aliases": ["calicut overview", "about this port", "what is traded here", "calicut prices", "goods available", "trade here", "what can i buy"],
+          "response": "Koya Moopan shakes his head slightly — not refusing, measuring. 'Calicut is the Zamorin's city. Hindu, independent, and intending to stay that way. Da Gama came twice and burned our ships the second time — you may have heard a different version of that story in Lisbon. The Zamorin has not forgotten.' He names prices without hesitation. 'Pepper — twenty thousand bahars a year from the Malabar hills, the standard against which all other pepper is priced. Ginger, cardamom, coconuts, coir rope. If you are buying, buy here — you will not find the quality elsewhere. If you are Portuguese, buy quietly and do not mention your flag at the market.'",
+          "response_es": "Koya Moopan sacude ligeramente la cabeza — no rechazando, midiendo. 'Calicut es la ciudad del Zamorín. Hindú, independiente, y con intención de seguir así. Da Gama vino dos veces y quemó nuestros barcos la segunda — puede que hayas oído una versión diferente de esa historia en Lisboa. El Zamorín no lo ha olvidado.' Nombra los precios sin vacilar. 'Pimienta — veinte mil bahares al año de las colinas de Malabar, el patrón con el que se compara toda otra pimienta. Jengibre, cardamomo, cocos, cuerda de coco. Si vas a comprar, compra aquí — no encontrarás esa calidad en otro lugar. Si eres portugués, compra en silencio y no menciones tu bandera en el mercado.'",
+          "min_disposition": 0
         }
       ]
     },
