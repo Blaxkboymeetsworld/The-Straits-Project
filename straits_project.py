@@ -244,6 +244,11 @@ class GameState:
         """Historical calendar year."""
         return 1510 + self.year
 
+    @property
+    def month(self) -> int:
+        """0-indexed month within current year. 0 = April."""
+        return ((self.time.day - 1) % 365) // 30
+
     def cargo_capacity(self) -> int:
         """Returns the ship's cargo capacity (ship upgrades can override this)."""
         return MAX_CARGO
