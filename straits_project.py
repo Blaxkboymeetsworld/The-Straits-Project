@@ -75,6 +75,12 @@ PORT_HARBOR_MASTERS: Dict[str, str] = {
 
 MONTH_NAMES = ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"]
 
+DAY_PORTUGUESE_HEARS_FLEET  =  90   # April  — fleet left Goa
+DAY_OTTOMAN_HEARS_FLEET     = 120   # May    — Islamic merchant network
+DAY_CHINESE_HEARS_FLEET     = 151   # June   — junk network
+DAY_FLEET_ARRIVES_MALACCA   = 182   # July 1 — siege begins
+DAY_MALACCA_FALLS           = 237   # August 25
+
 
 # ─────────────────────────────────────────
 # Utility
@@ -1250,49 +1256,50 @@ def _check_crew_milestone(state: "GameState") -> None:
 def _check_world_events(state: GameState, engine: "EventEngine"):
     """Check and fire timed world events based on game year."""
 
-    # ── Fall of Malacca — Year 1, days 10–30 (Portuguese) ────────────
+    # ── Portuguese hears fleet has left Goa ──────────────────────────
     if (
         state.year == 1
-        and 10 <= state.day <= 30
+        and state.day >= DAY_PORTUGUESE_HEARS_FLEET
         and state.role == "Portuguese Conquistador"
         and "world_event_malacca_fall_portuguese" not in state.once_flags
     ):
         state.once_flags.append("world_event_malacca_fall_portuguese")
         _world_event_fall_of_malacca(state)
 
-    # ── Fall of Malacca — Year 1, days 20–30 (Ottoman) ───────────────
+    # ── Ottoman hears fleet via Islamic merchant network ──────────────
     if (
         state.year == 1
-        and 20 <= state.day <= 30
+        and state.day >= DAY_OTTOMAN_HEARS_FLEET
         and state.role == "Ottoman Trader"
         and "world_event_malacca_fall_ottoman" not in state.once_flags
     ):
         state.once_flags.append("world_event_malacca_fall_ottoman")
         _world_event_fall_of_malacca(state)
 
-    # ── Fall of Malacca — Year 1, days 25–30 (Chinese) ───────────────
+    # ── Chinese hears fleet via junk network ─────────────────────────
     if (
         state.year == 1
-        and 25 <= state.day <= 30
+        and state.day >= DAY_CHINESE_HEARS_FLEET
         and state.role == "Chinese Trader"
         and "world_event_malacca_fall_chinese" not in state.once_flags
     ):
         state.once_flags.append("world_event_malacca_fall_chinese")
         _world_event_fall_of_malacca(state)
 
-    # ── Malacca rumor phase — days 30–45, at port, 50% chance ─────────
+    # ── Malacca rumor phase — fleet has arrived, fires once at port ───
     if (
-        30 <= state.day <= 45
+        state.year == 1
+        and state.day >= DAY_FLEET_ARRIVES_MALACCA
         and not state.malacca_rumor_heard
         and not state.malacca_announced
         and state.current_location_type in ("major_port", "village")
-        and roll_check(0.50)
     ):
         _world_event_malacca_rumor(state)
 
-    # ── Malacca announcement — days 45–60, fires once ─────────────────
+    # ── Malacca announcement — fleet at Malacca, fires once ──────────
     if (
-        45 <= state.day <= 60
+        state.year == 1
+        and state.day >= DAY_FLEET_ARRIVES_MALACCA
         and not state.malacca_announced
         and "world_event_malacca_announcement" not in state.once_flags
     ):
@@ -1300,9 +1307,10 @@ def _check_world_events(state: GameState, engine: "EventEngine"):
         state.malacca_announced = True
         _world_event_malacca_announcement(state)
 
-    # ── Fall of Malacca — days 75–90, fires once ──────────────────────
+    # ── Malacca falls — August 25, fires once ────────────────────────
     if (
-        75 <= state.day <= 90
+        state.year == 1
+        and state.day >= DAY_MALACCA_FALLS
         and "world_event_malacca_fallen" not in state.once_flags
     ):
         state.once_flags.append("world_event_malacca_fallen")
