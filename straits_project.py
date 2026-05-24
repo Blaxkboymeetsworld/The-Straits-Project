@@ -1906,7 +1906,6 @@ def port_action_menu(
         disp_val   = state.quests.get_disposition(port_data["name"])
         ruler      = port_data.get("ruler", {})
         print(f"  Ruler: {ruler.get('name','Unknown')}, {ruler.get('title','')}  |  Disposition: {disp_label} ({disp_val})")
-        print(f"  {state.time.display}")
         print(f"  Culture: {port_data.get('culture','')}  |  Language: {port_data.get('language','')}")
         print(f"  Religion: {port_data.get('religion','')}")
         print("═" * 52)
