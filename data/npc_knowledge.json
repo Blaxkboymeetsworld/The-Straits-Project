@@ -169,7 +169,7 @@
         },
         {
           "topic": "portuguese",
-          "aliases": ["franks", "estado", "feringhi", "portuguese ships"],
+          "aliases": ["franks", "estado", "feringhi", "portuguese ships", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
           "response": "'They have a fort here now. They call it a partnership. We call it what it is.' A pause. 'But business continues. Business always continues.'",
           "response_es": "'Tienen un fuerte aquí ahora. Lo llaman una alianza. Nosotros lo llamamos por su nombre.' Una pausa. 'Pero el negocio continúa. El negocio siempre continúa.'",
           "min_disposition": 0
@@ -218,6 +218,13 @@
           "min_disposition": 10,
           "locked_response": "'A port four days southwest. You can go there yourself if you want information.'",
           "locked_response_es": "'Un puerto a cuatro días al suroeste. Puedes ir tú mismo si quieres información.'"
+        },
+        {
+          "topic": "port orientation",
+          "aliases": ["hormuz overview", "about this port", "what is traded here", "hormuz prices", "goods available", "trade here", "what can i buy"],
+          "response": "Abbas ibn Yusuf spreads his hands. 'The Kingdom of Hormuz has stood here a long time. The Shah pays tribute north to the Safavids, and since Albuquerque came in fifteen-seven, he pays tribute west to the Portuguese as well. Two masters, and the port still functions — which tells you something about what this place is worth.' He pauses. 'For trade: pearls from the Bahrain beds are the finest in the world, fetch luxury prices anywhere east of Cairo. Horses come through from Arabia and Persia — the Deccan kingdoms pay well for them. Dates, salt, Persian goods. The Ottomans watch from the north and the Portuguese watch from the sea. We trade with both and pray they do not decide to settle the question here.'",
+          "response_es": "Abbas ibn Yusuf extiende las manos. 'El Reino de Ormuz lleva aquí mucho tiempo. El Shah paga tributo al norte a los safávidas, y desde que Albuquerque llegó en mil quinientos siete, también paga tributo al oeste a los portugueses. Dos señores, y el puerto sigue funcionando — lo que dice algo sobre lo que vale este lugar.' Pausa. 'En cuanto al comercio: las perlas de los bancos de Baréin son las mejores del mundo, alcanzan precios de lujo en cualquier lugar al este de El Cairo. Los caballos vienen de Arabia y Persia — los reinos del Decán los pagan bien. Dátiles, sal, mercancías persas. Los otomanos observan desde el norte y los portugueses desde el mar. Comerciamos con ambos y rezamos para que no decidan zanjar la cuestión aquí.'",
+          "min_disposition": 0
         }
       ]
     },
