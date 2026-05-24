@@ -261,7 +261,7 @@
         },
         {
           "topic": "ming dynasty",
-          "aliases": ["ming court", "the emperor", "beijing", "the court", "prefect"],
+          "aliases": ["ming court", "the emperor", "beijing", "the court", "prefect", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
           "response": "'The court wants trade to flow through official channels. Whether it does is another matter. Prefect Chen Bao monitors what he can monitor. He is not a fool — he simply has limited resources.'",
           "response_es": "'La corte quiere que el comercio fluya por canales oficiales. Si lo hace es otra cuestión. El Prefecto Chen Bao supervisa lo que puede supervisar. No es un necio — simplemente tiene recursos limitados.'",
           "min_disposition": 0
@@ -292,6 +292,13 @@
           "reputation_faction": "ming_dynasty",
           "locked_response": "Wu Liangchen looks thoughtful. 'The Prefect is a busy man. I would not distract him unnecessarily.'",
           "locked_response_es": "Wu Liangchen tiene una expresión pensativa. 'El Prefecto es un hombre ocupado. No lo distraería innecesariamente.'"
+        },
+        {
+          "topic": "port orientation",
+          "aliases": ["quanzhou overview", "about this port", "what is traded here", "quanzhou prices", "goods available", "trade here", "what can i buy"],
+          "response": "Wu Liangchen folds his hands. 'Quanzhou is a Ming port. The Zhengde Emperor rules from Beijing; Prefect Chen Bao represents that authority here. Officially, private overseas trade is banned under the haijin. Officially.' A pause that carries considerable weight. 'In practice, the Fujian clan networks have been sailing these routes for generations and they will continue to do so. The gap between the law and the reality is where commerce happens.' He names prices with precision. 'Silk — raw white, satins, damask. Porcelain, the standard export grade. Tea, musk, camphor, iron goods. Pepper is what everyone coming from the south brings in, and we pay well for it — twenty percent duty on pepper, ten on other goods. If your numbers are clean when Prefect Chen Bao's office looks at them, you will have no difficulties.'",
+          "response_es": "Wu Liangchen junta las manos. 'Quanzhou es un puerto Ming. El Emperador Zhengde gobierna desde Pekín; el Prefecto Chen Bao representa esa autoridad aquí. Oficialmente, el comercio privado en ultramar está prohibido bajo el haijin. Oficialmente.' Una pausa cargada de significado. 'En la práctica, las redes de clanes de Fujian llevan generaciones navegando estas rutas y seguirán haciéndolo. La brecha entre la ley y la realidad es donde ocurre el comercio.' Nombra los precios con precisión. 'Seda — blanca cruda, satenes, damasco. Porcelana, el grado de exportación estándar. Té, almizcle, alcanfor, artículos de hierro. La pimienta es lo que todos los que vienen del sur traen, y la pagamos bien — veinte por ciento de arancel sobre la pimienta, diez sobre otras mercancías. Si tus cifras están limpias cuando la oficina del Prefecto Chen Bao las examine, no tendrás dificultades.'",
+          "min_disposition": 0
         }
       ]
     },
