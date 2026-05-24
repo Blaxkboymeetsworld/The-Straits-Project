@@ -403,9 +403,16 @@
         },
         {
           "topic": "estado da india",
-          "aliases": ["estado", "portuguese india", "viceroy", "portuguese empire"],
+          "aliases": ["estado", "portuguese india", "viceroy", "portuguese empire", "ruler", "who controls", "who owns", "who runs", "what faction", "in charge", "who is in charge"],
           "response": "'The Estado runs from here east to Hormuz and south to Sofala — in theory. In practice, the further from Goa, the looser the grip. This city is the center. Everything else is aspiration.' He says this without apparent irony.",
           "response_es": "'El Estado va desde aquí hacia el este hasta Ormuz y hacia el sur hasta Sofala — en teoría. En la práctica, cuanto más lejos de Goa, más flojo el dominio. Esta ciudad es el centro. Todo lo demás es aspiración.' Lo dice sin ironía aparente.",
+          "min_disposition": 0
+        },
+        {
+          "topic": "port orientation",
+          "aliases": ["goa overview", "about this port", "what is traded here", "goa prices", "goods available", "trade here", "what can i buy"],
+          "response": "Rodrigo Rabelo picks up a ledger without ceremony. 'Goa was Bijapur before us — Yusuf Adil Shah held it. Albuquerque took it in fifteen-ten. The Estado runs it now: Portuguese jurisdiction, Portuguese fees, Portuguese faction.' He sets the ledger down. 'For trade: horses come in from Arabia and Persia — the best fetch five hundred xerafins upward, and the Deccan kingdoms will always need more. Indian cloth and cotton move through in bulk. Spices redistributed from Malacca. Teak for anyone in the shipbuilding business. The Governor's factor sets official rates. What you actually pay depends on what you have and who you are.'",
+          "response_es": "Rodrigo Rabelo coge un libro de cuentas sin ceremonias. 'Goa era de Bijapur antes que nosotros — Yusuf Adil Shah la tenía. Albuquerque la tomó en mil quinientos diez. El Estado la administra ahora: jurisdicción portuguesa, tasas portuguesas, facción portuguesa.' Deja el libro de cuentas. 'En cuanto al comercio: caballos vienen de Arabia y Persia — los mejores alcanzan quinientos xerafines o más, y los reinos del Decán siempre necesitarán más. Telas indias y algodón pasan en volumen. Especias redistribuidas de Malaca. Teca para quien esté en el negocio de la construcción naval. El factor del Gobernador fija las tarifas oficiales. Lo que pagues de verdad depende de lo que tengas y de quién seas.'",
           "min_disposition": 0
         }
       ]
