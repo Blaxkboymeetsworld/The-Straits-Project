@@ -111,6 +111,99 @@ try:
 except (FileNotFoundError, KeyError):
     pass  # graceful fallback — no waypoints
 
+# Monsoon multipliers by waterway and month (0=April, 11=March)
+# Favorable: 0.7x | Adverse: 1.4x | Dangerous: 1.6x | Transition: 1.3x
+WATERWAY_MONSOON: Dict[str, Dict[int, float]] = {
+    "malacca_strait": {
+        0: 1.3,  # April — transition
+        1: 0.7,  # May — SW monsoon favorable
+        2: 0.7,  # June
+        3: 0.7,  # July
+        4: 0.7,  # August
+        5: 0.7,  # September
+        6: 1.3,  # October — transition
+        7: 1.4,  # November — NE monsoon adverse
+        8: 1.4,  # December
+        9: 1.4,  # January
+        10: 1.4, # February
+        11: 1.4, # March
+    },
+    "indian_ocean": {
+        0: 1.3,
+        1: 0.7,  # SW monsoon favorable westbound
+        2: 0.7,
+        3: 0.7,
+        4: 0.7,
+        5: 0.7,
+        6: 1.3,
+        7: 0.7,  # NE monsoon favorable eastbound
+        8: 0.7,
+        9: 0.7,
+        10: 0.7,
+        11: 0.7,
+    },
+    "arabian_sea": {
+        0: 1.3,
+        1: 1.6,  # SW monsoon dangerous
+        2: 1.6,
+        3: 1.4,
+        4: 1.4,
+        5: 1.3,
+        6: 1.3,
+        7: 0.7,  # NE monsoon favorable
+        8: 0.7,
+        9: 0.7,
+        10: 0.7,
+        11: 1.3,
+    },
+    "south_china_sea": {
+        0: 1.3,
+        1: 1.4,  # SW monsoon adverse
+        2: 1.4,
+        3: 1.4,
+        4: 1.4,
+        5: 1.3,
+        6: 1.3,
+        7: 0.7,  # NE monsoon favorable
+        8: 0.7,
+        9: 0.7,
+        10: 0.7,
+        11: 1.3,
+    },
+    "banda_sea": {
+        0: 1.3,
+        1: 0.7,
+        2: 0.7,
+        3: 0.7,
+        4: 0.7,
+        5: 0.7,
+        6: 1.3,
+        7: 1.4,
+        8: 1.4,
+        9: 1.4,
+        10: 1.4,
+        11: 1.3,
+    },
+    "malabar_coast": {
+        0: 1.3,
+        1: 1.6,  # SW monsoon dangerous close to coast
+        2: 1.6,
+        3: 1.4,
+        4: 1.4,
+        5: 1.3,
+        6: 1.3,
+        7: 0.7,
+        8: 0.7,
+        9: 0.7,
+        10: 0.7,
+        11: 1.3,
+    },
+    "open_ocean": {
+        0: 1.3, 1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.3,
+        6: 1.3, 7: 1.0, 8: 1.0, 9: 1.0, 10: 1.0, 11: 1.3,
+    },
+}
+
 
 def get_at_sea_description(origin: str, destination: str) -> str:
     """Return a descriptive location string for transit between two ports."""
@@ -201,6 +294,12 @@ class TimeSystem:
         """
         base_days = TRAVEL_TIMES.get((origin, destination), DEFAULT_TRAVEL_TIME)
         actual_days = max(1, base_days - crew_speed_bonus)
+
+        # Apply monsoon seasonal multiplier
+        waterway = get_waterway(origin, destination)
+        month = ((self.day - 1) % 365) // 30
+        monsoon_mult = WATERWAY_MONSOON.get(waterway, WATERWAY_MONSOON["open_ocean"]).get(month, 1.0)
+        actual_days = max(1, round(actual_days * monsoon_mult))
 
         # Random weather delay (15% chance of +1–3 day delay)
         if random.random() < 0.15:
