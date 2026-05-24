@@ -9,7 +9,10 @@ time_system.py — Day/night cycle, travel time between ports,
 import json
 import os
 import random
+from datetime import datetime
 from typing import Dict, Any, Optional, Tuple
+
+START_DATE = datetime(1511, 1, 1)  # canonical game start: January 1, 1511
 
 _ROOT = os.path.dirname(os.path.abspath(__file__))
 _ROUTES_PATH = os.path.join(_ROOT, "data", "routes.json")

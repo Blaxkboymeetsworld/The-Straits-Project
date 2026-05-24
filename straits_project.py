@@ -31,7 +31,7 @@ from economy import Economy, GOODS_CATALOG, MAX_CARGO, haggle
 from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, TRAVEL_TIMES, DEFAULT_TRAVEL_TIME,
-                         get_at_sea_description, get_waterway)
+                         START_DATE, get_at_sea_description, get_waterway)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -250,7 +250,7 @@ class GameState:
     @property
     def calendar_year(self) -> int:
         """Historical calendar year."""
-        return 1510 + self.year
+        return START_DATE.year + self.year - 1
 
     @property
     def month(self) -> int:
