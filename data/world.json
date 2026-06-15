@@ -265,7 +265,8 @@
         "disposition": "calculating",
         "npc_id": "harbor_aceh",
         "fees": {
-          "portuguese": 45,
+          "portuguese": 20,
+          "portuguese_post_fall": 45,
           "ottoman": 10,
           "chinese": 10,
           "default": 15
