@@ -257,6 +257,15 @@ class GameState:
         """0-indexed month within current year. 0 = January."""
         return ((self.time.day - 1) % 365) // 30
 
+    @property
+    def protagonist(self) -> str:
+        """Short key used in fee tables and protagonist-aware data."""
+        return {
+            "Portuguese Conquistador": "portuguese",
+            "Ottoman Trader":          "ottoman",
+            "Chinese Trader":          "chinese",
+        }.get(self.role, "default")
+
     def cargo_capacity(self) -> int:
         """Returns the ship's cargo capacity (ship upgrades can override this)."""
         return MAX_CARGO
@@ -568,13 +577,24 @@ class EventEngine:
         hm = harbor_master_for(state.current_location, state.world)
         fee_table = hm.get("fees", 10) if hm else 10
         if isinstance(fee_table, dict):
-            harbor_fee = fee_table.get(state.protagonist, fee_table.get("default", 10))
+            protagonist_key = state.protagonist
+            malacca_fallen = (state.fall_of_malacca_heard or
+                              state.fall_of_malacca_witnessed)
+            if protagonist_key == "portuguese" and malacca_fallen:
+                harbor_fee = fee_table.get(
+                    "portuguese_post_fall",
+                    fee_table.get("portuguese", 10)
+                )
+            else:
+                harbor_fee = fee_table.get(
+                    protagonist_key, fee_table.get("default", 10)
+                )
         else:
             harbor_fee = fee_table
         return {
-            "current_port": state.current_location,
+            "current_port":      state.current_location,
             "harbormaster_name": hm["name"] if hm else "the harbor master",
-            "harbor_fee": harbor_fee,
+            "harbor_fee":        harbor_fee,
         }
 
     def _determine_dialogue_track(self, state: GameState, port_name: str) -> str:
