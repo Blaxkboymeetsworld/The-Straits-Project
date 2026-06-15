@@ -566,7 +566,11 @@ class EventEngine:
 
     def _context_for_event(self, state: GameState) -> Dict[str, Any]:
         hm = harbor_master_for(state.current_location, state.world)
-        harbor_fee = hm["fees"] if hm else 10
+        fee_table = hm.get("fees", 10) if hm else 10
+        if isinstance(fee_table, dict):
+            harbor_fee = fee_table.get(state.protagonist, fee_table.get("default", 10))
+        else:
+            harbor_fee = fee_table
         return {
             "current_port": state.current_location,
             "harbormaster_name": hm["name"] if hm else "the harbor master",

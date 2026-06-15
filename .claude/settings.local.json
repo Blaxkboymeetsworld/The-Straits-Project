@@ -33,7 +33,8 @@
       "Bash(wc -c \"C:/Users/jonat/Desktop/The-Straits-Project/sources/\"*.txt)",
       "Bash(claude install:*)",
       "Bash(python3:*)",
-      "Bash(grep -v \"^[0-9]*:\\\\s*$\")"
+      "Bash(grep -v \"^[0-9]*:\\\\s*$\")",
+      "Bash(git push *)"
     ]
   }
 }

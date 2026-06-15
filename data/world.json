@@ -243,6 +243,46 @@
         "frankincense": 18, "coffee": 12, "aloes_wood": 45,
         "slaves": 50, "salt": 6, "gold_dust": 48, "iron": 11
       }
+    },
+    {
+      "name": "Aceh",
+      "type": "major_port",
+      "region": "Malacca Strait — Northwest",
+      "faction": "Aceh Sultanate",
+      "ruler": "Sultan Ali Mughayat Shah",
+      "population_mix": ["Acehnese Malay", "Tamil Muslim merchant community",
+                         "Gujarati traders", "Arab scholars"],
+      "trade_goods": [
+        { "name": "pepper", "base_price": 40, "availability": "common" },
+        { "name": "camphor", "base_price": 90, "availability": "uncommon" },
+        { "name": "benzoin resin", "base_price": 55, "availability": "uncommon" },
+        { "name": "gold dust", "base_price": 120, "availability": "rare" },
+        { "name": "rice", "base_price": 9, "availability": "common" }
+      ],
+      "harbor_master": {
+        "name": "Tengku Hasan",
+        "title": "Shahbandar of Aceh",
+        "disposition": "calculating",
+        "npc_id": "harbor_aceh",
+        "fees": {
+          "portuguese": 45,
+          "ottoman": 10,
+          "chinese": 10,
+          "default": 15
+        }
+      },
+      "specialty_goods": ["pepper", "camphor", "benzoin resin", "gold dust"],
+      "base_prices": {
+        "pepper": 40,
+        "camphor": 90,
+        "benzoin resin": 55,
+        "gold dust": 120,
+        "rice": 9
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "Aceh is where the pepper trade goes when Malacca becomes unavailable. The Sultan is young, ambitious, and building — mosques, walls, alliances with anyone who shares his interest in making the Portuguese uncomfortable. The shahbandar collects duties with the precision of a man who knows exactly what everything is worth.",
+      "temporal_arc": "Grows significantly over the arc. After the Fall of Malacca, Aceh becomes the primary pepper entrepot for traders avoiding Portuguese tolls. By Year 10 it is a serious rival power. The Sultan's correspondence with the Ottomans is an open secret by Year 8."
     }
   ],
   "villages": [
