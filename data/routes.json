@@ -41,9 +41,9 @@
     {"from": "Banda Islands",  "to": "Ternate",          "days": 3,  "waterway": "banda_sea",       "at_sea": "Banda Sea, north toward Ternate"},
     {"from": "Banda Islands",  "to": "Bantam",           "days": 6,  "waterway": "banda_sea",       "at_sea": "Java Sea, west from the Banda Sea"},
     {"from": "Banda Islands",  "to": "Malacca Harbor",   "days": 10, "waterway": "malacca_strait",  "at_sea": "Java Sea, west toward Malacca"},
-    {"from": "Cham Coast Anchorage", "to": "Quanzhou",   "days": 6,  "waterway": "south_china_sea", "at_sea": "South China Sea, north along the Cham coast"},
-    {"from": "Cham Coast Anchorage", "to": "Malacca Harbor", "days": 5, "waterway": "south_china_sea", "at_sea": "South China Sea, south toward the Strait"},
-    {"from": "Cham Coast Anchorage", "to": "Patani",     "days": 4,  "waterway": "south_china_sea", "at_sea": "South China Sea, south toward the Gulf of Siam"},
+    {"from": "Cham Coast", "to": "Quanzhou",   "days": 6,  "waterway": "south_china_sea", "at_sea": "South China Sea, north along the Cham coast"},
+    {"from": "Cham Coast", "to": "Malacca Harbor", "days": 5, "waterway": "south_china_sea", "at_sea": "South China Sea, south toward the Strait"},
+    {"from": "Cham Coast", "to": "Patani",     "days": 4,  "waterway": "south_china_sea", "at_sea": "South China Sea, south toward the Gulf of Siam"},
     {"from": "Aden Harbor",    "to": "Malacca Harbor",   "days": 18, "waterway": "arabian_sea",     "at_sea": "Arabian Sea, east past Malabar"},
     {"from": "Aden Harbor",    "to": "Quanzhou",         "days": 28, "waterway": "arabian_sea",     "at_sea": "Arabian Sea, east past Malabar toward the Bay of Bengal"},
     {"from": "Aden Harbor",    "to": "Bantam",           "days": 20, "waterway": "arabian_sea",     "at_sea": "Indian Ocean, east of Malabar"}

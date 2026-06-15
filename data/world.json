@@ -289,6 +289,70 @@
       "base_prices": {
         "cloves": 4, "nutmeg": 6, "rice": 4, "slaves": 20
       }
+    },
+    {
+      "name": "Bali Harbor",
+      "type": "village",
+      "region": "Java Sea",
+      "faction": "Gelgel Kingdom",
+      "ruler": "Dewa Agung",
+      "population_mix": ["Balinese Hindu", "Javanese refugee nobility",
+                         "small Bugis trader presence"],
+      "trade_goods": [
+        { "name": "ritual offerings cloth", "base_price": 18, "availability": "common" },
+        { "name": "lontar manuscript", "base_price": 55, "availability": "rare" },
+        { "name": "dried salt fish", "base_price": 7, "availability": "common" },
+        { "name": "fighting cock", "base_price": 22, "availability": "uncommon" }
+      ],
+      "harbor_master": {
+        "name": "I Wayan Sudra",
+        "title": "Port Keeper",
+        "disposition": "cautious",
+        "npc_id": "harbor_bali"
+      },
+      "specialty_goods": ["ritual offerings cloth", "lontar manuscript"],
+      "base_prices": {
+        "ritual offerings cloth": 18,
+        "lontar manuscript": 55,
+        "dried salt fish": 7,
+        "fighting cock": 22
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "The smell of incense reaches the ship before the shore does. Bali absorbed the Majapahit court when Java turned — the priests came, the poets came, the old noble families came with their manuscripts and their gods. The harbor is small and the keeper watches every arrival from the shade of a banyan tree.",
+      "temporal_arc": "Remains Hindu throughout the arc. Grows quieter and more deliberate as Islamic ports tighten around it. By Year 10 the lontar manuscripts are harder to find — families are moving them inland."
+    },
+    {
+      "name": "Cham Coast",
+      "type": "village",
+      "region": "South China Sea",
+      "faction": "Remnant Cham Polity",
+      "ruler": "Po clan elder (no formal title)",
+      "population_mix": ["Cham Hindu", "Cham Muslim",
+                         "Vietnamese margin settlers", "passing Chinese junks"],
+      "trade_goods": [
+        { "name": "Cham ikat cloth", "base_price": 30, "availability": "common" },
+        { "name": "aloe wood", "base_price": 65, "availability": "uncommon" },
+        { "name": "cinnamon bark", "base_price": 25, "availability": "uncommon" },
+        { "name": "rattan", "base_price": 6, "availability": "common" }
+      ],
+      "harbor_master": {
+        "name": "Inrasara",
+        "title": "Po",
+        "disposition": "wary",
+        "npc_id": "harbor_cham"
+      },
+      "specialty_goods": ["Cham ikat cloth", "aloe wood"],
+      "base_prices": {
+        "Cham ikat cloth": 30,
+        "aloe wood": 65,
+        "cinnamon bark": 25,
+        "rattan": 6
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "No proper harbor — ships anchor offshore and row in. The Cham here are what remains after the Vietnamese pushed south; they are neither fully Hindu nor fully Muslim and trust neither category of outsider. The ikat cloth is extraordinary and the traders who know this come quietly and leave quickly.",
+      "temporal_arc": "Shrinks over the arc. By Year 8 the anchorage is seasonal. By Year 12 it is barely a stop. Vietnamese pressure continues throughout."
     }
   ],
   "harbor_masters": []
