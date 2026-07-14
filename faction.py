@@ -145,10 +145,10 @@ PORT_FACTION: Dict[str, str] = {
     "Ternate":            "malacca_sultanate",   # under Sultanate influence
     "Keelung Outpost":    "ming_dynasty",
     "Banda Islands":      "hadrami_silsila",
-    "Bali Harbor":        "sultanate_of_bantam",
+    "Bali":               "sultanate_of_bantam",
     "Pulau Tioman":       "chen_zuyi_ghost",
     "Patani":             "malacca_sultanate",
-    "Cham Coast Anchorage": "ming_dynasty",
+    "Cham Coast":         "ming_dynasty",
 }
 
 

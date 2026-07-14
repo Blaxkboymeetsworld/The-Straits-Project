@@ -34,7 +34,10 @@
       "Bash(claude install:*)",
       "Bash(python3:*)",
       "Bash(grep -v \"^[0-9]*:\\\\s*$\")",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(py _integrity_check.py)",
+      "Bash(py -c \"import json; json.load\\(open\\('data/world.json', encoding='utf-8'\\)\\); print\\('valid JSON'\\)\")",
+      "Bash(git check-ignore *)"
     ]
   }
 }

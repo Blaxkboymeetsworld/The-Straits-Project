@@ -795,7 +795,7 @@ def _restock_provisions(state: GameState, port_data: Dict[str, Any], clear_fn, p
     print("═" * 52)
 
     # Remoteness proxy: use travel time from Malacca as a distance indicator
-    remote_ports = {"Ternate", "Banda Islands", "Keelung Outpost", "Cham Coast Anchorage"}
+    remote_ports = {"Ternate", "Banda Islands", "Keelung Outpost", "Cham Coast"}
     cost_per_unit = 3 if port_data["name"] in remote_ports else 2
 
     max_fill = 100 - state.provisions
@@ -2424,7 +2424,7 @@ _MALACCA_STRAIT_PORTS = {"Malacca Harbor", "Pulau Tioman", "Bantam", "Patani"}
 # Faction home ports — elevated encounter frequency
 _FACTION_HOME_PORTS = {"Goa Harbor", "Hormuz", "Quanzhou", "Aden Harbor"}
 # Remote/quiet ports — lowest encounter frequency
-_REMOTE_PORTS = {"Ternate", "Banda Islands", "Keelung Outpost", "Cham Coast Anchorage"}
+_REMOTE_PORTS = {"Ternate", "Banda Islands", "Keelung Outpost", "Cham Coast"}
 
 
 def _maybe_port_encounter(state: GameState, engine: "EventEngine"):

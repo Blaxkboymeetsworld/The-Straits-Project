@@ -85,7 +85,7 @@ docs/
 Malacca Harbor, Goa Harbor, Calicut, Hormuz, Quanzhou, Aden Harbor, Bantam
 
 **Villages** (limited menu):
-Pulau Tioman, Patani, Ternate, Bali Harbor, Keelung Outpost, Banda Islands, Cham Coast Anchorage
+Pulau Tioman, Patani, Ternate, Bali, Keelung Outpost, Banda Islands, Cham Coast
 
 **Home port lockout**: locked until `state.assignments_completed >= 3`. Tagged `[LOCKED]` in travel list.
 

@@ -284,6 +284,83 @@
       "weapons_available": [],
       "description": "Aceh is where the pepper trade goes when Malacca becomes unavailable. The Sultan is young, ambitious, and building — mosques, walls, alliances with anyone who shares his interest in making the Portuguese uncomfortable. The shahbandar collects duties with the precision of a man who knows exactly what everything is worth.",
       "temporal_arc": "Grows significantly over the arc. After the Fall of Malacca, Aceh becomes the primary pepper entrepot for traders avoiding Portuguese tolls. By Year 10 it is a serious rival power. The Sultan's correspondence with the Ottomans is an open secret by Year 8."
+    },
+    {
+      "name": "Ayutthaya",
+      "type": "major_port",
+      "region": "Gulf of Siam",
+      "faction": "Ayutthaya Kingdom",
+      "ruler": "King Ramathibodi II",
+      "population_mix": ["Thai court population", "Malay Muslim merchant quarter",
+                         "Chinese merchant diaspora", "Japanese and Ryukyuan traders",
+                         "Portuguese factors (post-Year 1)"],
+      "trade_goods": [
+        { "name": "rice", "base_price": 8, "availability": "common" },
+        { "name": "elephant", "base_price": 400, "availability": "rare" },
+        { "name": "white elephant", "base_price": 1500, "availability": "legendary" },
+        { "name": "sapanwood", "base_price": 35, "availability": "common" },
+        { "name": "tin", "base_price": 28, "availability": "uncommon" },
+        { "name": "Chinese porcelain (transit)", "base_price": 70, "availability": "uncommon" },
+        { "name": "Siamese lacquerware", "base_price": 45, "availability": "uncommon" }
+      ],
+      "harbor_master": {
+        "name": "Khun Wiset",
+        "title": "Krom Tha (Harbor Superintendent)",
+        "disposition": "professionally neutral",
+        "npc_id": "harbor_ayutthaya",
+        "fees": 12
+      },
+      "specialty_goods": ["elephant", "sapanwood", "Siamese lacquerware", "white elephant"],
+      "base_prices": {
+        "rice": 8,
+        "elephant": 400,
+        "white elephant": 1500,
+        "sapanwood": 35,
+        "tin": 28,
+        "Chinese porcelain (transit)": 70,
+        "Siamese lacquerware": 45
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "The largest city most of these sailors have ever seen — the waterways are choked with boats, the markets run for half a mile, and the royal elephants are occasionally visible from the river. Ayutthaya trades with everyone and is allied with no one. The Krom Tha has seen Portuguese, Ottoman, Chinese, Javanese, and Japanese in the same week and treated them all identically.",
+      "temporal_arc": "Stable throughout most of the arc. After the Fall of Malacca, Ayutthaya moves carefully, neither helping nor hindering the Portuguese. By Year 8 a small Portuguese trading house is established. By Year 12 the relationship is formally commercial if not warm."
+    },
+    {
+      "name": "Pegu",
+      "type": "major_port",
+      "region": "Bay of Bengal",
+      "faction": "Hanthawaddy Kingdom (Mon)",
+      "ruler": "King Binnya Ran II",
+      "population_mix": ["Mon Buddhist population", "Burmese traders",
+                         "Tamil and Bengali merchants", "small Portuguese factor presence (post-Year 2)"],
+      "trade_goods": [
+        { "name": "teak timber", "base_price": 30, "availability": "common" },
+        { "name": "rubies", "base_price": 200, "availability": "rare" },
+        { "name": "war elephant", "base_price": 500, "availability": "rare" },
+        { "name": "lac dye", "base_price": 40, "availability": "uncommon" },
+        { "name": "musk", "base_price": 85, "availability": "uncommon" },
+        { "name": "cotton cloth (Bengal transit)", "base_price": 22, "availability": "common" }
+      ],
+      "harbor_master": {
+        "name": "Min Kyaw Thu",
+        "title": "Harbor Master of Pegu",
+        "disposition": "formal and Buddhist in bearing",
+        "npc_id": "harbor_pegu",
+        "fees": 12
+      },
+      "specialty_goods": ["teak timber", "rubies", "war elephant", "lac dye", "musk"],
+      "base_prices": {
+        "teak timber": 30,
+        "rubies": 200,
+        "war elephant": 500,
+        "lac dye": 40,
+        "musk": 85,
+        "cotton cloth (Bengal transit)": 22
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "The road from the harbor to Pegu proper passes through pagodas. Everything valuable in the Mon kingdom — the rubies, the elephants, the teak — comes through here, and the harbor master's office keeps meticulous records in a script no visiting trader can read. Pegu is far from the main routes and the city knows it.",
+      "temporal_arc": "Faces existential pressure over the arc — Toungoo expansion threatens from the interior. By Year 12 the pressure is serious. The rubies and elephants still trade but traders are beginning to wonder how much longer the kingdom holds. Pegu falls to Toungoo in 1539 — outside the game arc but the shadow is already there by Year 15."
     }
   ],
   "villages": [
@@ -332,38 +409,6 @@
       }
     },
     {
-      "name": "Bali Harbor",
-      "type": "village",
-      "region": "Java Sea",
-      "faction": "Gelgel Kingdom",
-      "ruler": "Dewa Agung",
-      "population_mix": ["Balinese Hindu", "Javanese refugee nobility",
-                         "small Bugis trader presence"],
-      "trade_goods": [
-        { "name": "ritual offerings cloth", "base_price": 18, "availability": "common" },
-        { "name": "lontar manuscript", "base_price": 55, "availability": "rare" },
-        { "name": "dried salt fish", "base_price": 7, "availability": "common" },
-        { "name": "fighting cock", "base_price": 22, "availability": "uncommon" }
-      ],
-      "harbor_master": {
-        "name": "I Wayan Sudra",
-        "title": "Port Keeper",
-        "disposition": "cautious",
-        "npc_id": "harbor_bali"
-      },
-      "specialty_goods": ["ritual offerings cloth", "lontar manuscript"],
-      "base_prices": {
-        "ritual offerings cloth": 18,
-        "lontar manuscript": 55,
-        "dried salt fish": 7,
-        "fighting cock": 22
-      },
-      "recruitable_pool": [],
-      "weapons_available": [],
-      "description": "The smell of incense reaches the ship before the shore does. Bali absorbed the Majapahit court when Java turned — the priests came, the poets came, the old noble families came with their manuscripts and their gods. The harbor is small and the keeper watches every arrival from the shade of a banyan tree.",
-      "temporal_arc": "Remains Hindu throughout the arc. Grows quieter and more deliberate as Islamic ports tighten around it. By Year 10 the lontar manuscripts are harder to find — families are moving them inland."
-    },
-    {
       "name": "Cham Coast",
       "type": "village",
       "region": "South China Sea",
@@ -381,7 +426,8 @@
         "name": "Inrasara",
         "title": "Po",
         "disposition": "wary",
-        "npc_id": "harbor_cham"
+        "npc_id": "harbor_cham",
+        "fees": 0
       },
       "specialty_goods": ["Cham ikat cloth", "aloe wood"],
       "base_prices": {
@@ -394,6 +440,179 @@
       "weapons_available": [],
       "description": "No proper harbor — ships anchor offshore and row in. The Cham here are what remains after the Vietnamese pushed south; they are neither fully Hindu nor fully Muslim and trust neither category of outsider. The ikat cloth is extraordinary and the traders who know this come quietly and leave quickly.",
       "temporal_arc": "Shrinks over the arc. By Year 8 the anchorage is seasonal. By Year 12 it is barely a stop. Vietnamese pressure continues throughout."
+    },
+    {
+      "name": "Gresik",
+      "type": "village",
+      "region": "Java Sea — North Coast",
+      "faction": "Demak Sultanate (tributary)",
+      "ruler": "Sunan Dalem (religious authority); nominal Demak oversight",
+      "population_mix": ["Javanese Muslim", "Arab scholar-merchant families",
+                         "Gujarati diaspora", "Chinese Muslim traders (Peranakan)"],
+      "trade_goods": [
+        { "name": "Javanese batik cloth", "base_price": 35, "availability": "common" },
+        { "name": "Javanese kris", "base_price": 80, "availability": "uncommon" },
+        { "name": "rice", "base_price": 8, "availability": "common" },
+        { "name": "dried fish", "base_price": 6, "availability": "common" },
+        { "name": "Javanese gamelan bronze (small pieces)", "base_price": 50,
+          "availability": "rare" }
+      ],
+      "harbor_master": {
+        "name": "Haji Mahmud",
+        "title": "Harbor Elder",
+        "disposition": "pious and commercial in equal measure",
+        "npc_id": "harbor_gresik",
+        "fees": 0
+      },
+      "specialty_goods": ["Javanese batik cloth", "Javanese kris", "Javanese gamelan bronze (small pieces)"],
+      "base_prices": {
+        "Javanese batik cloth": 35,
+        "Javanese kris": 80,
+        "rice": 8,
+        "dried fish": 6,
+        "Javanese gamelan bronze (small pieces)": 50
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "Gresik smells of fish paste and incense from the Friday mosque. The Wali Sanga — the nine saints who brought Islam to Java — count Sunan Giri among them, and his pesantren draws students from across the archipelago. The harbor is modest but the religious prestige draws traders who want Sunan Giri's blessing on a voyage.",
+      "temporal_arc": "Grows over the arc as Demak expands and Islamic Java consolidates. By Year 10 it is a legitimate secondary port. The kris trade increases — Javanese smiths are producing more as conflict escalates."
+    },
+    {
+      "name": "Kedah",
+      "type": "village",
+      "region": "Malacca Strait — Northwest",
+      "faction": "Kedah Sultanate (tributary to Ayutthaya)",
+      "ruler": "Sultan Mahmud Shah II of Kedah",
+      "population_mix": ["Malay fishing and farming population",
+                         "Tamil Hindu traders", "passing Gujarati merchants"],
+      "trade_goods": [
+        { "name": "tin", "base_price": 25, "availability": "common" },
+        { "name": "rice", "base_price": 9, "availability": "common" },
+        { "name": "beeswax", "base_price": 20, "availability": "uncommon" },
+        { "name": "elephant tusks", "base_price": 150, "availability": "rare" }
+      ],
+      "harbor_master": {
+        "name": "Wan Ibrahim",
+        "title": "Shahbandar",
+        "disposition": "tired",
+        "npc_id": "harbor_kedah",
+        "fees": 3
+      },
+      "specialty_goods": ["tin", "elephant tusks"],
+      "base_prices": {
+        "tin": 25,
+        "rice": 9,
+        "beeswax": 20,
+        "elephant tusks": 150
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "Kedah is a stop, not a destination — a place to water the ship, sell tin, and ask who passed through recently. The Sultanate pays tribute to Ayutthaya and tries not to attract attention from anyone else. The shahbandar knows every ship that has moved through the Strait in the last six months.",
+      "temporal_arc": "Stays small. Tin trade steady regardless of who controls Malacca. After the Fall, Kedah sees more traffic — ships avoiding Portuguese tolls come up the coast. The shahbandar becomes slightly more prosperous and slightly more nervous."
+    },
+    {
+      "name": "Tidore",
+      "type": "village",
+      "region": "Banda Sea — Maluku",
+      "faction": "Tidore Sultanate",
+      "ruler": "Sultan Almansur of Tidore",
+      "population_mix": ["Tidoran clove farmers",
+                         "Papuan traders from New Guinea coast",
+                         "Javanese Muslim merchants"],
+      "trade_goods": [
+        { "name": "cloves", "base_price": 55, "availability": "common" },
+        { "name": "nutmeg (transit from Banda)", "base_price": 70,
+          "availability": "uncommon" },
+        { "name": "bird of paradise feathers", "base_price": 95,
+          "availability": "rare" },
+        { "name": "sago", "base_price": 5, "availability": "common" }
+      ],
+      "harbor_master": {
+        "name": "Kaicil Baab",
+        "title": "Harbor Keeper",
+        "disposition": "proud and rivalrous",
+        "npc_id": "harbor_tidore",
+        "fees": 0
+      },
+      "specialty_goods": ["cloves", "bird of paradise feathers"],
+      "base_prices": {
+        "cloves": 55,
+        "nutmeg (transit from Banda)": 70,
+        "bird of paradise feathers": 95,
+        "sago": 5
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "Everything in Tidore is understood in relation to Ternate. They are the same island type, the same clove soil, the same people — and they have been rivals for generations. The Sultan of Tidore will deal with any outsider who makes Ternate uncomfortable. The cloves here are as good as Ternate's and Kaicil Baab will tell you so unprompted.",
+      "temporal_arc": "Ternate-Tidore rivalry intensifies over the arc. By Year 12 Tidore is the Portuguese-aligned sultanate and Ternate is drifting toward resistance."
+    },
+    {
+      "name": "Makassar",
+      "type": "village",
+      "region": "Banda Sea — Sulawesi",
+      "faction": "Gowa Kingdom (pre-sultanate)",
+      "ruler": "Tumapa'risi' Kallonna (Karaeng of Gowa)",
+      "population_mix": ["Makassarese and Bugis fishing communities",
+                         "Javanese Muslim traders",
+                         "passing Maluku spice traders"],
+      "trade_goods": [
+        { "name": "trepang (sea cucumber)", "base_price": 20, "availability": "common" },
+        { "name": "tortoiseshell", "base_price": 45, "availability": "uncommon" },
+        { "name": "war captives", "base_price": 65, "availability": "uncommon",
+          "cargo_type": "slave", "origin_region": "Sulawesi" },
+        { "name": "Bugis cloth", "base_price": 28, "availability": "common" }
+      ],
+      "harbor_master": {
+        "name": "Daeng Manaba",
+        "title": "Port Keeper",
+        "disposition": "watchful",
+        "npc_id": "harbor_makassar",
+        "fees": 0
+      },
+      "specialty_goods": ["trepang (sea cucumber)", "tortoiseshell"],
+      "base_prices": {
+        "trepang (sea cucumber)": 20,
+        "tortoiseshell": 45,
+        "war captives": 65,
+        "Bugis cloth": 28
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "Makassar in 1511 is not yet what it will become. What it is now is a good harbor on the route to the Maluku, with Bugis sailors who know every current between here and New Guinea. The Karaeng watches outsiders carefully, though he does not rule alone — Gowa stands in paired alliance with neighboring Tallo, what Makassarese tradition calls \"rua karaeng na se're ri ata,\" two rulers of one people. Gowa is still deciding what it is.",
+      "temporal_arc": "Grows noticeably over the arc. By Year 8 it is a legitimate secondary port with increasing Muslim influence. The slave trade increases as regional conflict spreads."
+    },
+    {
+      "name": "Bali",
+      "type": "village",
+      "region": "Java Sea",
+      "faction": "Gelgel Kingdom",
+      "ruler": "Dalem Baturenggong",
+      "population_mix": ["Balinese Hindu", "Javanese refugee nobility",
+                         "small Bugis trader presence"],
+      "trade_goods": [
+        { "name": "ritual offerings cloth", "base_price": 18, "availability": "common" },
+        { "name": "lontar manuscript", "base_price": 55, "availability": "rare" },
+        { "name": "dried salt fish", "base_price": 7, "availability": "common" },
+        { "name": "fighting cock", "base_price": 22, "availability": "uncommon" }
+      ],
+      "harbor_master": {
+        "name": "I Wayan Sudra",
+        "title": "Port Keeper",
+        "disposition": "cautious",
+        "npc_id": "harbor_bali",
+        "fees": 0
+      },
+      "specialty_goods": ["ritual offerings cloth", "lontar manuscript", "fighting cock"],
+      "base_prices": {
+        "ritual offerings cloth": 18,
+        "lontar manuscript": 55,
+        "dried salt fish": 7,
+        "fighting cock": 22
+      },
+      "recruitable_pool": [],
+      "weapons_available": [],
+      "description": "The smell of incense reaches the ship before the shore does. Bali absorbed the Majapahit court when Java turned — the priests came, the poets came, the old noble families came with their manuscripts and their gods. The harbor is small and the keeper watches every arrival from the shade of a banyan tree.",
+      "temporal_arc": "Remains Hindu throughout the arc. Grows quieter and more deliberate as Islamic ports tighten around it. By Year 10 the lontar manuscripts are harder to find — families are moving them inland."
     }
   ],
   "harbor_masters": []
