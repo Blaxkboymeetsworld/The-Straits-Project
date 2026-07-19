@@ -16,6 +16,7 @@ START_DATE = datetime(1511, 1, 1)  # canonical game start: January 1, 1511
 
 _ROOT = os.path.dirname(os.path.abspath(__file__))
 _ROUTES_PATH = os.path.join(_ROOT, "data", "routes.json")
+_NAUTICAL_DATA_PATH = os.path.join(_ROOT, "data", "nautical_data.json")
 
 # Rough travel times between ports in days (one-way)
 # Reflects the actual geography of the Indian Ocean / Southeast Asia
@@ -113,6 +114,152 @@ try:
         ROUTE_WAYPOINTS[(_b, _a)] = _entry
 except (FileNotFoundError, KeyError):
     pass  # graceful fallback — no waypoints
+
+# ── Nautical data (monsoon calendar, ship speed profiles, route distances) ──
+# Loaded from data/nautical_data.json. Powers calculate_voyage() below.
+# NOTE: calculate_voyage() is standalone and not called from anywhere else
+# yet — see the __main__ test block at the bottom of this file.
+try:
+    with open(_NAUTICAL_DATA_PATH, encoding="utf-8") as _f:
+        _NAUTICAL_DATA = json.load(_f)
+except FileNotFoundError:
+    _NAUTICAL_DATA = {"monsoon_calendar": {}, "ship_speed_profiles": {}, "route_distances": []}
+
+_ROUTE_DISTANCES_NM: Dict[Tuple[str, str], int] = {}
+for _rd in _NAUTICAL_DATA.get("route_distances", []):
+    _rd_a, _rd_b, _rd_nm = _rd["from"], _rd["to"], _rd["nautical_miles"]
+    _ROUTE_DISTANCES_NM[(_rd_a, _rd_b)] = _rd_nm
+    _ROUTE_DISTANCES_NM[(_rd_b, _rd_a)] = _rd_nm
+
+# Short archipelago hops treated as coastal (calm, sheltered water) rather
+# than open ocean, per Prompt 2 spec.
+_COASTAL_HOPS = {
+    ("Malacca Harbor", "Kedah"), ("Kedah", "Malacca Harbor"),
+    ("Ternate", "Tidore"), ("Tidore", "Ternate"),
+    ("Gresik", "Bali"), ("Bali", "Gresik"),
+}
+
+# Each ocean system's monsoon_calendar entry carries two directional
+# sub-systems (e.g. sw_monsoon / ne_monsoon) with opposite favorable
+# windows. Direction is inferred from origin/dest membership in a small
+# set of "anchor" ports representing the near/west (Indian Ocean) or
+# north (South China Sea) end of the crossing — grounded in the real
+# geography already in the Prompt 1 spec text ("SW monsoon favors
+# Arabia/Africa -> India/eastward", "NE monsoon favors China -> SE Asia").
+# Leaving FROM an anchor port uses the "outbound" sub-system; arriving
+# AT an anchor port (i.e. sailing the return leg) uses the other one.
+# Routes that don't touch an anchor port at all (most SE-Asia-internal
+# hops) can't be resolved this way and fall back to the outbound
+# sub-system as a documented default.
+_OCEAN_ANCHOR_PORTS = {
+    "indian_ocean": {"Hormuz", "Aden Harbor", "Calicut", "Goa Harbor"},
+    "south_china_sea": {"Quanzhou"},
+}
+_OUTBOUND_MONSOON_SUBSYSTEM = {
+    "indian_ocean": "sw_monsoon",       # Arabia/Africa -> India/eastward
+    "south_china_sea": "ne_monsoon",    # China -> Southeast Asia
+}
+_RETURN_MONSOON_SUBSYSTEM = {
+    "indian_ocean": "ne_monsoon",       # the return west
+    "south_china_sea": "sw_monsoon",    # the return north
+}
+
+
+def _select_monsoon_subsystem(ocean_system: str, origin_port: str, dest_port: str) -> str:
+    anchors = _OCEAN_ANCHOR_PORTS.get(ocean_system, set())
+    origin_is_anchor = origin_port in anchors
+    dest_is_anchor = dest_port in anchors
+    if origin_is_anchor and not dest_is_anchor:
+        return _OUTBOUND_MONSOON_SUBSYSTEM.get(ocean_system, "")
+    if dest_is_anchor and not origin_is_anchor:
+        return _RETURN_MONSOON_SUBSYSTEM.get(ocean_system, "")
+    # Ambiguous (both or neither end is an anchor) — default to outbound.
+    return _OUTBOUND_MONSOON_SUBSYSTEM.get(ocean_system, "")
+
+
+def calculate_voyage(
+    origin_port: str,
+    dest_port: str,
+    ocean_system: str,
+    current_month: int,
+    protagonist_role: str,
+) -> Dict[str, Any]:
+    """
+    Voyage-time estimate built on data/nautical_data.json, wired into the
+    travel flow in straits_project.py (see Prompt 3).
+
+    Returns {"days": int, "monsoon_state": "favorable"|"unfavorable"|"transition",
+    "blocked": bool, "subsystem": "sw_monsoon"|"ne_monsoon"}.
+    If the route distance or ship profile isn't in the data, returns
+    {"days": None, "monsoon_state": None, "blocked": True, "error": <reason>}
+    rather than guessing a distance.
+    """
+    distance_nm = _ROUTE_DISTANCES_NM.get((origin_port, dest_port))
+    if distance_nm is None:
+        return {
+            "days": None, "monsoon_state": None, "blocked": True,
+            "error": f"no route_distances entry for {origin_port} <-> {dest_port}",
+        }
+
+    profile = _NAUTICAL_DATA.get("ship_speed_profiles", {}).get(protagonist_role)
+    if profile is None:
+        return {
+            "days": None, "monsoon_state": None, "blocked": True,
+            "error": f"no ship_speed_profile for protagonist_role {protagonist_role!r}",
+        }
+
+    ocean = _NAUTICAL_DATA.get("monsoon_calendar", {}).get(ocean_system)
+    if ocean is None:
+        return {
+            "days": None, "monsoon_state": None, "blocked": True,
+            "error": f"no monsoon_calendar entry for ocean_system {ocean_system!r}",
+        }
+
+    subsystem_key = _select_monsoon_subsystem(ocean_system, origin_port, dest_port)
+
+    if current_month in ocean.get("transition_months", []):
+        monsoon_state = "transition"
+    else:
+        subsystem = ocean.get(subsystem_key, {})
+        monsoon_state = "favorable" if current_month in subsystem.get("favorable_months", []) else "unfavorable"
+
+    is_coastal = (origin_port, dest_port) in _COASTAL_HOPS
+    base_knots = profile["coastal_knots"] if is_coastal else profile["open_ocean_knots"]
+
+    if monsoon_state == "unfavorable":
+        effective_knots = base_knots * profile["upwind_penalty_multiplier"]
+        blocked = True
+    else:
+        # "favorable" and "transition" both sail at full favorable speed;
+        # transition just flags elevated storm weighting downstream.
+        effective_knots = base_knots
+        blocked = False
+
+    days = max(1, round(distance_nm / (effective_knots * HOURS_PER_DAY)))
+
+    return {"days": days, "monsoon_state": monsoon_state, "blocked": blocked, "subsystem": subsystem_key}
+
+
+def next_favorable_month(ocean_system: str, origin_port: str, dest_port: str, current_month: int) -> Optional[int]:
+    """
+    Return the next month (1-12, strictly after current_month, wrapping
+    around the year) that's favorable for this route's monsoon subsystem,
+    or None if the ocean_system/subsystem isn't in the data. Used to let
+    the player wait out an unfavorable monsoon rather than sail into it.
+    """
+    ocean = _NAUTICAL_DATA.get("monsoon_calendar", {}).get(ocean_system)
+    if ocean is None:
+        return None
+    subsystem_key = _select_monsoon_subsystem(ocean_system, origin_port, dest_port)
+    favorable = set(ocean.get(subsystem_key, {}).get("favorable_months", []))
+    if not favorable:
+        return None
+    for offset in range(1, 13):
+        candidate = ((current_month - 1 + offset) % 12) + 1
+        if candidate in favorable:
+            return candidate
+    return None
+
 
 # Monsoon multipliers by waterway and month (0=January, 11=December)
 # Favorable: 0.7x | Adverse: 1.4x | Dangerous: 1.6x | Transition: 1.3x
@@ -356,3 +503,23 @@ class TimeSystem:
     @classmethod
     def from_dict(cls, d: Dict[str, Any]) -> "TimeSystem":
         return cls(day=d.get("day", 1), hour=d.get("hour", 8))
+
+
+if __name__ == "__main__":
+    # Standalone sanity check for calculate_voyage() — Prompt 2.
+    # Not wired into the game loop; run directly with `python time_system.py`.
+    _TEST_ROUTES = [
+        ("Malacca Harbor", "Aceh",      "indian_ocean",     "Portuguese Conquistador"),
+        ("Malacca Harbor", "Ayutthaya", "south_china_sea",  "Chinese Trader"),
+        ("Aden Harbor",    "Aceh",      "indian_ocean",     "Ottoman Trader"),
+        ("Gresik",         "Bali",      "south_china_sea",  "Chinese Trader"),
+    ]
+    _FAVORABLE_MONTH = {"indian_ocean": 7, "south_china_sea": 12}    # Jul / Dec
+    _UNFAVORABLE_MONTH = {"indian_ocean": 1, "south_china_sea": 7}   # Jan / Jul
+
+    for _origin, _dest, _ocean, _role in _TEST_ROUTES:
+        print(f"\n{_origin} -> {_dest}  ({_ocean}, {_role})")
+        for _label, _month_map in (("favorable", _FAVORABLE_MONTH), ("unfavorable", _UNFAVORABLE_MONTH)):
+            _month = _month_map[_ocean]
+            _result = calculate_voyage(_origin, _dest, _ocean, _month, _role)
+            print(f"  month={_month:>2} (expect {_label:11}) -> {_result}")

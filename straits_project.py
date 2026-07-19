@@ -30,8 +30,8 @@ from crew import CrewManager, CrewMember, load_crew_data, recruitment_menu, slav
 from economy import Economy, GOODS_CATALOG, MAX_CARGO, haggle
 from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
-from time_system import (TimeSystem, TRAVEL_TIMES, DEFAULT_TRAVEL_TIME,
-                         START_DATE, get_at_sea_description, get_waterway)
+from time_system import (TimeSystem, START_DATE, get_waterway,
+                         calculate_voyage, next_favorable_month)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -365,6 +365,9 @@ class GameState:
             print(f"\n  ⚓ {t('game_over_ship')}")
             return True
         if self.morale <= 0:
+            if self.current_location_type == "sea":
+                # Desertion requires land — at sea, morale-zero is a mutiny instead.
+                return _resolve_mutiny_at_sea(self)
             print(f"\n  ⚓ {t('game_over_morale')}")
             return True
         return False
@@ -684,26 +687,30 @@ class EventEngine:
             state.once_flags.append(once_key)
         press_enter()
 
-    def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None):
-        clear()
+    def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None,
+                        extra_options: Optional[Dict[str, Tuple[str, Any]]] = None):
         lang = getattr(state, "lang", "en")
         title = event.get("id", "Event").replace("_", " ").title()
-        print(f"\n  ── {title} ──\n")
 
         # Serve description in active language, fall back to English
         desc = event.get("description", "An event occurs.")
         if lang != "en":
             desc = event.get(f"description_{lang}", desc)
-        print(f"  {desc}\n")
 
-        # Dialogue check events: resolve through track system
+        # Dialogue check events: resolve through track system (no extra_options support)
         if event.get("dialogue_check"):
+            clear()
+            print(f"\n  ── {title} ──\n")
+            print(f"  {desc}\n")
             track = self._determine_dialogue_track(state, state.current_location)
             self._resolve_dialogue_check(event, state, track, once_key)
             return
 
         options = event.get("options", {})
         if not options:
+            clear()
+            print(f"\n  ── {title} ──\n")
+            print(f"  {desc}\n")
             press_enter()
             return
 
@@ -713,16 +720,29 @@ class EventEngine:
         available_keys = [k for k in keys_sorted if self._check_requirement(options[k].get("requires", {}), state)]
         unavailable_keys = [k for k in keys_sorted if k not in available_keys]
 
-        for k in available_keys:
-            opt_text = options[k].get("text", "...")
-            if lang != "en":
-                opt_text = options[k].get(f"text_{lang}", opt_text)
-            print(f"  {k}) {opt_text}")
-        if unavailable_keys:
-            print(f"\n  (Some options unavailable — crew lacks the required skill, item, or gold)")
+        while True:
+            clear()
+            print(f"\n  ── {title} ──\n")
+            print(f"  {desc}\n")
+            for k in available_keys:
+                opt_text = options[k].get("text", "...")
+                if lang != "en":
+                    opt_text = options[k].get(f"text_{lang}", opt_text)
+                print(f"  {k}) {opt_text}")
+            if unavailable_keys:
+                print(f"\n  (Some options unavailable — crew lacks the required skill, item, or gold)")
+            if extra_options:
+                for ek, (elabel, _) in extra_options.items():
+                    print(f"  [{ek}] {elabel}")
 
-        print()
-        choice = get_menu_choice(available_keys)
+            print()
+            choice_keys = available_keys + (list(extra_options.keys()) if extra_options else [])
+            choice = get_menu_choice(choice_keys)
+
+            if extra_options and choice in extra_options:
+                extra_options[choice][1](state)
+                continue
+            break
 
         if choice not in available_keys:
             print(f"\n  {t('you_hesitate')}")
@@ -751,7 +771,8 @@ class EventEngine:
         else:
             press_enter()
 
-    def trigger_random(self, pool_name: str, state: GameState):
+    def trigger_random(self, pool_name: str, state: GameState,
+                        extra_options: Optional[Dict[str, Tuple[str, Any]]] = None):
         pool = self.events.get(pool_name, [])
         if not pool:
             return
@@ -764,7 +785,7 @@ class EventEngine:
         ev = random.choice(pool)
         ctx = self._context_for_event(state)
         ev_fmt = self._apply_templating(ev, ctx)
-        self._resolve_event(ev_fmt, state, once_key=None)
+        self._resolve_event(ev_fmt, state, once_key=None, extra_options=extra_options)
 
     def trigger_special_if_any(self, state: GameState) -> bool:
         specials = self.events.get("special_events", [])
@@ -1723,6 +1744,56 @@ def _check_ibu_malam(state: GameState, trigger: str):
 
 
 # ─────────────────────────────────────────
+# Mutiny — morale-zero at sea (desertion requires land)
+# ─────────────────────────────────────────
+
+def _resolve_mutiny_at_sea(state: GameState) -> bool:
+    """
+    Morale hit zero while at sea, where desertion is physically impossible.
+    Self-contained mutiny resolution: one confrontation beat, one player
+    choice (flavor only — both lead to the same resistance check), one
+    dice roll, three possible outcomes. Deliberately simple — this is not
+    the (stubbed) combat system and does not touch it.
+    Returns True if the mutiny ends the game (ship lost).
+    """
+    clear()
+    print("═" * 52)
+    print(f"  {t('mutiny_title')}")
+    print("═" * 52)
+    print(f"\n  {t('mutiny_confrontation')}\n")
+    print(f"  [1] {t('mutiny_choice_stand_firm')}")
+    print(f"  [2] {t('mutiny_choice_appeal')}\n")
+    get_menu_choice(["1", "2"])
+
+    roll = random.random()
+    if roll < 0.50:
+        state.morale = 25
+        print(f"\n  {t('mutiny_outcome_talked_down')}")
+        press_enter()
+        return False
+    elif roll < 0.85:
+        lost_gold = state.gold // 2
+        state.gold -= lost_gold
+        lost_cargo = sum(state.cargo.values()) // 2
+        remaining = lost_cargo
+        for good in list(state.cargo.keys()):
+            if remaining <= 0:
+                break
+            take = min(state.cargo[good], remaining)
+            state.cargo[good] -= take
+            remaining -= take
+        state.morale = 8
+        print(f"\n  {t('mutiny_outcome_concessions')}")
+        print(f"  {t('mutiny_concessions_loss').format(gold=lost_gold, cargo=lost_cargo)}")
+        press_enter()
+        return False
+    else:
+        print(f"\n  {t('mutiny_outcome_lost_ship')}")
+        press_enter()
+        return True
+
+
+# ─────────────────────────────────────────
 # Slave market & prisoner actions
 # ─────────────────────────────────────────
 
@@ -2329,30 +2400,17 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
 
 
 def _travel_estimate(origin: str, dest: str, state: Any) -> str:
-    """Return a human-readable travel time estimate string.
-
-    Variance by navigator skill:
-      skilled:  ±10% of base days
-      basic:    ±20% of base days
-      none:     ±40% of base days
-    """
-    base = TRAVEL_TIMES.get((origin, dest), DEFAULT_TRAVEL_TIME)
-    nav_level = state.crew.navigator_skill_level() if state else None
-    if nav_level == "skilled":
-        variance_pct = 0.10
-        nav_note = " (skilled navigator)"
-    elif nav_level == "basic":
-        variance_pct = 0.20
-        nav_note = " (navigator)"
-    else:
-        variance_pct = 0.40
-        nav_note = " (no navigator)"
-    variance_days = max(1, round(base * variance_pct))
-    lo = max(1, base - variance_days)
-    hi = base + variance_days
-    provision_drain = 1 if (state and state.crew.has_occupation("cook")) else 2
-    prov_cost = (lo + hi) // 2 * provision_drain
-    return f"{lo}–{hi} days{nav_note}  |  ~{prov_cost} provisions"
+    """Return a human-readable travel time estimate string from calculate_voyage(),
+    so the number shown before departure matches what the voyage actually does."""
+    if not state:
+        return "unknown"
+    ocean_system = _ROUTE_OCEAN_SYSTEM.get((origin, dest), "indian_ocean")
+    voyage = calculate_voyage(origin, dest, ocean_system, state.month + 1, state.role)
+    if voyage.get("days") is None:
+        return "no charted route"
+    provision_drain = 1 if state.crew.has_occupation("cook") else 2
+    prov_cost = voyage["days"] * provision_drain
+    return f"{voyage['days']} days ({voyage['monsoon_state']})  |  ~{prov_cost} provisions"
 
 
 def choose_from_list(
@@ -2398,21 +2456,75 @@ def choose_from_list(
 # Main Action Menu (at sea)
 # ─────────────────────────────────────────
 
-def sea_action_menu(state: GameState) -> str:
+# Ocean system for calculate_voyage(), per route_distances pair in
+# data/nautical_data.json (both directions). Ports not covered by any of
+# these pairs simply won't resolve a route — calculate_voyage() will
+# surface a clear "no route_distances entry" error rather than guessing.
+_ROUTE_OCEAN_SYSTEM: Dict[Tuple[str, str], str] = {}
+for _a, _b in [
+    ("Aden Harbor", "Aceh"), ("Calicut", "Aceh"), ("Hormuz", "Aden Harbor"),
+    ("Malacca Harbor", "Aceh"), ("Malacca Harbor", "Pegu"), ("Malacca Harbor", "Kedah"),
+    ("Goa Harbor", "Calicut"), ("Calicut", "Hormuz"), ("Calicut", "Aden Harbor"),
+    ("Goa Harbor", "Hormuz"), ("Goa Harbor", "Aden Harbor"), ("Calicut", "Malacca Harbor"),
+]:
+    _ROUTE_OCEAN_SYSTEM[(_a, _b)] = "indian_ocean"
+    _ROUTE_OCEAN_SYSTEM[(_b, _a)] = "indian_ocean"
+for _a, _b in [
+    ("Malacca Harbor", "Ayutthaya"), ("Malacca Harbor", "Gresik"), ("Malacca Harbor", "Bali"),
+    ("Malacca Harbor", "Bantam"), ("Malacca Harbor", "Cham Coast"), ("Bantam", "Gresik"),
+    ("Gresik", "Bali"), ("Gresik", "Makassar"), ("Makassar", "Ternate"), ("Ternate", "Tidore"),
+    ("Quanzhou", "Ayutthaya"), ("Quanzhou", "Cham Coast"), ("Patani", "Ayutthaya"),
+    ("Malacca Harbor", "Pulau Tioman"), ("Malacca Harbor", "Patani"), ("Patani", "Quanzhou"),
+    ("Pulau Tioman", "Patani"), ("Bantam", "Pulau Tioman"), ("Quanzhou", "Malacca Harbor"),
+]:
+    _ROUTE_OCEAN_SYSTEM[(_a, _b)] = "south_china_sea"
+    _ROUTE_OCEAN_SYSTEM[(_b, _a)] = "south_china_sea"
+
+
+def _peek_crew_at_sea(state: GameState):
+    """[C] Check crew — lightweight roster peek during a departure/event interrupt."""
+    clear()
+    print("═" * 52)
+    print("  CREW ROSTER")
+    print("═" * 52)
+    state.crew.roster_display()
+    print(f"\n  Total wages per port: {state.crew.total_wages()} gold")
+    press_enter()
+
+
+def _peek_save_at_sea(state: GameState):
+    """[S] Save — during a departure/event interrupt."""
+    save_game(state)
+    press_enter()
+
+
+def _peek_quests_at_sea(state: GameState):
+    """[Q] View active quests — during a departure/event interrupt."""
+    clear()
+    print("═" * 52)
+    print("  ACTIVE QUESTS")
+    print("═" * 52)
+    if not state.quests.active:
+        print("\n  No active quests.")
+    for q in state.quests.active:
+        print(q.status_line(state.day))
+    press_enter()
+
+
+def _at_sea_menu(state: GameState) -> str:
     clear()
     print("═" * 52)
     print("  ⛵  AT SEA")
     print("═" * 52)
     print(state.status_text())
     print()
-    print(f"  [1] {t('action_sail')}")
-    print(f"  [2] {t('action_landfall')}")
-    print(f"  [3] {t('action_status')}")
-    print("  [4] View crew roster")
-    print("  [5] View active quests")
-    print(f"  [6] {t('action_save')}")
+    print(f"  [1] {t('action_landfall')}")
+    print(f"  [2] {t('action_status')}")
+    print("  [3] View crew roster")
+    print("  [4] View active quests")
+    print(f"  [5] {t('action_save')}")
     print(f"  [Q] {t('action_quit')}\n")
-    return get_menu_choice({"1", "2", "3", "4", "5", "6", "Q"})
+    return get_menu_choice({"1", "2", "3", "4", "5", "Q"})
 
 
 # ─────────────────────────────────────────
@@ -2532,40 +2644,12 @@ def run_game(
             press_enter()
 
         if state.current_location_type == "sea":
-            selection = sea_action_menu(state)
+            selection = _at_sea_menu(state)
         else:
             # We've arrived — but returning to this loop means leaving port
-            selection = "2"  # force travel menu
+            selection = "1"  # force travel menu
 
         if selection == "1":
-            # Sail on — sea event if player has been to port
-            state.time.advance_hours(random.randint(18, 30))
-            state.apply_daily_crew_effects()
-
-            # TODO v0.3: Combat system
-            # Design conversation required before implementation.
-            # Three protagonist combat styles will differ mechanically.
-            # Portuguese: boarding actions, artillery advantage
-            # Ottoman: merchant defense, crew loyalty under fire
-            # Chinese: evasion, negotiation under duress
-            # combat_enabled flag in GameState is False until ready.
-            # Combat should feel like Heads Will Roll — explicit probability,
-            # push-your-luck, visible risk. Not like the social/trade system.
-
-            if state.has_visited_port:
-                if roll_check(0.65):
-                    engine.trigger_random("sea_events", state)
-                else:
-                    clear()
-                    print("\n  The sea is quiet. The crew keeps to their duties. A day passes.")
-                    press_enter()
-            else:
-                clear()
-                print("\n  You sail calm waters. The horizon holds nothing unusual yet.")
-                print("  (Sea encounters begin once you have made your first landfall.)")
-                press_enter()
-
-        elif selection == "2":
             dest, dest_type = travel_menu(state.world, state)
             if dest and dest_type:
                 # Home port lockout (Change 10)
@@ -2588,41 +2672,107 @@ def run_game(
                         continue
                     state.__dict__.pop("_sneak_in_success", None)
 
-                clear()
                 origin_port = state.current_location
-                speed_bonus = state.crew.travel_speed_bonus()
+                current_month = state.month + 1  # state.month is 0-indexed; nautical_data uses 1-12
+                ocean_system = _ROUTE_OCEAN_SYSTEM.get((origin_port, dest), "indian_ocean")
+                voyage = calculate_voyage(origin_port, dest, ocean_system, current_month, state.role)
+
+                if voyage.get("days") is None:
+                    clear()
+                    print(f"\n  The pilot has no chart for this crossing: {voyage.get('error', 'unknown route')}.")
+                    press_enter()
+                    continue
+
+                if voyage["blocked"]:
+                    clear()
+                    print(f"\n  ⚠ The season is against this crossing — {origin_port} to {dest}.")
+                    print(f"  Attempting it now would take an estimated {voyage['days']} day(s), sailing against the monsoon.")
+                    print(f"\n  [1] Wait in port for the season to turn (no risk)")
+                    print(f"  [2] Sail anyway, into the wind")
+                    wait_choice = get_menu_choice(["1", "2"])
+                    if wait_choice == "1":
+                        target_month = next_favorable_month(ocean_system, origin_port, dest, current_month)
+                        clear()
+                        if target_month is not None:
+                            day_in_month = (state.day - 1) % 30
+                            days_remaining = 30 - day_in_month
+                            months_ahead = (target_month - current_month) % 12 or 12
+                            days_to_wait = days_remaining + (months_ahead - 1) * 30
+                            state.time.advance_hours(days_to_wait * 24)
+                            print(f"\n  You wait in {origin_port} for {days_to_wait} day(s), until the season turns.")
+                        else:
+                            print(f"\n  There is no clearly favorable season on record for this crossing. You wait regardless.")
+                        press_enter()
+                        continue
+                    # wait_choice == "2": fall through and depart at penalty speed
+
+                # Pre-departure checkpoint — loops until the player picks Depart
+                while True:
+                    clear()
+                    print(f"\n  Preparing to depart {origin_port} for {dest}.")
+                    print(f"  Estimated voyage: {voyage['days']} day(s)  ({voyage['monsoon_state']})")
+                    print(f"\n  [1] Check crew")
+                    print(f"  [2] Save")
+                    print(f"  [3] Depart")
+                    dep_choice = get_menu_choice(["1", "2", "3"])
+                    if dep_choice == "1":
+                        _peek_crew_at_sea(state)
+                    elif dep_choice == "2":
+                        _peek_save_at_sea(state)
+                    else:
+                        break
+
+                clear()
                 crew_before = set(id(m) for m in state.crew.alive_members())
-                # Set location to waypoint description during transit
-                state.current_location = get_at_sea_description(origin_port, dest)
                 state.current_location_type = "sea"
-                actual_days = state.time.travel(origin_port, dest, speed_bonus)
-                # Apply sea events during travel proportionally
-                for _ in range(actual_days):
+                state._current_waterway = get_waterway(origin_port, dest)
+                state._current_monsoon_state = voyage["monsoon_state"]
+
+                total_days = voyage["days"]
+                event_count = 0
+                for day_idx in range(total_days):
+                    # Frame transit location: "just outside <origin>" for the first
+                    # half of the voyage, "approaching <dest>" for the second half —
+                    # replaces the old generic "At Sea" framing.
+                    if day_idx < total_days / 2:
+                        state.current_location = f"just outside {origin_port}"
+                    else:
+                        state.current_location = f"approaching {dest}"
+
+                    state.time.advance_hours(24)
                     state.apply_daily_crew_effects()
-                    # Urban legend: 10% chance each day
-                    lore = maybe_trigger_lore(state)
-                    if lore:
-                        print(lore)
-                    if state.has_visited_port and roll_check(0.40):
-                        # Pass current waterway context for location-specific filtering
-                        state._current_waterway = get_waterway(origin_port, dest)
-                        engine.trigger_random("sea_events", state)
+
+                    if state.has_visited_port and event_count < 4 and roll_check(random.uniform(0.10, 0.15)):
+                        event_count += 1
+                        engine.trigger_random(
+                            "sea_events", state,
+                            extra_options={
+                                "C": ("Check crew", _peek_crew_at_sea),
+                                "S": ("Save", _peek_save_at_sea),
+                                "Q": ("View active quests", _peek_quests_at_sea),
+                            },
+                        )
                         if state.is_game_over():
                             press_enter()
                             return
+                        # Urban legend: only on days that already had a sea
+                        # event — not an independent daily roll, and never
+                        # on the silent/quiet days.
+                        lore = maybe_trigger_lore(state)
+                        if lore:
+                            print(lore)
+
                 state._current_waterway = None
+                state._current_monsoon_state = None
+
                 # Check for crew deaths during travel (Ibu Malam trigger)
                 crew_after = set(id(m) for m in state.crew.alive_members())
                 if crew_before - crew_after:
                     _check_ibu_malam(state, "ibu_malam_after_crew_death")
 
-                # Navigator absence note
-                nav_level = state.crew.navigator_skill_level()
-                print(f"\n  You arrive at {dest} after {actual_days} day(s).")
-                if speed_bonus:
-                    print(f"  (Your navigator's skill saved {speed_bonus} day(s).)")
-                elif nav_level is None:
-                    print("  (No navigator — the crossing took longer than it should.)")
+                clear()
+                print(f"\n  You arrive at {dest} after {total_days} day(s).")
+                print(f"  {t('status_day')}: {state.time.display}  •  {MONTH_NAMES[state.month]} {state.calendar_year} (Year {state.year})")
                 press_enter()
 
                 state.current_location = dest
@@ -2635,12 +2785,12 @@ def run_game(
                 print("\n  You remain where you are.")
                 press_enter()
 
-        elif selection == "3":
+        elif selection == "2":
             clear()
             print(state.status_text())
             press_enter()
 
-        elif selection == "4":
+        elif selection == "3":
             clear()
             print("═" * 52)
             print("  CREW ROSTER")
@@ -2650,7 +2800,7 @@ def run_game(
             print(f"  Trade bonus (current location): {int(state.crew.trade_bonus('', '')*100)}%")
             press_enter()
 
-        elif selection == "5":
+        elif selection == "4":
             clear()
             print("═" * 52)
             print("  ACTIVE QUESTS")
@@ -2661,7 +2811,7 @@ def run_game(
                 print(q.status_line(state.day))
             press_enter()
 
-        elif selection == "6":
+        elif selection == "5":
             save_game(state)
             press_enter()
 
@@ -3159,24 +3309,36 @@ def start_new_game(
             state.crew.add(member)
         state.items.append("rapier")
         _run_intro_scene(state, intros.get("portuguese", {}))
-        # Starting position: approaching the Strait from the west (Change 10)
-        state.current_location = "Indian Ocean, southeast of Calicut"
+        # Starting position: approaching the Strait from the west (Change 10).
+        # The flavor phrase is narration only — current_location must be a
+        # real port name so route lookups (calculate_voyage) resolve.
+        print("\n  You are somewhere in the Indian Ocean, southeast of Calicut.\n")
+        press_enter()
+        state.current_location = "Calicut"
         state.current_location_type = "sea"
 
     elif role == "Ottoman Trader":
         for member in _build_ottoman_crew(crew_data):
             state.crew.add(member)
         _run_intro_scene(state, intros.get("ottoman", {}))
-        # Starting position: departing Hormuz eastward (Change 10)
-        state.current_location = "Arabian Sea, departing Hormuz"
+        # Starting position: departing Hormuz eastward (Change 10).
+        # The flavor phrase is narration only — current_location must be a
+        # real port name so route lookups (calculate_voyage) resolve.
+        print("\n  You are somewhere in the Arabian Sea, departing Hormuz.\n")
+        press_enter()
+        state.current_location = "Hormuz"
         state.current_location_type = "sea"
 
     elif role == "Chinese Trader":
         for member in _build_chinese_crew(crew_data):
             state.crew.add(member)
         _run_intro_scene(state, intros.get("chinese", {}))
-        # Starting position: south of the Fujian coast (Change 10)
-        state.current_location = "South China Sea, south of Quanzhou"
+        # Starting position: south of the Fujian coast (Change 10).
+        # The flavor phrase is narration only — current_location must be a
+        # real port name so route lookups (calculate_voyage) resolve.
+        print("\n  You are somewhere in the South China Sea, south of Quanzhou.\n")
+        press_enter()
+        state.current_location = "Quanzhou"
         state.current_location_type = "sea"
 
     run_game(state, engine, crew_data, all_quests)

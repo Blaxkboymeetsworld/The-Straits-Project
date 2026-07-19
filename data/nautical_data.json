@@ -1,0 +1,83 @@
+{
+  "monsoon_calendar": {
+    "indian_ocean": {
+      "sw_monsoon": {
+        "favorable_months": [5, 6, 7, 8, 9],
+        "unfavorable_months": [11, 12, 1, 2, 3],
+        "favors": "Arabia/Africa -> India -> eastward (Malacca Strait)"
+      },
+      "ne_monsoon": {
+        "favorable_months": [11, 12, 1, 2, 3],
+        "unfavorable_months": [5, 6, 7, 8, 9],
+        "favors": "the return west (India/Malacca Strait -> Arabia/Africa)"
+      },
+      "transition_months": [4, 10]
+    },
+    "south_china_sea": {
+      "ne_monsoon": {
+        "favorable_months": [11, 12, 1, 2, 3],
+        "unfavorable_months": [5, 6, 7, 8, 9],
+        "favors": "China -> Southeast Asia"
+      },
+      "sw_monsoon": {
+        "favorable_months": [5, 6, 7, 8, 9],
+        "unfavorable_months": [11, 12, 1, 2, 3],
+        "favors": "the return north (Southeast Asia -> China)"
+      },
+      "transition_months": [4, 10]
+    }
+  },
+
+  "ship_speed_profiles": {
+    "Portuguese Conquistador": {
+      "open_ocean_knots": 4.0,
+      "coastal_knots": 3.0,
+      "upwind_penalty_multiplier": 0.4
+    },
+    "Ottoman Trader": {
+      "open_ocean_knots": 3.8,
+      "coastal_knots": 3.8,
+      "upwind_penalty_multiplier": 0.7
+    },
+    "Chinese Trader": {
+      "open_ocean_knots": 3.3,
+      "coastal_knots": 4.0,
+      "upwind_penalty_multiplier": 0.5
+    }
+  },
+
+  "route_distances": [
+    { "from": "Malacca Harbor", "to": "Aceh",       "nautical_miles": 461 },
+    { "from": "Malacca Harbor", "to": "Ayutthaya",  "nautical_miles": 692 },
+    { "from": "Malacca Harbor", "to": "Pegu",       "nautical_miles": 942 },
+    { "from": "Malacca Harbor", "to": "Kedah",      "nautical_miles": 261 },
+    { "from": "Malacca Harbor", "to": "Gresik",     "nautical_miles": 854 },
+    { "from": "Malacca Harbor", "to": "Bali",       "nautical_miles": 986 },
+    { "from": "Malacca Harbor", "to": "Bantam",     "nautical_miles": 579 },
+    { "from": "Bantam",         "to": "Gresik",     "nautical_miles": 393 },
+    { "from": "Gresik",         "to": "Bali",       "nautical_miles": 156 },
+    { "from": "Gresik",         "to": "Makassar",   "nautical_miles": 561 },
+    { "from": "Makassar",       "to": "Ternate",    "nautical_miles": 595 },
+    { "from": "Ternate",        "to": "Tidore",     "nautical_miles": 6 },
+    { "from": "Quanzhou",       "to": "Ayutthaya",  "nautical_miles": 1221 },
+    { "from": "Quanzhou",       "to": "Cham Coast", "nautical_miles": 851 },
+    { "from": "Patani",         "to": "Ayutthaya",  "nautical_miles": 406 },
+    { "from": "Aden Harbor",    "to": "Aceh",       "nautical_miles": 3009 },
+    { "from": "Calicut",        "to": "Aceh",       "nautical_miles": 1210 },
+    { "from": "Hormuz",         "to": "Aden Harbor","nautical_miles": 1068 },
+    { "from": "Malacca Harbor", "to": "Cham Coast", "nautical_miles": 809 },
+
+    { "from": "Goa Harbor",     "to": "Calicut",      "nautical_miles": 279 },
+    { "from": "Calicut",        "to": "Hormuz",        "nautical_miles": 1442 },
+    { "from": "Calicut",        "to": "Aden Harbor",   "nautical_miles": 1808 },
+    { "from": "Goa Harbor",     "to": "Hormuz",        "nautical_miles": 1188 },
+    { "from": "Goa Harbor",     "to": "Aden Harbor",   "nautical_miles": 1684 },
+    { "from": "Calicut",        "to": "Malacca Harbor","nautical_miles": 1668 },
+    { "from": "Malacca Harbor", "to": "Pulau Tioman",  "nautical_miles": 120 },
+    { "from": "Malacca Harbor", "to": "Patani",        "nautical_miles": 287 },
+    { "from": "Patani",         "to": "Quanzhou",      "nautical_miles": 1470 },
+    { "from": "Pulau Tioman",   "to": "Patani",        "nautical_miles": 300 },
+    { "from": "Bantam",         "to": "Pulau Tioman",  "nautical_miles": 546 },
+    { "from": "Quanzhou",       "to": "Malacca Harbor","nautical_miles": 1658 }
+  ]
+}
