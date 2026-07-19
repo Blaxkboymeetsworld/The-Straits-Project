@@ -80,7 +80,7 @@ all_port_names = {p["name"] for p in wd["major_ports"] + wd["villages"]}
 
 for p in wd["major_ports"] + wd["villages"]:
     pname = p.get("name", "?")
-    for req_key in ("name","specialty_goods","base_prices","recruitable_pool","weapons_available"):
+    for req_key in ("name","specialty_goods","base_prices","recruitable_pool","weapons_available","culture","language","religion"):
         if req_key not in p:
             fail(f"port/village '{pname}' missing key: {req_key}")
     for w_ref in p.get("weapons_available", []):
@@ -89,6 +89,29 @@ for p in wd["major_ports"] + wd["villages"]:
     for archetype in p.get("recruitable_pool", []):
         if archetype not in archetypes:
             fail(f"port '{pname}' recruitable_pool references unknown archetype: {archetype}")
+
+    ruler = p.get("ruler")
+    if ruler is not None:
+        if not isinstance(ruler, dict):
+            fail(f"port/village '{pname}' ruler is not a dict: {type(ruler).__name__}")
+        else:
+            for rk in ("name","title","faction","disposition"):
+                if rk not in ruler:
+                    fail(f"port/village '{pname}' ruler missing key: {rk}")
+            if "disposition" in ruler and not isinstance(ruler["disposition"], int):
+                fail(f"port/village '{pname}' ruler disposition is not an int: {ruler['disposition']!r}")
+
+    hm_shape = p.get("harbor_master")
+    if hm_shape is not None:
+        if not isinstance(hm_shape, dict):
+            fail(f"port/village '{pname}' harbor_master is not a dict: {type(hm_shape).__name__}")
+        else:
+            if "name" not in hm_shape:
+                fail(f"port/village '{pname}' harbor_master missing key: name")
+            if "fees" not in hm_shape:
+                fail(f"port/village '{pname}' harbor_master missing key: fees")
+            elif not isinstance(hm_shape["fees"], (int, dict)):
+                fail(f"port/village '{pname}' harbor_master fees is not an int or dict: {hm_shape['fees']!r}")
 
 for p in wd["major_ports"]:
     pname = p.get("name", "?")
