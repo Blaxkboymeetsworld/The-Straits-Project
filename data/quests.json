@@ -696,8 +696,8 @@
       "requires_quest": "ma_world_event",
       "protagonist_lock": "Ottoman Trader",
       "giver_port": "Aden Harbor",
-      "giver_name": "Pasha Qansuh al-Ghuri",
-      "giver_title": "New Ottoman Governor",
+      "giver_name": "Mustafa al-Rumi",
+      "giver_title": "Ottoman Merchant, Aden",
       "target_port": "Hormuz",
       "target_character": "Suleiman al-Tahiri",
       "available_years": [
