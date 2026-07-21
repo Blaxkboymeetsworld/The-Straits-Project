@@ -86,7 +86,7 @@ MUSLIM_PORTS = {
 # Ports east of (and including) Malacca — Chinese home waters
 CHINESE_HOME_PORTS = {
     "Malacca Harbor", "Bantam", "Quanzhou", "Patani",
-    "Keelung Outpost", "Cham Coast", "Ternate", "Banda Islands",
+    "Cham Coast", "Ternate",
 }
 
 # Crew ethnicity → port culture pairings that trigger culture intervention
@@ -100,7 +100,7 @@ CULTURE_INTERVENTION_MAP: Dict[str, List[str]] = {
     "Tamil":            ["Calicut"],
     "Gujarati":         ["Calicut", "Hormuz", "Goa Harbor"],
     "Chinese (Hokkien)":["Quanzhou", "Malacca Harbor", "Patani"],
-    "Chinese (Fujian)": ["Quanzhou", "Keelung Outpost"],
+    "Chinese (Fujian)": ["Quanzhou"],
     "Turkish":          ["Hormuz", "Aden Harbor"],
     "Orang Laut":       ["Malacca Harbor", "Pulau Tioman"],
 }

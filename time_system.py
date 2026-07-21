@@ -62,12 +62,6 @@ TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
     ("Bali", "Bantam"):                 3,
     ("Bali", "Ternate"):                4,
     ("Bali", "Malacca Harbor"):         5,
-    ("Keelung Outpost", "Quanzhou"):    2,
-    ("Keelung Outpost", "Bantam"):      9,
-    ("Keelung Outpost", "Patani"):      7,
-    ("Banda Islands", "Ternate"):       3,
-    ("Banda Islands", "Bantam"):        6,
-    ("Banda Islands", "Malacca Harbor"):10,
     ("Cham Coast", "Quanzhou"):         6,
     ("Cham Coast", "Malacca Harbor"):   5,
     ("Cham Coast", "Patani"):           4,
@@ -88,7 +82,6 @@ TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
     ("South China Sea, south of Quanzhou", "Malacca Harbor"): 10,
     ("South China Sea, south of Quanzhou", "Bantam"):         8,
     ("South China Sea, south of Quanzhou", "Patani"):         6,
-    ("South China Sea, south of Quanzhou", "Keelung Outpost"): 3,
 }
 
 # Fill in reverse directions automatically (roughly symmetric)
