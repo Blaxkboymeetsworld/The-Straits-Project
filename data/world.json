@@ -339,7 +339,7 @@
       "language": "Mon",
       "religion": "Theravada Buddhism",
       "faction": "Hanthawaddy Kingdom (Mon)",
-      "ruler": { "name": "Binnya Ran II", "title": "TITLE_NEEDS_VERIFICATION", "faction": "Hanthawaddy Kingdom (Mon)", "disposition": 40 },
+      "ruler": { "name": "Binnya Ran II", "title": "King of Hanthawaddy", "faction": "Hanthawaddy Kingdom (Mon)", "disposition": 40 },
       "population_mix": ["Mon Buddhist population", "Burmese traders",
                          "Tamil and Bengali merchants", "small Portuguese factor presence (post-Year 2)"],
       "trade_goods": [

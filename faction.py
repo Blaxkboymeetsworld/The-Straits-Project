@@ -82,6 +82,19 @@ FACTIONS: Dict[str, Dict[str, Any]] = {
         "disposition": 40,
         "minor": True,
     },
+    "hanthawaddy_kingdom": {
+        "id": "hanthawaddy_kingdom",
+        "name": "Hanthawaddy Kingdom",
+        "home_port": "Pegu",
+        "disposition": 40,
+        "notes": (
+            "A Mon Theravada Buddhist kingdom and major independent entrepot on "
+            "the Bay of Bengal, trading rubies, teak, and war elephants. Distant "
+            "from the Islamic and Iberian trade networks that dominate the "
+            "western routes — politically and commercially its own actor, not "
+            "aligned with any other faction in this game."
+        ),
+    },
 }
 
 
@@ -147,6 +160,7 @@ PORT_FACTION: Dict[str, str] = {
     "Pulau Tioman":       "chen_zuyi_ghost",
     "Patani":             "malacca_sultanate",
     "Cham Coast":         "ming_dynasty",
+    "Pegu":               "hanthawaddy_kingdom",
 }
 
 
