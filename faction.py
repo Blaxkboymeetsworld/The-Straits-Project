@@ -161,6 +161,12 @@ PORT_FACTION: Dict[str, str] = {
     "Patani":             "malacca_sultanate",
     "Cham Coast":         "ming_dynasty",
     "Pegu":               "hanthawaddy_kingdom",
+    "Aceh":               "malacca_sultanate",
+    "Ayutthaya":          "malacca_sultanate",
+    "Gresik":             "sultanate_of_bantam",
+    "Kedah":              "malacca_sultanate",
+    "Tidore":             "malacca_sultanate",
+    "Makassar":           "sultanate_of_bantam",
 }
 
 
