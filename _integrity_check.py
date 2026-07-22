@@ -297,6 +297,19 @@ for list_name in ("quests","mamluk_arc"):
 
 ok("completion='deliver' quests all have non-empty cargo_required and non-null target_port")
 
+# completion == "rendezvous" requires a non-null target_port and at least
+# one of deadline_day / deadline_flag
+for list_name in ("quests","mamluk_arc"):
+    for q in qd.get(list_name, []):
+        if q.get("completion") == "rendezvous":
+            q_id = q.get("id","?")
+            if q.get("target_port") is None:
+                fail(f"quest '{q_id}' ({list_name}) has completion='rendezvous' but target_port is null")
+            if q.get("deadline_day") is None and not q.get("deadline_flag"):
+                fail(f"quest '{q_id}' ({list_name}) has completion='rendezvous' but neither deadline_day nor deadline_flag is set")
+
+ok("completion='rendezvous' quests all have non-null target_port and a deadline_day or deadline_flag")
+
 # requires_quest chain — every referenced id must exist
 for list_name in ("quests","mamluk_arc"):
     for q in qd.get(list_name, []):
