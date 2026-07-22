@@ -68,7 +68,8 @@ class ActiveQuest:
     def status_line(self, current_day: int) -> str:
         remaining = self.days_remaining(current_day)
         status = "✓ COMPLETE" if self.completed else ("✗ FAILED" if self.failed else f"{remaining}d left")
-        return f"  [{status}] '{self.title}' → {self.target_port}  (from {self.giver_name})"
+        destination = f"(resolve at {self.giver_port})" if self.completion == "at_giver" else f"→ {self.target_port}"
+        return f"  [{status}] '{self.title}' {destination}  (from {self.giver_name})"
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -447,7 +448,10 @@ class QuestManager:
                 for i, q in enumerate(available, 1):
                     diff = q.get("difficulty", "moderate").upper()
                     print(f"  [{i}] '{q['title']}' ({diff}) — {q['giver_name']}, {q['giver_title']}")
-                    print(f"       → Go to {q['target_port']}  within {q['time_limit_days']} days")
+                    if q.get("completion") == "at_giver":
+                        print(f"       → Resolve at {q['giver_port']}")
+                    else:
+                        print(f"       → Go to {q['target_port']}  within {q['time_limit_days']} days")
                     print(f"       Reward: {q['reward_gold']} gold\n")
             else:
                 print("\n  No new missions available here at this time.\n")
