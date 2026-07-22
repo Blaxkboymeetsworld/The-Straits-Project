@@ -48,6 +48,7 @@ class ActiveQuest:
         self.lore = quest_data.get("lore", "")
         self.quest_type = quest_data.get("quest_type", "main")
         self.quest_tier = quest_data.get("quest_tier", 1)
+        self.completion = quest_data.get("completion")
         self.accepted_on_day = accepted_on_day
         # Non-expiring adventure quests use time_limit_days: 0
         tlimit = quest_data["time_limit_days"]
@@ -87,6 +88,7 @@ class ActiveQuest:
             "lore": self.lore,
             "quest_type": self.quest_type,
             "quest_tier": self.quest_tier,
+            "completion": self.completion,
             "accepted_on_day": self.accepted_on_day,
             "deadline": self.deadline,
             "completed": self.completed,
@@ -105,6 +107,7 @@ class ActiveQuest:
             "reward_disposition": d["reward_disposition"], "reward_item": d["reward_item"],
             "failure_disposition": d["failure_disposition"], "lore": d.get("lore", ""),
             "quest_type": d.get("quest_type", "main"), "quest_tier": d.get("quest_tier", 1),
+            "completion": d.get("completion"),
         }
         obj = cls(pseudo_data, d["accepted_on_day"])
         obj.deadline = d["deadline"]
@@ -289,12 +292,35 @@ class QuestManager:
         """
         Called on arrival at a port. Checks if any active quest has this as
         the target port, and if so, attempts to resolve it.
+
+        Quests with completion == "at_giver" instead resolve at the
+        giver_port itself — no separate target_port travel required.
         """
         for q in self.active:
             if q.completed or q.failed:
                 continue
             if q.contact_found:
                 continue
+
+            if q.completion == "at_giver":
+                if q.giver_port != port_name:
+                    continue
+                clear_fn()
+                print("═" * 50)
+                print(f"  QUEST — '{q.title}'")
+                print("═" * 50)
+                if q.target_character:
+                    print(f"\n  {q.target_character} is here at {q.giver_port}.")
+                    print(f"\n  After some asking around the docks and market lanes,\n"
+                          f"  you find them and settle the matter — the information\n"
+                          f"  {q.giver_name} needed is now in hand.")
+                else:
+                    print(f"\n  Your task here is done. You gather the information {q.giver_name}\n"
+                          f"  required, right where you stand.")
+                q.contact_found = True
+                press_enter_fn()
+                continue
+
             if q.target_port != port_name:
                 continue
             # Quest resolution

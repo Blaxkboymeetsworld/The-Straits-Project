@@ -267,6 +267,23 @@ for q_id, port in quest_port_refs:
 
 ok("quest port references cross-checked against world.json")
 
+# target_port: null is only valid for completion == "at_giver" quests (resolved
+# in place at the giver_port) or type == "world_event" (which never resolves
+# via the giver_port/target_port quest flow at all — triggered directly by
+# _check_world_events() in straits_project.py). Any other quest with a null
+# target_port can never be completed: check_port_arrival has nothing to match
+# it against, so it's permanently stuck once accepted.
+for list_name in ("quests","mamluk_arc"):
+    for q in qd.get(list_name, []):
+        if (
+            q.get("target_port") is None
+            and q.get("type") != "world_event"
+            and q.get("completion") != "at_giver"
+        ):
+            fail(f"quest '{q.get('id','?')}' ({list_name}) has target_port=null but completion != 'at_giver' — quest can never be completed")
+
+ok("target_port=null only allowed with completion='at_giver' (or type='world_event')")
+
 # requires_quest chain — every referenced id must exist
 for list_name in ("quests","mamluk_arc"):
     for q in qd.get(list_name, []):
