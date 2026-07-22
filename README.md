@@ -144,6 +144,12 @@ Each quest object requires these fields:
 Optional fields:
 - `requires_role`: `"Portuguese Conquistador"` | `"Ottoman Trader"` | `"Chinese Trader"` — restricts quest to one protagonist (enforcement TO DO in `quests.py`)
 - `available_from_day` / `available_to_day`: day-window gating (enforcement TO DO)
+- `completion`: controls how the quest resolves. Four states:
+  - absent (default) — fetch-and-return: contact found at `target_port`, reward granted on return to `giver_port`.
+  - `"at_giver"` — resolves in place at `giver_port`; no separate `target_port` travel required.
+  - `"deliver"` — resolves at `target_port` when `cargo_required` (object of good→quantity, e.g. `{"coffee": 5}`) is met; the goods are consumed from cargo.
+  - `"rendezvous"` — resolves at `target_port` only while the window is open, per `deadline_day` (int) and/or `deadline_flag` (an `once_flags` name); arriving after the window closes fails the quest instead of completing it.
+- `target_port` may be `null` only when `completion == "at_giver"`.
 
 ---
 
