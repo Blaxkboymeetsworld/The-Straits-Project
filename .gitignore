@@ -5,3 +5,5 @@ sources/
 _extracted/
 .claude/
 saves/
+/diff_output.txt
+/game_log.txt
