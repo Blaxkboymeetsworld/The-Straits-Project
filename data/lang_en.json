@@ -70,5 +70,22 @@
   "prisoner_enslave": "Enslave (sell at slave market ports)",
   "prisoner_release": "Release them",
   "prisoner_released_bonus": "You release the captives. Your crew notes it.",
-  "homeport_locked": "You have no reason to return yet. There is more to learn in these waters."
+  "homeport_locked": "You have no reason to return yet. There is more to learn in these waters.",
+  "voyage_monsoon_blocked_warning": "⚠ The season is against this crossing — {origin} to {dest}.",
+  "voyage_no_route_error": "The pilot has no chart for this crossing: {error}.",
+  "voyage_departure_checkpoint": "Preparing to depart {origin} for {dest}.",
+  "voyage_arrival_message": "You arrive at {dest} after {days} day(s).",
+  "time_of_day_dawn": "Dawn",
+  "time_of_day_morning": "Morning",
+  "time_of_day_afternoon": "Afternoon",
+  "time_of_day_evening": "Evening",
+  "time_of_day_dusk": "Dusk",
+  "time_of_day_night": "Night",
+  "time_of_day_late_night": "Late Night",
+  "access_warning_market": "The market is closed. Return at dawn.",
+  "access_warning_harbor_master": "The harbor master's office is dark. Come back in the morning.",
+  "access_warning_ruler_audience": "The palace is not receiving visitors at this hour.",
+  "access_warning_recruitment": "The docks are quiet. Recruits will be here in the morning.",
+  "access_warning_quest_board": "Officials are not available until morning.",
+  "access_warning_ship_repair": "The shipwrights are not working at this hour."
 }

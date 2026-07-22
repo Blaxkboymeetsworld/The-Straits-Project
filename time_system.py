@@ -390,20 +390,21 @@ class TimeSystem:
 
     @property
     def time_of_day_str(self) -> str:
+        from straits_project import t
         if 5 <= self.hour < 8:
-            return "Dawn"
+            return t("time_of_day_dawn")
         elif 8 <= self.hour < 12:
-            return "Morning"
+            return t("time_of_day_morning")
         elif 12 <= self.hour < 15:
-            return "Afternoon"
+            return t("time_of_day_afternoon")
         elif 15 <= self.hour < 19:
-            return "Evening"
+            return t("time_of_day_evening")
         elif 19 <= self.hour < 22:
-            return "Dusk"
+            return t("time_of_day_dusk")
         elif 22 <= self.hour or self.hour < 2:
-            return "Night"
+            return t("time_of_day_night")
         else:
-            return "Late Night"
+            return t("time_of_day_late_night")
 
     @property
     def display(self) -> str:
@@ -473,14 +474,15 @@ class TimeSystem:
         }
 
     def access_warning(self, feature: str) -> Optional[str]:
+        from straits_project import t
         status = self.port_access_status()
         warnings = {
-            "market_open":   "The market is closed. Return at dawn.",
-            "harbor_master": "The harbor master's office is dark. Come back in the morning.",
-            "ruler_audience":"The palace is not receiving visitors at this hour.",
-            "recruitment":   "The docks are quiet. Recruits will be here in the morning.",
-            "quest_board":   "Officials are not available until morning.",
-            "ship_repair":   "The shipwrights are not working at this hour.",
+            "market_open":   t("access_warning_market"),
+            "harbor_master": t("access_warning_harbor_master"),
+            "ruler_audience":t("access_warning_ruler_audience"),
+            "recruitment":   t("access_warning_recruitment"),
+            "quest_board":   t("access_warning_quest_board"),
+            "ship_repair":   t("access_warning_ship_repair"),
         }
         if feature in status and not status[feature]:
             return warnings.get(feature, f"{feature} not available right now.")

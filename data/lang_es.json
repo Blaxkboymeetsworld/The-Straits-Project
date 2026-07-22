@@ -70,5 +70,22 @@
   "prisoner_enslave": "Esclavizar (vender en puertos con mercado de esclavos)",
   "prisoner_release": "Liberarlos",
   "prisoner_released_bonus": "Liberáis a los cautivos. Vuestra tripulación lo nota.",
-  "homeport_locked": "Aún no tenéis motivos para regresar. Hay más que aprender en estas aguas."
+  "homeport_locked": "Aún no tenéis motivos para regresar. Hay más que aprender en estas aguas.",
+  "voyage_monsoon_blocked_warning": "⚠ La estación no favorece esta travesía — {origin} a {dest}.",
+  "voyage_no_route_error": "El piloto no tiene carta para esta travesía: {error}.",
+  "voyage_departure_checkpoint": "Preparándose para zarpar de {origin} hacia {dest}.",
+  "voyage_arrival_message": "Llegáis a {dest} después de {days} día(s).",
+  "time_of_day_dawn": "Amanecer",
+  "time_of_day_morning": "Mañana",
+  "time_of_day_afternoon": "Tarde",
+  "time_of_day_evening": "Atardecer",
+  "time_of_day_dusk": "Anochecer",
+  "time_of_day_night": "Noche",
+  "time_of_day_late_night": "Madrugada",
+  "access_warning_market": "El mercado está cerrado. Volved al amanecer.",
+  "access_warning_harbor_master": "La oficina del capitán de puerto está a oscuras. Volved por la mañana.",
+  "access_warning_ruler_audience": "El palacio no recibe visitantes a esta hora.",
+  "access_warning_recruitment": "Los muelles están tranquilos. Los reclutas estarán aquí por la mañana.",
+  "access_warning_quest_board": "Los funcionarios no están disponibles hasta la mañana.",
+  "access_warning_ship_repair": "Los carpinteros de ribera no trabajan a esta hora."
 }

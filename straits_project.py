@@ -2679,13 +2679,13 @@ def run_game(
 
                 if voyage.get("days") is None:
                     clear()
-                    print(f"\n  The pilot has no chart for this crossing: {voyage.get('error', 'unknown route')}.")
+                    print(f"\n  {t('voyage_no_route_error').format(error=voyage.get('error', 'unknown route'))}")
                     press_enter()
                     continue
 
                 if voyage["blocked"]:
                     clear()
-                    print(f"\n  ⚠ The season is against this crossing — {origin_port} to {dest}.")
+                    print(f"\n  {t('voyage_monsoon_blocked_warning').format(origin=origin_port, dest=dest)}")
                     print(f"  Attempting it now would take an estimated {voyage['days']} day(s), sailing against the monsoon.")
                     print(f"\n  [1] Wait in port for the season to turn (no risk)")
                     print(f"  [2] Sail anyway, into the wind")
@@ -2709,7 +2709,7 @@ def run_game(
                 # Pre-departure checkpoint — loops until the player picks Depart
                 while True:
                     clear()
-                    print(f"\n  Preparing to depart {origin_port} for {dest}.")
+                    print(f"\n  {t('voyage_departure_checkpoint').format(origin=origin_port, dest=dest)}")
                     print(f"  Estimated voyage: {voyage['days']} day(s)  ({voyage['monsoon_state']})")
                     print(f"\n  [1] Check crew")
                     print(f"  [2] Save")
@@ -2771,7 +2771,7 @@ def run_game(
                     _check_ibu_malam(state, "ibu_malam_after_crew_death")
 
                 clear()
-                print(f"\n  You arrive at {dest} after {total_days} day(s).")
+                print(f"\n  {t('voyage_arrival_message').format(dest=dest, days=total_days)}")
                 print(f"  {t('status_day')}: {state.time.display}  •  {MONTH_NAMES[state.month]} {state.calendar_year} (Year {state.year})")
                 press_enter()
 
