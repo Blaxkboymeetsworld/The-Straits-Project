@@ -704,8 +704,8 @@
         6,
         7
       ],
-      "description": "The new Ottoman governor has a problem: the Tahirid governor's son is in Hormuz making overtures to the Portuguese. Go to Hormuz. Find him. Bring him back by persuasion. He is not a villain — he is frightened. The conversation is the heart of this quest.",
-      "description_es": "El nuevo gobernador otomano tiene un problema: el hijo del gobernador tahirí está en Hormuz haciendo acercamientos a los portugueses. Id a Hormuz. Encontradlo. Traedlo de vuelta mediante la persuasión. No es un villano — está asustado. La conversación es el corazón de esta misión.",
+      "description": "Mustafa al-Rumi has a problem: the Tahirid governor's son is in Hormuz making overtures to the Portuguese. Go to Hormuz. Find him. Bring him back by persuasion. He is not a villain — he is frightened. The conversation is the heart of this quest.",
+      "description_es": "Mustafa al-Rumi tiene un problema: el hijo del gobernador tahirí está en Hormuz haciendo acercamientos a los portugueses. Id a Hormuz. Encontradlo. Traedlo de vuelta mediante la persuasión. No es un villano — está asustado. La conversación es el corazón de esta misión.",
       "time_limit_days": 55,
       "reward_gold": 80,
       "reward_disposition": 20,
