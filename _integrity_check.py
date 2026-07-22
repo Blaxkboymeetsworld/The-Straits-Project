@@ -284,6 +284,19 @@ for list_name in ("quests","mamluk_arc"):
 
 ok("target_port=null only allowed with completion='at_giver' (or type='world_event')")
 
+# completion == "deliver" requires a non-empty cargo_required and a non-null target_port
+for list_name in ("quests","mamluk_arc"):
+    for q in qd.get(list_name, []):
+        if q.get("completion") == "deliver":
+            q_id = q.get("id","?")
+            if q.get("target_port") is None:
+                fail(f"quest '{q_id}' ({list_name}) has completion='deliver' but target_port is null")
+            cargo_req = q.get("cargo_required")
+            if not cargo_req or not isinstance(cargo_req, dict):
+                fail(f"quest '{q_id}' ({list_name}) has completion='deliver' but cargo_required is missing or empty")
+
+ok("completion='deliver' quests all have non-empty cargo_required and non-null target_port")
+
 # requires_quest chain — every referenced id must exist
 for list_name in ("quests","mamluk_arc"):
     for q in qd.get(list_name, []):

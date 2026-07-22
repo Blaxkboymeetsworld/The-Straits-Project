@@ -49,6 +49,7 @@ class ActiveQuest:
         self.quest_type = quest_data.get("quest_type", "main")
         self.quest_tier = quest_data.get("quest_tier", 1)
         self.completion = quest_data.get("completion")
+        self.cargo_required = quest_data.get("cargo_required")
         self.accepted_on_day = accepted_on_day
         # Non-expiring adventure quests use time_limit_days: 0
         tlimit = quest_data["time_limit_days"]
@@ -90,6 +91,7 @@ class ActiveQuest:
             "quest_type": self.quest_type,
             "quest_tier": self.quest_tier,
             "completion": self.completion,
+            "cargo_required": self.cargo_required,
             "accepted_on_day": self.accepted_on_day,
             "deadline": self.deadline,
             "completed": self.completed,
@@ -108,7 +110,7 @@ class ActiveQuest:
             "reward_disposition": d["reward_disposition"], "reward_item": d["reward_item"],
             "failure_disposition": d["failure_disposition"], "lore": d.get("lore", ""),
             "quest_type": d.get("quest_type", "main"), "quest_tier": d.get("quest_tier", 1),
-            "completion": d.get("completion"),
+            "completion": d.get("completion"), "cargo_required": d.get("cargo_required"),
         }
         obj = cls(pseudo_data, d["accepted_on_day"])
         obj.deadline = d["deadline"]
@@ -296,6 +298,10 @@ class QuestManager:
 
         Quests with completion == "at_giver" instead resolve at the
         giver_port itself — no separate target_port travel required.
+
+        Quests with completion == "deliver" resolve at target_port by
+        consuming cargo_required from state.cargo — arrival with the
+        goods in hold IS completion, no return to giver required.
         """
         for q in self.active:
             if q.completed or q.failed:
@@ -319,6 +325,66 @@ class QuestManager:
                     print(f"\n  Your task here is done. You gather the information {q.giver_name}\n"
                           f"  required, right where you stand.")
                 q.contact_found = True
+                press_enter_fn()
+                continue
+
+            if q.completion == "deliver":
+                if q.target_port != port_name:
+                    continue
+                cargo_req = q.cargo_required or {}
+                if any(state.cargo.get(good, 0) < qty for good, qty in cargo_req.items()):
+                    clear_fn()
+                    print(f"\n  You do not carry what was promised for '{q.title}'.")
+                    press_enter_fn()
+                    continue
+
+                for good, qty in cargo_req.items():
+                    state.cargo[good] -= qty
+                    if state.cargo[good] <= 0:
+                        del state.cargo[good]
+
+                clear_fn()
+                print("═" * 50)
+                print(f"  QUEST COMPLETE — '{q.title}'")
+                print("═" * 50)
+                print(f"\n  You deliver the promised goods at {port_name}.")
+                print(f"\n  The reward: {q.reward_gold} gold.")
+                if q.reward_item:
+                    print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")
+                    state.items.append(q.reward_item)
+                if q.lore:
+                    lore_count = getattr(state, "seen_lore_flags", {}).get(q.id, 0)
+                    if lore_count < 3:
+                        lang = getattr(state, "lang", "en")
+                        lore_text = getattr(q, f"lore_{lang}", q.lore) if lang != "en" else q.lore
+                        print(f"\n  ─ Historical Note ─\n  {lore_text}\n")
+                        if hasattr(state, "seen_lore_flags"):
+                            state.seen_lore_flags[q.id] = lore_count + 1
+
+                state.gold += q.reward_gold
+                self.adjust_disposition(port_name, q.reward_disposition)
+                q.contact_found = True
+                q.completed = True
+                self.completed_ids.append(q.id)
+                self.active.remove(q)
+
+                if hasattr(state, "reputation_tier"):
+                    state.reputation_tier = min(5, state.reputation_tier + 1)
+                if hasattr(state, "assignments_completed"):
+                    state.assignments_completed += 1
+
+                from faction import port_to_faction
+                faction_id = port_to_faction(port_name)
+                if faction_id and hasattr(state, "factions"):
+                    state.factions.adjust_rep(faction_id, +1)
+                    state.factions.adjust_disposition(faction_id, +5)
+                    milestone_key = state.factions.record_faction_quest(faction_id)
+                    if milestone_key and faction_id in MILESTONE_SCENES:
+                        print()
+                        print("  ─" * 26)
+                        print(f"\n  {MILESTONE_SCENES[faction_id]}\n")
+                        print("  ─" * 26)
+
                 press_enter_fn()
                 continue
 
