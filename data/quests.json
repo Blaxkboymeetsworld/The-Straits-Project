@@ -765,6 +765,7 @@
       "giver_title": "Ottoman Admiral of the Indian Ocean",
       "target_port": null,
       "target_character": null,
+      "completion": "at_giver",
       "available_years": [
         7,
         8
