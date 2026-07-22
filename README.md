@@ -82,10 +82,10 @@ docs/
 ## Ports
 
 **Major Ports** (full menu: market, recruit, quests, weapons, repair, tavern):
-Malacca Harbor, Goa Harbor, Calicut, Hormuz, Quanzhou, Aden Harbor, Bantam
+Malacca Harbor, Goa Harbor, Calicut, Hormuz, Quanzhou, Bantam, Aden Harbor, Aceh, Ayutthaya, Pegu
 
 **Villages** (limited menu):
-Pulau Tioman, Patani, Ternate, Bali, Cham Coast
+Pulau Tioman, Patani, Ternate, Cham Coast, Gresik, Kedah, Tidore, Makassar, Bali
 
 **Home port lockout**: locked until `state.assignments_completed >= 3`. Tagged `[LOCKED]` in travel list.
 
@@ -149,13 +149,13 @@ Optional fields:
 
 ## TO DO (Known Open Items)
 
-- [ ] `requires_role` field not yet enforced in `available_quests_at_port()` in `quests.py`
 - [ ] `available_from_day` / `available_to_day` not yet enforced in quest availability
 - [ ] Menu input guard: blank Enter in PowerShell bypasses menu selections
 - [ ] Sailing destination picker: port name mismatch causing `DEFAULT_TRAVEL_TIME` fallback (all routes showing 5–7 days)
 - [ ] Portuguese Day-1 fleet alert: pre-siege dispatch text for Tomé de Faro
 - [ ] Hang Tuah event chain (stub exists, content not written)
 - [ ] Wei Chongde reveal arc (fragments designed, full chain not implemented)
+- [ ] `adventure_quests` array in `data/quests.json` is unused — not loaded by any code path
 
 ---
 
