@@ -52,6 +52,7 @@ class ActiveQuest:
         self.cargo_required = quest_data.get("cargo_required")
         self.deadline_day = quest_data.get("deadline_day")
         self.deadline_flag = quest_data.get("deadline_flag")
+        self.rival_disposition_penalty = quest_data.get("rival_disposition_penalty")
         self.accepted_on_day = accepted_on_day
         # Non-expiring adventure quests use time_limit_days: 0
         tlimit = quest_data["time_limit_days"]
@@ -96,6 +97,7 @@ class ActiveQuest:
             "cargo_required": self.cargo_required,
             "deadline_day": self.deadline_day,
             "deadline_flag": self.deadline_flag,
+            "rival_disposition_penalty": self.rival_disposition_penalty,
             "accepted_on_day": self.accepted_on_day,
             "deadline": self.deadline,
             "completed": self.completed,
@@ -116,6 +118,7 @@ class ActiveQuest:
             "quest_type": d.get("quest_type", "main"), "quest_tier": d.get("quest_tier", 1),
             "completion": d.get("completion"), "cargo_required": d.get("cargo_required"),
             "deadline_day": d.get("deadline_day"), "deadline_flag": d.get("deadline_flag"),
+            "rival_disposition_penalty": d.get("rival_disposition_penalty"),
         }
         obj = cls(pseudo_data, d["accepted_on_day"])
         obj.deadline = d["deadline"]
@@ -189,6 +192,21 @@ class QuestManager:
     def adjust_disposition(self, port_name: str, delta: int):
         current = self.disposition.get(port_name, 50)
         self.disposition[port_name] = max(0, min(100, current + delta))
+
+    def apply_rival_penalty(self, q: "ActiveQuest", print_fn=print):
+        """
+        Applies a quest's rival_disposition_penalty (if any) on successful
+        completion. Used for quests that explicitly advance one faction's
+        interest at another's expense (not for grey-area quests, which
+        should omit this field entirely).
+        """
+        rp = q.rival_disposition_penalty
+        if not rp:
+            return
+        rival_port = rp["port"]
+        delta = rp["delta"]
+        self.adjust_disposition(rival_port, delta)
+        print_fn(f"\n  Word of this will not sit well at {rival_port}.")
 
     def disposition_label(self, port_name: str) -> str:
         d = self.get_disposition(port_name)
@@ -358,6 +376,7 @@ class QuestManager:
                 print(f"  QUEST COMPLETE — '{q.title}'")
                 print("═" * 50)
                 print(f"\n  You deliver the promised goods at {port_name}.")
+                self.apply_rival_penalty(q, print_fn=print)
                 print(f"\n  The reward: {q.reward_gold} gold.")
                 if q.reward_item:
                     print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")
@@ -421,6 +440,7 @@ class QuestManager:
                 print(f"  QUEST COMPLETE — '{q.title}'")
                 print("═" * 50)
                 print(f"\n  You arrive at {port_name} in time.")
+                self.apply_rival_penalty(q, print_fn=print)
                 print(f"\n  The reward: {q.reward_gold} gold.")
                 if q.reward_item:
                     print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")
@@ -506,6 +526,7 @@ class QuestManager:
             print(f"  QUEST COMPLETE — '{q.title}'")
             print("═" * 50)
             print(f"\n  You return to {q.giver_name} with the news they sought.")
+            self.apply_rival_penalty(q, print_fn=print)
             print(f"\n  The reward: {q.reward_gold} gold.")
             if q.reward_item:
                 print(f"  You also receive: {q.reward_item.replace('_',' ').title()}")

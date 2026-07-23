@@ -150,6 +150,7 @@ Optional fields:
   - `"deliver"` — resolves at `target_port` when `cargo_required` (object of good→quantity, e.g. `{"coffee": 5}`) is met; the goods are consumed from cargo.
   - `"rendezvous"` — resolves at `target_port` only while the window is open, per `deadline_day` (int) and/or `deadline_flag` (an `once_flags` name); arriving after the window closes fails the quest instead of completing it.
 - `target_port` may be `null` only when `completion == "at_giver"`.
+- `rival_disposition_penalty`: `{"port": "Exact Port Name", "delta": -N}` — on successful completion, applies a disposition penalty at the named port in addition to the normal reward at `giver_port`/`target_port`. Use only when the quest explicitly advances one faction's interest at another's documented expense (not for grey-area quests, which should omit this field).
 
 ---
 
