@@ -987,6 +987,12 @@ class EventEngine:
 
             eligible = [e for e in pool if _when_ok(e)]
             pool = eligible if eligible else pool
+        # A sea event can't fire twice in one voyage.
+        if pool_name == "sea_events":
+            fired = getattr(state, "_voyage_event_ids", set())
+            pool = [e for e in pool if e.get("id") not in fired]
+            if not pool:
+                return
         ev = random.choice(pool)
         if hasattr(state, "_voyage_event_ids"):
             state._voyage_event_ids.add(ev.get("id"))
