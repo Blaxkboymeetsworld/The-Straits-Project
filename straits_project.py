@@ -227,6 +227,8 @@ class GameState:
         self.leads_given: List[str] = []          # one-off lead ids already delivered
         self.dream: Optional[Dict[str, Any]] = None  # {"target", "deadline", "name"} from a dream lead
         self.marriage: Optional[Dict[str, Any]] = None  # {"name", "home", "announced_day", "leaves_next_port"}
+        self.arrival_count: int = 0                    # arrivals at ports and villages
+        self.port_event_last: Dict[str, int] = {}      # harbor/village event id -> arrival it fired on
         self._lead_sources_used: set = set()       # lead sources used this port visit
 
         # Crew
@@ -359,6 +361,8 @@ class GameState:
             "leads_given": self.leads_given,
             "dream": self.dream,
             "marriage": self.marriage,
+            "arrival_count": self.arrival_count,
+            "port_event_last": self.port_event_last,
         }
 
     @classmethod
@@ -409,6 +413,8 @@ class GameState:
         obj.leads_given = list(d.get("leads_given", []))
         obj.dream = d.get("dream")
         obj.marriage = d.get("marriage")
+        obj.arrival_count = int(d.get("arrival_count", 0))
+        obj.port_event_last = dict(d.get("port_event_last", {}))
         # Recruits from older saves have no hire day; count from loading.
         for m in obj.crew.members:
             if getattr(m, "archetype", None) and getattr(m, "joined_day", None) is None:
@@ -993,7 +999,16 @@ class EventEngine:
             pool = [e for e in pool if e.get("id") not in fired]
             if not pool:
                 return
+        # A harbor or village event can't fire again until three more arrivals.
+        if pool_name in ("village_events", "harbor_events"):
+            last = getattr(state, "port_event_last", {})
+            now = getattr(state, "arrival_count", 0)
+            pool = [e for e in pool if e.get("id") not in last or now - last[e["id"]] >= PORT_EVENT_COOLDOWN_ARRIVALS]
+            if not pool:
+                return
         ev = random.choice(pool)
+        if pool_name in ("village_events", "harbor_events") and hasattr(state, "port_event_last"):
+            state.port_event_last[ev.get("id")] = state.arrival_count
         if hasattr(state, "_voyage_event_ids"):
             state._voyage_event_ids.add(ev.get("id"))
 
@@ -2669,6 +2684,9 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
     return None, None
 
 
+# A harbor or village event becomes available again this many arrivals after it fired.
+PORT_EVENT_COOLDOWN_ARRIVALS = 3
+
 # Pulau Bayang, the Shadow Island: once per game, on voyages touching these
 # ports, 4% per day after monsoon_shift has fired earlier in the voyage.
 PULAU_BAYANG_PORTS = {"Gresik", "Bali", "Makassar", "Bantam", "Ternate", "Tidore"}
@@ -3421,6 +3439,7 @@ def handle_landfall(
     if port_data:
         state.rutter.chart_on_arrival(state.current_location)
         state._lead_sources_used = set()
+        state.arrival_count += 1
         # A crew member's dream: reaching the island within a year lifts morale.
         dream = getattr(state, "dream", None)
         if dream:
