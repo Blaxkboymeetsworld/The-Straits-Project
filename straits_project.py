@@ -2661,9 +2661,10 @@ def _is_charted(origin: str, dest: str) -> bool:
     return (origin, dest) in _ROUTE_DISTANCES_NM
 
 
-def _first_hop(origin: str, dest: str) -> Optional[str]:
+def _first_hop(origin: str, dest: str, allowed: Optional[set] = None) -> Optional[str]:
     """First stop on the route with the fewest legs through route_distances
-    (ties broken by shorter total distance, then name)."""
+    (ties broken by shorter total distance, then name). If `allowed` is given,
+    intermediate stops are limited to those locations."""
     import heapq
     best: Dict[str, Tuple[int, int]] = {origin: (0, 0)}
     heap: List[Tuple[int, int, str, Optional[str]]] = [(0, 0, origin, None)]
@@ -2674,7 +2675,7 @@ def _first_hop(origin: str, dest: str) -> Optional[str]:
         if best.get(port, (legs, nm)) < (legs, nm):
             continue
         for (a, b), dist in _ROUTE_DISTANCES_NM.items():
-            if a != port:
+            if a != port or (allowed is not None and b != dest and b not in allowed):
                 continue
             cand = (legs + 1, nm + dist)
             if b not in best or cand < best[b]:
@@ -2713,15 +2714,28 @@ def _days_until_unblocked(state: Any, origin: str, dest: str, ocean_system: str,
     return max_days
 
 
+def _rumored_range(n: int) -> str:
+    """A guess for a rumored destination: round(n*0.5) to round(n*1.5)."""
+    return f"{max(1, round(n * 0.5))}–{max(1, round(n * 1.5))}"
+
+
+def _is_rumored(state: Any, location: str) -> bool:
+    return bool(state) and state.rutter.status(location) == RUMORED
+
+
 def _travel_estimate(origin: str, dest: str, state: Any) -> str:
     """Return a human-readable travel time estimate string from calculate_voyage(),
-    so the number shown before departure matches what the voyage actually does."""
+    so the number shown before departure matches what the voyage actually does.
+    For a RUMORED destination, days and provisions are shown as a guessed range;
+    the real voyage still uses the real number."""
     if not state:
         return "unknown"
     nums = _voyage_numbers(origin, dest, state)
     if nums is None:
         return t("travel_no_charted_route")
     days, _monsoon_state, prov_cost, wind = nums
+    if _is_rumored(state, dest):
+        days, prov_cost = _rumored_range(days), _rumored_range(prov_cost)
     return t("travel_estimate").format(days=days, wind=t('wind_tag_' + wind), prov=prov_cost)
 
 
@@ -2744,6 +2758,8 @@ def choose_from_list(
         clear()
         label = LOCALE.get("travel_label_" + loc_type, loc_type.replace("_", " ").title())
         origin = state.current_location if state else "At Sea"
+        if state:  # UNKNOWN locations don't appear at all
+            names = [n for n in names if state.rutter.is_known(n)]
         print(f"  {t('travel_choose_destination').format(label=label)}\n")
         for idx, n in enumerate(names, 1):
             if state:
@@ -2755,10 +2771,13 @@ def choose_from_list(
                 bar_tag = f"  [{t('travel_tag_barred')}]" if not barred else ""
                 if not bar_tag and _is_home_port_locked(state, n):
                     bar_tag = f"  [{t('travel_tag_locked')}]"
-                print(f"  {idx}) {n:<26} — {est}{bar_tag}")
+                shown = f"{n}?" if _is_rumored(state, n) else n
+                print(f"  {idx}) {shown:<26} — {est}{bar_tag}")
             else:
                 print(f"  {idx}) {n}")
         print(f"  {len(names)+1}) {t('travel_cancel_option')}\n")
+        if state:
+            print(t("travel_rumored_legend") + "\n")
         sel = get_menu_choice([str(i) for i in range(1, len(names)+2)])
         try:
             k = int(sel)
@@ -2770,7 +2789,9 @@ def choose_from_list(
             if state and chosen != origin and not _is_charted(origin, chosen):
                 clear()
                 print(f"\n  {t('travel_destination').format(dest=chosen)}\n")
-                print(_speaker_line(state, "uncharted", hop=_first_hop(origin, chosen) or chosen))
+                known = set(state.rutter.known_locations())
+                hop = _first_hop(origin, chosen, allowed=known) or _first_hop(origin, chosen) or chosen
+                print(_speaker_line(state, "uncharted", hop=hop))
                 print(f"\n  [1] {t('uncharted_heed')}  [2] {t('uncharted_sail_anyway')}\n")
                 if get_menu_choice(["1", "2"]) == "1":
                     continue
@@ -2784,8 +2805,10 @@ def choose_from_list(
                 print(f"  {est}")
                 print(f"  {t('travel_provisions_aboard').format(n=state.provisions)}\n")
                 nums = _voyage_numbers(origin, chosen, state)
-                if nums and nums[2] > state.provisions:
-                    print(_speaker_line(state, "provisions", need=nums[2], have=state.provisions))
+                # For a rumored destination, warn on the top of the guessed range.
+                need = (max(1, round(nums[2] * 1.5)) if _is_rumored(state, chosen) else nums[2]) if nums else 0
+                if nums and need > state.provisions:
+                    print(_speaker_line(state, "provisions", need=need, have=state.provisions))
                     print()
                 confirm = input(f"  {t('travel_set_sail_prompt')} ").strip().upper()
                 if confirm not in ("Y", "S"):  # S = sí
@@ -3254,7 +3277,8 @@ def run_game(
                 while voyage["blocked"]:
                     clear()
                     print(f"\n  {t('voyage_monsoon_blocked_warning').format(origin=origin_port, dest=dest)}")
-                    print(f"  {t('voyage_blocked_estimate').format(days=voyage['days'])}\n")
+                    shown_days = _rumored_range(voyage['days']) if _is_rumored(state, dest) else voyage['days']
+                    print(f"  {t('voyage_blocked_estimate').format(days=shown_days)}\n")
                     print(_speaker_line(state, "monsoon"))
                     print(f"\n  [1] {t('voyage_option_sail_anyway')}")
                     print(f"  [2] {t('voyage_option_wait')}")
@@ -3290,7 +3314,8 @@ def run_game(
                 while True:
                     clear()
                     print(f"\n  {t('voyage_departure_checkpoint').format(origin=origin_port, dest=dest)}")
-                    print(f"  {t('voyage_estimated').format(days=voyage['days'], wind=t('wind_tag_' + _wind_key(voyage)))}")
+                    shown_days = _rumored_range(voyage['days']) if _is_rumored(state, dest) else voyage['days']
+                    print(f"  {t('voyage_estimated').format(days=shown_days, wind=t('wind_tag_' + _wind_key(voyage)))}")
                     print(f"\n  [1] {t('voyage_checkpoint_check_crew')}")
                     print(f"  [2] {t('voyage_checkpoint_save')}")
                     print(f"  [3] {t('voyage_checkpoint_depart')}")
