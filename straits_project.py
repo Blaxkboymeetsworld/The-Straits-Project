@@ -255,7 +255,7 @@ class GameState:
     @property
     def month(self) -> int:
         """0-indexed month within current year. 0 = January."""
-        return ((self.time.day - 1) % 365) // 30
+        return min(((self.time.day - 1) % 365) // 30, 11)
 
     @property
     def protagonist(self) -> str:
