@@ -31,7 +31,8 @@ from economy import Economy, GOODS_CATALOG, MAX_CARGO, haggle
 from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, START_DATE, get_waterway,
-                         calculate_voyage, next_favorable_month)
+                         calculate_voyage, next_favorable_month,
+                         _ROUTE_DISTANCES_NM)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -2438,57 +2439,130 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
     return None, None
 
 
+# Who voices the destination warnings for each role (falls back to any living crew).
+WARNING_SPEAKERS: Dict[str, str] = {
+    "Portuguese Conquistador": "Camila de Sousa",
+    "Ottoman Trader":          "Yusuf al-Halabi",
+    "Chinese Trader":          "Old Liang",
+}
+
+
+def _is_charted(origin: str, dest: str) -> bool:
+    """True if route_distances has a direct crossing between the two ports."""
+    return (origin, dest) in _ROUTE_DISTANCES_NM
+
+
+def _first_hop(origin: str, dest: str) -> Optional[str]:
+    """First stop on the route with the fewest legs through route_distances
+    (ties broken by shorter total distance, then name)."""
+    import heapq
+    best: Dict[str, Tuple[int, int]] = {origin: (0, 0)}
+    heap: List[Tuple[int, int, str, Optional[str]]] = [(0, 0, origin, None)]
+    while heap:
+        legs, nm, port, hop = heapq.heappop(heap)
+        if port == dest:
+            return hop
+        if best.get(port, (legs, nm)) < (legs, nm):
+            continue
+        for (a, b), dist in _ROUTE_DISTANCES_NM.items():
+            if a != port:
+                continue
+            cand = (legs + 1, nm + dist)
+            if b not in best or cand < best[b]:
+                best[b] = cand
+                heapq.heappush(heap, (cand[0], cand[1], b, hop or b))
+    return None
+
+
+def _voyage_numbers(origin: str, dest: str, state: Any) -> Optional[Tuple[int, str, int]]:
+    """(days, monsoon_state, estimated provisions) from calculate_voyage(), or None."""
+    ocean_system = _ROUTE_OCEAN_SYSTEM.get((origin, dest), "indian_ocean")
+    voyage = calculate_voyage(origin, dest, ocean_system, state.month + 1, state.role)
+    if voyage.get("days") is None:
+        return None
+    provision_drain = 1 if state.crew.has_occupation("cook") else 2
+    return voyage["days"], voyage["monsoon_state"], voyage["days"] * provision_drain
+
+
 def _travel_estimate(origin: str, dest: str, state: Any) -> str:
     """Return a human-readable travel time estimate string from calculate_voyage(),
     so the number shown before departure matches what the voyage actually does."""
     if not state:
         return "unknown"
-    ocean_system = _ROUTE_OCEAN_SYSTEM.get((origin, dest), "indian_ocean")
-    voyage = calculate_voyage(origin, dest, ocean_system, state.month + 1, state.role)
-    if voyage.get("days") is None:
+    nums = _voyage_numbers(origin, dest, state)
+    if nums is None:
         return "no charted route"
-    provision_drain = 1 if state.crew.has_occupation("cook") else 2
-    prov_cost = voyage["days"] * provision_drain
-    return f"{voyage['days']} days ({voyage['monsoon_state']})  |  ~{prov_cost} provisions"
+    days, monsoon_state, prov_cost = nums
+    return f"{days} days ({monsoon_state})  |  ~{prov_cost} provisions"
+
+
+def _speaker_line(state: Any, kind: str, **fmt: Any) -> str:
+    """The role's named warning speaker if alive, else any living crew member,
+    saying the role's line for kind ("uncharted" or "provisions")."""
+    line = t(f"warn_{kind}_{state.protagonist}").format(**fmt)
+    alive = state.crew.alive_members()
+    named = WARNING_SPEAKERS.get(state.role)
+    speaker = next((m for m in alive if m.name == named), alive[0] if alive else None)
+    if speaker is None:
+        return f"  {line}"
+    return "  " + t("speaker_line").format(name=speaker.name, line=line)
 
 
 def choose_from_list(
     names: List[str], loc_type: str, state: Any = None
 ) -> Tuple[Optional[str], Optional[str]]:
-    clear()
-    label = loc_type.replace("_", " ").title()
-    origin = state.current_location if state else "At Sea"
-    print(f"  Choose destination ({label}):\n")
-    for idx, n in enumerate(names, 1):
-        if state:
-            est = _travel_estimate(origin, n, state)
-            barred, _ = state.factions.port_access_modifier(n)
-            bar_tag = "  [BARRED]" if not barred else ""
-            if not bar_tag and _is_home_port_locked(state, n):
-                bar_tag = "  [LOCKED]"
-            print(f"  {idx}) {n:<26} — {est}{bar_tag}")
-        else:
-            print(f"  {idx}) {n}")
-    print(f"  {len(names)+1}) Cancel\n")
-    sel = get_menu_choice([str(i) for i in range(1, len(names)+2)])
-    try:
-        k = int(sel)
-    except ValueError:
-        return None, None
-    if 1 <= k <= len(names):
-        chosen = names[k-1]
-        # Confirm with travel estimate
-        if state:
-            clear()
-            est = _travel_estimate(origin, chosen, state)
-            print(f"\n  Destination: {chosen}")
-            print(f"  {est}")
-            print(f"  Provisions aboard: {state.provisions}\n")
-            confirm = input("  Set sail? [Y/N] ").strip().upper()
-            if confirm != "Y":
+    while True:  # an unheeded-warning choice returns here to pick again
+        clear()
+        label = loc_type.replace("_", " ").title()
+        origin = state.current_location if state else "At Sea"
+        print(f"  Choose destination ({label}):\n")
+        for idx, n in enumerate(names, 1):
+            if state:
+                if n != origin and not _is_charted(origin, n):
+                    est = t("no_direct_crossing")
+                else:
+                    est = _travel_estimate(origin, n, state)
+                barred, _ = state.factions.port_access_modifier(n)
+                bar_tag = "  [BARRED]" if not barred else ""
+                if not bar_tag and _is_home_port_locked(state, n):
+                    bar_tag = "  [LOCKED]"
+                print(f"  {idx}) {n:<26} — {est}{bar_tag}")
+            else:
+                print(f"  {idx}) {n}")
+        print(f"  {len(names)+1}) Cancel\n")
+        sel = get_menu_choice([str(i) for i in range(1, len(names)+2)])
+        try:
+            k = int(sel)
+        except ValueError:
+            return None, None
+        if 1 <= k <= len(names):
+            chosen = names[k-1]
+            # Uncharted crossing: warn, then heed (pick again) or sail to your death
+            if state and chosen != origin and not _is_charted(origin, chosen):
+                clear()
+                print(f"\n  Destination: {chosen}\n")
+                print(_speaker_line(state, "uncharted", hop=_first_hop(origin, chosen) or chosen))
+                print(f"\n  [1] {t('uncharted_heed')}  [2] {t('uncharted_sail_anyway')}\n")
+                if get_menu_choice(["1", "2"]) == "1":
+                    continue
+                state.lost_at_sea_dest = chosen
                 return None, None
-        return chosen, loc_type
-    return None, None
+            # Confirm with travel estimate
+            if state:
+                clear()
+                est = _travel_estimate(origin, chosen, state)
+                print(f"\n  Destination: {chosen}")
+                print(f"  {est}")
+                print(f"  Provisions aboard: {state.provisions}\n")
+                nums = _voyage_numbers(origin, chosen, state)
+                if nums and nums[2] > state.provisions:
+                    print(_speaker_line(state, "provisions", need=nums[2], have=state.provisions))
+                    print()
+                confirm = input("  Set sail? [Y/N] ").strip().upper()
+                if confirm != "Y":
+                    return None, None
+            return chosen, loc_type
+        return None, None
 
 
 # ─────────────────────────────────────────
@@ -2838,6 +2912,8 @@ def run_game(
                 # After leaving port, go back to sea
                 state.current_location = dest
                 state.current_location_type = "sea"
+            elif state.pending_failure():
+                continue  # sailed an uncharted crossing; top of loop prints the ending
             else:
                 print("\n  You remain where you are.")
                 press_enter()

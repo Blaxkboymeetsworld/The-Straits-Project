@@ -93,5 +93,15 @@
   "ending_crew_lost": "Sin nadie que trabaje las velas, tu viaje termina aquí. El mar se queda con lo que toma.",
   "ending_companions_lost": "{A} y {B} ya no están. Sin ellos eres un hombre con un barco y sin razón para navegarlo. Lo vendes en el siguiente puerto y nunca más se vuelve a saber de ti.",
   "ending_lost_at_sea_title": "PERDIDO EN EL MAR",
-  "ending_lost_at_sea": "Navegaste hasta perder de vista la tierra rumbo a {dest}. En algún lugar más allá del borde de las cartas, el agua se acabó antes que el viaje. Nadie supo nunca qué fue de ti."
+  "ending_lost_at_sea": "Navegaste hasta perder de vista la tierra rumbo a {dest}. En algún lugar más allá del borde de las cartas, el agua se acabó antes que el viaje. Nadie supo nunca qué fue de ti.",
+  "no_direct_crossing": "sin travesía directa",
+  "uncharted_heed": "Hacer caso de la advertencia",
+  "uncharted_sail_anyway": "Zarpar de todos modos",
+  "speaker_line": "{name}: «{line}»",
+  "warn_uncharted_portuguese": "Capitán, no. Nadie cruza eso de una sola tirada. Perderíamos de vista la tierra, y luego el barco. Llevadnos primero a {hop}.",
+  "warn_provisions_portuguese": "Esa travesía necesita {need} de víveres y llevamos {have}. La navegaré si lo ordenáis, pero iremos arrojando muertos por la popa.",
+  "warn_uncharted_ottoman": "¿Estáis loco? Ningún piloto de Adén a Zanzíbar haría esa travesía de un tirón. Vamos por {hop}, si Dios quiere, o vamos al fondo.",
+  "warn_provisions_ottoman": "La travesía pide {need} de víveres. Llevamos {have}. Ni las cartas de Ibn Mayid pueden alimentar a una tripulación hambrienta.",
+  "warn_uncharted_chinese": "Aiya. ¿Tanto mar abierto? Al mar no le importa lo que pagasteis por este junco. Paramos en {hop}, quemamos incienso, y luego hablamos.",
+  "warn_provisions_chinese": "Esta travesía se come {need} de víveres. Tenemos {have}. Mazu puede calmar el mar. No puede llenar los barriles de arroz."
 }

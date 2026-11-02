@@ -93,5 +93,15 @@
   "ending_crew_lost": "With no one left to work the sails, your voyage ends here. The sea keeps what it takes.",
   "ending_companions_lost": "{A} and {B} are gone. Without them you are a man with a ship and no reason to sail it. You sell her at the next port and are never heard from again.",
   "ending_lost_at_sea_title": "LOST AT SEA",
-  "ending_lost_at_sea": "You sailed out of sight of land toward {dest}. Somewhere past the edge of the charts, the water ran out before the voyage did. No one ever learned what became of you."
+  "ending_lost_at_sea": "You sailed out of sight of land toward {dest}. Somewhere past the edge of the charts, the water ran out before the voyage did. No one ever learned what became of you.",
+  "no_direct_crossing": "no direct crossing",
+  "uncharted_heed": "Heed the warning",
+  "uncharted_sail_anyway": "Sail anyway",
+  "speaker_line": "{name}: '{line}'",
+  "warn_uncharted_portuguese": "Captain, no. Nobody crosses that in one leg. We'd lose sight of land, then lose the ship. Take us to {hop} first.",
+  "warn_provisions_portuguese": "That run needs {need} in stores and we carry {have}. I'll sail it if you order it, but we'll be burying men off the stern.",
+  "warn_uncharted_ottoman": "Are you mad? No pilot from Aden to Zanzibar would take that crossing straight. We go by {hop}, God willing, or we go to the bottom.",
+  "warn_provisions_ottoman": "The crossing wants {need} in stores. We hold {have}. Even Ibn Majid's charts cannot feed a hungry crew.",
+  "warn_uncharted_chinese": "Aiya. Open water that long? The sea doesn't care what you paid for this junk. We stop at {hop}, burn incense, then talk.",
+  "warn_provisions_chinese": "This run eats {need} in stores. We have {have}. Mazu can calm the sea. She can't fill the rice barrels."
 }
