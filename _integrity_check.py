@@ -208,25 +208,55 @@ for i, frag in enumerate(ed.get("lore_fragments", [])):
         fail(f"lore_fragments[{i}] is not a string")
 ok(f"{len(ed.get('lore_fragments',[]))} lore fragments, all strings")
 
-VALID_EFFECT_KEYS = {"gold","spices","ship_health","morale","provisions","cargo","harbor_fee"}
+VALID_EFFECT_KEYS = {
+    "gold","spices","ship_health","morale","provisions","cargo",
+    "harbor_fee","lose_hostage","kill_random_crew",
+}
 for pool_name in ("sea_events","harbor_events","village_events","special_events"):
     for ev in ed.get(pool_name, []):
         ev_id = ev.get("id","?")
         if "id" not in ev:
             fail(f"{pool_name} event missing 'id'")
+
+        hostage = ev.get("hostage")
+        if hostage is not None and not isinstance(hostage, bool):
+            fail(f"event '{ev_id}' hostage is not a bool: {hostage!r}")
+
+        when = ev.get("when")
+        if when is not None:
+            for loc in when.get("location", []) or []:
+                if loc not in all_port_names:
+                    warn(f"{pool_name} event '{ev_id}' when.location '{loc}' not in world.json")
+
         for opt_key, opt in ev.get("options", {}).items():
             if "text" not in opt:
                 fail(f"event '{ev_id}' option '{opt_key}' missing 'text'")
-            if "result" not in opt:
+
+            roll = opt.get("roll")
+            if roll:
+                for branch_name in ("success", "failure"):
+                    branch = roll.get(branch_name, {}) or {}
+                    if "result" not in branch:
+                        warn(f"event '{ev_id}' option '{opt_key}' roll.{branch_name} has no 'result'")
+                    for eff_key in branch.get("effect", {}) or {}:
+                        if eff_key not in VALID_EFFECT_KEYS:
+                            warn(f"event '{ev_id}' option '{opt_key}' roll.{branch_name} effect has unrecognized key: {eff_key}")
+            elif "result" not in opt:
                 warn(f"event '{ev_id}' option '{opt_key}' has no 'result'")
+
             for eff_key in opt.get("effect", {}) or {}:
                 if eff_key not in VALID_EFFECT_KEYS:
                     warn(f"event '{ev_id}' option '{opt_key}' effect has unrecognized key: {eff_key}")
+
+            req_cargo = (opt.get("requires") or {}).get("cargo")
+            if req_cargo is not None and not isinstance(req_cargo, dict):
+                fail(f"event '{ev_id}' option '{opt_key}' requires.cargo is not a dict: {req_cargo!r}")
+
         npc_ref = ev.get("npc_id")
         if npc_ref and npc_ref != "harbor_master" and npc_ref not in nk:
             fail(f"event '{ev_id}' npc_id '{npc_ref}' not in npc_knowledge.json")
 
-ok("all event options have 'text'; effect keys valid; npc_id cross-refs OK")
+ok("all event options have 'text'; effect/roll/requires keys valid; npc_id and when.location cross-refs OK")
 
 # harbormaster_intro_special must have npc_id = harbor_master
 hm_special = next((e for e in ed.get("special_events",[]) if e.get("id") == "harbormaster_intro_special"), None)

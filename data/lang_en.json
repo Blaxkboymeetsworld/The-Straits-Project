@@ -121,5 +121,6 @@
   "voyage_hunt_success": "{name} comes back out of the trees with a deer and a story about the one that got away.",
   "voyage_hunt_failure": "The hunting party comes back muddy, bitten, and empty-handed.",
   "voyage_hunt_new_hunter": "{name} is now a Hunter.",
-  "voyage_fish_new_fisher": "{name} is now Fisher-folk (Coastal)."
+  "voyage_fish_new_fisher": "{name} is now Fisher-folk (Coastal).",
+  "effect_lose_hostage": "{hostage} is no longer with your crew."
 }

@@ -70,6 +70,13 @@ KEY_COMPANIONS: Dict[str, Tuple[str, str]] = {
     "Chinese Trader":          ("Old Liang", "Wei Chongde"),
 }
 
+# How a hostage event's {nation} placeholder names the player's role.
+_NATION_BY_PROTAGONIST: Dict[str, str] = {
+    "portuguese": "Feringgi (Frank)",
+    "ottoman":    "Rumi (a man of Rum)",
+    "chinese":    "Chinese",
+}
+
 # Maps port name → harbor master NPC id for query_npc resolution
 PORT_HARBOR_MASTERS: Dict[str, str] = {
     "Malacca Harbor": "hang_kassim_malacca",
@@ -372,12 +379,20 @@ class GameState:
         self.spices      = max(0, self.spices      + int(effect.get("spices", 0)))
         self.ship_health = max(0, min(100, self.ship_health + int(effect.get("ship_health", 0))))
         self.morale      = max(0, min(100, self.morale      + int(effect.get("morale", 0))))
-        # Optional "cargo": {good_key: qty}, added only up to remaining hold space.
+        self.provisions  = max(0, min(100, self.provisions  + int(effect.get("provisions", 0))))
+        # Optional "cargo": {good_key: qty}. Positive qty is added only up to
+        # remaining hold space; negative qty removes up to what is held.
         for good, qty in (effect.get("cargo") or {}).items():
-            space = self.cargo_capacity() - sum(self.cargo.values())
-            add = max(0, min(int(qty), space))
-            if add:
-                self.cargo[good] = self.cargo.get(good, 0) + add
+            qty = int(qty)
+            if qty >= 0:
+                space = self.cargo_capacity() - sum(self.cargo.values())
+                add = max(0, min(qty, space))
+                if add:
+                    self.cargo[good] = self.cargo.get(good, 0) + add
+            else:
+                remove = min(-qty, self.cargo.get(good, 0))
+                if remove:
+                    self.cargo[good] = self.cargo.get(good, 0) - remove
 
     def pending_failure(self) -> Optional[str]:
         """Message for the lost-at-sea, all-crew-dead or key-companions-dead
@@ -556,6 +571,10 @@ class EventEngine:
             return False
         if "item" in req and req["item"] not in state.items:
             return False
+        if "cargo" in req:
+            for good, qty in req["cargo"].items():
+                if state.cargo.get(good, 0) < qty:
+                    return False
         return True
 
     def _match_when(self, event: Dict[str, Any], state: GameState) -> Tuple[bool, Optional[str]]:
@@ -572,7 +591,10 @@ class EventEngine:
         once = bool(when.get("once", False))
         once_key = None
         if once:
-            scope = state.current_location if (loc_list or loc_type == "major_port") else "*"
+            if when.get("once_scope") == "game":
+                scope = "*"
+            else:
+                scope = state.current_location if (loc_list or loc_type == "major_port") else "*"
             once_key = f"{event.get('id','?')}|{scope}"
             if once_key in state.once_flags:
                 return False, once_key
@@ -609,10 +631,72 @@ class EventEngine:
                 out[desc_key] = self._format_text(out[desc_key], ctx)
         opts = out.get("options", {})
         for key, opt in list(opts.items()):
-            for text_key in ("text", "text_es"):
+            for text_key in ("text", "text_es", "result", "result_es"):
                 if text_key in opt and isinstance(opt[text_key], str):
                     opt[text_key] = self._format_text(opt[text_key], ctx)
+            roll = opt.get("roll")
+            if isinstance(roll, dict):
+                for branch_name in ("success", "failure"):
+                    branch = roll.get(branch_name)
+                    if isinstance(branch, dict):
+                        for text_key in ("result", "result_es"):
+                            if text_key in branch and isinstance(branch[text_key], str):
+                                branch[text_key] = self._format_text(branch[text_key], ctx)
         return out
+
+    def _pick_hostage(self, state: GameState) -> Optional["CrewMember"]:
+        """A random living crew member who isn't one of the role's key companions."""
+        key_pair = set(KEY_COMPANIONS.get(state.role, ()))
+        eligible = [m for m in state.crew.alive_members() if m.name not in key_pair]
+        return random.choice(eligible) if eligible else None
+
+    def _resolve_roll(self, roll_spec: Dict[str, Any], state: GameState) -> bool:
+        """Resolve an option's 'roll' spec against the living crew. Each living
+        crew member contributes at most one per_trait bonus (the best one they
+        qualify for) plus, separately, their own per_occupation bonus."""
+        total = roll_spec.get("base", 0.5)
+        per_trait = roll_spec.get("per_trait", {}) or {}
+        per_occupation = roll_spec.get("per_occupation", {}) or {}
+        for m in state.crew.alive_members():
+            trait_bonuses = [bonus for trait_id, bonus in per_trait.items() if m.has_trait(trait_id)]
+            if trait_bonuses:
+                total += max(trait_bonuses)
+            if m.occupation in per_occupation:
+                total += per_occupation[m.occupation]
+        total = min(total, roll_spec.get("max", 1.0))
+        return random.random() < total
+
+    def _apply_option_effect(self, effect: Dict[str, Any], state: GameState,
+                              ctx: Optional[Dict[str, Any]] = None) -> None:
+        """Apply an option's (or roll branch's) effect dict, handling the
+        special harbor_fee/lose_hostage/kill_random_crew keys before passing
+        the rest through to state.apply_effect()."""
+        effect = dict(effect or {})
+        fee_multiplier = effect.pop("harbor_fee", None)
+        lose_hostage = effect.pop("lose_hostage", False)
+        kill_n = effect.pop("kill_random_crew", 0)
+
+        if fee_multiplier is not None:
+            fee = (ctx or {}).get("harbor_fee", 0)
+            charge = min(round(fee * fee_multiplier), state.gold)
+            effect["gold"] = effect.get("gold", 0) - charge
+
+        state.apply_effect(effect)
+
+        hostage_member = getattr(state, "_current_hostage", None)
+        if lose_hostage and hostage_member is not None:
+            hostage_member.alive = False
+            print(f"\n  {self._format_text(t('effect_lose_hostage'), ctx or {})}")
+
+        if kill_n:
+            key_pair = set(KEY_COMPANIONS.get(state.role, ()))
+            candidates = [
+                m for m in state.crew.alive_members()
+                if m.name not in key_pair and m is not hostage_member
+            ]
+            random.shuffle(candidates)
+            for m in candidates[:kill_n]:
+                m.alive = False
 
     def _context_for_event(self, state: GameState) -> Dict[str, Any]:
         hm = harbor_master_for(state.current_location, state.world)
@@ -787,19 +871,25 @@ class EventEngine:
             print(f"\n  {t('you_hesitate')}")
         else:
             opt = options[choice]
-            effect = dict(opt.get("effect", {}))
-            fee_multiplier = effect.pop("harbor_fee", None)
-            if fee_multiplier is not None:
-                fee = (ctx or self._context_for_event(state)).get("harbor_fee", 0)
-                charge = min(round(fee * fee_multiplier), state.gold)
-                effect["gold"] = effect.get("gold", 0) - charge
-            state.apply_effect(effect)
-            # Print resolution text (KODP rule: every choice must have a narrative outcome)
-            result_text = opt.get("result", "")
-            if lang != "en":
-                result_text = opt.get(f"result_{lang}", result_text)
+            self._apply_option_effect(opt.get("effect", {}), state, ctx)
+
+            roll_spec = opt.get("roll")
+            if roll_spec:
+                success = self._resolve_roll(roll_spec, state)
+                branch = roll_spec.get("success" if success else "failure", {}) or {}
+                self._apply_option_effect(branch.get("effect", {}), state, ctx)
+                result_text = branch.get("result", "")
+                if lang != "en":
+                    result_text = branch.get(f"result_{lang}", result_text)
+            else:
+                # Print resolution text (KODP rule: every choice must have a narrative outcome)
+                result_text = opt.get("result", "")
+                if lang != "en":
+                    result_text = opt.get(f"result_{lang}", result_text)
             if result_text:
                 print(f"\n  {result_text}")
+
+        state.__dict__.pop("_current_hostage", None)
 
         if once_key:
             state.once_flags.append(once_key)
@@ -824,8 +914,26 @@ class EventEngine:
             eligible = [e for e in pool
                         if not e.get("regions") or waterway in e.get("regions", [])]
             pool = eligible if eligible else pool
+        # village_events honor an optional "when": {"location": [...]};
+        # events without "when" stay available everywhere.
+        if pool_name == "village_events":
+            loc = state.current_location
+            eligible = [e for e in pool
+                        if not e.get("when") or loc in e.get("when", {}).get("location", [])]
+            pool = eligible if eligible else pool
         ev = random.choice(pool)
+
+        hostage_member = None
+        if ev.get("hostage"):
+            hostage_member = self._pick_hostage(state)
+            if hostage_member is None:
+                return  # no eligible crew member to hold hostage — skip this event
+
         ctx = self._context_for_event(state)
+        if hostage_member is not None:
+            ctx["hostage"] = hostage_member.name
+            ctx["nation"] = _NATION_BY_PROTAGONIST.get(state.protagonist, "foreign")
+            state._current_hostage = hostage_member
         ev_fmt = self._apply_templating(ev, ctx)
         self._resolve_event(ev_fmt, state, once_key=None, extra_options=extra_options, ctx=ctx)
 
@@ -836,14 +944,22 @@ class EventEngine:
             ok, once_key = self._match_when(ev, state)
             if ok:
                 eligible.append((ev, once_key))
-        if not eligible:
-            return False
-        base_ev, once_key = eligible[0]
-        ev = self._merge_role_variant(base_ev, state.role)
-        ctx = self._context_for_event(state)
-        ev = self._apply_templating(ev, ctx)
-        self._resolve_event(ev, state, once_key=once_key, ctx=ctx)
-        return True
+        for base_ev, once_key in eligible:
+            hostage_member = None
+            if base_ev.get("hostage"):
+                hostage_member = self._pick_hostage(state)
+                if hostage_member is None:
+                    continue  # no eligible crew member to hold hostage — skip this event
+            ev = self._merge_role_variant(base_ev, state.role)
+            ctx = self._context_for_event(state)
+            if hostage_member is not None:
+                ctx["hostage"] = hostage_member.name
+                ctx["nation"] = _NATION_BY_PROTAGONIST.get(state.protagonist, "foreign")
+                state._current_hostage = hostage_member
+            ev = self._apply_templating(ev, ctx)
+            self._resolve_event(ev, state, once_key=once_key, ctx=ctx)
+            return True
+        return False
 
 
 # ─────────────────────────────────────────

@@ -121,5 +121,6 @@
   "voyage_hunt_success": "{name} vuelve de entre los árboles con un venado y una historia sobre el que se le escapó.",
   "voyage_hunt_failure": "La partida de caza vuelve embarrada, picada por los insectos, y con las manos vacías.",
   "voyage_hunt_new_hunter": "{name} ya es Cazador.",
-  "voyage_fish_new_fisher": "{name} ya es Pueblo Pescador (Costero)."
+  "voyage_fish_new_fisher": "{name} ya es Pueblo Pescador (Costero).",
+  "effect_lose_hostage": "{hostage} ya no está con vuestra tripulación."
 }
