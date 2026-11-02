@@ -726,7 +726,8 @@ class EventEngine:
         press_enter()
 
     def _resolve_event(self, event: Dict[str, Any], state: GameState, once_key: Optional[str] = None,
-                        extra_options: Optional[Dict[str, Tuple[str, Any]]] = None):
+                        extra_options: Optional[Dict[str, Tuple[str, Any]]] = None,
+                        ctx: Optional[Dict[str, Any]] = None):
         lang = getattr(state, "lang", "en")
         title = event.get("id", "Event").replace("_", " ").title()
 
@@ -786,7 +787,12 @@ class EventEngine:
             print(f"\n  {t('you_hesitate')}")
         else:
             opt = options[choice]
-            effect = opt.get("effect", {})
+            effect = dict(opt.get("effect", {}))
+            fee_multiplier = effect.pop("harbor_fee", None)
+            if fee_multiplier is not None:
+                fee = (ctx or self._context_for_event(state)).get("harbor_fee", 0)
+                charge = min(round(fee * fee_multiplier), state.gold)
+                effect["gold"] = effect.get("gold", 0) - charge
             state.apply_effect(effect)
             # Print resolution text (KODP rule: every choice must have a narrative outcome)
             result_text = opt.get("result", "")
@@ -794,8 +800,6 @@ class EventEngine:
                 result_text = opt.get(f"result_{lang}", result_text)
             if result_text:
                 print(f"\n  {result_text}")
-            else:
-                print(f"\n  {t('outcome_applied')}")
 
         if once_key:
             state.once_flags.append(once_key)
@@ -823,7 +827,7 @@ class EventEngine:
         ev = random.choice(pool)
         ctx = self._context_for_event(state)
         ev_fmt = self._apply_templating(ev, ctx)
-        self._resolve_event(ev_fmt, state, once_key=None, extra_options=extra_options)
+        self._resolve_event(ev_fmt, state, once_key=None, extra_options=extra_options, ctx=ctx)
 
     def trigger_special_if_any(self, state: GameState) -> bool:
         specials = self.events.get("special_events", [])
@@ -838,7 +842,7 @@ class EventEngine:
         ev = self._merge_role_variant(base_ev, state.role)
         ctx = self._context_for_event(state)
         ev = self._apply_templating(ev, ctx)
-        self._resolve_event(ev, state, once_key=once_key)
+        self._resolve_event(ev, state, once_key=once_key, ctx=ctx)
         return True
 
 
@@ -2070,6 +2074,9 @@ def port_action_menu(
         opt("4", "Weapons shop")
         opt("5", "Ship repair",               access["ship_repair"],   "Shipwrights rest at night.")
         opt("6", "Tavern & rumors",           access["tavern"],        None)
+        harbor_master_npc_id = PORT_HARBOR_MASTERS.get(port_data["name"])
+        if harbor_master_npc_id:
+            opt("H", "Talk to the harbor master")
         opt("7", "Rest for several hours (+8 hrs, +5 morale)")
         opt("8", "View crew roster")
         opt("9", "View active quests")
@@ -2185,6 +2192,10 @@ def port_action_menu(
             else:
                 print("\n  No slave market here.")
                 press_enter()
+
+        # ── Talk to the harbor master ──
+        elif choice == "H":
+            engine.query_npc(harbor_master_npc_id, state)
 
         # ── Faction standing ──
         elif choice == "F":

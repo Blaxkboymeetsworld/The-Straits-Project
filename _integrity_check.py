@@ -208,7 +208,7 @@ for i, frag in enumerate(ed.get("lore_fragments", [])):
         fail(f"lore_fragments[{i}] is not a string")
 ok(f"{len(ed.get('lore_fragments',[]))} lore fragments, all strings")
 
-VALID_EFFECT_KEYS = {"gold","spices","ship_health","morale","provisions","cargo"}
+VALID_EFFECT_KEYS = {"gold","spices","ship_health","morale","provisions","cargo","harbor_fee"}
 for pool_name in ("sea_events","harbor_events","village_events","special_events"):
     for ev in ed.get(pool_name, []):
         ev_id = ev.get("id","?")
@@ -217,6 +217,8 @@ for pool_name in ("sea_events","harbor_events","village_events","special_events"
         for opt_key, opt in ev.get("options", {}).items():
             if "text" not in opt:
                 fail(f"event '{ev_id}' option '{opt_key}' missing 'text'")
+            if "result" not in opt:
+                warn(f"event '{ev_id}' option '{opt_key}' has no 'result'")
             for eff_key in opt.get("effect", {}) or {}:
                 if eff_key not in VALID_EFFECT_KEYS:
                     warn(f"event '{ev_id}' option '{opt_key}' effect has unrecognized key: {eff_key}")
