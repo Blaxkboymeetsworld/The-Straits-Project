@@ -406,10 +406,6 @@ class GameState:
             # Morale recovers 1 point slower per day without spiritual support
             self.morale = max(0, self.morale - 1)
 
-        # ── Cook absence: additional morale drain ──
-        if not self.crew.has_occupation("cook"):
-            self.morale = max(0, self.morale - 2)
-
     def pay_crew_wages(self):
         """Pay wages when entering a port."""
         wages = self.crew.total_wages()
