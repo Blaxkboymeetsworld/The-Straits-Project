@@ -180,7 +180,7 @@ class GameState:
         self.once_flags: List[str] = []
 
         # Provisions (consumed at sea; cook reduces drain rate)
-        self.provisions: int = 60
+        self.provisions: int = 100
 
         # Crew
         self.crew = CrewManager()
