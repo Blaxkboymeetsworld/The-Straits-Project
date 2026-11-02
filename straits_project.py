@@ -32,7 +32,7 @@ from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, START_DATE, get_waterway,
                          calculate_voyage, next_favorable_month,
-                         _ROUTE_DISTANCES_NM)
+                         _ROUTE_DISTANCES_NM, is_open_ocean)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -2815,14 +2815,6 @@ _VOYAGE_BOOK_BY_ROLE = {"portuguese": "book_of_hours", "ottoman": "quran", "chin
 _VOYAGE_BOOK_RELIGION_BY_ROLE = {"portuguese": "Catholic", "ottoman": "Islam", "chinese": "Buddhism"}
 _VOYAGE_FLAVOR_KEYS = [f"voyage_flavor_{i}" for i in range(1, 9)]
 
-# Open-ocean crossings with no shore to hunt on (either direction).
-_NO_HUNT_CROSSINGS = {
-    frozenset(pair) for pair in [
-        ("Aden Harbor", "Calicut"), ("Aden Harbor", "Goa Harbor"), ("Aden Harbor", "Aceh"),
-        ("Hormuz", "Calicut"), ("Calicut", "Aceh"), ("Calicut", "Malacca Harbor"),
-    ]
-}
-
 
 def _voyage_pause_days(total_days: int) -> set:
     """Days (1-based) on which the voyage pauses: none under 10 days, otherwise
@@ -3224,7 +3216,7 @@ def run_game(
                 event_count = 0
                 max_events = max(4, total_days // 8)
                 pause_days = _voyage_pause_days(total_days)
-                can_hunt = frozenset((origin_port, dest)) not in _NO_HUNT_CROSSINGS
+                can_hunt = not is_open_ocean(origin_port, dest)  # no shore on open ocean
                 state._voyage_flavor_used = set()
                 for day_idx in range(total_days):
                     # Frame transit location: "just outside <origin>" for the first

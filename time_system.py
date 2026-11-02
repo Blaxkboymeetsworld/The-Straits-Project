@@ -140,13 +140,19 @@ for _rd in _NAUTICAL_DATA.get("route_distances", []):
     _ROUTE_DISTANCES_NM[(_rd_a, _rd_b)] = _rd_nm
     _ROUTE_DISTANCES_NM[(_rd_b, _rd_a)] = _rd_nm
 
-# Short archipelago hops treated as coastal (calm, sheltered water) rather
-# than open ocean, per Prompt 2 spec.
-_COASTAL_HOPS = {
-    ("Malacca Harbor", "Kedah"), ("Kedah", "Malacca Harbor"),
-    ("Ternate", "Tidore"), ("Tidore", "Ternate"),
-    ("Gresik", "Bali"), ("Bali", "Gresik"),
-}
+# Route types. These six crossings (either direction) are OPEN OCEAN: no
+# coast to shelter under. Every other route is COASTAL. This is the single
+# source for route type; calculate_voyage(), blocking, and the voyage-pause
+# hunting rule all read it through is_open_ocean().
+OPEN_OCEAN_ROUTES = frozenset(frozenset(pair) for pair in [
+    ("Aden Harbor", "Calicut"), ("Aden Harbor", "Goa Harbor"), ("Aden Harbor", "Aceh"),
+    ("Hormuz", "Calicut"), ("Calicut", "Aceh"), ("Calicut", "Malacca Harbor"),
+])
+
+
+def is_open_ocean(origin_port: str, dest_port: str) -> bool:
+    """True if the crossing is one of OPEN_OCEAN_ROUTES (either direction)."""
+    return frozenset((origin_port, dest_port)) in OPEN_OCEAN_ROUTES
 
 # Each ocean system's monsoon_calendar entry carries two directional
 # sub-systems (e.g. sw_monsoon / ne_monsoon) with opposite favorable
@@ -198,7 +204,8 @@ def calculate_voyage(
     travel flow in straits_project.py (see Prompt 3).
 
     Returns {"days": int, "monsoon_state": "favorable"|"unfavorable"|"transition",
-    "blocked": bool, "subsystem": "sw_monsoon"|"ne_monsoon"}.
+    "blocked": bool, "subsystem": "sw_monsoon"|"ne_monsoon",
+    "route_type": "coastal"|"open_ocean"}.
     If the route distance or ship profile isn't in the data, returns
     {"days": None, "monsoon_state": None, "blocked": True, "error": <reason>}
     rather than guessing a distance.
@@ -232,8 +239,8 @@ def calculate_voyage(
         subsystem = ocean.get(subsystem_key, {})
         monsoon_state = "favorable" if current_month in subsystem.get("favorable_months", []) else "unfavorable"
 
-    is_coastal = (origin_port, dest_port) in _COASTAL_HOPS
-    base_knots = profile["coastal_knots"] if is_coastal else profile["open_ocean_knots"]
+    route_type = "open_ocean" if is_open_ocean(origin_port, dest_port) else "coastal"
+    base_knots = profile["open_ocean_knots"] if route_type == "open_ocean" else profile["coastal_knots"]
 
     if monsoon_state == "unfavorable":
         effective_knots = base_knots * profile["upwind_penalty_multiplier"]
@@ -246,7 +253,8 @@ def calculate_voyage(
 
     days = max(1, round(distance_nm / (effective_knots * HOURS_PER_DAY)))
 
-    return {"days": days, "monsoon_state": monsoon_state, "blocked": blocked, "subsystem": subsystem_key}
+    return {"days": days, "monsoon_state": monsoon_state, "blocked": blocked,
+            "subsystem": subsystem_key, "route_type": route_type}
 
 
 def next_favorable_month(ocean_system: str, origin_port: str, dest_port: str, current_month: int) -> Optional[int]:
