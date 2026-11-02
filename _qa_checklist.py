@@ -58,18 +58,18 @@ print("\n── ITEM 1: Language selection screen ──")
 try:
     import io, contextlib
     buf = io.StringIO()
-    builtins.input = lambda *a, **kw: ""   # auto-confirm with ""
+    builtins.input = lambda *a, **kw: "1"  # select_language() only accepts "1"/"2"
     with contextlib.redirect_stdout(buf):
         result = sp.select_language()
     builtins.input = _real_input
     output = buf.getvalue()
     has_en = "English" in output or "english" in output.lower()
     has_es = "Español" in output or "español" in output.lower() or "Espanol" in output
-    lang_en_returns_en = (result == "en")  # blank input → "en"
+    lang_en_returns_en = (result == "en")  # "1" → "en"
     if has_en and has_es and lang_en_returns_en:
-        ok(1, "Both 'English' and 'Español' appear; blank input → 'en'")
+        ok(1, "Both 'English' and 'Español' appear; '1' → 'en'")
     else:
-        fail(1, f"has_en={has_en} has_es={has_es} blank_returns_en={lang_en_returns_en}\noutput={repr(output)}")
+        fail(1, f"has_en={has_en} has_es={has_es} one_returns_en={lang_en_returns_en}\noutput={repr(output)}")
 except Exception as e:
     fail(1, str(e)); traceback.print_exc()
 
@@ -364,7 +364,7 @@ try:
         ("reputation_tier",       state.reputation_tier,       0),
         ("faction_standing",      state.faction_standing,      dict),
         ("assignments_completed", state.assignments_completed,  0),
-        ("seen_lore_flags",       state.seen_lore_flags,        list),
+        ("seen_lore_flags",       state.seen_lore_flags,        dict),
         ("player_traits",         state.player_traits,          list),
         ("slaves_aboard",         state.slaves_aboard,          0),
         ("combat_enabled",        state.combat_enabled,         False),
