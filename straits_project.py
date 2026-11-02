@@ -556,6 +556,8 @@ class EventEngine:
             return result
         if "description" in var:
             result["description"] = var["description"]
+        if "description_es" in var:
+            result["description_es"] = var["description_es"]
         if "options" in var:
             for k, v in var["options"].items():
                 result.setdefault("options", {})
