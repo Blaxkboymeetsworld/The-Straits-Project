@@ -2874,6 +2874,11 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
             used_hunt = True
             state.time.advance_hours(24)
             state.apply_daily_crew_effects()
+            if state.pending_failure() or not state.crew.alive_members():
+                # Game-over (including a wiped-out crew) is handled by the
+                # caller right after this menu returns — don't print here,
+                # and never let an empty crew reach random.choice() below.
+                return
             hunter_count = sum(1 for m in state.crew.alive_members() if m.has_trait("hunter"))
             chance = 0.30 + 0.15 * hunter_count
             if state.crew.has_occupation("scout"):
