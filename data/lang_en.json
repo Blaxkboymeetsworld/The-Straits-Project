@@ -148,5 +148,13 @@
   "voyage_waited": "You wait in {port} for {days} day(s).",
   "warn_monsoon_portuguese": "Against the monsoon, on open water? We'll be tacking for weeks, and the storms out there don't care whose flag we fly.",
   "warn_monsoon_ottoman": "Every pilot from Hormuz to Kilwa waits for this wind. Only fools and the desperate sail against it. Which are we today?",
-  "warn_monsoon_chinese": "Wrong season for deep water. The junk can do it. The question is whether we want to arrive."
+  "warn_monsoon_chinese": "Wrong season for deep water. The junk can do it. The question is whether we want to arrive.",
+  "wind_tag_favorable": "favorable monsoon",
+  "wind_tag_transition": "season turning",
+  "wind_tag_against_coastal": "against the monsoon (coastal)",
+  "wind_tag_against_open_ocean": "against the monsoon (open ocean)",
+  "departure_favorable": "The monsoon fills your sails from astern. The crew is singing by noon.",
+  "departure_transition": "The winds can't make up their minds. Neither can the sea.",
+  "departure_against_coastal": "You work up the coast against the monsoon, riding the land breeze at dawn and the sea breeze at dusk, anchoring when both fail.",
+  "departure_against_open_ocean": "You turn into the teeth of the monsoon, out where there is no coast to shelter under."
 }

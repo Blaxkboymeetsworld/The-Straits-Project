@@ -2632,14 +2632,23 @@ def _first_hop(origin: str, dest: str) -> Optional[str]:
     return None
 
 
-def _voyage_numbers(origin: str, dest: str, state: Any) -> Optional[Tuple[int, str, int]]:
-    """(days, monsoon_state, estimated provisions) from calculate_voyage(), or None."""
+def _wind_key(voyage: Dict[str, Any]) -> str:
+    """favorable / transition / against_coastal / against_open_ocean, for the
+    wind tag in the destination menu and the departure line."""
+    state = voyage.get("monsoon_state")
+    if state in ("favorable", "transition"):
+        return state
+    return f"against_{voyage.get('route_type', 'coastal')}"
+
+
+def _voyage_numbers(origin: str, dest: str, state: Any) -> Optional[Tuple[int, str, int, str]]:
+    """(days, monsoon_state, estimated provisions, wind key) from calculate_voyage(), or None."""
     ocean_system = _ROUTE_OCEAN_SYSTEM.get((origin, dest), "indian_ocean")
     voyage = calculate_voyage(origin, dest, ocean_system, state.month + 1, state.role)
     if voyage.get("days") is None:
         return None
     provision_drain = 1 if state.crew.has_occupation("cook") else 2
-    return voyage["days"], voyage["monsoon_state"], voyage["days"] * provision_drain
+    return voyage["days"], voyage["monsoon_state"], voyage["days"] * provision_drain, _wind_key(voyage)
 
 
 def _days_until_unblocked(state: Any, origin: str, dest: str, ocean_system: str,
@@ -2661,8 +2670,8 @@ def _travel_estimate(origin: str, dest: str, state: Any) -> str:
     nums = _voyage_numbers(origin, dest, state)
     if nums is None:
         return "no charted route"
-    days, monsoon_state, prov_cost = nums
-    return f"{days} days ({monsoon_state})  |  ~{prov_cost} provisions"
+    days, _monsoon_state, prov_cost, wind = nums
+    return f"{days} days, {t('wind_tag_' + wind)}  |  ~{prov_cost} provisions"
 
 
 def _speaker_line(state: Any, kind: str, **fmt: Any) -> str:
@@ -3224,7 +3233,7 @@ def run_game(
                 while True:
                     clear()
                     print(f"\n  {t('voyage_departure_checkpoint').format(origin=origin_port, dest=dest)}")
-                    print(f"  Estimated voyage: {voyage['days']} day(s)  ({voyage['monsoon_state']})")
+                    print(f"  Estimated voyage: {voyage['days']} day(s), {t('wind_tag_' + _wind_key(voyage))}")
                     print(f"\n  [1] Check crew")
                     print(f"  [2] Save")
                     print(f"  [3] Depart")
@@ -3237,6 +3246,8 @@ def run_game(
                         break
 
                 clear()
+                print(f"\n  {t('departure_' + _wind_key(voyage))}")
+                press_enter()
                 crew_before = set(id(m) for m in state.crew.alive_members())
                 state.current_location_type = "sea"
                 state._current_waterway = get_waterway(origin_port, dest)

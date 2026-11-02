@@ -148,5 +148,13 @@
   "voyage_waited": "Esperáis en {port} durante {days} día(s).",
   "warn_monsoon_portuguese": "¿Contra el monzón, en mar abierto? Estaremos dando bordadas durante semanas, y a las tormentas de ahí fuera no les importa qué bandera llevemos.",
   "warn_monsoon_ottoman": "Todos los pilotos de Ormuz a Kilwa esperan este viento. Solo los necios y los desesperados navegan contra él. ¿Qué somos hoy?",
-  "warn_monsoon_chinese": "Mala estación para aguas profundas. El junco puede hacerlo. La cuestión es si queremos llegar."
+  "warn_monsoon_chinese": "Mala estación para aguas profundas. El junco puede hacerlo. La cuestión es si queremos llegar.",
+  "wind_tag_favorable": "monzón favorable",
+  "wind_tag_transition": "cambio de estación",
+  "wind_tag_against_coastal": "contra el monzón (costero)",
+  "wind_tag_against_open_ocean": "contra el monzón (mar abierto)",
+  "departure_favorable": "El monzón os hincha las velas por la popa. A mediodía la tripulación ya está cantando.",
+  "departure_transition": "Los vientos no acaban de decidirse. El mar tampoco.",
+  "departure_against_coastal": "Remontáis la costa contra el monzón, aprovechando la brisa de tierra al alba y la brisa marina al anochecer, y fondeando cuando fallan las dos.",
+  "departure_against_open_ocean": "Os metéis en las fauces del monzón, mar adentro, donde no hay costa bajo la que resguardarse."
 }
