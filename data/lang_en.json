@@ -140,5 +140,13 @@
   "waterway_malabar_coast": "MALABAR COAST",
   "waterway_malacca_strait": "MALACCA STRAIT",
   "waterway_south_china_sea": "SOUTH CHINA SEA",
-  "waterway_open_ocean": "OPEN OCEAN"
+  "waterway_open_ocean": "OPEN OCEAN",
+  "voyage_blocked_estimate": "Attempting it now would take an estimated {days} day(s), sailing against the monsoon.",
+  "voyage_option_sail_anyway": "Sail anyway, into the wind",
+  "voyage_option_wait": "Wait in port for the season to turn",
+  "voyage_option_choose_another": "Choose another destination",
+  "voyage_waited": "You wait in {port} for {days} day(s).",
+  "warn_monsoon_portuguese": "Against the monsoon, on open water? We'll be tacking for weeks, and the storms out there don't care whose flag we fly.",
+  "warn_monsoon_ottoman": "Every pilot from Hormuz to Kilwa waits for this wind. Only fools and the desperate sail against it. Which are we today?",
+  "warn_monsoon_chinese": "Wrong season for deep water. The junk can do it. The question is whether we want to arrive."
 }

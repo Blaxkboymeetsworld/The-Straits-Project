@@ -252,7 +252,10 @@ def calculate_voyage(
     else:
         modifier = profile[f"against_{route_type}_speed_modifier"]
     effective_knots = base_knots * (1 + modifier)
-    blocked = monsoon_state == "unfavorable"
+    # Only open-ocean crossings against the monsoon are "blocked" (the player
+    # is warned and may wait). Coastal routes never block: you work up the
+    # coast at the reduced speed instead.
+    blocked = monsoon_state == "unfavorable" and route_type == "open_ocean"
 
     days = max(1, round(distance_nm / (effective_knots * HOURS_PER_DAY)))
 

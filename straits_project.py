@@ -31,7 +31,7 @@ from economy import Economy, GOODS_CATALOG, MAX_CARGO, haggle
 from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, START_DATE, get_waterway,
-                         calculate_voyage, next_favorable_month,
+                         calculate_voyage,
                          _ROUTE_DISTANCES_NM, is_open_ocean)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
@@ -2642,6 +2642,17 @@ def _voyage_numbers(origin: str, dest: str, state: Any) -> Optional[Tuple[int, s
     return voyage["days"], voyage["monsoon_state"], voyage["days"] * provision_drain
 
 
+def _days_until_unblocked(state: Any, origin: str, dest: str, ocean_system: str,
+                          max_days: int = 90) -> int:
+    """Days to wait until calculate_voyage() no longer blocks the crossing
+    (a transition or favorable month), capped at max_days."""
+    for d in range(1, max_days + 1):
+        month = min(((state.day + d - 1) % 365) // 30, 11) + 1
+        if not calculate_voyage(origin, dest, ocean_system, month, state.role)["blocked"]:
+            return d
+    return max_days
+
+
 def _travel_estimate(origin: str, dest: str, state: Any) -> str:
     """Return a human-readable travel time estimate string from calculate_voyage(),
     so the number shown before departure matches what the voyage actually does."""
@@ -3127,7 +3138,10 @@ def run_game(
                     state.factions.adjust_rep(faction_id, -1)
             press_enter()
 
-        if state.current_location_type == "sea":
+        if getattr(state, "_force_travel_menu", False):
+            state._force_travel_menu = False  # "Choose another destination"
+            selection = "1"
+        elif state.current_location_type == "sea":
             selection = _at_sea_menu(state)
         else:
             # We've arrived — but returning to this loop means leaving port
@@ -3167,28 +3181,44 @@ def run_game(
                     press_enter()
                     continue
 
-                if voyage["blocked"]:
+                # Open ocean against the monsoon: sail into the wind, wait for
+                # the season to turn, or pick another destination. Coastal
+                # routes never block (calculate_voyage handles that).
+                into_the_wind = False
+                while voyage["blocked"]:
                     clear()
                     print(f"\n  {t('voyage_monsoon_blocked_warning').format(origin=origin_port, dest=dest)}")
-                    print(f"  Attempting it now would take an estimated {voyage['days']} day(s), sailing against the monsoon.")
-                    print(f"\n  [1] Wait in port for the season to turn (no risk)")
-                    print(f"  [2] Sail anyway, into the wind")
-                    wait_choice = get_menu_choice(["1", "2"])
+                    print(f"  {t('voyage_blocked_estimate').format(days=voyage['days'])}\n")
+                    print(_speaker_line(state, "monsoon"))
+                    print(f"\n  [1] {t('voyage_option_sail_anyway')}")
+                    print(f"  [2] {t('voyage_option_wait')}")
+                    print(f"  [3] {t('voyage_option_choose_another')}")
+                    wait_choice = get_menu_choice(["1", "2", "3"])
                     if wait_choice == "1":
-                        target_month = next_favorable_month(ocean_system, origin_port, dest, current_month)
-                        clear()
-                        if target_month is not None:
-                            day_in_month = (state.day - 1) % 30
-                            days_remaining = 30 - day_in_month
-                            months_ahead = (target_month - current_month) % 12 or 12
-                            days_to_wait = days_remaining + (months_ahead - 1) * 30
-                            state.time.advance_hours(days_to_wait * 24)
-                            print(f"\n  You wait in {origin_port} for {days_to_wait} day(s), until the season turns.")
-                        else:
-                            print(f"\n  There is no clearly favorable season on record for this crossing. You wait regardless.")
-                        press_enter()
-                        continue
-                    # wait_choice == "2": fall through and depart at penalty speed
+                        into_the_wind = True
+                        break
+                    if wait_choice == "3":
+                        state._force_travel_menu = True
+                        break
+                    # Wait until the next transition or favorable month (max 90 days).
+                    days_to_wait = _days_until_unblocked(state, origin_port, dest, ocean_system)
+                    state.time.advance_hours(days_to_wait * 24)
+                    clear()
+                    print(f"\n  {t('voyage_waited').format(port=origin_port, days=days_to_wait)}")
+                    periods = days_to_wait // 30
+                    for _ in range(periods):          # wages once per 30 days waited
+                        state.pay_crew_wages()
+                    press_enter()
+                    for _ in range(max(1, periods)):  # one harbor event per 30 days, at least one
+                        engine.trigger_random("harbor_events", state)
+                        if state.pending_failure():
+                            break
+                    if state.pending_failure() or state.ship_health <= 0 or state.morale <= 0:
+                        break
+                    current_month = state.month + 1
+                    voyage = calculate_voyage(origin_port, dest, ocean_system, current_month, state.role)
+                if getattr(state, "_force_travel_menu", False) or (voyage["blocked"] and not into_the_wind):
+                    continue  # another destination, or the wait ended the game
 
                 # Pre-departure checkpoint — loops until the player picks Depart
                 while True:
@@ -3215,6 +3245,10 @@ def run_game(
                 total_days = voyage["days"]
                 event_count = 0
                 max_events = max(4, total_days // 8)
+                event_chance_mult = 1.0
+                if into_the_wind:  # sailing against the monsoon on open water
+                    max_events = int(max_events * 1.5 + 0.5)
+                    event_chance_mult = 2.0
                 pause_days = _voyage_pause_days(total_days)
                 can_hunt = not is_open_ocean(origin_port, dest)  # no shore on open ocean
                 state._voyage_flavor_used = set()
@@ -3233,7 +3267,7 @@ def run_game(
                         press_enter()
                         return
 
-                    if event_count < max_events and roll_check(random.uniform(0.10, 0.15)):
+                    if event_count < max_events and roll_check(random.uniform(0.10, 0.15) * event_chance_mult):
                         event_count += 1
                         engine.trigger_random(
                             "sea_events", state,

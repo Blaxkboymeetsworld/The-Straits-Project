@@ -140,5 +140,13 @@
   "waterway_malabar_coast": "COSTA DEL MALABAR",
   "waterway_malacca_strait": "ESTRECHO DE MALACA",
   "waterway_south_china_sea": "MAR DE LA CHINA MERIDIONAL",
-  "waterway_open_ocean": "MAR ABIERTO"
+  "waterway_open_ocean": "MAR ABIERTO",
+  "voyage_blocked_estimate": "Intentarlo ahora llevaría unos {days} día(s), navegando contra el monzón.",
+  "voyage_option_sail_anyway": "Zarpar de todos modos, contra el viento",
+  "voyage_option_wait": "Esperar en puerto a que cambie la estación",
+  "voyage_option_choose_another": "Elegir otro destino",
+  "voyage_waited": "Esperáis en {port} durante {days} día(s).",
+  "warn_monsoon_portuguese": "¿Contra el monzón, en mar abierto? Estaremos dando bordadas durante semanas, y a las tormentas de ahí fuera no les importa qué bandera llevemos.",
+  "warn_monsoon_ottoman": "Todos los pilotos de Ormuz a Kilwa esperan este viento. Solo los necios y los desesperados navegan contra él. ¿Qué somos hoy?",
+  "warn_monsoon_chinese": "Mala estación para aguas profundas. El junco puede hacerlo. La cuestión es si queremos llegar."
 }
