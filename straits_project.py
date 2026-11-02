@@ -2173,6 +2173,8 @@ def port_action_menu(
             print(f"\n  ✗ Quest expired: '{fq.title}'. {port_data.get('ruler',{}).get('name','The ruler')} is displeased.")
         press_enter()
 
+    bonus_paid_this_visit = False
+
     while True:
         if state.pending_failure():
             return  # an event in port ended the game; run_game prints it
@@ -2213,6 +2215,10 @@ def port_action_menu(
         opt("9", "View active quests")
         opt("P", "Restock provisions")
         opt("F", "Faction standing")
+        bonus_crew_count = len(state.crew.alive_members())
+        bonus_cost = 100 * bonus_crew_count
+        if not bonus_paid_this_visit and bonus_crew_count > 0 and state.gold >= bonus_cost:
+            opt("B", "Pay the crew a bonus (100 gold per man)")
         has_slave_market = port_data.get("slave_market", False)
         if has_slave_market:
             total_aboard = state.slave_cargo + state.slaves_aboard
@@ -2332,6 +2338,16 @@ def port_action_menu(
         elif choice == "F":
             clear()
             state.factions.faction_summary()
+            press_enter()
+
+        # ── Pay the crew a bonus ──
+        elif choice == "B":
+            crew_count = len(state.crew.alive_members())
+            state.gold -= 100 * crew_count
+            before = state.morale
+            state.morale = min(100, state.morale + 3 * crew_count)
+            print(f"\n  {t('crew_bonus_paid').format(n=state.morale - before)}")
+            bonus_paid_this_visit = True
             press_enter()
 
         # ── Set sail ──
