@@ -298,6 +298,19 @@
       },
       "region": "Arabian Sea",
       "pool": "sea_events"
+    },
+    {
+      "id": "pulau_bayang",
+      "description": "Dawn comes up white. The fog lifts all at once, and there is an island where your navigator swears there was only water yesterday: green hills, a beach of black sand, smoke from a single fire. Your crew goes very quiet. Somebody whispers the name the Bugis use. Pulau Bayang. The Shadow Island, which comes for three days after the monsoon and is on no map.",
+      "description_es": "El alba llega blanca. La niebla se levanta de golpe, y hay una isla donde vuestro navegante jura que ayer solo había agua: colinas verdes, una playa de arena negra, el humo de una sola hoguera. La tripulación se queda muy callada. Alguien susurra el nombre que usan los bugis. Pulau Bayang. La Isla de la Sombra, que aparece durante tres días después del monzón y no figura en ningún mapa.",
+      "manual_only": true,
+      "speaker_kind": "bayang",
+      "options": {
+        "1": { "text": "Row ashore.", "text_es": "Remar hasta la orilla.", "effect": { "morale": 8, "provisions": 25 }, "requires": null, "result": "An old man waits by the fire as if he expected you. He speaks a Malay so old your interpreter has to guess at every third word. He fills your water casks from a spring, gives you fruit you have never seen, and asks you what year it is. When you tell him, he laughs for a long time. By the time you're back aboard and look again, the fog has come down, and when it lifts, there is only sea.", "result_es": "Un anciano espera junto al fuego como si os esperara. Habla un malayo tan antiguo que vuestro intérprete tiene que adivinar una de cada tres palabras. Os llena los barriles de agua en un manantial, os da frutas que nunca habéis visto y os pregunta en qué año estáis. Cuando se lo decís, se ríe durante mucho rato. Para cuando volvéis a bordo y miráis otra vez, la niebla ha bajado, y cuando se levanta, solo queda el mar." },
+        "2": { "text": "Mark it on the chart and sail on.", "text_es": "Marcarla en la carta y seguir navegando.", "effect": { "morale": 2 }, "requires": null, "result": "You draw it carefully, with a bearing and a note. Next morning you look at the chart again. The ink has run, as if the page got wet, though nothing else in your cabin did.", "result_es": "La dibujáis con cuidado, con una marcación y una nota. A la mañana siguiente volvéis a mirar la carta. La tinta se ha corrido, como si la página se hubiera mojado, aunque nada más en vuestro camarote se mojó." },
+        "3": { "text": "Keep the crew at their posts and sail on.", "text_es": "Mantener a la tripulación en sus puestos y seguir navegando.", "effect": { "morale": -4 }, "requires": null, "result": "You give the order. Nobody argues. Nobody speaks to you for the rest of the day, either, and the oldest hands spend the evening arguing about what you've cost them.", "result_es": "Dais la orden. Nadie discute. Tampoco nadie os dirige la palabra en el resto del día, y los marineros más viejos pasan la tarde discutiendo lo que les habéis costado." }
+      },
+      "pool": "sea_events"
     }
   ],
   "harbor_events": [

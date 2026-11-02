@@ -180,5 +180,8 @@
   "voyage_estimated": "Estimated voyage: {days} day(s), {wind}",
   "voyage_checkpoint_check_crew": "Check crew",
   "voyage_checkpoint_save": "Save",
-  "voyage_checkpoint_depart": "Depart"
+  "voyage_checkpoint_depart": "Depart",
+  "warn_bayang_portuguese": "Mother of God. Captain, that wasn't there. I'd swear it on my mother's grave, that was not there.",
+  "warn_bayang_ottoman": "Bismillah. I have heard this story in every port from Aden to Malacca, and I never believed a word of it. Until now.",
+  "warn_bayang_chinese": "Forty years at sea. Ghost lights, ghost ships, I've seen them. Never a ghost island. Light the incense. Now."
 }

@@ -858,6 +858,9 @@ class EventEngine:
             clear()
             print(f"\n  ── {title} ──\n")
             print(f"  {desc}\n")
+            if event.get("speaker_kind"):
+                print(_speaker_line(state, event["speaker_kind"]))
+                print()
             for k in available_keys:
                 opt_text = options[k].get("text", "...")
                 if lang != "en":
@@ -916,7 +919,7 @@ class EventEngine:
 
     def trigger_random(self, pool_name: str, state: GameState,
                         extra_options: Optional[Dict[str, Tuple[str, Any]]] = None):
-        pool = self.events.get(pool_name, [])
+        pool = [e for e in self.events.get(pool_name, []) if not e.get("manual_only")]
         if not pool:
             return
         # Filter by waterway region if this is a sea event and waterway is set
@@ -945,6 +948,8 @@ class EventEngine:
             eligible = [e for e in pool if _when_ok(e)]
             pool = eligible if eligible else pool
         ev = random.choice(pool)
+        if hasattr(state, "_voyage_event_ids"):
+            state._voyage_event_ids.add(ev.get("id"))
 
         hostage_member = None
         if ev.get("hostage"):
@@ -959,6 +964,15 @@ class EventEngine:
             state._current_hostage = hostage_member
         ev_fmt = self._apply_templating(ev, ctx)
         self._resolve_event(ev_fmt, state, once_key=None, extra_options=extra_options, ctx=ctx)
+
+    def trigger_by_id(self, pool_name: str, event_id: str, state: GameState) -> bool:
+        """Resolve one specific event (e.g. a manual_only one). False if not found."""
+        ev = next((e for e in self.events.get(pool_name, []) if e.get("id") == event_id), None)
+        if ev is None:
+            return False
+        ctx = self._context_for_event(state)
+        self._resolve_event(self._apply_templating(ev, ctx), state, once_key=None, ctx=ctx)
+        return True
 
     def trigger_special_if_any(self, state: GameState) -> bool:
         specials = self.events.get("special_events", [])
@@ -2605,6 +2619,11 @@ def travel_menu(world: Dict[str, Any], state: Any = None) -> Tuple[Optional[str]
     return None, None
 
 
+# Pulau Bayang, the Shadow Island: once per game, on voyages touching these
+# ports, 4% per day after monsoon_shift has fired earlier in the voyage.
+PULAU_BAYANG_PORTS = {"Gresik", "Bali", "Makassar", "Bantam", "Ternate", "Tidore"}
+PULAU_BAYANG_DAILY_CHANCE = 0.04
+
 # Who voices the destination warnings for each role (falls back to any living crew).
 WARNING_SPEAKERS: Dict[str, str] = {
     "Portuguese Conquistador": "Camila de Sousa",
@@ -2684,7 +2703,7 @@ def _travel_estimate(origin: str, dest: str, state: Any) -> str:
 
 def _speaker_line(state: Any, kind: str, **fmt: Any) -> str:
     """The role's named warning speaker if alive, else any living crew member,
-    saying the role's line for kind ("uncharted" or "provisions")."""
+    saying the role's warn_<kind>_<role> line (uncharted, provisions, monsoon, bayang)."""
     line = t(f"warn_{kind}_{state.protagonist}").format(**fmt)
     alive = state.crew.alive_members()
     named = WARNING_SPEAKERS.get(state.role)
@@ -3273,6 +3292,8 @@ def run_game(
                 pause_days = _voyage_pause_days(total_days)
                 can_hunt = not is_open_ocean(origin_port, dest)  # no shore on open ocean
                 state._voyage_flavor_used = set()
+                state._voyage_event_ids = set()
+                bayang_route = origin_port in PULAU_BAYANG_PORTS or dest in PULAU_BAYANG_PORTS
                 for day_idx in range(total_days):
                     # Frame transit location: "just outside <origin>" for the first
                     # half of the voyage, "approaching <dest>" for the second half —
@@ -3287,6 +3308,18 @@ def run_game(
                     if state.pending_failure() and state.is_game_over():
                         press_enter()
                         return
+
+                    # Pulau Bayang: checked before today's roll, so monsoon_shift must
+                    # have fired on an earlier day. Doesn't count toward the event cap.
+                    if (bayang_route
+                            and "pulau_bayang" not in state.once_flags
+                            and "monsoon_shift" in state._voyage_event_ids
+                            and roll_check(PULAU_BAYANG_DAILY_CHANCE)):
+                        state.once_flags.append("pulau_bayang")
+                        engine.trigger_by_id("sea_events", "pulau_bayang", state)
+                        if state.is_game_over():
+                            press_enter()
+                            return
 
                     if event_count < max_events and roll_check(random.uniform(0.10, 0.15) * event_chance_mult):
                         event_count += 1
