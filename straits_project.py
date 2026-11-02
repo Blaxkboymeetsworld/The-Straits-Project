@@ -144,7 +144,7 @@ class GameState:
 
     def __init__(self, role: str, world: Dict[str, Any]):
         self.role = role
-        self.gold = 30
+        self.gold = 1000
         self.spices = 0             # legacy field (spices still in cargo too)
         self.ship_health = 100
         self.morale = 50
@@ -359,6 +359,12 @@ class GameState:
         self.spices      = max(0, self.spices      + int(effect.get("spices", 0)))
         self.ship_health = max(0, min(100, self.ship_health + int(effect.get("ship_health", 0))))
         self.morale      = max(0, min(100, self.morale      + int(effect.get("morale", 0))))
+        # Optional "cargo": {good_key: qty}, added only up to remaining hold space.
+        for good, qty in (effect.get("cargo") or {}).items():
+            space = self.cargo_capacity() - sum(self.cargo.values())
+            add = max(0, min(int(qty), space))
+            if add:
+                self.cargo[good] = self.cargo.get(good, 0) + add
 
     def is_game_over(self) -> bool:
         if self.ship_health <= 0:

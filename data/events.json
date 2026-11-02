@@ -486,6 +486,40 @@
       },
       "npc_id": "harbor_master",
       "pool": "special_events"
+    },
+    {
+      "id": "qahwa_aden",
+      "description": "Near the harbor mosque, a circle of Sufis passes a clay bowl of something black and steaming. An old man in a patched wool cloak waves you over. \"This new concoction came over from the Christian kingdom across the strait,\" he says. \"It's called qahwa (coffee). It keeps the heart awake for God through the night.\" A younger man adds quietly that the governor of Mecca has just banned it as a kind of wine.",
+      "description_es": "Cerca de la mezquita del puerto, un círculo de sufíes se pasa un cuenco de barro con algo negro y humeante. Un anciano con un manto de lana remendado os hace señas para que os acerquéis. \"Este nuevo brebaje llegó del reino cristiano al otro lado del estrecho\", dice. \"Se llama qahwa (café). Mantiene despierto el corazón para Dios durante la noche.\" Un hombre más joven añade en voz baja que el gobernador de La Meca acaba de prohibirlo como una especie de vino.",
+      "when": { "location": ["Aden Harbor"], "once": true },
+      "variants": {
+        "Portuguese Conquistador": {
+          "description": "Near the harbor mosque, a circle of Sufis passes a clay bowl of something black and steaming. The circle goes quiet at the sight of your clothes. An old man in a patched wool cloak waves you over and speaks in Arabic. You catch one word, over and over: qahwa (coffee).",
+          "description_es": "Cerca de la mezquita del puerto, un círculo de sufíes se pasa un cuenco de barro con algo negro y humeante. El círculo enmudece al ver vuestras ropas. Un anciano con un manto de lana remendado os hace señas para que os acerquéis y os habla en árabe. Captáis una palabra, una y otra vez: qahwa (café).",
+          "options": {
+            "1": { "text": "Have your Arabic speaker translate.", "text_es": "Pedir a vuestro hablante de árabe que traduzca.", "effect": { "morale": 4 }, "requires": { "crew_language": "Arabic" }, "result": "Your interpreter leans in. \"He says this new concoction came over from the Christian kingdom across the strait. It keeps the heart awake for God through the night.\" A younger man adds something, and your interpreter hesitates: the governor of Mecca has just banned it as a kind of wine. You drink. Bitter as burnt bread. You don't sleep until the dawn call to prayer.", "result_es": "Vuestro intérprete se inclina hacia él. \"Dice que este nuevo brebaje llegó del reino cristiano al otro lado del estrecho. Mantiene despierto el corazón para Dios durante la noche.\" Un hombre más joven añade algo, y vuestro intérprete vacila: el gobernador de La Meca acaba de prohibirlo como una especie de vino. Bebéis. Amargo como pan quemado. No dormís hasta la llamada a la oración del alba." },
+            "2": { "text": "Drink.", "text_es": "Beber.", "effect": { "morale": 2 }, "requires": null, "result": "Bitter as burnt bread. Your heart races, and you don't sleep until the dawn call to prayer. The circle laughs and refills your bowl.", "result_es": "Amargo como pan quemado. El corazón se os acelera y no dormís hasta la llamada a la oración del alba. El círculo ríe y os vuelve a llenar el cuenco." },
+            "3": { "text": "Buy three sacks to carry east. (20 gold)", "text_es": "Comprar tres sacos para llevar al este. (20 oro)", "effect": { "gold": -20, "cargo": { "coffee": 3 } }, "requires": { "gold": 20, "crew_language": "Arabic" }, "result": "Your interpreter haggles. The old man sells you three sacks and wishes you luck finding anyone east of here who wants them.", "result_es": "Vuestro intérprete regatea. El anciano os vende tres sacos y os desea suerte para encontrar a alguien al este de aquí que los quiera." },
+            "4": { "text": "Decline.", "text_es": "Declinar.", "effect": {}, "requires": null, "result": "The old man shrugs and goes back to his bowl.", "result_es": "El anciano se encoge de hombros y vuelve a su cuenco." }
+          }
+        },
+        "Chinese Trader": {
+          "description": "Near the harbor mosque, a circle of Sufis passes a clay bowl of something black and steaming. An old man in a patched wool cloak waves you over and speaks in Arabic. You catch one word, over and over: qahwa (coffee).",
+          "description_es": "Cerca de la mezquita del puerto, un círculo de sufíes se pasa un cuenco de barro con algo negro y humeante. Un anciano con un manto de lana remendado os hace señas para que os acerquéis y os habla en árabe. Captáis una palabra, una y otra vez: qahwa (café).",
+          "options": {
+            "1": { "text": "Have your Arabic speaker translate.", "text_es": "Pedir a vuestro hablante de árabe que traduzca.", "effect": { "morale": 4 }, "requires": { "crew_language": "Arabic" }, "result": "Your interpreter leans in. \"He says this new concoction came over from the Christian kingdom across the strait. It keeps the heart awake for God through the night.\" A younger man adds something, and your interpreter hesitates: the governor of Mecca has just banned it as a kind of wine. You drink. It tastes like tea someone burned on purpose. You don't sleep until the dawn call to prayer.", "result_es": "Vuestro intérprete se inclina hacia él. \"Dice que este nuevo brebaje llegó del reino cristiano al otro lado del estrecho. Mantiene despierto el corazón para Dios durante la noche.\" Un hombre más joven añade algo, y vuestro intérprete vacila: el gobernador de La Meca acaba de prohibirlo como una especie de vino. Bebéis. Sabe a té que alguien quemó a propósito. No dormís hasta la llamada a la oración del alba." },
+            "2": { "text": "Drink.", "text_es": "Beber.", "effect": { "morale": 2 }, "requires": null, "result": "It tastes like tea someone burned on purpose. Your heart races, and you don't sleep until the dawn call to prayer. The circle laughs and refills your bowl.", "result_es": "Sabe a té que alguien quemó a propósito. El corazón se os acelera y no dormís hasta la llamada a la oración del alba. El círculo ríe y os vuelve a llenar el cuenco." },
+            "3": { "text": "Buy three sacks to carry east. (20 gold)", "text_es": "Comprar tres sacos para llevar al este. (20 oro)", "effect": { "gold": -20, "cargo": { "coffee": 3 } }, "requires": { "gold": 20, "crew_language": "Arabic" }, "result": "Your interpreter haggles. The old man sells you three sacks and wishes you luck finding anyone east of here who wants them.", "result_es": "Vuestro intérprete regatea. El anciano os vende tres sacos y os desea suerte para encontrar a alguien al este de aquí que los quiera." },
+            "4": { "text": "Decline.", "text_es": "Declinar.", "effect": {}, "requires": null, "result": "The old man shrugs and goes back to his bowl.", "result_es": "El anciano se encoge de hombros y vuelve a su cuenco." }
+          }
+        }
+      },
+      "options": {
+        "1": { "text": "Drink.", "text_es": "Beber.", "effect": { "morale": 4 }, "requires": null, "result": "Bitter as burnt bread. Your heart races, and you don't sleep until the dawn call to prayer. The circle laughs and refills your bowl.", "result_es": "Amargo como pan quemado. El corazón se os acelera y no dormís hasta la llamada a la oración del alba. El círculo ríe y os vuelve a llenar el cuenco." },
+        "2": { "text": "Buy three sacks to carry east. (20 gold)", "text_es": "Comprar tres sacos para llevar al este. (20 oro)", "effect": { "gold": -20, "cargo": { "coffee": 3 } }, "requires": { "gold": 20 }, "result": "The old man sells you three sacks and wishes you luck finding anyone east of here who wants them.", "result_es": "El anciano os vende tres sacos y os desea suerte para encontrar a alguien al este de aquí que los quiera." },
+        "3": { "text": "Decline.", "text_es": "Declinar.", "effect": {}, "requires": null, "result": "He shrugs. \"Mecca will come around.\"", "result_es": "Se encoge de hombros. \"La Meca acabará entrando en razón.\"" }
+      },
+      "pool": "special_events"
     }
   ],
   "lore_fragments": [
