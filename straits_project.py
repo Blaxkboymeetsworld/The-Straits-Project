@@ -63,6 +63,13 @@ def load_locale(lang: str):
 def t(key: str) -> str:
     return LOCALE.get(key, f"[{key}]")
 
+# Hold size of each role's ship: nau, dhow, junk.
+SHIP_CARGO_CAPACITY: Dict[str, int] = {
+    "Portuguese Conquistador": 50,
+    "Ottoman Trader":          40,
+    "Chinese Trader":          60,
+}
+
 # The two companions per role whose deaths end the game.
 KEY_COMPANIONS: Dict[str, Tuple[str, str]] = {
     "Portuguese Conquistador": ("Camila de Sousa", "Estêvão da Guiné"),
@@ -287,8 +294,9 @@ class GameState:
         }.get(self.role, "default")
 
     def cargo_capacity(self) -> int:
-        """Returns the ship's cargo capacity (ship upgrades can override this)."""
-        return MAX_CARGO
+        """Returns the ship's cargo capacity for the role's ship (ship upgrades
+        can override this). MAX_CARGO is only the fallback for an unknown role."""
+        return SHIP_CARGO_CAPACITY.get(self.role, MAX_CARGO)
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -3383,14 +3391,17 @@ def choose_role() -> str:
     print(f"  [1] {t('role_portuguese')}")
     print("       +100 gold, +5 morale. Starts with rapier.")
     print("       Carries the weight of the Estado da India.")
+    print(f"       {t('role_ship_portuguese')}")
     print()
     print(f"  [2] {t('role_ottoman')}")
     print("       +200 gold, +3 spices, +8 morale. Istanbul connections, Levantine capital.")
     print("       Welcomed in Islamic ports. Estado da India views you with suspicion.")
+    print(f"       {t('role_ship_ottoman')}")
     print()
     print(f"  [3] {t('role_chinese')}")
     print("       +150 gold, silk & porcelain cargo. Quanzhou contacts.")
     print("       The diaspora knows your name before you arrive.")
+    print(f"       {t('role_ship_chinese')}")
     print()
     mapping = {"1": "Portuguese Conquistador", "2": "Ottoman Trader", "3": "Chinese Trader"}
     return mapping.get(get_menu_choice(["1", "2", "3"]), "Portuguese Conquistador")

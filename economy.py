@@ -138,7 +138,7 @@ MARKET_EVENTS = [
      "goods": [], "mod": 1.0},
 ]
 
-MAX_CARGO = 50  # max cargo units per hold
+MAX_CARGO = 50  # fallback hold size; real per-ship sizes: SHIP_CARGO_CAPACITY in straits_project.py
 
 
 # ─────────────────────────────────────────

@@ -156,5 +156,8 @@
   "departure_favorable": "El monzón os hincha las velas por la popa. A mediodía la tripulación ya está cantando.",
   "departure_transition": "Los vientos no acaban de decidirse. El mar tampoco.",
   "departure_against_coastal": "Remontáis la costa contra el monzón, aprovechando la brisa de tierra al alba y la brisa marina al anochecer, y fondeando cuando fallan las dos.",
-  "departure_against_open_ocean": "Os metéis en las fauces del monzón, mar adentro, donde no hay costa bajo la que resguardarse."
+  "departure_against_open_ocean": "Os metéis en las fauces del monzón, mar adentro, donde no hay costa bajo la que resguardarse.",
+  "role_ship_portuguese": "Nave: una nao de aparejo redondo. Bodega: 50. Rápida en mar abierto, lenta contra el viento.",
+  "role_ship_ottoman": "Nave: un dhow de vela latina. Bodega: 40. Pequeño, pero es el que mejor ciñe el viento.",
+  "role_ship_chinese": "Nave: un junco de altura. Bodega: 60. La bodega más grande, rápido a lo largo de la costa, lento en mar abierto."
 }

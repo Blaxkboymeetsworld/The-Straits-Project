@@ -156,5 +156,8 @@
   "departure_favorable": "The monsoon fills your sails from astern. The crew is singing by noon.",
   "departure_transition": "The winds can't make up their minds. Neither can the sea.",
   "departure_against_coastal": "You work up the coast against the monsoon, riding the land breeze at dawn and the sea breeze at dusk, anchoring when both fail.",
-  "departure_against_open_ocean": "You turn into the teeth of the monsoon, out where there is no coast to shelter under."
+  "departure_against_open_ocean": "You turn into the teeth of the monsoon, out where there is no coast to shelter under.",
+  "role_ship_portuguese": "Ship: a square-rigged nau. Hold: 50. Fast on open water, slow against the wind.",
+  "role_ship_ottoman": "Ship: a lateen-rigged dhow. Hold: 40. Small, but she sails closest to the wind.",
+  "role_ship_chinese": "Ship: an ocean junk. Hold: 60. The biggest hold, quick along the coast, slow on open water."
 }
