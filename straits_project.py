@@ -2466,6 +2466,11 @@ for _a, _b in [
     ("Malacca Harbor", "Aceh"), ("Malacca Harbor", "Pegu"), ("Malacca Harbor", "Kedah"),
     ("Goa Harbor", "Calicut"), ("Calicut", "Hormuz"), ("Calicut", "Aden Harbor"),
     ("Goa Harbor", "Hormuz"), ("Goa Harbor", "Aden Harbor"), ("Calicut", "Malacca Harbor"),
+    ("Kedah", "Aceh"), ("Kedah", "Pegu"), ("Kedah", "Calicut"),
+    ("Aden Harbor", "Bantam"), ("Aden Harbor", "Malacca Harbor"), ("Aden Harbor", "Quanzhou"),
+    ("Bantam", "Calicut"), ("Bantam", "Goa Harbor"), ("Bantam", "Hormuz"),
+    ("Calicut", "Quanzhou"), ("Goa Harbor", "Malacca Harbor"), ("Goa Harbor", "Quanzhou"),
+    ("Goa Harbor", "Ternate"), ("Hormuz", "Malacca Harbor"), ("Hormuz", "Quanzhou"),
 ]:
     _ROUTE_OCEAN_SYSTEM[(_a, _b)] = "indian_ocean"
     _ROUTE_OCEAN_SYSTEM[(_b, _a)] = "indian_ocean"
@@ -2476,6 +2481,10 @@ for _a, _b in [
     ("Quanzhou", "Ayutthaya"), ("Quanzhou", "Cham Coast"), ("Patani", "Ayutthaya"),
     ("Malacca Harbor", "Pulau Tioman"), ("Malacca Harbor", "Patani"), ("Patani", "Quanzhou"),
     ("Pulau Tioman", "Patani"), ("Bantam", "Pulau Tioman"), ("Quanzhou", "Malacca Harbor"),
+    ("Bali", "Bantam"), ("Bali", "Ternate"), ("Bantam", "Patani"), ("Bantam", "Quanzhou"),
+    ("Bantam", "Ternate"), ("Cham Coast", "Patani"), ("Malacca Harbor", "Ternate"),
+    ("Pulau Tioman", "Quanzhou"), ("Pulau Tioman", "Ternate"), ("Quanzhou", "Ternate"),
+    ("Makassar", "Tidore"),
 ]:
     _ROUTE_OCEAN_SYSTEM[(_a, _b)] = "south_china_sea"
     _ROUTE_OCEAN_SYSTEM[(_b, _a)] = "south_china_sea"
