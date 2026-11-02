@@ -418,6 +418,41 @@
       },
       "once": false,
       "pool": "harbor_events"
+    },
+    {
+      "id": "malacca_amok",
+      "when": { "location": ["Malacca Harbor"], "excludes_flag": "malacca_under_portuguese" },
+      "description": "A scream from the market lane. Then the crowd breaks and runs past you, and you see why: a man with a drawn kris, eyes fixed on nothing, cutting at whoever stands in his way. Someone shouts \"Amok! Amok!\"",
+      "description_es": "Un grito desde la calle del mercado. Luego la multitud se dispersa y corre a vuestro lado, y veis por qué: un hombre con un kris desenvainado, los ojos fijos en nada, acuchillando a quien se le ponga delante. Alguien grita: «¡Amok! ¡Amok!»",
+      "options": {
+        "1": { "text": "Get your men off the street.", "text_es": "Sacar a vuestros hombres de la calle.", "requires": null, "effect": {}, "result": "You drag your crew into a cloth-seller's doorway. The cries move past, then stop. When you come out, the lane is quiet and stained, and the market is already reopening.", "result_es": "Arrastráis a vuestra tripulación hasta el portal de un vendedor de telas. Los gritos pasan de largo, y luego cesan. Cuando salís, la calle está en silencio y manchada, y el mercado ya está reabriendo." },
+        "2": { "text": "Stand and stop him.", "text_es": "Plantarse y detenerlo.", "requires": { "crew_trait": "brave" }, "effect": { "morale": 6 }, "result": "Your bravest man steps into the lane with a spear from a market stall. It's over in a moment. The crowd that ran from the madman gathers around your crew instead, and someone sends a jar of palm wine to your ship.", "result_es": "Vuestro hombre más valiente se adelanta a la calle con una lanza tomada de un puesto del mercado. Termina en un instante. La multitud que huyó del loco se reúne en torno a vuestra tripulación, y alguien envía una jarra de vino de palma a vuestro barco." },
+        "3": { "text": "Pay to help the wounded. (50 gold)", "text_es": "Pagar para ayudar a los heridos. (50 oro)", "requires": { "gold": 50 }, "effect": { "gold": -50, "morale": 4 }, "result": "You pay for bandages and a healer for two strangers. The Malays on the dock remember your face, which here is worth more than the coin.", "result_es": "Pagáis vendajes y un curandero para dos desconocidos. Los malayos del muelle recuerdan vuestro rostro, lo cual aquí vale más que la moneda." }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "malacca_sirih",
+      "when": { "location": ["Malacca Harbor"], "excludes_flag": "malacca_under_portuguese" },
+      "description": "A merchant you've never met welcomes you to his warehouse with a brass box of sirih: betel leaf, areca nut, lime. Everyone is watching to see what you do with it.",
+      "description_es": "Un mercader al que nunca habéis visto os da la bienvenida a su almacén con una caja de latón de sirih: hoja de betel, nuez de areca, cal. Todos observan para ver qué hacéis con ella.",
+      "options": {
+        "1": { "text": "Chew it.", "text_es": "Masticarlo.", "requires": null, "effect": { "morale": 3 }, "result": "Your mouth burns, your heart races, and your teeth turn red. The merchant beams. The price he quotes you afterward is almost honest.", "result_es": "La boca os arde, el corazón se os acelera, y los dientes se os tiñen de rojo. El mercader resplandece. El precio que os ofrece después es casi honesto." },
+        "2": { "text": "Politely decline.", "text_es": "Declinar cortésmente.", "requires": null, "effect": { "morale": -2 }, "result": "He closes the box without comment. The price he quotes you afterward is not honest at all.", "result_es": "Cierra la caja sin comentario. El precio que os ofrece después no es honesto en absoluto." }
+      },
+      "pool": "harbor_events"
+    },
+    {
+      "id": "malacca_keling",
+      "when": { "location": ["Malacca Harbor"], "excludes_flag": "malacca_under_portuguese" },
+      "description": "A Keling merchant in fine white cloth falls into step beside you near the bridge. Malacca's Tamil traders are rich, careful, and quietly unhappy with the sultan's court. He asks, very politely, what your nation intends here.",
+      "description_es": "Un mercader keling vestido de fina tela blanca se pone a vuestro paso cerca del puente. Los comerciantes tamiles de Malaca son ricos, cautelosos, y están callada pero profundamente descontentos con la corte del sultán. Os pregunta, con gran cortesía, qué pretende aquí vuestra nación.",
+      "options": {
+        "1": { "text": "Tell him you came only to trade.", "text_es": "Decirle que solo vinisteis a comerciar.", "requires": null, "effect": { "morale": 2 }, "result": "He smiles as if you'd told a good joke, presses your hand, and is gone. You suspect you'll see him again.", "result_es": "Sonríe como si le hubierais contado un buen chiste, os aprieta la mano, y se marcha. Sospecháis que lo volveréis a ver." },
+        "2": { "text": "Ask what the court has done to him.", "text_es": "Preguntarle qué le ha hecho la corte.", "requires": null, "effect": { "morale": 4 }, "result": "He tells you about fines, seized cargoes, and a bendahara executed last year with his whole family. Then he remembers who he's talking to and changes the subject to pepper.", "result_es": "Os habla de multas, cargamentos confiscados, y un bendahara ejecutado el año pasado junto con toda su familia. Luego recuerda con quién está hablando y cambia de tema hacia la pimienta." },
+        "3": { "text": "Say nothing.", "text_es": "No decir nada.", "requires": null, "effect": {}, "result": "He waits a polite moment, bows, and moves on. A man who says nothing in Malacca is either very wise or very new.", "result_es": "Espera un momento cortés, hace una reverencia, y sigue su camino. Un hombre que no dice nada en Malaca es, o muy sabio, o muy nuevo." }
+      },
+      "pool": "harbor_events"
     }
   ],
   "village_events": [

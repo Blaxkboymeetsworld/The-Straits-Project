@@ -918,11 +918,23 @@ class EventEngine:
                         if not e.get("regions") or waterway in e.get("regions", [])]
             pool = eligible if eligible else pool
         # village_events and harbor_events honor an optional "when":
-        # {"location": [...]}; events without "when" stay available everywhere.
+        # {"location": [...], "excludes_flag": "..."}; events without "when"
+        # stay available everywhere.
         if pool_name in ("village_events", "harbor_events"):
             loc = state.current_location
-            eligible = [e for e in pool
-                        if not e.get("when") or loc in e.get("when", {}).get("location", [])]
+
+            def _when_ok(e: Dict[str, Any]) -> bool:
+                when = e.get("when")
+                if not when:
+                    return True
+                if "location" in when and loc not in when["location"]:
+                    return False
+                excludes_flag = when.get("excludes_flag")
+                if excludes_flag and excludes_flag in state.once_flags:
+                    return False
+                return True
+
+            eligible = [e for e in pool if _when_ok(e)]
             pool = eligible if eligible else pool
         ev = random.choice(pool)
 
