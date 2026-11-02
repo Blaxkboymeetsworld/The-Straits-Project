@@ -45,6 +45,7 @@ DATA_DIR  = os.path.join(ROOT_DIR, "data")
 SAVE_DIR  = os.path.join(ROOT_DIR, "saves")
 EVENTS_PATH = os.path.join(DATA_DIR, "events.json")
 WORLD_PATH  = os.path.join(DATA_DIR, "world.json")
+LEADS_PATH  = os.path.join(DATA_DIR, "leads.json")
 SAVE_PATH   = os.path.join(SAVE_DIR, "slot1.json")
 
 NPC_KNOWLEDGE_PATH = os.path.join(DATA_DIR, "npc_knowledge.json")
@@ -223,6 +224,8 @@ class GameState:
 
         # What this captain knows of the map (UNKNOWN / RUMORED / CHARTED)
         self.rutter: Rutter = Rutter.for_role(role)
+        self.leads_given: List[str] = []          # one-off lead ids already delivered
+        self._lead_sources_used: set = set()       # lead sources used this port visit
 
         # Crew
         self.crew = CrewManager()
@@ -351,6 +354,7 @@ class GameState:
             "malacca_price_disruption_end": self.malacca_price_disruption_end,
             # discovery system
             "rutter": self.rutter.to_dict(),
+            "leads_given": self.leads_given,
         }
 
     @classmethod
@@ -398,6 +402,8 @@ class GameState:
         obj.fall_of_malacca_heard = bool(d.get("fall_of_malacca_heard", False))
         obj.malacca_price_disruption_end = int(d.get("malacca_price_disruption_end", 0))
         obj.lost_at_sea_dest = None
+        obj.leads_given = list(d.get("leads_given", []))
+        obj._lead_sources_used = set()
         # Discovery: saves from before the system know every location.
         if "rutter" in d:
             obj.rutter = Rutter.from_dict(d["rutter"])
@@ -2269,6 +2275,7 @@ def port_action_menu(
         if has_slave_market:
             total_aboard = state.slave_cargo + state.slaves_aboard
             opt("M", f"Slave market actions  ({total_aboard} aboard)")
+        opt("W", t('ask_world_option'))
         opt("S", "Set sail (leave port)")
         opt("V", "Save game")
 
@@ -2404,6 +2411,9 @@ def port_action_menu(
         elif choice == "V":
             save_game(state)
             press_enter()
+
+        elif choice == "W":
+            _ask_wider_world(state, port_data["name"], True, clear, press_enter)
 
         else:
             print("\n  Unknown option.")
@@ -2964,6 +2974,7 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
             opt("4", t('voyage_pause_hunt'))
         if storyteller and not used_story:
             opt("5", t('voyage_pause_story').format(name=storyteller.name))
+        opt("R", t('voyage_pause_rutter'))
         opt("C", t('voyage_pause_check_crew'))
 
         print()
@@ -3041,6 +3052,9 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
             print(f"\n  {t('voyage_story_result').format(name=storyteller.name)}")
             press_enter()
 
+        elif choice == "R":
+            _rutter_screen(state, clear, press_enter)
+
         elif choice == "C":
             _peek_crew_at_sea(state)
 
@@ -3103,6 +3117,8 @@ def _village_menu(state: GameState, village_data: Dict[str, Any], clear_fn, pres
         option_keys.append("2")
         print("  [3] Rest for several hours (+8 hrs, +5 morale)")
         option_keys.append("3")
+        print(f"  [W] {t('ask_world_option')}")
+        option_keys.append("W")
         print("  [S] Set sail")
         option_keys.append("S")
 
@@ -3121,8 +3137,172 @@ def _village_menu(state: GameState, village_data: Dict[str, Any], clear_fn, pres
             print(f"\n  Time passes. {MONTH_NAMES[state.month]} {state.calendar_year} (Year {state.year})  •  {state.time.display}")
             print(f"  Morale +5. Current morale: {state.morale}")
             press_enter_fn()
+        elif choice == "W":
+            _ask_wider_world(state, village_data["name"], False, clear_fn, press_enter_fn)
         elif choice == "S":
             break
+
+
+# ─────────────────────────────────────────
+# Discovery: the rutter and leads about the wider world
+# ─────────────────────────────────────────
+
+LEAD_COSTS: Dict[str, int] = {"harbor_master": 300, "tavern": 50, "crew": 0}
+_LEADS_CACHE: Optional[List[Dict[str, Any]]] = None
+
+
+def _load_leads() -> List[Dict[str, Any]]:
+    """data/leads.json, loaded once. Missing file means no leads."""
+    global _LEADS_CACHE
+    if _LEADS_CACHE is None:
+        try:
+            _LEADS_CACHE = load_json(LEADS_PATH).get("leads", [])
+        except FileNotFoundError:
+            _LEADS_CACHE = []
+    return _LEADS_CACHE
+
+
+def _localized(entry: Dict[str, Any], key: str, state: Any) -> str:
+    lang = getattr(state, "lang", "en")
+    return entry.get(f"{key}_{lang}", entry.get(key, "")) if lang != "en" else entry.get(key, "")
+
+
+def _nearest_location(origin: str, wanted) -> Optional[str]:
+    """Nearest location (fewest legs, then distance, then name) for which
+    wanted(name) is True, searching route_distances outward from origin."""
+    import heapq
+    best: Dict[str, Tuple[int, int]] = {origin: (0, 0)}
+    heap: List[Tuple[int, int, str]] = [(0, 0, origin)]
+    while heap:
+        legs, nm, port = heapq.heappop(heap)
+        if best.get(port, (legs, nm)) < (legs, nm):
+            continue
+        if port != origin and wanted(port):
+            return port
+        for (a, b), dist in _ROUTE_DISTANCES_NM.items():
+            if a == port and (b not in best or (legs + 1, nm + dist) < best[b]):
+                best[b] = (legs + 1, nm + dist)
+                heapq.heappush(heap, (legs + 1, nm + dist, b))
+    return None
+
+
+def _resolve_lead(state: GameState, lead: Dict[str, Any], here: str):
+    """(target, level, speaker) if this lead can be given here and now, else None.
+    Harbor-master leads chart a place; every other lead makes it rumored. A
+    lead never targets a place already at that level or better."""
+    source = lead.get("source")
+    level = CHARTED if source == "harbor_master" else RUMORED
+    avail = lead.get("available_at", [])
+    if avail != "any" and here not in avail:
+        return None
+    if lead["id"] in state.leads_given and not lead.get("repeatable"):
+        return None
+    speaker = None
+    if source == "crew":
+        req = lead.get("requires_archetype") or []
+        req = [req] if isinstance(req, str) else req
+        speaker = next((m for m in state.crew.alive_members()
+                        if getattr(m, "archetype", None) in req), None)
+        if speaker is None:
+            return None
+    target = lead.get("target")
+    if target == "@nearest_uncharted":
+        target = _nearest_location(here, lambda n: not state.rutter.at_least(n, CHARTED))
+    elif target == "@random_unknown_archipelago":
+        from economy import TRADE_ZONES
+        pool = sorted(n for n, z in TRADE_ZONES.items()
+                      if z == "Archipelago" and state.rutter.status(n) == UNKNOWN)
+        target = random.choice(pool) if pool else None
+    if not target or state.rutter.at_least(target, level):
+        return None
+    return target, level, speaker
+
+
+def _offer_lead(state: GameState, source: str, here: str, clear_fn, press_enter_fn):
+    """One lead from this source per visit; free and silent if there's nothing new."""
+    clear_fn()
+    if source in state._lead_sources_used:
+        print(f"\n  {t('ask_world_used')}")
+        press_enter_fn()
+        return
+    found = None
+    for lead in _load_leads():
+        if lead.get("source") == source:
+            found = _resolve_lead(state, lead, here)
+            if found:
+                break
+    if not found:
+        print(f"\n  {t('ask_world_nothing')}")
+        press_enter_fn()
+        return
+    cost = LEAD_COSTS.get(source, 0)
+    if state.gold < cost:
+        print(f"\n  {t('ask_world_no_gold').format(cost=cost)}")
+        press_enter_fn()
+        return
+    target, level, speaker = found
+    state.gold -= cost
+    state._lead_sources_used.add(source)
+    if not lead.get("repeatable"):
+        state.leads_given.append(lead["id"])
+    fmt = {"name": speaker.name if speaker else "", "port": here, "target": target}
+    print(f"\n  {_localized(lead, 'text', state).format(**fmt)}")
+    source_line = (lead.get("source_line", "").format(**fmt),
+                   lead.get("source_line_es", lead.get("source_line", "")).format(**fmt))
+    state.rutter.learn(target, level, source_line, lead.get("goods", []))
+    print(f"\n  {t('lead_learned_' + level).format(place=target)}")
+    if lead.get("effect") == "dream":
+        state.dream = {"target": target, "deadline": state.day + 365, "name": fmt["name"]}
+    if "rutter_tip_shown" not in state.once_flags:
+        state.once_flags.append("rutter_tip_shown")
+        print(f"\n  {t('rutter_first_tip')}")
+    press_enter_fn()
+
+
+def _rutter_screen(state: GameState, clear_fn, press_enter_fn):
+    """Every known location, its status, rumored goods, and who told you."""
+    clear_fn()
+    print("═" * 52)
+    print(f"  {t('rutter_title')}")
+    print("═" * 52)
+    for level in (CHARTED, RUMORED):
+        for name in sorted(n for n, e in state.rutter.entries.items() if e["status"] == level):
+            entry = state.rutter.entries[name]
+            print(f"\n  {name} — {t('rutter_status_' + level)}")
+            if entry["goods"]:
+                goods = ", ".join(GOODS_CATALOG.get(g, {}).get("name", g) for g in entry["goods"])
+                print(f"     {t('rutter_goods').format(goods=goods)}")
+            src = entry.get("source_es") if getattr(state, "lang", "en") == "es" else entry.get("source")
+            print(f"     {t('rutter_source').format(source=src)}")
+    print()
+    press_enter_fn()
+
+
+def _ask_wider_world(state: GameState, here: str, major_port: bool, clear_fn, press_enter_fn):
+    """[W] Ask about the wider world: harbor master (major ports), tavern, crew, rutter."""
+    while True:
+        clear_fn()
+        print("═" * 52)
+        print(f"  {t('ask_world_title')}")
+        print("═" * 52)
+        print()
+        keys = []
+        if major_port:
+            print(f"  [1] {t('ask_world_harbor_master')}")
+            keys.append("1")
+        print(f"  [2] {t('ask_world_tavern')}")
+        print(f"  [3] {t('ask_world_crew')}")
+        print(f"  [4] {t('ask_world_rutter')}")
+        print(f"  [Q] {t('ask_world_back')}\n")
+        keys += ["2", "3", "4", "Q"]
+        choice = get_menu_choice(keys)
+        if choice == "Q":
+            return
+        if choice == "4":
+            _rutter_screen(state, clear_fn, press_enter_fn)
+        else:
+            source = {"1": "harbor_master", "2": "tavern", "3": "crew"}[choice]
+            _offer_lead(state, source, here, clear_fn, press_enter_fn)
 
 
 # ─────────────────────────────────────────
@@ -3138,9 +3318,10 @@ def handle_landfall(
     port_data = find_port(state.current_location, state.world)
     is_first_port = not state.has_visited_port
 
-    # Arriving anywhere charts it.
+    # Arriving anywhere charts it, and the town's sources can be asked afresh.
     if port_data:
         state.rutter.chart_on_arrival(state.current_location)
+        state._lead_sources_used = set()
 
     # Shore leave: a flat morale bump on every arrival at a port or village.
     if state.current_location_type in ("major_port", "village"):
