@@ -215,7 +215,7 @@ NAMES_BY_ETHNICITY: Dict[str, List[str]] = {
     "Javanese": ["Suryanto", "Prasetyo", "Wibowo", "Santoso", "Gunawan", "Wahyu", "Slamet"],
     "Tamil": ["Murugan", "Annamalai", "Subramaniam", "Selvam", "Rajan", "Karuppiah"],
     "Gujarati": ["Thakor", "Premji", "Manilal", "Bhimji", "Dharamshi", "Lakhaji"],
-    "Portuguese": ["Fernão", "Álvaro", "Diogo", "Gonçalo", "Rui", "Lopo", "Afonso", "Bastião"],
+    "Portuguese": ["Fernão", "Álvaro", "Diogo", "Gonçalo", "Rui", "Lopo", "Afonso"],
     "Konkani": ["Vasco", "Simão", "Cristóvão", "Domingos", "António", "Bartolomeu"],
     "East African": ["Salim", "Omar", "Bakr", "Jabir", "Rashid", "Idris", "Musa"],
     "Goan": ["Caetano", "Inácio", "Jerónimo", "Francisco", "Sebastião"],
