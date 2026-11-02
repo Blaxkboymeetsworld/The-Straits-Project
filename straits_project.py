@@ -62,6 +62,13 @@ def load_locale(lang: str):
 def t(key: str) -> str:
     return LOCALE.get(key, f"[{key}]")
 
+# The two companions per role whose deaths end the game.
+KEY_COMPANIONS: Dict[str, Tuple[str, str]] = {
+    "Portuguese Conquistador": ("Camila de Sousa", "Estêvão da Guiné"),
+    "Ottoman Trader":          ("Yusuf al-Halabi", "Baraka"),
+    "Chinese Trader":          ("Old Liang", "Wei Chongde"),
+}
+
 # Maps port name → harbor master NPC id for query_npc resolution
 PORT_HARBOR_MASTERS: Dict[str, str] = {
     "Malacca Harbor": "hang_kassim_malacca",
@@ -183,6 +190,9 @@ class GameState:
 
         # Provisions (consumed at sea; cook reduces drain rate)
         self.provisions: int = 100
+
+        # Set when the player sails an uncharted crossing (ends the game).
+        self.lost_at_sea_dest: Optional[str] = None
 
         # Crew
         self.crew = CrewManager()
@@ -368,7 +378,28 @@ class GameState:
             if add:
                 self.cargo[good] = self.cargo.get(good, 0) + add
 
+    def pending_failure(self) -> Optional[str]:
+        """Message for the lost-at-sea, all-crew-dead or key-companions-dead
+        endings, or None. Prints nothing, so it is safe to call anywhere."""
+        dest = getattr(self, "lost_at_sea_dest", None)
+        if dest:
+            return f"{t('ending_lost_at_sea_title')}\n\n  {t('ending_lost_at_sea').format(dest=dest)}"
+        members = self.crew.members
+        if members and not self.crew.alive_members():
+            return f"{t('ending_failed_title')}\n\n  {t('ending_crew_lost')}"
+        pair = KEY_COMPANIONS.get(self.role)
+        if pair:
+            by_name = {m.name: m for m in members}
+            if all(n in by_name and not by_name[n].alive for n in pair):
+                return (f"{t('ending_failed_title')}\n\n  "
+                        f"{t('ending_companions_lost').format(A=pair[0], B=pair[1])}")
+        return None
+
     def is_game_over(self) -> bool:
+        failure = self.pending_failure()
+        if failure:
+            print(f"\n  ⚓ {failure}")
+            return True
         if self.ship_health <= 0:
             print(f"\n  ⚓ {t('game_over_ship')}")
             return True
@@ -2007,6 +2038,8 @@ def port_action_menu(
         press_enter()
 
     while True:
+        if state.pending_failure():
+            return  # an event in port ended the game; run_game prints it
         access = state.time.port_access_status()
         clear()
         print("═" * 52)
@@ -2615,9 +2648,13 @@ def handle_landfall(
     if port_data:
         # Special events (once-per-port narrative beats)
         engine.trigger_special_if_any(state)
+        if state.pending_failure():
+            return  # run_game prints the ending
 
         # Port-arrival random encounter (frequency varies by location)
         _maybe_port_encounter(state, engine)
+        if state.pending_failure():
+            return
 
         if state.current_location_type == "major_port":
             port_action_menu(state, port_data, engine, crew_data, all_quests)
@@ -2645,6 +2682,8 @@ def run_game(
 
         # World events (timed, once-per-game)
         _check_world_events(state, engine)
+        if state.pending_failure():
+            continue  # top of loop prints the ending
 
         # Check quest expirations while at sea
         failed = state.quests.check_expirations(state.day)
@@ -2756,6 +2795,9 @@ def run_game(
 
                     state.time.advance_hours(24)
                     state.apply_daily_crew_effects()
+                    if state.pending_failure() and state.is_game_over():
+                        press_enter()
+                        return
 
                     if state.has_visited_port and event_count < 4 and roll_check(random.uniform(0.10, 0.15)):
                         event_count += 1

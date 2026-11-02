@@ -88,5 +88,10 @@
   "access_warning_recruitment": "The docks are quiet. Recruits will be here in the morning.",
   "access_warning_quest_board": "Officials are not available until morning.",
   "access_warning_ship_repair": "The shipwrights are not working at this hour.",
-  "invalid_input": "  Invalid input."
+  "invalid_input": "  Invalid input.",
+  "ending_failed_title": "YOU FAILED",
+  "ending_crew_lost": "With no one left to work the sails, your voyage ends here. The sea keeps what it takes.",
+  "ending_companions_lost": "{A} and {B} are gone. Without them you are a man with a ship and no reason to sail it. You sell her at the next port and are never heard from again.",
+  "ending_lost_at_sea_title": "LOST AT SEA",
+  "ending_lost_at_sea": "You sailed out of sight of land toward {dest}. Somewhere past the edge of the charts, the water ran out before the voyage did. No one ever learned what became of you."
 }

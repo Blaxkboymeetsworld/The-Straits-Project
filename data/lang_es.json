@@ -88,5 +88,10 @@
   "access_warning_recruitment": "Los muelles están tranquilos. Los reclutas estarán aquí por la mañana.",
   "access_warning_quest_board": "Los funcionarios no están disponibles hasta la mañana.",
   "access_warning_ship_repair": "Los carpinteros de ribera no trabajan a esta hora.",
-  "invalid_input": "  Entrada no válida."
+  "invalid_input": "  Entrada no válida.",
+  "ending_failed_title": "HAS FRACASADO",
+  "ending_crew_lost": "Sin nadie que trabaje las velas, tu viaje termina aquí. El mar se queda con lo que toma.",
+  "ending_companions_lost": "{A} y {B} ya no están. Sin ellos eres un hombre con un barco y sin razón para navegarlo. Lo vendes en el siguiente puerto y nunca más se vuelve a saber de ti.",
+  "ending_lost_at_sea_title": "PERDIDO EN EL MAR",
+  "ending_lost_at_sea": "Navegaste hasta perder de vista la tierra rumbo a {dest}. En algún lugar más allá del borde de las cartas, el agua se acabó antes que el viaje. Nadie supo nunca qué fue de ti."
 }
