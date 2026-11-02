@@ -141,6 +141,8 @@ class CrewMember:
         self.wage = wage
         self.was_enslaved = was_enslaved
         self.alive = True
+        self.successful_hunts = 0
+        self.successful_catches = 0
 
     @property
     def all_languages(self) -> List[str]:
@@ -184,6 +186,8 @@ class CrewMember:
             "wage": self.wage,
             "was_enslaved": self.was_enslaved,
             "alive": self.alive,
+            "successful_hunts": self.successful_hunts,
+            "successful_catches": self.successful_catches,
         }
 
     @classmethod
@@ -203,6 +207,8 @@ class CrewMember:
             was_enslaved=d.get("was_enslaved", False),
         )
         obj.alive = d.get("alive", True)
+        obj.successful_hunts = d.get("successful_hunts", 0)
+        obj.successful_catches = d.get("successful_catches", 0)
         return obj
 
 
@@ -302,6 +308,15 @@ def generate_recruit(archetype_key: str, crew_data: Dict[str, Any]) -> Optional[
     wage = random.randint(wage_lo, wage_hi)
     name = generate_name(archetype["ethnicity"])
     pos, neg = assign_traits(crew_data)
+
+    guaranteed = archetype.get("guaranteed_traits", [])
+    if guaranteed:
+        pos_by_id = {t["id"]: t for t in crew_data["positive_traits"]}
+        existing_ids = {t["id"] for t in pos}
+        for gid in guaranteed:
+            if gid not in existing_ids and gid in pos_by_id:
+                pos.append(pos_by_id[gid])
+                existing_ids.add(gid)
 
     return CrewMember(
         name=name,

@@ -2661,6 +2661,122 @@ def _at_sea_menu(state: GameState) -> str:
 
 
 # ─────────────────────────────────────────
+# Mid-voyage pause (every 7th day on voyages of 8+ days)
+# ─────────────────────────────────────────
+
+_VOYAGE_BOOK_BY_ROLE = {"portuguese": "book_of_hours", "ottoman": "quran", "chinese": "diamond_sutra"}
+_VOYAGE_BOOK_RELIGION_BY_ROLE = {"portuguese": "Catholic", "ottoman": "Islam", "chinese": "Buddhism"}
+
+
+def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[str, Any],
+                        day_number: int, total_days: int):
+    """Mid-voyage stop: sail on, or spend it reading, fishing, hunting, or hearing a story."""
+    protagonist = state.protagonist
+    book_id = _VOYAGE_BOOK_BY_ROLE.get(protagonist)
+    has_book = bool(book_id) and book_id in state.items
+    pos_traits_by_id = {t["id"]: t for t in crew_data.get("positive_traits", [])}
+
+    storyteller = next((m for m in state.crew.alive_members() if m.has_trait("storyteller")), None)
+    used_read = used_fish = used_hunt = used_story = False
+
+    while True:
+        clear()
+        print(f"\n  {t('voyage_pause_title').format(day=day_number, total=total_days)}\n")
+        options = []
+
+        def opt(key, label):
+            options.append(key)
+            print(f"  [{key}] {label}")
+
+        opt("1", t('voyage_pause_sail_on'))
+        if has_book and not used_read:
+            opt("2", t('voyage_pause_read'))
+        if not used_fish:
+            opt("3", t('voyage_pause_fish'))
+        if not used_hunt:
+            opt("4", t('voyage_pause_hunt'))
+        if storyteller and not used_story:
+            opt("5", t('voyage_pause_story').format(name=storyteller.name))
+        opt("C", t('voyage_pause_check_crew'))
+
+        print()
+        choice = get_menu_choice(options)
+
+        if choice == "1":
+            break
+
+        elif choice == "2":
+            used_read = True
+            matching_religion = _VOYAGE_BOOK_RELIGION_BY_ROLE.get(protagonist)
+            match_count = sum(1 for m in state.crew.alive_members() if m.religion == matching_religion)
+            morale_gain = min(10, match_count * 2) if match_count > 0 else 2
+            state.morale = min(100, state.morale + morale_gain)
+            if protagonist == "chinese":
+                wei_alive = any(m.name == "Wei Chongde" and m.alive for m in state.crew.members)
+                key = "voyage_read_chinese_full" if wei_alive else "voyage_read_chinese_short"
+            else:
+                key = f"voyage_read_{protagonist}"
+            print(f"\n  {t(key)}")
+            press_enter()
+
+        elif choice == "3":
+            used_fish = True
+            fisher_count = sum(
+                1 for m in state.crew.alive_members()
+                if m.has_trait("fisher_folk_coastal") or m.has_trait("fisher_folk_open_ocean")
+            )
+            chance = min(0.90, 0.35 + 0.15 * fisher_count)
+            if random.random() < chance:
+                state.provisions = min(100, state.provisions + 6)
+                state.morale = min(100, state.morale + 3)
+                lucky = random.choice(state.crew.alive_members())
+                print(f"\n  {t('voyage_fish_success').format(name=lucky.name)}")
+                lucky.successful_catches += 1
+                if lucky.successful_catches >= 3 and not lucky.has_trait("fisher_folk_coastal"):
+                    lucky.positive_traits.append(pos_traits_by_id["fisher_folk_coastal"])
+                    print(f"\n  {t('voyage_fish_new_fisher').format(name=lucky.name)}")
+            else:
+                print(f"\n  {t('voyage_fish_failure')}")
+            press_enter()
+
+        elif choice == "4":
+            used_hunt = True
+            state.time.advance_hours(24)
+            state.apply_daily_crew_effects()
+            hunter_count = sum(1 for m in state.crew.alive_members() if m.has_trait("hunter"))
+            chance = 0.30 + 0.15 * hunter_count
+            if state.crew.has_occupation("scout"):
+                chance += 0.10
+            chance = min(0.90, chance)
+            if random.random() < chance:
+                state.provisions = min(100, state.provisions + 12)
+                state.morale = min(100, state.morale + 5)
+                lucky = random.choice(state.crew.alive_members())
+                print(f"\n  {t('voyage_hunt_success').format(name=lucky.name)}")
+                lucky.successful_hunts += 1
+                if lucky.successful_hunts >= 3 and not lucky.has_trait("hunter"):
+                    lucky.positive_traits.append(pos_traits_by_id["hunter"])
+                    print(f"\n  {t('voyage_hunt_new_hunter').format(name=lucky.name)}")
+            else:
+                print(f"\n  {t('voyage_hunt_failure')}")
+            if random.random() < 0.25:
+                engine.trigger_random("village_events", state)
+            press_enter()
+
+        elif choice == "5":
+            used_story = True
+            state.morale = min(100, state.morale + 6)
+            print(f"\n  {t('voyage_story_result').format(name=storyteller.name)}")
+            press_enter()
+
+        elif choice == "C":
+            _peek_crew_at_sea(state)
+
+        if state.pending_failure():
+            return
+
+
+# ─────────────────────────────────────────
 # Port-arrival encounter trigger
 # ─────────────────────────────────────────
 
@@ -2903,6 +3019,13 @@ def run_game(
                         lore = maybe_trigger_lore(state)
                         if lore:
                             print(lore)
+
+                    day_number = day_idx + 1
+                    if total_days >= 8 and day_number % 7 == 0:
+                        _voyage_pause_menu(state, engine, crew_data, day_number, total_days)
+                        if state.pending_failure() and state.is_game_over():
+                            press_enter()
+                            return
 
                 state._current_waterway = None
                 state._current_monsoon_state = None
@@ -3452,6 +3575,7 @@ def start_new_game(
         for member in _build_portuguese_crew(crew_data):
             state.crew.add(member)
         state.items.append("rapier")
+        state.items.append("book_of_hours")
         _run_intro_scene(state, intros.get("portuguese", {}))
         # Starting position: approaching the Strait from the west (Change 10).
         # The flavor phrase is narration only — current_location must be a
@@ -3464,6 +3588,7 @@ def start_new_game(
     elif role == "Ottoman Trader":
         for member in _build_ottoman_crew(crew_data):
             state.crew.add(member)
+        state.items.append("quran")
         _run_intro_scene(state, intros.get("ottoman", {}))
         # Starting position: departing Hormuz eastward (Change 10).
         # The flavor phrase is narration only — current_location must be a
@@ -3476,6 +3601,7 @@ def start_new_game(
     elif role == "Chinese Trader":
         for member in _build_chinese_crew(crew_data):
             state.crew.add(member)
+        state.items.append("diamond_sutra")
         _run_intro_scene(state, intros.get("chinese", {}))
         # Starting position: south of the Fujian coast (Change 10).
         # The flavor phrase is narration only — current_location must be a
