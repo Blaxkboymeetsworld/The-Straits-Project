@@ -203,5 +203,6 @@
   "rutter_status_rumored": "rumoreado",
   "rutter_goods": "Mercancías: {goods}",
   "rutter_source": "Fuente: {source}",
-  "voyage_pause_rutter": "Abrir vuestro derrotero"
+  "voyage_pause_rutter": "Abrir vuestro derrotero",
+  "dream_fulfilled": "El sueño de {name} era cierto, o casi. La tripulación está discretamente satisfecha de sí misma. (+6 moral)"
 }

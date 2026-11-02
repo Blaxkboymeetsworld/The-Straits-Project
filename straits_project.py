@@ -225,6 +225,7 @@ class GameState:
         # What this captain knows of the map (UNKNOWN / RUMORED / CHARTED)
         self.rutter: Rutter = Rutter.for_role(role)
         self.leads_given: List[str] = []          # one-off lead ids already delivered
+        self.dream: Optional[Dict[str, Any]] = None  # {"target", "deadline", "name"} from a dream lead
         self._lead_sources_used: set = set()       # lead sources used this port visit
 
         # Crew
@@ -355,6 +356,7 @@ class GameState:
             # discovery system
             "rutter": self.rutter.to_dict(),
             "leads_given": self.leads_given,
+            "dream": self.dream,
         }
 
     @classmethod
@@ -403,6 +405,7 @@ class GameState:
         obj.malacca_price_disruption_end = int(d.get("malacca_price_disruption_end", 0))
         obj.lost_at_sea_dest = None
         obj.leads_given = list(d.get("leads_given", []))
+        obj.dream = d.get("dream")
         obj._lead_sources_used = set()
         # Discovery: saves from before the system know every location.
         if "rutter" in d:
@@ -3322,6 +3325,15 @@ def handle_landfall(
     if port_data:
         state.rutter.chart_on_arrival(state.current_location)
         state._lead_sources_used = set()
+        # A crew member's dream: reaching the island within a year lifts morale.
+        dream = getattr(state, "dream", None)
+        if dream:
+            if state.day > dream["deadline"]:
+                state.dream = None
+            elif state.current_location == dream["target"]:
+                state.morale = min(100, state.morale + 6)
+                print(f"\n  {t('dream_fulfilled').format(name=dream.get('name', ''))}")
+                state.dream = None
 
     # Shore leave: a flat morale bump on every arrival at a port or village.
     if state.current_location_type in ("major_port", "village"):

@@ -203,5 +203,6 @@
   "rutter_status_rumored": "rumored",
   "rutter_goods": "Goods: {goods}",
   "rutter_source": "Source: {source}",
-  "voyage_pause_rutter": "Open your rutter"
+  "voyage_pause_rutter": "Open your rutter",
+  "dream_fulfilled": "{name}'s dream was right, or close enough. The crew is quietly pleased with itself. (+6 morale)"
 }

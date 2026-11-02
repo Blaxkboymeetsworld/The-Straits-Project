@@ -1,0 +1,417 @@
+{
+  "_comment": "Leads about the wider world, asked for with [W]. source: harbor_master (charts the target) | tavern | crew (make it rumored). Tavern leads with category 'local' are locals met in the tavern. Special targets: @nearest_uncharted, @random_unknown_archipelago. {name} = the crew member, {port} = where you asked.",
+  "leads": [
+    {
+      "id": "pantun_ternate",
+      "source": "tavern",
+      "available_at": [
+        "Malacca Harbor"
+      ],
+      "target": "Ternate",
+      "goods": [
+        "cloves"
+      ],
+      "source_line": "A pantun champion in Malacca, out of pity",
+      "source_line_es": "Un campeón de pantun en Malaca, por lástima",
+      "text": "Malay sailors are trading pantun over palm wine, rhyming verses with a forfeit for the loser. You lose three rounds in a row. The winner takes pity and sings one last verse for you, about the clove islands, where even the beggars smell rich.",
+      "text_es": "Unos marineros malayos se intercambian pantun con vino de palma: versos rimados, con una prenda para el que pierde. Perdéis tres rondas seguidas. El ganador se apiada y os canta un último verso, sobre las islas del clavo, donde hasta los mendigos huelen a rico."
+    },
+    {
+      "id": "pantun_tioman",
+      "source": "tavern",
+      "available_at": [
+        "Patani"
+      ],
+      "target": "Pulau Tioman",
+      "goods": [
+        "dried_fish",
+        "turtle_shell"
+      ],
+      "source_line": "A sailor in Patani who beat you at pantun",
+      "source_line_es": "Un marinero de Patani que os ganó al pantun",
+      "text": "A sailor wins your forfeit and spends it telling you about an island of fresh water and two-peaked mountains, where the sea people stop to fill their casks.",
+      "text_es": "Un marinero os gana la prenda y la gasta en hablaros de una isla de agua dulce y montañas de dos picos, donde la gente del mar se detiene a llenar sus barriles."
+    },
+    {
+      "id": "gambler_makassar",
+      "source": "tavern",
+      "available_at": [
+        "Bali"
+      ],
+      "target": "Makassar",
+      "goods": [
+        "turtle_shell",
+        "bugis_cloth"
+      ],
+      "source_line": "A ruined gambler in Bali",
+      "source_line_es": "Un jugador arruinado en Bali",
+      "text": "A man lost his last coin at the cockfight and offers to settle his debt to you in knowledge instead: \"I can't pay you. But I can tell you where the tortoiseshell is cheaper than chicken.\"",
+      "text_es": "Un hombre ha perdido su última moneda en la pelea de gallos y os ofrece saldar su deuda con conocimiento en lugar de dinero: \"No puedo pagaros. Pero puedo deciros dónde el carey sale más barato que el pollo.\""
+    },
+    {
+      "id": "gambler_bali",
+      "source": "tavern",
+      "available_at": [
+        "Gresik"
+      ],
+      "target": "Bali",
+      "goods": [
+        "fighting_cock",
+        "lontar"
+      ],
+      "source_line": "A sore loser in Gresik",
+      "source_line_es": "Un mal perdedor en Gresik",
+      "text": "A sailor who has just lost a bet on the wrong rooster tells you, bitterly, where the good ones come from. \"Bali. Where the birds fight for the gods, and the gods take a cut.\"",
+      "text_es": "Un marinero que acaba de perder una apuesta por el gallo equivocado os dice, con amargura, de dónde vienen los buenos. \"De Bali. Donde los gallos pelean para los dioses, y los dioses se llevan su parte.\""
+    },
+    {
+      "id": "pilot_goa",
+      "source": "tavern",
+      "available_at": [
+        "Malacca Harbor",
+        "Aceh"
+      ],
+      "target": "Goa Harbor",
+      "goods": [
+        "horses"
+      ],
+      "source_line": "A Gujarati pilot, drunk and helpful",
+      "source_line_es": "Un piloto gujarati, borracho y servicial",
+      "text": "Three cups of arak in, a Gujarati pilot unrolls his own rutter on the table and corrects every mistake in yours, loudly, for an hour. Somewhere in it, he mentions Goa, where the horse ships from Hormuz unload.",
+      "text_es": "Tres copas de arak después, un piloto gujarati despliega su propio derrotero sobre la mesa y corrige cada error del vuestro, a voces, durante una hora. En algún momento menciona Goa, donde descargan los barcos de caballos de Ormuz."
+    },
+    {
+      "id": "pilot_pegu",
+      "source": "tavern",
+      "available_at": [
+        "Aceh"
+      ],
+      "target": "Pegu",
+      "goods": [
+        "rubies",
+        "teak"
+      ],
+      "source_line": "A Gujarati pilot in Aceh",
+      "source_line_es": "Un piloto gujarati en Aceh",
+      "text": "The same pilot, or his cousin, swears by Pegu: rubies, teak, and a king with more elephants than sense.",
+      "text_es": "El mismo piloto, o su primo, jura por Pegu: rubíes, teca, y un rey con más elefantes que sentido común."
+    },
+    {
+      "id": "cham_refugee",
+      "source": "tavern",
+      "available_at": [
+        "Ayutthaya"
+      ],
+      "target": "Cham Coast",
+      "goods": [
+        "aloes_wood",
+        "cham_ikat"
+      ],
+      "source_line": "A Cham exile in Ayutthaya",
+      "source_line_es": "Un exiliado cham en Ayutthaya",
+      "text": "An old Cham trader sells aloeswood from a home that, he says, no longer exists. Then he tells you exactly where it still grows.",
+      "text_es": "Un viejo mercader cham vende madera de áloe de una tierra que, según dice, ya no existe. Luego os dice exactamente dónde sigue creciendo."
+    },
+    {
+      "id": "ternate_rival",
+      "source": "tavern",
+      "available_at": [
+        "Ternate"
+      ],
+      "target": "Tidore",
+      "goods": [
+        "cloves",
+        "bird_of_paradise"
+      ],
+      "source_line": "A Ternatan with opinions about Tidore",
+      "source_line_es": "Un ternateño con opiniones sobre Tidore",
+      "text": "A Ternate merchant spends an hour insulting the neighboring island of Tidore: its sultan, its cloves, its women, its weather. You come away knowing exactly where Tidore is and what it sells.",
+      "text_es": "Un mercader de Ternate pasa una hora insultando a la isla vecina de Tidore: su sultán, su clavo, sus mujeres, su clima. Salís sabiendo exactamente dónde está Tidore y qué vende."
+    },
+    {
+      "id": "dalang_makassar",
+      "source": "tavern",
+      "category": "local",
+      "available_at": [
+        "Gresik"
+      ],
+      "target": "Makassar",
+      "goods": [
+        "bugis_cloth"
+      ],
+      "source_line": "A dalang in Gresik, at the raja's expense",
+      "source_line_es": "Un dalang en Gresik, a costa del rajá",
+      "text": "A shadow-puppet master improvises a scene mocking the raja of Makassar. The crowd howls. You laugh along without understanding the joke, and leave knowing that Makassar exists and has a raja worth mocking.",
+      "text_es": "Un maestro de teatro de sombras improvisa una escena burlándose del rajá de Makassar. El público aúlla. Os reís con los demás sin entender el chiste, y salís sabiendo que Makassar existe y tiene un rajá digno de burla."
+    },
+    {
+      "id": "hikayat_siam",
+      "source": "tavern",
+      "category": "local",
+      "available_at": [
+        "Aceh"
+      ],
+      "target": "Ayutthaya",
+      "goods": [
+        "sapanwood",
+        "lacquerware"
+      ],
+      "source_line": "A storyteller in an Aceh mosque yard",
+      "source_line_es": "Un narrador en el patio de una mezquita de Aceh",
+      "text": "An old man recites the tale of the kings of Pasai to anyone who will sit still. You sit still for four hours. In the third hour he describes the great kingdom of Siam to the north, its rice, and its armies.",
+      "text_es": "Un anciano recita la historia de los reyes de Pasai a cualquiera que se quede quieto. Aguantáis cuatro horas. En la tercera describe el gran reino de Siam, al norte, su arroz y sus ejércitos."
+    },
+    {
+      "id": "offering_bali",
+      "source": "tavern",
+      "category": "local",
+      "available_at": [
+        "Gresik"
+      ],
+      "target": "Bali",
+      "goods": [
+        "ritual_cloth"
+      ],
+      "source_line": "A Javanese family in Gresik, with an offering",
+      "source_line_es": "Una familia javanesa de Gresik, con una ofrenda",
+      "text": "A Hindu Javanese family, whose relatives crossed to Bali when the old kingdom fell, asks you to carry an offering to their temple there. They wrap it in white cloth and tell you which beach to land on.",
+      "text_es": "Una familia javanesa hindú, cuyos parientes cruzaron a Bali cuando cayó el viejo reino, os pide que llevéis una ofrenda a su templo de allí. La envuelven en tela blanca y os dicen en qué playa desembarcar."
+    },
+    {
+      "id": "widow_bantam",
+      "source": "tavern",
+      "category": "local",
+      "available_at": [
+        "Gresik"
+      ],
+      "target": "Bantam",
+      "goods": [
+        "pepper"
+      ],
+      "source_line": "A Chinese widow in Gresik",
+      "source_line_es": "Una viuda china en Gresik",
+      "text": "A Chinese widow asks you to carry a letter to her brother, a pepper buyer in Bantam. She has written the directions on the back, in two languages, and underlined the part about not cheating him.",
+      "text_es": "Una viuda china os pide que llevéis una carta a su hermano, comprador de pimienta en Bantam. Ha escrito las indicaciones al dorso, en dos idiomas, y ha subrayado la parte sobre no engañarle."
+    },
+    {
+      "id": "harbor_master_malacca_harbor",
+      "source": "harbor_master",
+      "available_at": [
+        "Malacca Harbor"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_goa_harbor",
+      "source": "harbor_master",
+      "available_at": [
+        "Goa Harbor"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_calicut",
+      "source": "harbor_master",
+      "available_at": [
+        "Calicut"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_hormuz",
+      "source": "harbor_master",
+      "available_at": [
+        "Hormuz"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_quanzhou",
+      "source": "harbor_master",
+      "available_at": [
+        "Quanzhou"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_bantam",
+      "source": "harbor_master",
+      "available_at": [
+        "Bantam"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_aden_harbor",
+      "source": "harbor_master",
+      "available_at": [
+        "Aden Harbor"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_aceh",
+      "source": "harbor_master",
+      "available_at": [
+        "Aceh"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_ayutthaya",
+      "source": "harbor_master",
+      "available_at": [
+        "Ayutthaya"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "harbor_master_pegu",
+      "source": "harbor_master",
+      "available_at": [
+        "Pegu"
+      ],
+      "target": "@nearest_uncharted",
+      "repeatable": true,
+      "goods": [],
+      "source_line": "The harbor master of {port}, paid in full",
+      "source_line_es": "El capitán de puerto de {port}, pagado hasta la última moneda",
+      "text": "The harbor master takes your silver, counts it, and gives you exactly what you paid for: a bearing, a distance, the season to sail, and which officials to bribe on arrival. Nothing more.",
+      "text_es": "El capitán de puerto toma vuestra plata, la cuenta, y os da exactamente lo que habéis pagado: un rumbo, una distancia, la estación para zarpar y a qué funcionarios sobornar al llegar. Nada más."
+    },
+    {
+      "id": "home_makassar",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": "bugis_navigator",
+      "target": "Makassar",
+      "goods": [],
+      "source_line": "{name}, who grew up there",
+      "source_line_es": "{name}, que se crió allí",
+      "text": "{name} charts the way to Makassar for you, on one condition: you stop there long enough for him to show his mother he's alive.",
+      "text_es": "{name} os traza el camino a Makassar, con una condición: que os detengáis allí lo suficiente para que pueda demostrarle a su madre que sigue vivo."
+    },
+    {
+      "id": "home_gresik",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": "javanese_sailor",
+      "target": "Gresik",
+      "goods": [],
+      "source_line": "{name}, who grew up there",
+      "source_line_es": "{name}, que se crió allí",
+      "text": "{name} draws Gresik's harbor in the dust of the deck, down to the house where he was born, and the stall that sells the best fried fish.",
+      "text_es": "{name} dibuja el puerto de Gresik en el polvo de la cubierta, hasta la casa donde nació y el puesto que vende el mejor pescado frito."
+    },
+    {
+      "id": "home_ternate",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": "ternatan_warrior",
+      "target": "Ternate",
+      "goods": [],
+      "source_line": "{name}, who grew up there",
+      "source_line_es": "{name}, que se crió allí",
+      "text": "{name} tells you about Ternate's volcano, its sultan, and the clove trees. He tells you twice about the sultan.",
+      "text_es": "{name} os habla del volcán de Ternate, de su sultán y de los árboles de clavo. Del sultán os habla dos veces."
+    },
+    {
+      "id": "home_tidore",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": "papuan_tracker",
+      "target": "Tidore",
+      "goods": [
+        "bird_of_paradise"
+      ],
+      "source_line": "{name}, who grew up there",
+      "source_line_es": "{name}, que se crió allí",
+      "text": "{name} tells you where the bird skins really come from: islands beyond Tidore, which takes tribute from them and sells the skins on.",
+      "text_es": "{name} os cuenta de dónde vienen de verdad las pieles de ave: de islas más allá de Tidore, que les cobra tributo y revende las pieles."
+    },
+    {
+      "id": "home_ayutthaya",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": "siamese_guard",
+      "target": "Ayutthaya",
+      "goods": [],
+      "source_line": "{name}, who grew up there",
+      "source_line_es": "{name}, que se crió allí",
+      "text": "{name} describes Ayutthaya: rivers instead of streets, and temples with roofs of gold.",
+      "text_es": "{name} os describe Ayutthaya: ríos en lugar de calles, y templos con tejados de oro."
+    },
+    {
+      "id": "dream",
+      "source": "crew",
+      "available_at": "any",
+      "requires_archetype": [
+        "malay_sailor",
+        "javanese_sailor",
+        "patani_sailor",
+        "orang_laut_sailor"
+      ],
+      "target": "@random_unknown_archipelago",
+      "goods": [],
+      "source_line": "{name}, in a dream",
+      "source_line_es": "{name}, en un sueño",
+      "text": "{name} wakes the whole deck before dawn. He dreamed of a burning mountain and an island beyond it, and he names the island. The crew agrees, as one, that this means something. You can dismiss it. They won't sail happily until you've at least looked.",
+      "text_es": "{name} despierta a toda la cubierta antes del alba. Ha soñado con una montaña ardiente y una isla más allá, y dice el nombre de la isla. La tripulación coincide, como un solo hombre, en que eso significa algo. Podéis no hacerle caso. Ellos no navegarán contentos hasta que al menos hayáis ido a mirar.",
+      "effect": "dream"
+    }
+  ]
+}

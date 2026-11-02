@@ -143,6 +143,7 @@ class CrewMember:
         self.alive = True
         self.successful_hunts = 0
         self.successful_catches = 0
+        self.archetype: Optional[str] = None   # recruitable_archetypes key, for recruits
 
     @property
     def all_languages(self) -> List[str]:
@@ -188,6 +189,7 @@ class CrewMember:
             "alive": self.alive,
             "successful_hunts": self.successful_hunts,
             "successful_catches": self.successful_catches,
+            "archetype": self.archetype,
         }
 
     @classmethod
@@ -208,6 +210,7 @@ class CrewMember:
         )
         obj.alive = d.get("alive", True)
         obj.successful_hunts = d.get("successful_hunts", 0)
+        obj.archetype = d.get("archetype")
         obj.successful_catches = d.get("successful_catches", 0)
         return obj
 
@@ -318,7 +321,7 @@ def generate_recruit(archetype_key: str, crew_data: Dict[str, Any]) -> Optional[
                 pos.append(pos_by_id[gid])
                 existing_ids.add(gid)
 
-    return CrewMember(
+    member = CrewMember(
         name=name,
         ethnicity=archetype["ethnicity"],
         native_tongue=archetype["native_tongue"],
@@ -332,6 +335,8 @@ def generate_recruit(archetype_key: str, crew_data: Dict[str, Any]) -> Optional[
         wage=wage,
         was_enslaved=archetype.get("was_enslaved", False),
     )
+    member.archetype = archetype_key
+    return member
 
 
 # ─────────────────────────────────────────
