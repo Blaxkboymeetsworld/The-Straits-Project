@@ -181,7 +181,7 @@
       "culture": "Sundanese/Javanese",
       "language": "Sundanese",
       "religion": "Islam",
-      "ruler": { "name": "Sultan Hasanuddin", "title": "Sultan", "faction": "Sultanate of Bantam", "disposition": 50 },
+      "ruler": { "name": "Sri Baduga Maharaja", "title": "King of Sunda", "faction": "Sultanate of Bantam", "disposition": 50 },
       "merchant_guild": "Javanese Pepper Traders",
       "religious_figure": { "name": "Maulana Hasanuddin", "title": "Imam", "religion": "Islam" },
       "harbor_master": { "name": "Raden Aria", "fees": 90 },
