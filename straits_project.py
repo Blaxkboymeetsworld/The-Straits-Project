@@ -2677,9 +2677,9 @@ def _travel_estimate(origin: str, dest: str, state: Any) -> str:
         return "unknown"
     nums = _voyage_numbers(origin, dest, state)
     if nums is None:
-        return "no charted route"
+        return t("travel_no_charted_route")
     days, _monsoon_state, prov_cost, wind = nums
-    return f"{days} days, {t('wind_tag_' + wind)}  |  ~{prov_cost} provisions"
+    return t("travel_estimate").format(days=days, wind=t('wind_tag_' + wind), prov=prov_cost)
 
 
 def _speaker_line(state: Any, kind: str, **fmt: Any) -> str:
@@ -2699,9 +2699,9 @@ def choose_from_list(
 ) -> Tuple[Optional[str], Optional[str]]:
     while True:  # an unheeded-warning choice returns here to pick again
         clear()
-        label = loc_type.replace("_", " ").title()
+        label = LOCALE.get("travel_label_" + loc_type, loc_type.replace("_", " ").title())
         origin = state.current_location if state else "At Sea"
-        print(f"  Choose destination ({label}):\n")
+        print(f"  {t('travel_choose_destination').format(label=label)}\n")
         for idx, n in enumerate(names, 1):
             if state:
                 if n != origin and not _is_charted(origin, n):
@@ -2709,13 +2709,13 @@ def choose_from_list(
                 else:
                     est = _travel_estimate(origin, n, state)
                 barred, _ = state.factions.port_access_modifier(n)
-                bar_tag = "  [BARRED]" if not barred else ""
+                bar_tag = f"  [{t('travel_tag_barred')}]" if not barred else ""
                 if not bar_tag and _is_home_port_locked(state, n):
-                    bar_tag = "  [LOCKED]"
+                    bar_tag = f"  [{t('travel_tag_locked')}]"
                 print(f"  {idx}) {n:<26} — {est}{bar_tag}")
             else:
                 print(f"  {idx}) {n}")
-        print(f"  {len(names)+1}) Cancel\n")
+        print(f"  {len(names)+1}) {t('travel_cancel_option')}\n")
         sel = get_menu_choice([str(i) for i in range(1, len(names)+2)])
         try:
             k = int(sel)
@@ -2726,7 +2726,7 @@ def choose_from_list(
             # Uncharted crossing: warn, then heed (pick again) or sail to your death
             if state and chosen != origin and not _is_charted(origin, chosen):
                 clear()
-                print(f"\n  Destination: {chosen}\n")
+                print(f"\n  {t('travel_destination').format(dest=chosen)}\n")
                 print(_speaker_line(state, "uncharted", hop=_first_hop(origin, chosen) or chosen))
                 print(f"\n  [1] {t('uncharted_heed')}  [2] {t('uncharted_sail_anyway')}\n")
                 if get_menu_choice(["1", "2"]) == "1":
@@ -2737,15 +2737,15 @@ def choose_from_list(
             if state:
                 clear()
                 est = _travel_estimate(origin, chosen, state)
-                print(f"\n  Destination: {chosen}")
+                print(f"\n  {t('travel_destination').format(dest=chosen)}")
                 print(f"  {est}")
-                print(f"  Provisions aboard: {state.provisions}\n")
+                print(f"  {t('travel_provisions_aboard').format(n=state.provisions)}\n")
                 nums = _voyage_numbers(origin, chosen, state)
                 if nums and nums[2] > state.provisions:
                     print(_speaker_line(state, "provisions", need=nums[2], have=state.provisions))
                     print()
-                confirm = input("  Set sail? [Y/N] ").strip().upper()
-                if confirm != "Y":
+                confirm = input(f"  {t('travel_set_sail_prompt')} ").strip().upper()
+                if confirm not in ("Y", "S"):  # S = sí
                     return None, None
             return chosen, loc_type
         return None, None
@@ -3241,10 +3241,10 @@ def run_game(
                 while True:
                     clear()
                     print(f"\n  {t('voyage_departure_checkpoint').format(origin=origin_port, dest=dest)}")
-                    print(f"  Estimated voyage: {voyage['days']} day(s), {t('wind_tag_' + _wind_key(voyage))}")
-                    print(f"\n  [1] Check crew")
-                    print(f"  [2] Save")
-                    print(f"  [3] Depart")
+                    print(f"  {t('voyage_estimated').format(days=voyage['days'], wind=t('wind_tag_' + _wind_key(voyage)))}")
+                    print(f"\n  [1] {t('voyage_checkpoint_check_crew')}")
+                    print(f"  [2] {t('voyage_checkpoint_save')}")
+                    print(f"  [3] {t('voyage_checkpoint_depart')}")
                     dep_choice = get_menu_choice(["1", "2", "3"])
                     if dep_choice == "1":
                         _peek_crew_at_sea(state)
@@ -3389,18 +3389,18 @@ def choose_role() -> str:
     print("═" * 52)
     print(f"\n  {t('role_choose')}\n")
     print(f"  [1] {t('role_portuguese')}")
-    print("       +100 gold, +5 morale. Starts with rapier.")
-    print("       Carries the weight of the Estado da India.")
+    print(f"       {t('role_desc_portuguese_1')}")
+    print(f"       {t('role_desc_portuguese_2')}")
     print(f"       {t('role_ship_portuguese')}")
     print()
     print(f"  [2] {t('role_ottoman')}")
-    print("       +200 gold, +3 spices, +8 morale. Istanbul connections, Levantine capital.")
-    print("       Welcomed in Islamic ports. Estado da India views you with suspicion.")
+    print(f"       {t('role_desc_ottoman_1')}")
+    print(f"       {t('role_desc_ottoman_2')}")
     print(f"       {t('role_ship_ottoman')}")
     print()
     print(f"  [3] {t('role_chinese')}")
-    print("       +150 gold, silk & porcelain cargo. Quanzhou contacts.")
-    print("       The diaspora knows your name before you arrive.")
+    print(f"       {t('role_desc_chinese_1')}")
+    print(f"       {t('role_desc_chinese_2')}")
     print(f"       {t('role_ship_chinese')}")
     print()
     mapping = {"1": "Portuguese Conquistador", "2": "Ottoman Trader", "3": "Chinese Trader"}
