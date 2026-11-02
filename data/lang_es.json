@@ -104,7 +104,7 @@
   "warn_provisions_ottoman": "La travesía pide {need} de víveres. Llevamos {have}. Ni las cartas de Ibn Mayid pueden alimentar a una tripulación hambrienta.",
   "warn_uncharted_chinese": "Aiya. ¿Tanto mar abierto? Al mar no le importa lo que pagasteis por este junco. Paramos en {hop}, quemamos incienso, y luego hablamos.",
   "warn_provisions_chinese": "Esta travesía se come {need} de víveres. Tenemos {have}. Mazu puede calmar el mar. No puede llenar los barriles de arroz.",
-  "voyage_pause_title": "DÍA {day} DE {total} EN EL MAR",
+  "voyage_pause_title": "DÍA {day} DE {total} — {waterway}",
   "voyage_pause_sail_on": "Continuar navegando",
   "voyage_pause_read": "Leer a la tripulación",
   "voyage_pause_fish": "Pescar por la borda",
@@ -124,5 +124,14 @@
   "voyage_fish_new_fisher": "{name} ya es Pueblo Pescador (Costero).",
   "effect_lose_hostage": "{hostage} ya no está con vuestra tripulación.",
   "shore_leave_morale": "Permiso en tierra. La tripulación vuelve del pueblo más ruidosa de como se fue. (+10 moral)",
-  "crew_bonus_paid": "Repartís una paga extra en cubierta. La tripulación la cuenta dos veces y decide que no sois tan malo. (+{n} moral)"
+  "crew_bonus_paid": "Repartís una paga extra en cubierta. La tripulación la cuenta dos veces y decide que no sois tan malo. (+{n} moral)",
+  "voyage_pause_at_sea": "EN EL MAR",
+  "voyage_flavor_1": "Un pez volador cae en cubierta. Tres hombres se pelean por ver quién se lo come.",
+  "voyage_flavor_2": "Los barriles de agua se están poniendo verdes. El cocinero jura que todavía está buena.",
+  "voyage_flavor_3": "Alguien ha grabado el nombre de una mujer en el mástil. Nadie quiere admitirlo.",
+  "voyage_flavor_4": "Desde hace dos días el mar tiene el color del aceite. A los veteranos no les gusta.",
+  "voyage_flavor_5": "Calma chicha al mediodía. Las velas cuelgan como ropa tendida.",
+  "voyage_flavor_6": "Otra vez ratas en la galleta. El gato del barco se ha rendido.",
+  "voyage_flavor_7": "De noche, la estela brilla verde. Los hombres discuten si son espíritus.",
+  "voyage_flavor_8": "A un marinero se le cae un diente en el pan. Se lo guarda para la suerte."
 }

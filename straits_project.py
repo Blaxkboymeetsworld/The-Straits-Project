@@ -32,7 +32,7 @@ from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, START_DATE, get_waterway,
                          calculate_voyage, next_favorable_month,
-                         _ROUTE_DISTANCES_NM)
+                         _ROUTE_DISTANCES_NM, _COASTAL_HOPS)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -2808,15 +2808,25 @@ def _at_sea_menu(state: GameState) -> str:
 
 
 # ─────────────────────────────────────────
-# Mid-voyage pause (every 7th day on voyages of 8+ days)
+# Mid-voyage pause (1-4 evenly spaced stops on voyages of 10+ days)
 # ─────────────────────────────────────────
 
 _VOYAGE_BOOK_BY_ROLE = {"portuguese": "book_of_hours", "ottoman": "quran", "chinese": "diamond_sutra"}
 _VOYAGE_BOOK_RELIGION_BY_ROLE = {"portuguese": "Catholic", "ottoman": "Islam", "chinese": "Buddhism"}
+_VOYAGE_FLAVOR_KEYS = [f"voyage_flavor_{i}" for i in range(1, 9)]
+
+
+def _voyage_pause_days(total_days: int) -> set:
+    """Days (1-based) on which the voyage pauses: none under 10 days, otherwise
+    min(4, max(1, round(days / 25))) stops spaced evenly through the voyage."""
+    if total_days < 10:
+        return set()
+    count = min(4, max(1, round(total_days / 25)))
+    return {max(1, round(total_days * k / (count + 1))) for k in range(1, count + 1)}
 
 
 def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[str, Any],
-                        day_number: int, total_days: int):
+                        day_number: int, total_days: int, coastal: bool = False):
     """Mid-voyage stop: sail on, or spend it reading, fishing, hunting, or hearing a story."""
     protagonist = state.protagonist
     book_id = _VOYAGE_BOOK_BY_ROLE.get(protagonist)
@@ -2826,9 +2836,22 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
     storyteller = next((m for m in state.crew.alive_members() if m.has_trait("storyteller")), None)
     used_read = used_fish = used_hunt = used_story = False
 
+    waterway = getattr(state, "_current_waterway", None)
+    waterway_label = waterway.replace("_", " ").upper() if waterway else t('voyage_pause_at_sea')
+    # One flavor line per pause, never repeated within the same voyage
+    used_flavor = getattr(state, "_voyage_flavor_used", set())
+    fresh = [k for k in _VOYAGE_FLAVOR_KEYS if k not in used_flavor]
+    flavor_key = random.choice(fresh) if fresh else None
+    if flavor_key:
+        used_flavor.add(flavor_key)
+        state._voyage_flavor_used = used_flavor
+
     while True:
         clear()
-        print(f"\n  {t('voyage_pause_title').format(day=day_number, total=total_days)}\n")
+        print(f"\n  {t('voyage_pause_title').format(day=day_number, total=total_days, waterway=waterway_label)}")
+        if flavor_key:
+            print(f"  {t(flavor_key)}")
+        print()
         options = []
 
         def opt(key, label):
@@ -2840,7 +2863,7 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
             opt("2", t('voyage_pause_read'))
         if not used_fish:
             opt("3", t('voyage_pause_fish'))
-        if not used_hunt:
+        if coastal and not used_hunt:
             opt("4", t('voyage_pause_hunt'))
         if storyteller and not used_story:
             opt("5", t('voyage_pause_story').format(name=storyteller.name))
@@ -3188,6 +3211,10 @@ def run_game(
 
                 total_days = voyage["days"]
                 event_count = 0
+                max_events = max(4, total_days // 8)
+                pause_days = _voyage_pause_days(total_days)
+                coastal_hop = (origin_port, dest) in _COASTAL_HOPS
+                state._voyage_flavor_used = set()
                 for day_idx in range(total_days):
                     # Frame transit location: "just outside <origin>" for the first
                     # half of the voyage, "approaching <dest>" for the second half —
@@ -3203,7 +3230,7 @@ def run_game(
                         press_enter()
                         return
 
-                    if state.has_visited_port and event_count < 4 and roll_check(random.uniform(0.10, 0.15)):
+                    if event_count < max_events and roll_check(random.uniform(0.10, 0.15)):
                         event_count += 1
                         engine.trigger_random(
                             "sea_events", state,
@@ -3224,8 +3251,9 @@ def run_game(
                             print(lore)
 
                     day_number = day_idx + 1
-                    if total_days >= 8 and day_number % 7 == 0:
-                        _voyage_pause_menu(state, engine, crew_data, day_number, total_days)
+                    if day_number in pause_days:
+                        _voyage_pause_menu(state, engine, crew_data, day_number, total_days,
+                                           coastal=coastal_hop)
                         if state.pending_failure() and state.is_game_over():
                             press_enter()
                             return

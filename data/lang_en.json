@@ -104,7 +104,7 @@
   "warn_provisions_ottoman": "The crossing wants {need} in stores. We hold {have}. Even Ibn Majid's charts cannot feed a hungry crew.",
   "warn_uncharted_chinese": "Aiya. Open water that long? The sea doesn't care what you paid for this junk. We stop at {hop}, burn incense, then talk.",
   "warn_provisions_chinese": "This run eats {need} in stores. We have {have}. Mazu can calm the sea. She can't fill the rice barrels.",
-  "voyage_pause_title": "DAY {day} OF {total} AT SEA",
+  "voyage_pause_title": "DAY {day} OF {total} — {waterway}",
   "voyage_pause_sail_on": "Sail on",
   "voyage_pause_read": "Read to the crew",
   "voyage_pause_fish": "Fish over the side",
@@ -124,5 +124,14 @@
   "voyage_fish_new_fisher": "{name} is now Fisher-folk (Coastal).",
   "effect_lose_hostage": "{hostage} is no longer with your crew.",
   "shore_leave_morale": "Shore leave. The crew comes back from town louder than they left. (+10 morale)",
-  "crew_bonus_paid": "You pay out a bonus on deck. The crew counts it twice and decides you're not so bad. (+{n} morale)"
+  "crew_bonus_paid": "You pay out a bonus on deck. The crew counts it twice and decides you're not so bad. (+{n} morale)",
+  "voyage_pause_at_sea": "AT SEA",
+  "voyage_flavor_1": "A flying fish lands on deck. Three men fight over who gets to eat it.",
+  "voyage_flavor_2": "The water barrels are going green. The cook swears it's still fine.",
+  "voyage_flavor_3": "Someone carved a woman's name into the mast. Nobody will admit to it.",
+  "voyage_flavor_4": "For two days the sea has been the color of oil. The old hands don't like it.",
+  "voyage_flavor_5": "A dead calm at noon. The sails hang like laundry.",
+  "voyage_flavor_6": "Rats in the biscuit again. The ship's cat has given up.",
+  "voyage_flavor_7": "At night the wake glows green. The men argue over whether it's spirits.",
+  "voyage_flavor_8": "A sailor's tooth comes out in his bread. He keeps it for luck."
 }
