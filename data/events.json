@@ -456,6 +456,65 @@
         "4": { "text": "Ask the village for medicine. It costs in trade goods.", "text_es": "Pedir medicina a la aldea. Se paga en mercancías.", "effect": { "gold": -50, "morale": 4 }, "requires": { "gold": 50 }, "result": "The village healer chants over the sick men, ties cords around their wrists, and gives them a bitter paste. Your skeptics roll their eyes. Both men recover anyway.", "result_es": "El curandero de la aldea canta sobre los enfermos, les ata cordones a las muñecas y les da una pasta amarga. Vuestros escépticos ponen los ojos en blanco. Ambos hombres se recuperan de todos modos." }
       },
       "pool": "village_events"
+    },
+    {
+      "id": "cockfight_tajen",
+      "when": { "location": ["Bali", "Gresik"] },
+      "description": "Behind the temple wall, men squat in a ring around two roosters with blades bound to their spurs. The blood that spills feeds the spirits of the ground. The betting feeds everyone else.",
+      "description_es": "Detrás del muro del templo, los hombres se agazapan en un círculo alrededor de dos gallos con cuchillas atadas a los espolones. La sangre que se derrama alimenta a los espíritus de la tierra. Las apuestas alimentan a todos los demás.",
+      "options": {
+        "1": { "text": "Bet on the red. (200 gold)", "text_es": "Apostar al rojo. (200 oro)", "requires": { "gold": 200 }, "effect": { "gold": -200 }, "roll": {
+          "base": 0.45, "max": 0.45,
+          "success": { "effect": { "gold": 400, "morale": 4 }, "result": "The red bird kills in the second pass. Your crew carries you halfway back to the ship.", "result_es": "El gallo rojo mata en el segundo asalto. Vuestra tripulación os lleva en hombros hasta medio camino del barco." },
+          "failure": { "effect": {}, "result": "The red bird runs. The crowd jeers, and somebody else counts your coins.", "result_es": "El gallo rojo huye. La multitud abuchea, y otro cuenta vuestras monedas." }
+        } },
+        "2": { "text": "Enter your own bird.", "text_es": "Presentar vuestro propio gallo.", "requires": { "cargo": { "fighting_cock": 1 } }, "effect": {}, "roll": {
+          "base": 0.6, "max": 0.6,
+          "success": { "effect": { "gold": 800, "morale": 6 }, "result": "Your bird fights like it has heard about the price you paid for it. The whole ring wins money on it except the man who owned the other one.", "result_es": "Vuestro gallo lucha como si hubiera oído el precio que pagasteis por él. Todo el círculo gana dinero con él, excepto el hombre que era dueño del otro." },
+          "failure": { "effect": { "cargo": { "fighting_cock": -1 }, "morale": -2 }, "result": "Your bird dies well, which is the only kind of dying anyone here respects.", "result_es": "Vuestro gallo muere con honor, que es la única clase de muerte que aquí se respeta." }
+        } },
+        "3": { "text": "Just watch.", "text_es": "Solo observar.", "requires": null, "effect": { "morale": 2 }, "result": "Your crew bets their own wages. Some come back richer, all come back hoarse.", "result_es": "Vuestra tripulación apuesta su propio salario. Algunos vuelven más ricos, todos vuelven roncos." }
+      },
+      "pool": "village_events"
+    },
+    {
+      "id": "pawang_blessing",
+      "when": { "location": ["Kedah", "Patani", "Pulau Tioman"] },
+      "description": "A pawang, a shaman of the sea, wades out to your ship at dawn. The spirits of this coast, he says, are hungry before the monsoon. For a price, he will feed them for you.",
+      "description_es": "Un pawang, un chamán del mar, vadea hasta vuestro barco al amanecer. Los espíritus de esta costa, dice, están hambrientos antes del monzón. A cambio de un precio, él los alimentará por vosotros.",
+      "options": {
+        "1": { "text": "Pay him. (100 gold)", "text_es": "Pagarle. (100 oro)", "requires": { "gold": 100 }, "effect": { "gold": -100, "morale": 6 }, "result": "He scatters rice and yellow cloth on the water and speaks to someone you can't see. The crew sleeps better that night. So, oddly, do you.", "result_es": "Esparce arroz y tela amarilla sobre el agua y habla con alguien que no podéis ver. La tripulación duerme mejor esa noche. Vos también, curiosamente." },
+        "2": { "text": "Send him away.", "text_es": "Despedirlo.", "requires": null, "effect": { "morale": -5 }, "result": "He wades back to shore without arguing. Your crew watches him go and won't meet your eye. Two men stop whistling on deck.", "result_es": "Vadea de vuelta a la orilla sin discutir. Vuestra tripulación lo ve marchar y evita vuestra mirada. Dos hombres dejan de silbar en cubierta." }
+      },
+      "pool": "village_events"
+    },
+    {
+      "id": "orang_laut_toll",
+      "when": { "location": ["Pulau Tioman"] },
+      "description": "Low boats ring your ship at anchor. The Orang Laut ask for nothing. They simply wait to see whether you understand how the sea works here.",
+      "description_es": "Botes bajos rodean vuestro barco anclado. Los Orang Laut no piden nada. Simplemente esperan a ver si entendéis cómo funciona el mar aquí.",
+      "options": {
+        "1": { "text": "Send down a gift. (150 gold)", "text_es": "Enviarles un regalo. (150 oro)", "requires": { "gold": 150 }, "effect": { "gold": -150, "morale": 4 }, "result": "They take it without ceremony and paddle off. For the rest of your stay, nothing goes missing from your ship, and no one explains why.", "result_es": "Lo toman sin ceremonia y reman lejos. Durante el resto de vuestra estancia, nada desaparece de vuestro barco, y nadie explica por qué." },
+        "2": { "text": "Ignore them.", "text_es": "Ignorarlos.", "requires": null, "effect": { "morale": -4, "ship_health": -5 }, "result": "By morning your ship's boat is gone, and so is a coil of good rope. The Orang Laut are nowhere to be seen.", "result_es": "Por la mañana ha desaparecido el bote de vuestro barco, y también un rollo de buena cuerda. Los Orang Laut no se ven por ninguna parte." },
+        "3": { "text": "Hail them in Malay and offer to trade.", "text_es": "Llamarlos en malayo y ofrecer comerciar.", "requires": { "crew_language": "Malay" }, "effect": { "provisions": 10, "morale": 3 }, "result": "They trade fish and turtle eggs for cloth, laughing at your accent. The oldest of them tells you which reefs to stay off.", "result_es": "Cambian pescado y huevos de tortuga por tela, riéndose de vuestro acento. El más viejo de ellos os dice qué arrecifes evitar." }
+      },
+      "pool": "village_events"
+    },
+    {
+      "id": "kris_chooses",
+      "when": { "location": ["Gresik"] },
+      "description": "A smith's apprentice runs after you down the market lane with a kris wrapped in cloth. His master measured it against your hand, he says, and the blade wants you. It is also, he admits, very expensive.",
+      "description_es": "El aprendiz de un herrero corre tras vosotros por la calle del mercado con un kris envuelto en tela. Su maestro lo midió contra vuestra mano, dice, y la hoja os quiere a vos. También es, admite, muy caro.",
+      "options": {
+        "1": { "text": "Buy it. (500 gold)", "text_es": "Comprarlo. (500 oro)", "requires": { "gold": 500 }, "effect": { "gold": -500, "cargo": { "kris": 1 }, "morale": 3 }, "result": "You buy it. That night a crewman swears he heard it rattle in its sheath. By morning everyone has heard about it, and nobody will touch the chest.", "result_es": "Lo compráis. Esa noche un tripulante jura haberlo oído vibrar en su vaina. Por la mañana todos han oído hablar de ello, y nadie quiere tocar el cofre." },
+        "2": { "text": "Offer half. (250 gold)", "text_es": "Ofrecer la mitad. (250 oro)", "requires": { "gold": 250 }, "effect": {}, "roll": {
+          "base": 0.5, "max": 0.5,
+          "success": { "effect": { "gold": -250, "cargo": { "kris": 1 } }, "result": "The apprentice runs back to his master and returns grinning. The blade, apparently, is willing to negotiate.", "result_es": "El aprendiz corre de vuelta a su maestro y regresa sonriendo. La hoja, al parecer, está dispuesta a negociar." },
+          "failure": { "effect": { "morale": -3 }, "result": "The smith himself comes out, takes the blade back without a word, and spits in the dust. Your crew noticed.", "result_es": "El propio herrero sale, recupera la hoja sin decir palabra, y escupe en el polvo. Vuestra tripulación lo notó." }
+        } },
+        "3": { "text": "Refuse.", "text_es": "Negarse.", "requires": null, "effect": { "morale": -2 }, "result": "The apprentice looks stricken. \"You don't refuse a blade,\" he says, as if explaining the weather.", "result_es": "El aprendiz parece consternado. «No se rechaza una hoja», dice, como quien explica el clima." }
+      },
+      "pool": "village_events"
     }
   ],
   "special_events": [
