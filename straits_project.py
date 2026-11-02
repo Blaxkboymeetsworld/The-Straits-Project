@@ -3138,7 +3138,7 @@ def _build_portuguese_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
             ["brave", "strong"], [], 6, crew_data
         ),
         _make_crew_member(
-            "Tomé", "African", "Portuguese", "sailor",
+            "Bastião", "African", "Portuguese", "sailor",
             [], "Catholic", "Africa",
             [], [], 4, crew_data
         ),
@@ -3148,7 +3148,7 @@ def _build_portuguese_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
 def _build_ottoman_crew(crew_data: Dict[str, Any]) -> List[CrewMember]:
     return [
         _make_crew_member(
-            "Mehmed al-Rumi", "Turkish", "Turkish", "merchant",
+            "Hasan al-Rumi", "Turkish", "Turkish", "merchant",
             ["Arabic", "Persian"], "Islam", "Ottoman",
             ["sharp_trader", "polyglot"], [], 7, crew_data
         ),
