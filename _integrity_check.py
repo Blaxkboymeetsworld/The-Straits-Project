@@ -379,6 +379,65 @@ ok("available_years fields are well-formed")
 
 # ═══════════════════════════════════════════════════════════════════
 print()
+print("=== leads.json ===")
+sys.path.insert(0, ".")
+from economy import GOODS_CATALOG
+from discovery import STARTING_KNOWLEDGE
+with open("data/leads.json", encoding="utf-8") as f:
+    leads = json.load(f).get("leads", [])
+LEAD_SOURCES = {"harbor_master", "tavern", "crew"}
+SPECIAL_TARGETS = {"@nearest_uncharted", "@random_unknown_archipelago"}
+seen_ids = set()
+for lead in leads:
+    lid = lead.get("id", "?")
+    for key in ("id", "source", "available_at", "target", "goods", "source_line", "source_line_es", "text", "text_es"):
+        if key not in lead:
+            fail(f"lead '{lid}' missing key: {key}")
+    if lid in seen_ids:
+        fail(f"lead id '{lid}' is duplicated")
+    seen_ids.add(lid)
+    src = lead.get("source")
+    if src not in LEAD_SOURCES:
+        fail(f"lead '{lid}' has unknown source: {src}")
+    avail = lead.get("available_at")
+    if avail == "any":
+        if src != "crew":
+            fail(f"lead '{lid}': available_at 'any' is only for crew leads")
+    elif isinstance(avail, list):
+        for loc in avail:
+            if loc not in all_port_names:
+                fail(f"lead '{lid}' available_at location not in world.json: {loc}")
+    else:
+        fail(f"lead '{lid}' available_at must be a list of locations or 'any'")
+    target = lead.get("target")
+    if target not in all_port_names and target not in SPECIAL_TARGETS:
+        fail(f"lead '{lid}' target not in world.json: {target}")
+    for g in lead.get("goods", []):
+        if g not in GOODS_CATALOG:
+            fail(f"lead '{lid}' good not in GOODS_CATALOG: {g}")
+    if src == "crew":
+        req = lead.get("requires_archetype")
+        req = [req] if isinstance(req, str) else (req or [])
+        if not req:
+            fail(f"crew lead '{lid}' has no requires_archetype")
+        for a in req:
+            if a not in archetypes:
+                fail(f"crew lead '{lid}' archetype not in crew_data.json: {a}")
+    for key in ("text", "text_es", "source_line", "source_line_es"):
+        try:
+            str(lead.get(key, "")).format(name="X", port="P", target="T")
+        except (KeyError, IndexError, ValueError) as e:
+            fail(f"lead '{lid}' {key} has a bad placeholder: {e}")
+ok(f"{len(leads)} leads: sources, locations, targets, goods and archetypes all exist")
+for role, levels in STARTING_KNOWLEDGE.items():
+    for level, names in levels.items():
+        for n in names:
+            if n not in all_port_names:
+                fail(f"discovery.py STARTING_KNOWLEDGE[{role}][{level}] location not in world.json: {n}")
+ok("discovery.py starting knowledge names all exist in world.json")
+
+# ═══════════════════════════════════════════════════════════════════
+print()
 if warnings:
     print(f"=== WARNINGS ({len(warnings)}) ===")
     for w in warnings:
