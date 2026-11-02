@@ -159,7 +159,7 @@
       "typical_occupations": ["sailor", "navigator", "former_pirate"],
       "typical_religions": ["Islam"],
       "world_region": "Southeast Asia",
-      "wage_range": [2, 4]
+      "wage_range": [20, 40]
     },
     "javanese_fighter": {
       "ethnicity": "Javanese", "native_tongue": "Javanese",
@@ -167,7 +167,7 @@
       "typical_occupations": ["soldier", "mercenary", "sailor"],
       "typical_religions": ["Islam", "Hinduism"],
       "world_region": "Southeast Asia",
-      "wage_range": [3, 6]
+      "wage_range": [30, 60]
     },
     "tamil_merchant": {
       "ethnicity": "Tamil", "native_tongue": "Tamil",
@@ -175,7 +175,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Hinduism", "Islam"],
       "world_region": "Indian Ocean",
-      "wage_range": [3, 7]
+      "wage_range": [30, 70]
     },
     "gujarati_trader": {
       "ethnicity": "Gujarati", "native_tongue": "Gujarati",
@@ -183,7 +183,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Islam", "Hinduism", "Jainism"],
       "world_region": "Indian Ocean",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     },
     "portuguese_soldier": {
       "ethnicity": "Portuguese", "native_tongue": "Portuguese",
@@ -191,7 +191,7 @@
       "typical_occupations": ["soldier", "gunner", "mercenary"],
       "typical_religions": ["Christianity"],
       "world_region": "Europe",
-      "wage_range": [5, 10]
+      "wage_range": [50, 100]
     },
     "konkani_pilot": {
       "ethnicity": "Konkani", "native_tongue": "Konkani",
@@ -199,7 +199,7 @@
       "typical_occupations": ["navigator", "sailor"],
       "typical_religions": ["Hinduism", "Christianity"],
       "world_region": "Indian Ocean",
-      "wage_range": [3, 6]
+      "wage_range": [30, 60]
     },
     "african_slave_freed": {
       "ethnicity": "East African", "native_tongue": "Swahili",
@@ -207,7 +207,7 @@
       "typical_occupations": ["sailor", "soldier", "diver"],
       "typical_religions": ["Islam", "Christianity"],
       "world_region": "East Africa",
-      "wage_range": [2, 5],
+      "wage_range": [20, 50],
       "was_enslaved": true
     },
     "goan_merchant": {
@@ -216,7 +216,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Hinduism", "Christianity"],
       "world_region": "Indian Ocean",
-      "wage_range": [4, 7]
+      "wage_range": [40, 70]
     },
     "malabar_sailor": {
       "ethnicity": "Nair", "native_tongue": "Malayalam",
@@ -224,7 +224,7 @@
       "typical_occupations": ["sailor", "navigator"],
       "typical_religions": ["Hinduism"],
       "world_region": "Indian Ocean",
-      "wage_range": [2, 5]
+      "wage_range": [20, 50]
     },
     "nair_warrior": {
       "ethnicity": "Nair", "native_tongue": "Malayalam",
@@ -232,7 +232,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Hinduism"],
       "world_region": "Indian Ocean",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     },
     "mapilla_trader": {
       "ethnicity": "Mapilla", "native_tongue": "Malayalam",
@@ -240,7 +240,7 @@
       "typical_occupations": ["merchant", "interpreter", "sailor"],
       "typical_religions": ["Islam"],
       "world_region": "Indian Ocean",
-      "wage_range": [3, 6]
+      "wage_range": [30, 60]
     },
     "arab_navigator": {
       "ethnicity": "Arab", "native_tongue": "Arabic",
@@ -248,7 +248,7 @@
       "typical_occupations": ["navigator", "merchant", "interpreter"],
       "typical_religions": ["Islam"],
       "world_region": "Indian Ocean",
-      "wage_range": [5, 9]
+      "wage_range": [50, 90]
     },
     "persian_navigator": {
       "ethnicity": "Persian", "native_tongue": "Persian",
@@ -256,7 +256,7 @@
       "typical_occupations": ["navigator", "merchant"],
       "typical_religions": ["Islam"],
       "world_region": "Persian Gulf",
-      "wage_range": [5, 9]
+      "wage_range": [50, 90]
     },
     "arab_merchant": {
       "ethnicity": "Arab", "native_tongue": "Arabic",
@@ -264,7 +264,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Islam"],
       "world_region": "Persian Gulf",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     },
     "baluchi_guard": {
       "ethnicity": "Baluchi", "native_tongue": "Baluchi",
@@ -272,7 +272,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Islam"],
       "world_region": "Persian Gulf",
-      "wage_range": [4, 7]
+      "wage_range": [40, 70]
     },
     "turkish_soldier": {
       "ethnicity": "Turkish", "native_tongue": "Turkish",
@@ -280,7 +280,7 @@
       "typical_occupations": ["soldier", "gunner", "mercenary"],
       "typical_religions": ["Islam"],
       "world_region": "Ottoman",
-      "wage_range": [6, 11]
+      "wage_range": [60, 110]
     },
     "chinese_navigator": {
       "ethnicity": "Chinese (Hokkien)", "native_tongue": "Min Chinese",
@@ -288,7 +288,7 @@
       "typical_occupations": ["navigator", "merchant"],
       "typical_religions": ["Buddhism", "Taoism"],
       "world_region": "East Asia",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     },
     "chinese_merchant": {
       "ethnicity": "Chinese (Hokkien)", "native_tongue": "Min Chinese",
@@ -296,7 +296,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Buddhism", "Taoism"],
       "world_region": "East Asia",
-      "wage_range": [4, 9]
+      "wage_range": [40, 90]
     },
     "fujian_sailor": {
       "ethnicity": "Chinese (Fujian)", "native_tongue": "Min Chinese",
@@ -304,7 +304,7 @@
       "typical_occupations": ["sailor", "carpenter"],
       "typical_religions": ["Buddhism", "Taoism"],
       "world_region": "East Asia",
-      "wage_range": [2, 5]
+      "wage_range": [20, 50]
     },
     "hakka_guard": {
       "ethnicity": "Chinese (Hakka)", "native_tongue": "Hakka Chinese",
@@ -312,7 +312,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Buddhism"],
       "world_region": "East Asia",
-      "wage_range": [3, 7]
+      "wage_range": [30, 70]
     },
     "javanese_sailor": {
       "ethnicity": "Javanese", "native_tongue": "Javanese",
@@ -320,7 +320,7 @@
       "typical_occupations": ["sailor", "navigator"],
       "typical_religions": ["Islam", "Hinduism"],
       "world_region": "Southeast Asia",
-      "wage_range": [2, 4]
+      "wage_range": [20, 40]
     },
     "sundanese_warrior": {
       "ethnicity": "Sundanese", "native_tongue": "Sundanese",
@@ -328,7 +328,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Islam"],
       "world_region": "Southeast Asia",
-      "wage_range": [3, 6]
+      "wage_range": [30, 60]
     },
     "chinese_resident": {
       "ethnicity": "Chinese (diaspora)", "native_tongue": "Min Chinese",
@@ -336,7 +336,7 @@
       "typical_occupations": ["merchant", "interpreter", "carpenter"],
       "typical_religions": ["Buddhism", "Taoism"],
       "world_region": "Southeast Asia",
-      "wage_range": [3, 7]
+      "wage_range": [30, 70]
     },
     "bugis_navigator": {
       "ethnicity": "Bugis", "native_tongue": "Bugis",
@@ -344,7 +344,7 @@
       "typical_occupations": ["navigator", "sailor", "former_pirate"],
       "typical_religions": ["Islam"],
       "world_region": "Southeast Asia",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     },
     "orang_laut_sailor": {
       "ethnicity": "Orang Laut", "native_tongue": "Malay",
@@ -352,7 +352,7 @@
       "typical_occupations": ["sailor", "diver", "scout"],
       "typical_religions": ["Animism"],
       "world_region": "Southeast Asia",
-      "wage_range": [1, 3]
+      "wage_range": [10, 30]
     },
     "sea_nomad_guide": {
       "ethnicity": "Orang Laut", "native_tongue": "Malay",
@@ -360,7 +360,7 @@
       "typical_occupations": ["navigator", "scout"],
       "typical_religions": ["Animism"],
       "world_region": "Southeast Asia",
-      "wage_range": [2, 4]
+      "wage_range": [20, 40]
     },
     "patani_sailor": {
       "ethnicity": "Malay (Patani)", "native_tongue": "Malay",
@@ -368,7 +368,7 @@
       "typical_occupations": ["sailor", "merchant"],
       "typical_religions": ["Islam"],
       "world_region": "Southeast Asia",
-      "wage_range": [2, 4]
+      "wage_range": [20, 40]
     },
     "siamese_guard": {
       "ethnicity": "Siamese", "native_tongue": "Siamese",
@@ -376,7 +376,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Buddhism"],
       "world_region": "Southeast Asia",
-      "wage_range": [3, 6]
+      "wage_range": [30, 60]
     },
     "ternatan_warrior": {
       "ethnicity": "Ternatan", "native_tongue": "Ternate",
@@ -384,7 +384,7 @@
       "typical_occupations": ["soldier", "sailor"],
       "typical_religions": ["Islam"],
       "world_region": "Southeast Asia",
-      "wage_range": [2, 4]
+      "wage_range": [20, 40]
     },
     "papuan_tracker": {
       "ethnicity": "Papuan", "native_tongue": "Papuan dialect",
@@ -392,7 +392,7 @@
       "typical_occupations": ["scout", "sailor"],
       "typical_religions": ["Animism"],
       "world_region": "Southeast Asia",
-      "wage_range": [1, 3]
+      "wage_range": [10, 30]
     },
     "yemeni_merchant": {
       "ethnicity": "Yemeni", "native_tongue": "Arabic",
@@ -400,7 +400,7 @@
       "typical_occupations": ["merchant", "interpreter"],
       "typical_religions": ["Islam"],
       "world_region": "Arabian Peninsula",
-      "wage_range": [3, 7]
+      "wage_range": [30, 70]
     },
     "somali_sailor": {
       "ethnicity": "Somali", "native_tongue": "Somali",
@@ -408,7 +408,7 @@
       "typical_occupations": ["sailor", "navigator", "diver"],
       "typical_religions": ["Islam"],
       "world_region": "Arabian Peninsula",
-      "wage_range": [2, 5]
+      "wage_range": [20, 50]
     },
     "hadrami_guard": {
       "ethnicity": "Hadrami", "native_tongue": "Arabic",
@@ -416,7 +416,7 @@
       "typical_occupations": ["soldier", "mercenary"],
       "typical_religions": ["Islam"],
       "world_region": "Arabian Peninsula",
-      "wage_range": [4, 8]
+      "wage_range": [40, 80]
     }
   },
   "weapons": {
@@ -425,133 +425,133 @@
       "damage": 4,
       "description": "Wavy-bladed dagger of great ritual significance. Fast and deadly at close quarters.",
       "description_es": "Daga de hoja ondulada y gran significado ritual. Rápida y letal en el combate cuerpo a cuerpo.",
-      "cost": 12, "availability": ["Malacca Harbor", "Bantam", "Ternate", "Pulau Tioman"]
+      "cost": 120, "availability": ["Malacca Harbor", "Bantam", "Ternate", "Pulau Tioman"]
     },
     "parang": {
       "name": "Parang", "name_es": "Parang", "type": "melee", "origin": "Malay",
       "damage": 3,
       "description": "Heavy chopping blade. Common among Malay sailors and soldiers.",
       "description_es": "Hoja pesada para cortar. Común entre marineros y soldados malayos.",
-      "cost": 5, "availability": ["Malacca Harbor", "Bantam", "Pulau Tioman", "Patani"]
+      "cost": 50, "availability": ["Malacca Harbor", "Bantam", "Pulau Tioman", "Patani"]
     },
     "urumi": {
       "name": "Urumi", "name_es": "Urumi", "type": "melee", "origin": "Indian",
       "damage": 5,
       "description": "Flexible whip-sword from the Malabar Coast. Lethal in practiced hands.",
       "description_es": "Espada-látigo flexible de la Costa de Malabar. Letal en manos expertas.",
-      "cost": 18, "availability": ["Calicut"]
+      "cost": 180, "availability": ["Calicut"]
     },
     "katar": {
       "name": "Katar", "name_es": "Katar", "type": "melee", "origin": "Indian",
       "damage": 4,
       "description": "Push-dagger with transverse grip. Punches through chain.",
       "description_es": "Daga de empuje con empuñadura transversal. Perfora la cota de malla.",
-      "cost": 10, "availability": ["Calicut", "Goa Harbor"]
+      "cost": 100, "availability": ["Calicut", "Goa Harbor"]
     },
     "scimitar": {
       "name": "Scimitar", "name_es": "Cimitarra", "type": "melee", "origin": "Persian/Arab",
       "damage": 6,
       "description": "Curved cavalry blade, used widely around the Persian Gulf and Indian Ocean.",
       "description_es": "Hoja curva de caballería, usada ampliamente en el Golfo Pérsico y el Océano Índico.",
-      "cost": 20, "availability": ["Hormuz", "Calicut"]
+      "cost": 200, "availability": ["Hormuz", "Calicut"]
     },
     "composite_bow": {
       "name": "Composite Bow", "name_es": "Arco Compuesto", "type": "ranged", "origin": "Central Asian/Arab",
       "damage": 5,
       "description": "Powerful recurve bow. High draw weight, fearsome range.",
       "description_es": "Potente arco recurvo. Gran tensión, alcance formidable.",
-      "cost": 22, "availability": ["Hormuz"]
+      "cost": 220, "availability": ["Hormuz"]
     },
     "dao": {
       "name": "Dao (Chinese Saber)", "name_es": "Dao (Sable Chino)", "type": "melee", "origin": "Chinese",
       "damage": 5,
       "description": "Single-edged Chinese blade. Standard weapon of Ming soldiers and sailors.",
       "description_es": "Hoja china de un solo filo. Arma estándar de soldados y marineros Ming.",
-      "cost": 14, "availability": ["Quanzhou", "Bantam"]
+      "cost": 140, "availability": ["Quanzhou", "Bantam"]
     },
     "fire_lance": {
       "name": "Fire Lance", "name_es": "Lanza de Fuego", "type": "ranged", "origin": "Chinese",
       "damage": 7,
       "description": "Precursor to the gun: a bamboo tube packed with gunpowder. Terrifying, unstable.",
       "description_es": "Precursor del arma de fuego: un tubo de bambú cargado con pólvora. Aterrador e inestable.",
-      "cost": 25, "availability": ["Quanzhou"]
+      "cost": 250, "availability": ["Quanzhou"]
     },
     "sword_rapier": {
       "name": "Rapier", "name_es": "Estoque", "type": "melee", "origin": "Portuguese/European",
       "damage": 6,
       "description": "Thrusting sword of European infantry officers. Fast and precise.",
       "description_es": "Espada de estocada de los oficiales de infantería europeos. Rápida y precisa.",
-      "cost": 30, "availability": ["Goa Harbor"]
+      "cost": 300, "availability": ["Goa Harbor"]
     },
     "pike": {
       "name": "Pike", "name_es": "Pica", "type": "melee", "origin": "European",
       "damage": 5,
       "description": "Long spear used in European pike formations. Effective against cavalry and boarding parties.",
       "description_es": "Lanza larga usada en formaciones de piqueros europeos. Efectiva contra caballería y abordajes.",
-      "cost": 8, "availability": ["Goa Harbor"]
+      "cost": 80, "availability": ["Goa Harbor"]
     },
     "arquebus": {
       "name": "Arquebus", "name_es": "Arcabuz", "type": "ranged", "origin": "European",
       "damage": 9,
       "description": "Matchlock firearm. Slow to reload but devastating at range.",
       "description_es": "Arma de fuego de mecha. Lenta en recargar, pero devastadora a distancia.",
-      "cost": 45, "availability": ["Goa Harbor"]
+      "cost": 450, "availability": ["Goa Harbor"]
     },
     "local_arquebus": {
       "name": "Local Arquebus (Bedil)", "name_es": "Arcabuz Local (Bedil)", "type": "ranged", "origin": "Local manufacture",
       "damage": 7,
       "description": "A crude matchlock copy, locally forged by artisans of variable skill. Cheaper but prone to misfires.",
       "description_es": "Una tosca copia de arcabuz, forjada localmente por artesanos de habilidad variable. Más barata, pero propensa a fallar.",
-      "cost": 22, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam", "Ternate"]
+      "cost": 220, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam", "Ternate"]
     },
     "crossbow": {
       "name": "Crossbow", "name_es": "Ballesta", "type": "ranged", "origin": "Chinese/European",
       "damage": 7,
       "description": "Mechanical bow. Slower than a longbow but requires less training.",
       "description_es": "Arco mecánico. Más lenta que el arco largo, pero requiere menos adiestramiento.",
-      "cost": 20, "availability": ["Quanzhou", "Goa Harbor"]
+      "cost": 200, "availability": ["Quanzhou", "Goa Harbor"]
     },
     "spear": {
       "name": "Spear", "name_es": "Lanza", "type": "melee", "origin": "Universal",
       "damage": 4,
       "description": "The universal weapon. Found everywhere from the Malabar Coast to the Spice Islands.",
       "description_es": "El arma universal. Presente en todas partes, desde la Costa de Malabar hasta las Islas de las Especias.",
-      "cost": 4, "availability": ["Malacca Harbor", "Calicut", "Hormuz", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
+      "cost": 40, "availability": ["Malacca Harbor", "Calicut", "Hormuz", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
     },
     "dagger": {
       "name": "Dagger", "name_es": "Daga", "type": "melee", "origin": "Universal",
       "damage": 3,
       "description": "Short blade for close work. Easily concealed.",
       "description_es": "Hoja corta para el combate a distancia corta. Fácil de ocultar.",
-      "cost": 5, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam"]
+      "cost": 50, "availability": ["Malacca Harbor", "Goa Harbor", "Calicut", "Hormuz", "Quanzhou", "Bantam"]
     },
     "bow": {
       "name": "Bow", "name_es": "Arco", "type": "ranged", "origin": "Universal",
       "damage": 4,
       "description": "Simple hunting bow. Effective enough at short range.",
       "description_es": "Arco de caza sencillo. Suficientemente efectivo a corta distancia.",
-      "cost": 7, "availability": ["Calicut", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
+      "cost": 70, "availability": ["Calicut", "Bantam", "Ternate", "Pulau Tioman", "Patani"]
     },
     "blowpipe": {
       "name": "Blowpipe (Sumpitan)", "name_es": "Cerbatana (Sumpitan)", "type": "ranged", "origin": "Southeast Asian",
       "damage": 3,
       "description": "Silent, with poison darts. Unnerving at range. Poisoned darts optional.",
       "description_es": "Silenciosa, con dardos envenenados. Inquietante a distancia. Dardos envenenados opcionales.",
-      "cost": 8, "availability": ["Pulau Tioman", "Ternate"]
+      "cost": 80, "availability": ["Pulau Tioman", "Ternate"]
     },
     "keris_panjang": {
       "name": "Keris Panjang (Long Kris)", "name_es": "Keris Panjang (Kris Largo)", "type": "melee", "origin": "Javanese",
       "damage": 5,
       "description": "An elongated kris. More like a short sword. Reserved for warriors of standing.",
       "description_es": "Un kris alargado. Más parecido a una espada corta. Reservado para guerreros de rango.",
-      "cost": 20, "availability": ["Bantam"]
+      "cost": 200, "availability": ["Bantam"]
     },
     "lance": {
       "name": "Lance", "name_es": "Lanza de Caballería", "type": "melee", "origin": "Arab/Persian",
       "damage": 6,
       "description": "Cavalry weapon, effective in open land engagements. Cumbersome on a ship.",
       "description_es": "Arma de caballería, efectiva en combates terrestres abiertos. Incómoda en un barco.",
-      "cost": 10, "availability": ["Hormuz"]
+      "cost": 100, "availability": ["Hormuz"]
     }
   }
 }

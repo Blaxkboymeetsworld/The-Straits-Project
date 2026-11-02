@@ -144,7 +144,7 @@ class GameState:
 
     def __init__(self, role: str, world: Dict[str, Any]):
         self.role = role
-        self.gold = 1000
+        self.gold = 10000
         self.spices = 0             # legacy field (spices still in cargo too)
         self.ship_health = 100
         self.morale = 50
@@ -219,12 +219,12 @@ class GameState:
 
         # Role adjustments + faction starting rep
         if role == "Portuguese Conquistador":
-            self.gold += 10
+            self.gold += 100
             self.morale += 5
             self.factions.adjust_disposition("estado_da_india", +20)   # 50→70 Friendly
             self.factions.adjust_disposition("hadrami_silsila", -15)   # 45→30 Suspicious
         elif role == "Ottoman Trader":
-            self.gold += 20
+            self.gold += 200
             self.spices += 3
             self.morale += 8
             self.cargo["pepper"] = 2
@@ -232,7 +232,7 @@ class GameState:
             self.factions.adjust_disposition("hadrami_silsila", +20)   # 45→65 Friendly
             self.factions.adjust_disposition("estado_da_india", -40)   # 50→10 Hostile
         elif role == "Chinese Trader":
-            self.gold += 15
+            self.gold += 150
             self.spices += 5
             self.cargo["silk"] = 3
             self.cargo["porcelain"] = 2
@@ -429,7 +429,7 @@ class GameState:
         for inc in incidents:
             print(f"\n  {inc}")
             # Small gold and morale costs for incidents
-            self.gold = max(0, self.gold - random.randint(3, 8))
+            self.gold = max(0, self.gold - random.randint(30, 80))
             self.morale = max(0, self.morale - 2)
 
     def status_text(self) -> str:
@@ -586,7 +586,7 @@ class EventEngine:
 
     def _context_for_event(self, state: GameState) -> Dict[str, Any]:
         hm = harbor_master_for(state.current_location, state.world)
-        fee_table = hm.get("fees", 10) if hm else 10
+        fee_table = hm.get("fees", 100) if hm else 100
         if isinstance(fee_table, dict):
             protagonist_key = state.protagonist
             malacca_fallen = (state.fall_of_malacca_heard or
@@ -594,11 +594,11 @@ class EventEngine:
             if protagonist_key == "portuguese" and malacca_fallen:
                 harbor_fee = fee_table.get(
                     "portuguese_post_fall",
-                    fee_table.get("portuguese", 10)
+                    fee_table.get("portuguese", 100)
                 )
             else:
                 harbor_fee = fee_table.get(
-                    protagonist_key, fee_table.get("default", 10)
+                    protagonist_key, fee_table.get("default", 100)
                 )
         else:
             harbor_fee = fee_table
@@ -678,7 +678,7 @@ class EventEngine:
             print(f"\n  {t('dialogue_denied_entry')}")
             state.morale = max(0, state.morale - 5)
         elif consequence == "higher_fees":
-            fee = track_data.get("fee_penalty", 10)
+            fee = track_data.get("fee_penalty", 100)
             if state.gold >= fee:
                 state.gold -= fee
                 print(f"\n  {t('dialogue_higher_fees').format(fee=fee)}")
@@ -825,7 +825,7 @@ def _restock_provisions(state: GameState, port_data: Dict[str, Any], clear_fn, p
 
     # Remoteness proxy: use travel time from Malacca as a distance indicator
     remote_ports = {"Ternate", "Cham Coast"}
-    cost_per_unit = 3 if port_data["name"] in remote_ports else 2
+    cost_per_unit = 30 if port_data["name"] in remote_ports else 20
 
     max_fill = 100 - state.provisions
     print(f"\n  Current provisions: {state.provisions}/100")
@@ -902,7 +902,7 @@ def _sneak_in_menu(
             state._sneak_in_success = False
             press_enter_fn()
             return
-        cost = 30
+        cost = 300
         if state.gold < cost:
             print(f"\n  You need {cost} gold for the disguise materials.")
             state._sneak_in_success = False
@@ -920,7 +920,7 @@ def _sneak_in_menu(
         press_enter_fn()
 
     elif choice == "2":
-        cost = 50
+        cost = 500
         if state.gold < cost:
             print(f"\n  The bribe requires at least {cost} gold.")
             state._sneak_in_success = False
@@ -970,7 +970,7 @@ def _sneak_in_menu(
             dmg = random.randint(20, 40)
             state.ship_health = max(0, state.ship_health - dmg)
             state.morale = max(0, state.morale - 15)
-            gold_loss = random.randint(20, 60)
+            gold_loss = random.randint(200, 600)
             state.gold = max(0, state.gold - gold_loss)
             print(
                 f"\n  The attempt fails. Ship damage: {dmg}. "
@@ -1815,8 +1815,8 @@ def _apply_baraka_bonus(state: "GameState", amount: int = 2):
 
 def slave_market_menu(state: "GameState", port_data: Dict[str, Any], clear_fn, press_enter_fn):
     """Slave market port actions: free one, keep, free all, purchase."""
-    LOCAL_FREE_COST = 15      # gold to free one slave at market rate
-    PURCHASE_COST   = 15      # average cost per slave purchased
+    LOCAL_FREE_COST = 150     # gold to free one slave at market rate
+    PURCHASE_COST   = 150     # average cost per slave purchased
 
     total_aboard = state.slave_cargo + state.slaves_aboard
 
@@ -1906,14 +1906,14 @@ def handle_prisoner_choice(state: "GameState", captive_type: str = "soldier", cl
     Called after a sea event with captured enemies. Offers ransom/enslave/release.
     captive_type: 'soldier', 'officer', 'noble'
     """
-    RANSOM_VALUES = {"soldier": (10, 20), "officer": (40, 80), "noble": (150, 300)}
+    RANSOM_VALUES = {"soldier": (100, 200), "officer": (400, 800), "noble": (1500, 3000)}
 
     if clear_fn:
         clear_fn()
     print("═" * 52)
     print(f"  {t('prisoner_action_title')}")
     print("═" * 52)
-    ransom_lo, ransom_hi = RANSOM_VALUES.get(captive_type, (10, 20))
+    ransom_lo, ransom_hi = RANSOM_VALUES.get(captive_type, (100, 200))
 
     print(f"\n  [{t('prisoner_take')}] ({ransom_lo}–{ransom_hi}g at next port)  → [1]")
     print(f"  [{t('prisoner_enslave')}]  → [2]")
@@ -2246,7 +2246,7 @@ def ship_repair_menu(state: GameState, port_data: Dict[str, Any], clear_fn, pres
         return
 
     # Cost scales with damage and whether player has a carpenter
-    base_cost = damage * 2
+    base_cost = damage * 20
     if state.crew.has_occupation("carpenter"):
         effective_cost = int(base_cost * 0.5)
         print(f"\n  Your ship's carpenter will lead the work. Reduced cost.")
@@ -2304,7 +2304,7 @@ def tavern_menu(state: GameState, port_data: Dict[str, Any], engine: EventEngine
         "  than any ship in places like this.\n"
     )
 
-    print("  [1] Buy a round for the crew (Cost: 5 gold, +8 morale)")
+    print("  [1] Buy a round for the crew (Cost: 50 gold, +8 morale)")
     print("  [2] Listen for rumors (free)")
     print("  [3] Ask about a specific port or route")
     print("  [4] Trigger a random harbor event (stay a while)")
@@ -2313,8 +2313,8 @@ def tavern_menu(state: GameState, port_data: Dict[str, Any], engine: EventEngine
     choice = get_menu_choice({"1", "2", "3", "4", "Q"})
 
     if choice == "1":
-        if state.gold >= 5:
-            state.gold -= 5
+        if state.gold >= 50:
+            state.gold -= 50
             state.morale = min(100, state.morale + 8)
             print("\n  The crew raises their cups. Morale +8.")
         else:
@@ -2852,15 +2852,15 @@ def choose_role() -> str:
     print("═" * 52)
     print(f"\n  {t('role_choose')}\n")
     print(f"  [1] {t('role_portuguese')}")
-    print("       +10 gold, +5 morale. Starts with rapier.")
+    print("       +100 gold, +5 morale. Starts with rapier.")
     print("       Carries the weight of the Estado da India.")
     print()
     print(f"  [2] {t('role_ottoman')}")
-    print("       +20 gold, +3 spices, +8 morale. Istanbul connections, Levantine capital.")
+    print("       +200 gold, +3 spices, +8 morale. Istanbul connections, Levantine capital.")
     print("       Welcomed in Islamic ports. Estado da India views you with suspicion.")
     print()
     print(f"  [3] {t('role_chinese')}")
-    print("       +15 gold, silk & porcelain cargo. Quanzhou contacts.")
+    print("       +150 gold, silk & porcelain cargo. Quanzhou contacts.")
     print("       The diaspora knows your name before you arrive.")
     print()
     mapping = {"1": "Portuguese Conquistador", "2": "Ottoman Trader", "3": "Chinese Trader"}

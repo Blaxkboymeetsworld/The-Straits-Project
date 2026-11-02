@@ -60,7 +60,7 @@
   "slave_market_free_one": "Liberar a uno ({cost} oro al precio local)",
   "slave_market_keep": "Mantener el número actual",
   "slave_market_free_all": "Liberar a todos ({cost} oro en total)",
-  "slave_market_purchase": "Comprar (10–20 oro cada uno, registrado)",
+  "slave_market_purchase": "Comprar (150 oro cada uno, registrado)",
   "slave_market_freed": "{name} es liberado. Baja del barco sin mirar atrás.",
   "slave_market_freed_all": "Los {count} son liberados. La bodega queda vacía.",
   "slave_market_baraka_approves": "Baraka observa esto. No dice nada. Pero su porte cambia.",

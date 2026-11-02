@@ -446,7 +446,7 @@ class FactionManager:
             for fid in ("malacca_sultanate", "ming_dynasty", "sultanate_of_bantam")
             if self.get_disposition(fid) >= 70
         )
-        if trading_high >= 2 and state.gold >= 500:
+        if trading_high >= 2 and state.gold >= 50000:
             return "ending_merchant_prince"
 
         return None

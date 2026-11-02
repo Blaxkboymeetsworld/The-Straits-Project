@@ -369,7 +369,7 @@ def _prisoner_prompt(
         return
 
     tier = opponent.get("prisoner_tier", 1)  # 1=common, 2=officer, 3=noble
-    ransom_value = {1: 20, 2: 80, 3: 250}.get(tier, 20)
+    ransom_value = {1: 200, 2: 800, 3: 2500}.get(tier, 200)
 
     print("\n  Some of the crew surrender. You have prisoners.")
     print(f"\n  [R] Hold for ransom  ({ransom_value} gold, {random.randint(3,8)} days wait)")

@@ -531,7 +531,7 @@ def recruitment_menu(
         for i, r in enumerate(recruits, 1):
             print(f"  [{i}] {r.short_summary()}")
 
-        print("  [R] Refresh (pay 2 gold to see new faces)")
+        print("  [R] Refresh (pay 20 gold to see new faces)")
         print("  [Q] Leave the docks\n")
 
         choice = input("  Hire [1–4], R, or Q: ").strip().upper()
@@ -539,8 +539,8 @@ def recruitment_menu(
         if choice == "Q":
             break
         elif choice == "R":
-            if state.gold >= 2:
-                state.gold -= 2
+            if state.gold >= 20:
+                state.gold -= 20
                 recruits = present_recruits(pool_keys, crew_data, num_available=4)
                 print("\n  (You buy a round and word spreads — new faces appear.)")
             else:

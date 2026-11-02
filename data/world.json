@@ -10,7 +10,7 @@
       "ruler": { "name": "Tun Mutahir", "title": "Bendahara", "faction": "Malacca Sultanate", "disposition": 50 },
       "merchant_guild": "Malay-Gujarat Consortium",
       "religious_figure": { "name": "Maulana Yusuf", "title": "Kadi", "religion": "Islam" },
-      "harbor_master": { "name": "Hang Kassim", "fees": 12 },
+      "harbor_master": { "name": "Hang Kassim", "fees": 120 },
       "slave_market": true,
       "slave_notes": "Primarily war captives from the interior and Javanese pirates' hauls.",
       "slave_notes_es": "Principalmente cautivos de guerra del interior y botín de piratas javaneses.",
@@ -18,10 +18,10 @@
       "recruitable_pool": ["malay_sailor", "javanese_fighter", "tamil_merchant", "gujarati_trader"],
       "weapons_available": ["kris", "parang", "local_arquebus", "spear"],
       "base_prices": {
-        "pepper": 8, "tin": 5, "camphor": 15, "cloves": 20, "nutmeg": 25,
-        "silk": 30, "cotton": 6, "rice": 2, "opium": 40, "porcelain": 18,
-        "slaves": 35, "salt": 3, "gold_dust": 60, "iron": 7, "silver": 60,
-        "mace": 30
+        "pepper": 80, "tin": 50, "camphor": 150, "cloves": 200, "nutmeg": 250,
+        "silk": 300, "cotton": 60, "rice": 20, "opium": 400, "porcelain": 180,
+        "slaves": 350, "salt": 30, "gold_dust": 600, "iron": 70, "silver": 600,
+        "mace": 300
       }
     },
     {
@@ -46,7 +46,7 @@
         "title": "Chaplain",
         "religion": "Christianity"
       },
-      "harbor_master": { "name": "Rodrigo Rabelo", "fees": 20 },
+      "harbor_master": { "name": "Rodrigo Rabelo", "fees": 200 },
       "minor_factions": [
         {
           "id": "konkani_merchant_network",
@@ -77,9 +77,9 @@
       "recruitable_pool": ["portuguese_soldier", "konkani_pilot", "african_slave_freed", "goan_merchant"],
       "weapons_available": ["arquebus", "sword_rapier", "pike", "crossbow", "local_arquebus"],
       "base_prices": {
-        "pepper": 10, "tin": 6, "camphor": 12, "cloves": 18, "nutmeg": 22,
-        "silk": 28, "cotton": 5, "rice": 3, "opium": 38, "porcelain": 20,
-        "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8, "silver": 50
+        "pepper": 100, "tin": 60, "camphor": 120, "cloves": 180, "nutmeg": 220,
+        "silk": 280, "cotton": 50, "rice": 30, "opium": 380, "porcelain": 200,
+        "slaves": 400, "salt": 40, "gold_dust": 550, "iron": 80, "silver": 500
       },
       "ibu_malam_trigger": "year_3_4_goa",
       "temporal_notes": {
@@ -100,17 +100,17 @@
       "ruler": { "name": "Zamorin Mana Vikraman", "title": "Zamorin", "faction": "Kingdom of Calicut", "disposition": 40 },
       "merchant_guild": "Mapilla Merchant Council",
       "religious_figure": { "name": "Shaykh Ibrahim al-Malibari", "title": "Qadi", "religion": "Islam" },
-      "harbor_master": { "name": "Koya Moopan", "fees": 10 },
+      "harbor_master": { "name": "Koya Moopan", "fees": 100 },
       "slave_market": false,
       "slave_notes": null,
       "specialty_goods": ["pepper", "ginger", "cardamom"],
       "recruitable_pool": ["malabar_sailor", "nair_warrior", "mapilla_trader", "arab_navigator"],
       "weapons_available": ["urumi", "katar", "bow", "spear", "local_arquebus"],
       "base_prices": {
-        "pepper": 6, "tin": 7, "camphor": 14, "cloves": 22, "nutmeg": 28,
-        "silk": 32, "cotton": 4, "rice": 2, "opium": 42, "porcelain": 22,
-        "slaves": 0, "salt": 3, "gold_dust": 58, "iron": 6, "silver": 50,
-        "mace": 40
+        "pepper": 60, "tin": 70, "camphor": 140, "cloves": 220, "nutmeg": 280,
+        "silk": 320, "cotton": 40, "rice": 20, "opium": 420, "porcelain": 220,
+        "slaves": 0, "salt": 30, "gold_dust": 580, "iron": 60, "silver": 500,
+        "mace": 400
       }
     },
     {
@@ -123,7 +123,7 @@
       "ruler": { "name": "Shah Salghur", "title": "Shah", "faction": "Kingdom of Hormuz", "disposition": 50 },
       "merchant_guild": "Hormuzian Merchant Brotherhood",
       "religious_figure": { "name": "Mawlana Rashid al-Din", "title": "Shaykh al-Islam", "religion": "Islam" },
-      "harbor_master": { "name": "Abbas ibn Yusuf", "fees": 18 },
+      "harbor_master": { "name": "Abbas ibn Yusuf", "fees": 180 },
       "hadrami_figure": {
         "id": "ibn_majid_al_aden",
         "name": "Ahmad ibn Majid al-Aden",
@@ -147,10 +147,10 @@
       "recruitable_pool": ["persian_navigator", "arab_merchant", "baluchi_guard", "turkish_soldier"],
       "weapons_available": ["scimitar", "composite_bow", "dagger", "local_arquebus", "lance"],
       "base_prices": {
-        "pepper": 14, "tin": 9, "camphor": 18, "cloves": 30, "nutmeg": 35,
-        "silk": 22, "cotton": 8, "rice": 4, "opium": 30, "porcelain": 25,
-        "slaves": 45, "salt": 5, "gold_dust": 50, "iron": 10, "horses": 60,
-        "silver": 42
+        "pepper": 140, "tin": 90, "camphor": 180, "cloves": 300, "nutmeg": 350,
+        "silk": 220, "cotton": 80, "rice": 40, "opium": 300, "porcelain": 250,
+        "slaves": 450, "salt": 50, "gold_dust": 500, "iron": 100, "horses": 600,
+        "silver": 420
       }
     },
     {
@@ -162,16 +162,16 @@
       "ruler": { "name": "Prefect Chen Bao", "title": "Zhizhou", "faction": "Ming Dynasty", "disposition": 45 },
       "merchant_guild": "Quanzhou Maritime Guild",
       "religious_figure": { "name": "Abbot Mingzhi", "title": "Buddhist Abbot", "religion": "Buddhism" },
-      "harbor_master": { "name": "Wu Liangchen", "fees": 8 },
+      "harbor_master": { "name": "Wu Liangchen", "fees": 80 },
       "slave_market": false,
       "slave_notes": null,
       "specialty_goods": ["silk", "porcelain", "tea"],
       "recruitable_pool": ["chinese_navigator", "chinese_merchant", "fujian_sailor", "hakka_guard"],
       "weapons_available": ["dao", "crossbow", "spear", "fire_lance", "local_arquebus"],
       "base_prices": {
-        "pepper": 12, "tin": 4, "camphor": 10, "cloves": 16, "nutmeg": 20,
-        "silk": 12, "cotton": 3, "rice": 1, "opium": 35, "porcelain": 8,
-        "slaves": 0, "salt": 2, "gold_dust": 65, "iron": 5, "silver": 90
+        "pepper": 120, "tin": 40, "camphor": 100, "cloves": 160, "nutmeg": 200,
+        "silk": 120, "cotton": 30, "rice": 10, "opium": 350, "porcelain": 80,
+        "slaves": 0, "salt": 20, "gold_dust": 650, "iron": 50, "silver": 900
       }
     },
     {
@@ -183,7 +183,7 @@
       "ruler": { "name": "Sultan Hasanuddin", "title": "Sultan", "faction": "Sultanate of Bantam", "disposition": 50 },
       "merchant_guild": "Javanese Pepper Traders",
       "religious_figure": { "name": "Maulana Hasanuddin", "title": "Imam", "religion": "Islam" },
-      "harbor_master": { "name": "Raden Aria", "fees": 9 },
+      "harbor_master": { "name": "Raden Aria", "fees": 90 },
       "slave_market": true,
       "slave_notes": "Primarily captives from inter-polity warfare in the archipelago.",
       "slave_notes_es": "Principalmente cautivos de la guerra interestatal en el archipiélago.",
@@ -191,9 +191,9 @@
       "recruitable_pool": ["javanese_sailor", "sundanese_warrior", "chinese_resident", "bugis_navigator"],
       "weapons_available": ["kris", "keris_panjang", "bow", "spear", "local_arquebus"],
       "base_prices": {
-        "pepper": 5, "tin": 6, "camphor": 13, "cloves": 19, "nutmeg": 24,
-        "silk": 29, "cotton": 5, "rice": 1, "opium": 38, "porcelain": 16,
-        "slaves": 30, "salt": 3, "gold_dust": 62, "iron": 7, "silver": 62
+        "pepper": 50, "tin": 60, "camphor": 130, "cloves": 190, "nutmeg": 240,
+        "silk": 290, "cotton": 50, "rice": 10, "opium": 380, "porcelain": 160,
+        "slaves": 300, "salt": 30, "gold_dust": 620, "iron": 70, "silver": 620
       }
     },
     {
@@ -211,7 +211,7 @@
       },
       "merchant_guild": "Karimi Spice Brotherhood",
       "religious_figure": { "name": "Shaykh Abd al-Qadir al-Hadhrami", "title": "Mufti", "religion": "Islam" },
-      "harbor_master": { "name": "Ibrahim al-Yamani", "fees": 14 },
+      "harbor_master": { "name": "Ibrahim al-Yamani", "fees": 140 },
       "slave_market": true,
       "slave_notes": "East African and Horn of Africa captives traded through the dhow networks.",
       "slave_notes_es": "Cautivos del África Oriental y el Cuerno de África comerciados a través de las redes de dhows.",
@@ -241,10 +241,10 @@
       "recruitable_pool": ["arab_navigator", "yemeni_merchant", "somali_sailor", "hadrami_guard"],
       "weapons_available": ["scimitar", "composite_bow", "dagger", "local_arquebus"],
       "base_prices": {
-        "pepper": 16, "tin": 10, "camphor": 20, "cloves": 32, "nutmeg": 38,
-        "silk": 26, "cotton": 9, "rice": 5, "opium": 28, "porcelain": 30,
-        "frankincense": 18, "coffee": 12, "aloes_wood": 45, "slaves": 50, "salt": 6,
-        "gold_dust": 48, "iron": 11, "horses": 70, "silver": 40, "mace": 50
+        "pepper": 160, "tin": 100, "camphor": 200, "cloves": 320, "nutmeg": 380,
+        "silk": 260, "cotton": 90, "rice": 50, "opium": 280, "porcelain": 300,
+        "frankincense": 180, "coffee": 120, "aloes_wood": 450, "slaves": 500, "salt": 60,
+        "gold_dust": 480, "iron": 110, "horses": 700, "silver": 400, "mace": 500
       }
     },
     {
@@ -259,11 +259,11 @@
       "population_mix": ["Acehnese Malay", "Tamil Muslim merchant community",
                          "Gujarati traders", "Arab scholars"],
       "trade_goods": [
-        { "name": "pepper", "base_price": 40, "availability": "common" },
-        { "name": "camphor", "base_price": 90, "availability": "uncommon" },
-        { "name": "benzoin resin", "base_price": 55, "availability": "uncommon" },
-        { "name": "gold dust", "base_price": 120, "availability": "rare" },
-        { "name": "rice", "base_price": 9, "availability": "common" }
+        { "name": "pepper", "base_price": 400, "availability": "common" },
+        { "name": "camphor", "base_price": 900, "availability": "uncommon" },
+        { "name": "benzoin resin", "base_price": 550, "availability": "uncommon" },
+        { "name": "gold dust", "base_price": 1200, "availability": "rare" },
+        { "name": "rice", "base_price": 90, "availability": "common" }
       ],
       "harbor_master": {
         "name": "Tengku Hasan",
@@ -271,20 +271,20 @@
         "disposition": "calculating",
         "npc_id": "harbor_aceh",
         "fees": {
-          "portuguese": 20,
-          "portuguese_post_fall": 45,
-          "ottoman": 10,
-          "chinese": 10,
-          "default": 15
+          "portuguese": 200,
+          "portuguese_post_fall": 450,
+          "ottoman": 100,
+          "chinese": 100,
+          "default": 150
         }
       },
       "specialty_goods": ["pepper", "camphor", "benzoin resin", "gold dust"],
       "base_prices": {
-        "pepper": 4,
-        "camphor": 8,
-        "benzoin": 55,
-        "gold_dust": 45,
-        "rice": 4
+        "pepper": 40,
+        "camphor": 80,
+        "benzoin": 550,
+        "gold_dust": 450,
+        "rice": 40
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -304,30 +304,30 @@
                          "Chinese merchant diaspora", "Japanese and Ryukyuan traders",
                          "Portuguese factors (post-Year 1)"],
       "trade_goods": [
-        { "name": "rice", "base_price": 8, "availability": "common" },
-        { "name": "elephant", "base_price": 400, "availability": "rare" },
-        { "name": "white elephant", "base_price": 1500, "availability": "legendary" },
-        { "name": "sapanwood", "base_price": 35, "availability": "common" },
-        { "name": "tin", "base_price": 28, "availability": "uncommon" },
-        { "name": "Chinese porcelain (transit)", "base_price": 70, "availability": "uncommon" },
-        { "name": "Siamese lacquerware", "base_price": 45, "availability": "uncommon" }
+        { "name": "rice", "base_price": 80, "availability": "common" },
+        { "name": "elephant", "base_price": 4000, "availability": "rare" },
+        { "name": "white elephant", "base_price": 15000, "availability": "legendary" },
+        { "name": "sapanwood", "base_price": 350, "availability": "common" },
+        { "name": "tin", "base_price": 280, "availability": "uncommon" },
+        { "name": "Chinese porcelain (transit)", "base_price": 700, "availability": "uncommon" },
+        { "name": "Siamese lacquerware", "base_price": 450, "availability": "uncommon" }
       ],
       "harbor_master": {
         "name": "Khun Wiset",
         "title": "Krom Tha (Harbor Superintendent)",
         "disposition": "professionally neutral",
         "npc_id": "harbor_ayutthaya",
-        "fees": 12
+        "fees": 120
       },
       "specialty_goods": ["elephant", "sapanwood", "Siamese lacquerware", "white elephant"],
       "base_prices": {
-        "rice": 1,
-        "elephant": 400,
-        "white_elephant": 1500,
-        "sapanwood": 35,
-        "tin": 6,
-        "porcelain": 22,
-        "lacquerware": 45
+        "rice": 10,
+        "elephant": 4000,
+        "white_elephant": 15000,
+        "sapanwood": 350,
+        "tin": 60,
+        "porcelain": 220,
+        "lacquerware": 450
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -346,28 +346,28 @@
       "population_mix": ["Mon Buddhist population", "Burmese traders",
                          "Tamil and Bengali merchants", "small Portuguese factor presence (post-Year 2)"],
       "trade_goods": [
-        { "name": "teak timber", "base_price": 30, "availability": "common" },
-        { "name": "rubies", "base_price": 200, "availability": "rare" },
-        { "name": "war elephant", "base_price": 500, "availability": "rare" },
-        { "name": "lac dye", "base_price": 40, "availability": "uncommon" },
-        { "name": "musk", "base_price": 85, "availability": "uncommon" },
-        { "name": "cotton cloth (Bengal transit)", "base_price": 22, "availability": "common" }
+        { "name": "teak timber", "base_price": 300, "availability": "common" },
+        { "name": "rubies", "base_price": 2000, "availability": "rare" },
+        { "name": "war elephant", "base_price": 5000, "availability": "rare" },
+        { "name": "lac dye", "base_price": 400, "availability": "uncommon" },
+        { "name": "musk", "base_price": 850, "availability": "uncommon" },
+        { "name": "cotton cloth (Bengal transit)", "base_price": 220, "availability": "common" }
       ],
       "harbor_master": {
         "name": "Min Kyaw Thu",
         "title": "Harbor Master of Pegu",
         "disposition": "formal and Buddhist in bearing",
         "npc_id": "harbor_pegu",
-        "fees": 12
+        "fees": 120
       },
       "specialty_goods": ["teak timber", "rubies", "war elephant", "lac dye", "musk"],
       "base_prices": {
-        "teak": 30,
-        "rubies": 200,
-        "war_elephant": 500,
-        "lac_dye": 40,
-        "musk": 85,
-        "cotton": 5
+        "teak": 300,
+        "rubies": 2000,
+        "war_elephant": 5000,
+        "lac_dye": 400,
+        "musk": 850,
+        "cotton": 50
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -387,8 +387,8 @@
       "recruitable_pool": ["orang_laut_sailor", "sea_nomad_guide"],
       "weapons_available": ["spear", "blowpipe", "parang"],
       "base_prices": {
-        "pepper": 10, "tin": 8, "camphor": 11, "rice": 3, "dried_fish": 1,
-        "turtle_shell": 20
+        "pepper": 100, "tin": 80, "camphor": 110, "rice": 30, "dried_fish": 10,
+        "turtle_shell": 200
       }
     },
     {
@@ -402,8 +402,8 @@
       "recruitable_pool": ["patani_sailor", "siamese_guard"],
       "weapons_available": ["spear", "parang", "bow"],
       "base_prices": {
-        "pepper": 9, "tin": 4, "camphor": 14, "rice": 2, "ivory": 55,
-        "songket": 25
+        "pepper": 90, "tin": 40, "camphor": 140, "rice": 20, "ivory": 550,
+        "songket": 250
       }
     },
     {
@@ -419,7 +419,7 @@
       "recruitable_pool": ["ternatan_warrior", "papuan_tracker"],
       "weapons_available": ["spear", "bow", "kris", "local_arquebus"],
       "base_prices": {
-        "cloves": 4, "nutmeg": 6, "rice": 4, "slaves": 20, "mace": 8
+        "cloves": 40, "nutmeg": 60, "rice": 40, "slaves": 200, "mace": 80
       }
     },
     {
@@ -434,10 +434,10 @@
       "population_mix": ["Cham Hindu", "Cham Muslim",
                          "Vietnamese margin settlers", "passing Chinese junks"],
       "trade_goods": [
-        { "name": "Cham ikat cloth", "base_price": 30, "availability": "common" },
-        { "name": "aloe wood", "base_price": 65, "availability": "uncommon" },
-        { "name": "cinnamon bark", "base_price": 25, "availability": "uncommon" },
-        { "name": "rattan", "base_price": 6, "availability": "common" }
+        { "name": "Cham ikat cloth", "base_price": 300, "availability": "common" },
+        { "name": "aloe wood", "base_price": 650, "availability": "uncommon" },
+        { "name": "cinnamon bark", "base_price": 250, "availability": "uncommon" },
+        { "name": "rattan", "base_price": 60, "availability": "common" }
       ],
       "harbor_master": {
         "name": "Inrasara",
@@ -448,11 +448,11 @@
       },
       "specialty_goods": ["Cham ikat cloth", "aloe wood"],
       "base_prices": {
-        "cham_ikat": 30,
-        "aloes_wood": 30,
-        "cinnamon": 25,
-        "rattan": 6,
-        "deer_hide": 6
+        "cham_ikat": 300,
+        "aloes_wood": 300,
+        "cinnamon": 250,
+        "rattan": 60,
+        "deer_hide": 60
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -471,11 +471,11 @@
       "population_mix": ["Javanese Muslim", "Arab scholar-merchant families",
                          "Gujarati diaspora", "Chinese Muslim traders (Peranakan)"],
       "trade_goods": [
-        { "name": "Javanese batik cloth", "base_price": 35, "availability": "common" },
-        { "name": "Javanese kris", "base_price": 80, "availability": "uncommon" },
-        { "name": "rice", "base_price": 8, "availability": "common" },
-        { "name": "dried fish", "base_price": 6, "availability": "common" },
-        { "name": "Javanese gamelan bronze (small pieces)", "base_price": 50,
+        { "name": "Javanese batik cloth", "base_price": 350, "availability": "common" },
+        { "name": "Javanese kris", "base_price": 800, "availability": "uncommon" },
+        { "name": "rice", "base_price": 80, "availability": "common" },
+        { "name": "dried fish", "base_price": 60, "availability": "common" },
+        { "name": "Javanese gamelan bronze (small pieces)", "base_price": 500,
           "availability": "rare" }
       ],
       "harbor_master": {
@@ -487,11 +487,11 @@
       },
       "specialty_goods": ["Javanese batik cloth", "Javanese kris", "Javanese gamelan bronze (small pieces)"],
       "base_prices": {
-        "batik": 35,
-        "kris": 80,
-        "rice": 1,
-        "dried_fish": 6,
-        "gamelan_bronze": 50
+        "batik": 350,
+        "kris": 800,
+        "rice": 10,
+        "dried_fish": 60,
+        "gamelan_bronze": 500
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -510,25 +510,25 @@
       "population_mix": ["Malay fishing and farming population",
                          "Tamil Hindu traders", "passing Gujarati merchants"],
       "trade_goods": [
-        { "name": "tin", "base_price": 25, "availability": "common" },
-        { "name": "rice", "base_price": 9, "availability": "common" },
-        { "name": "beeswax", "base_price": 20, "availability": "uncommon" },
-        { "name": "elephant tusks", "base_price": 150, "availability": "rare" }
+        { "name": "tin", "base_price": 250, "availability": "common" },
+        { "name": "rice", "base_price": 90, "availability": "common" },
+        { "name": "beeswax", "base_price": 200, "availability": "uncommon" },
+        { "name": "elephant tusks", "base_price": 1500, "availability": "rare" }
       ],
       "harbor_master": {
         "name": "Wan Ibrahim",
         "title": "Shahbandar",
         "disposition": "tired",
         "npc_id": "harbor_kedah",
-        "fees": 3
+        "fees": 30
       },
       "specialty_goods": ["tin", "elephant tusks"],
       "base_prices": {
-        "tin": 3,
-        "rice": 3,
-        "beeswax": 20,
-        "ivory": 55,
-        "deer_hide": 8
+        "tin": 30,
+        "rice": 30,
+        "beeswax": 200,
+        "ivory": 550,
+        "deer_hide": 80
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -548,12 +548,12 @@
                          "Papuan traders from New Guinea coast",
                          "Javanese Muslim merchants"],
       "trade_goods": [
-        { "name": "cloves", "base_price": 55, "availability": "common" },
-        { "name": "nutmeg (transit from Banda)", "base_price": 70,
+        { "name": "cloves", "base_price": 550, "availability": "common" },
+        { "name": "nutmeg (transit from Banda)", "base_price": 700,
           "availability": "uncommon" },
-        { "name": "bird of paradise feathers", "base_price": 95,
+        { "name": "bird of paradise feathers", "base_price": 950,
           "availability": "rare" },
-        { "name": "sago", "base_price": 5, "availability": "common" }
+        { "name": "sago", "base_price": 50, "availability": "common" }
       ],
       "harbor_master": {
         "name": "Kaicil Baab",
@@ -564,10 +564,10 @@
       },
       "specialty_goods": ["cloves", "bird of paradise feathers"],
       "base_prices": {
-        "cloves": 4,
-        "nutmeg": 12,
-        "bird_of_paradise": 95,
-        "sago": 5
+        "cloves": 40,
+        "nutmeg": 120,
+        "bird_of_paradise": 950,
+        "sago": 50
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -587,11 +587,11 @@
                          "Javanese Muslim traders",
                          "passing Maluku spice traders"],
       "trade_goods": [
-        { "name": "trepang (sea cucumber)", "base_price": 20, "availability": "common" },
-        { "name": "tortoiseshell", "base_price": 45, "availability": "uncommon" },
-        { "name": "war captives", "base_price": 65, "availability": "uncommon",
+        { "name": "trepang (sea cucumber)", "base_price": 200, "availability": "common" },
+        { "name": "tortoiseshell", "base_price": 450, "availability": "uncommon" },
+        { "name": "war captives", "base_price": 650, "availability": "uncommon",
           "cargo_type": "slave", "origin_region": "Sulawesi" },
-        { "name": "Bugis cloth", "base_price": 28, "availability": "common" }
+        { "name": "Bugis cloth", "base_price": 280, "availability": "common" }
       ],
       "harbor_master": {
         "name": "Daeng Manaba",
@@ -603,9 +603,9 @@
       "specialty_goods": ["tortoiseshell"],
       "slave_market": true,
       "base_prices": {
-        "turtle_shell": 18,
-        "bugis_cloth": 28,
-        "slaves": 65
+        "turtle_shell": 180,
+        "bugis_cloth": 280,
+        "slaves": 650
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -624,10 +624,10 @@
       "population_mix": ["Balinese Hindu", "Javanese refugee nobility",
                          "small Bugis trader presence"],
       "trade_goods": [
-        { "name": "ritual offerings cloth", "base_price": 18, "availability": "common" },
-        { "name": "lontar manuscript", "base_price": 55, "availability": "rare" },
-        { "name": "dried salt fish", "base_price": 7, "availability": "common" },
-        { "name": "fighting cock", "base_price": 22, "availability": "uncommon" }
+        { "name": "ritual offerings cloth", "base_price": 180, "availability": "common" },
+        { "name": "lontar manuscript", "base_price": 550, "availability": "rare" },
+        { "name": "dried salt fish", "base_price": 70, "availability": "common" },
+        { "name": "fighting cock", "base_price": 220, "availability": "uncommon" }
       ],
       "harbor_master": {
         "name": "I Wayan Sudra",
@@ -638,10 +638,10 @@
       },
       "specialty_goods": ["ritual offerings cloth", "lontar manuscript", "fighting cock"],
       "base_prices": {
-        "ritual_cloth": 18,
-        "lontar": 55,
-        "dried_fish": 7,
-        "fighting_cock": 22
+        "ritual_cloth": 180,
+        "lontar": 550,
+        "dried_fish": 70,
+        "fighting_cock": 220
       },
       "recruitable_pool": [],
       "weapons_available": [],

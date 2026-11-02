@@ -98,13 +98,13 @@ print("\n── ITEM 3: harbor_master_for() — at least two ports ──")
 try:
     world = load_world()
     checks = [
-        ("Malacca Harbor", "Hang Kassim",    12),
-        ("Bantam",         "Raden Aria",      9),
-        ("Hormuz",         "Abbas ibn Yusuf", 18),
-        ("Aden Harbor",    "Ibrahim al-Yamani", 14),
-        ("Goa Harbor",     "Rodrigo Rabelo",  20),
-        ("Calicut",        "Koya Moopan",     10),
-        ("Quanzhou",       "Wu Liangchen",     8),
+        ("Malacca Harbor", "Hang Kassim",    120),
+        ("Bantam",         "Raden Aria",      90),
+        ("Hormuz",         "Abbas ibn Yusuf", 180),
+        ("Aden Harbor",    "Ibrahim al-Yamani", 140),
+        ("Goa Harbor",     "Rodrigo Rabelo",  200),
+        ("Calicut",        "Koya Moopan",     100),
+        ("Quanzhou",       "Wu Liangchen",     80),
     ]
     errors = []
     for port, want_name, want_fee in checks:
