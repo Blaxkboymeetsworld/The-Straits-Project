@@ -20,7 +20,8 @@
       "base_prices": {
         "pepper": 8, "tin": 5, "camphor": 15, "cloves": 20, "nutmeg": 25,
         "silk": 30, "cotton": 6, "rice": 2, "opium": 40, "porcelain": 18,
-        "slaves": 35, "salt": 3, "gold_dust": 60, "iron": 7
+        "slaves": 35, "salt": 3, "gold_dust": 60, "iron": 7, "silver": 60,
+        "mace": 30
       }
     },
     {
@@ -78,7 +79,7 @@
       "base_prices": {
         "pepper": 10, "tin": 6, "camphor": 12, "cloves": 18, "nutmeg": 22,
         "silk": 28, "cotton": 5, "rice": 3, "opium": 38, "porcelain": 20,
-        "horses": 80, "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8
+        "slaves": 40, "salt": 4, "gold_dust": 55, "iron": 8, "silver": 50
       },
       "ibu_malam_trigger": "year_3_4_goa",
       "temporal_notes": {
@@ -108,7 +109,8 @@
       "base_prices": {
         "pepper": 6, "tin": 7, "camphor": 14, "cloves": 22, "nutmeg": 28,
         "silk": 32, "cotton": 4, "rice": 2, "opium": 42, "porcelain": 22,
-        "slaves": 0, "salt": 3, "gold_dust": 58, "iron": 6
+        "slaves": 0, "salt": 3, "gold_dust": 58, "iron": 6, "silver": 50,
+        "mace": 40
       }
     },
     {
@@ -147,7 +149,8 @@
       "base_prices": {
         "pepper": 14, "tin": 9, "camphor": 18, "cloves": 30, "nutmeg": 35,
         "silk": 22, "cotton": 8, "rice": 4, "opium": 30, "porcelain": 25,
-        "slaves": 45, "salt": 5, "gold_dust": 50, "iron": 10
+        "slaves": 45, "salt": 5, "gold_dust": 50, "iron": 10, "horses": 60,
+        "silver": 42
       }
     },
     {
@@ -168,7 +171,7 @@
       "base_prices": {
         "pepper": 12, "tin": 4, "camphor": 10, "cloves": 16, "nutmeg": 20,
         "silk": 12, "cotton": 3, "rice": 1, "opium": 35, "porcelain": 8,
-        "slaves": 0, "salt": 2, "gold_dust": 65, "iron": 5
+        "slaves": 0, "salt": 2, "gold_dust": 65, "iron": 5, "silver": 90
       }
     },
     {
@@ -190,7 +193,7 @@
       "base_prices": {
         "pepper": 5, "tin": 6, "camphor": 13, "cloves": 19, "nutmeg": 24,
         "silk": 29, "cotton": 5, "rice": 1, "opium": 38, "porcelain": 16,
-        "slaves": 30, "salt": 3, "gold_dust": 62, "iron": 7
+        "slaves": 30, "salt": 3, "gold_dust": 62, "iron": 7, "silver": 62
       }
     },
     {
@@ -240,8 +243,8 @@
       "base_prices": {
         "pepper": 16, "tin": 10, "camphor": 20, "cloves": 32, "nutmeg": 38,
         "silk": 26, "cotton": 9, "rice": 5, "opium": 28, "porcelain": 30,
-        "frankincense": 18, "coffee": 12, "aloes_wood": 45,
-        "slaves": 50, "salt": 6, "gold_dust": 48, "iron": 11
+        "frankincense": 18, "coffee": 12, "aloes_wood": 45, "slaves": 50, "salt": 6,
+        "gold_dust": 48, "iron": 11, "horses": 70, "silver": 40, "mace": 50
       }
     },
     {
@@ -277,11 +280,11 @@
       },
       "specialty_goods": ["pepper", "camphor", "benzoin resin", "gold dust"],
       "base_prices": {
-        "pepper": 40,
-        "camphor": 90,
-        "benzoin resin": 55,
-        "gold dust": 120,
-        "rice": 9
+        "pepper": 4,
+        "camphor": 8,
+        "benzoin": 55,
+        "gold_dust": 45,
+        "rice": 4
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -318,13 +321,13 @@
       },
       "specialty_goods": ["elephant", "sapanwood", "Siamese lacquerware", "white elephant"],
       "base_prices": {
-        "rice": 8,
+        "rice": 1,
         "elephant": 400,
-        "white elephant": 1500,
+        "white_elephant": 1500,
         "sapanwood": 35,
-        "tin": 28,
-        "Chinese porcelain (transit)": 70,
-        "Siamese lacquerware": 45
+        "tin": 6,
+        "porcelain": 22,
+        "lacquerware": 45
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -359,12 +362,12 @@
       },
       "specialty_goods": ["teak timber", "rubies", "war elephant", "lac dye", "musk"],
       "base_prices": {
-        "teak timber": 30,
+        "teak": 30,
         "rubies": 200,
-        "war elephant": 500,
-        "lac dye": 40,
+        "war_elephant": 500,
+        "lac_dye": 40,
         "musk": 85,
-        "cotton cloth (Bengal transit)": 22
+        "cotton": 5
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -384,7 +387,8 @@
       "recruitable_pool": ["orang_laut_sailor", "sea_nomad_guide"],
       "weapons_available": ["spear", "blowpipe", "parang"],
       "base_prices": {
-        "pepper": 10, "tin": 8, "camphor": 11, "rice": 3, "fish": 1, "turtle_shell": 20
+        "pepper": 10, "tin": 8, "camphor": 11, "rice": 3, "dried_fish": 1,
+        "turtle_shell": 20
       }
     },
     {
@@ -398,7 +402,8 @@
       "recruitable_pool": ["patani_sailor", "siamese_guard"],
       "weapons_available": ["spear", "parang", "bow"],
       "base_prices": {
-        "pepper": 9, "tin": 4, "camphor": 14, "rice": 2, "elephant_ivory": 55
+        "pepper": 9, "tin": 4, "camphor": 14, "rice": 2, "ivory": 55,
+        "songket": 25
       }
     },
     {
@@ -414,7 +419,7 @@
       "recruitable_pool": ["ternatan_warrior", "papuan_tracker"],
       "weapons_available": ["spear", "bow", "kris", "local_arquebus"],
       "base_prices": {
-        "cloves": 4, "nutmeg": 6, "rice": 4, "slaves": 20
+        "cloves": 4, "nutmeg": 6, "rice": 4, "slaves": 20, "mace": 8
       }
     },
     {
@@ -443,10 +448,11 @@
       },
       "specialty_goods": ["Cham ikat cloth", "aloe wood"],
       "base_prices": {
-        "Cham ikat cloth": 30,
-        "aloe wood": 65,
-        "cinnamon bark": 25,
-        "rattan": 6
+        "cham_ikat": 30,
+        "aloes_wood": 30,
+        "cinnamon": 25,
+        "rattan": 6,
+        "deer_hide": 6
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -481,11 +487,11 @@
       },
       "specialty_goods": ["Javanese batik cloth", "Javanese kris", "Javanese gamelan bronze (small pieces)"],
       "base_prices": {
-        "Javanese batik cloth": 35,
-        "Javanese kris": 80,
-        "rice": 8,
-        "dried fish": 6,
-        "Javanese gamelan bronze (small pieces)": 50
+        "batik": 35,
+        "kris": 80,
+        "rice": 1,
+        "dried_fish": 6,
+        "gamelan_bronze": 50
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -518,10 +524,11 @@
       },
       "specialty_goods": ["tin", "elephant tusks"],
       "base_prices": {
-        "tin": 25,
-        "rice": 9,
+        "tin": 3,
+        "rice": 3,
         "beeswax": 20,
-        "elephant tusks": 150
+        "ivory": 55,
+        "deer_hide": 8
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -557,9 +564,9 @@
       },
       "specialty_goods": ["cloves", "bird of paradise feathers"],
       "base_prices": {
-        "cloves": 55,
-        "nutmeg (transit from Banda)": 70,
-        "bird of paradise feathers": 95,
+        "cloves": 4,
+        "nutmeg": 12,
+        "bird_of_paradise": 95,
         "sago": 5
       },
       "recruitable_pool": [],
@@ -593,12 +600,12 @@
         "npc_id": "harbor_makassar",
         "fees": 0
       },
-      "specialty_goods": ["trepang (sea cucumber)", "tortoiseshell"],
+      "specialty_goods": ["tortoiseshell"],
+      "slave_market": true,
       "base_prices": {
-        "trepang (sea cucumber)": 20,
-        "tortoiseshell": 45,
-        "war captives": 65,
-        "Bugis cloth": 28
+        "turtle_shell": 18,
+        "bugis_cloth": 28,
+        "slaves": 65
       },
       "recruitable_pool": [],
       "weapons_available": [],
@@ -631,10 +638,10 @@
       },
       "specialty_goods": ["ritual offerings cloth", "lontar manuscript", "fighting cock"],
       "base_prices": {
-        "ritual offerings cloth": 18,
-        "lontar manuscript": 55,
-        "dried salt fish": 7,
-        "fighting cock": 22
+        "ritual_cloth": 18,
+        "lontar": 55,
+        "dried_fish": 7,
+        "fighting_cock": 22
       },
       "recruitable_pool": [],
       "weapons_available": [],
