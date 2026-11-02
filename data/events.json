@@ -519,6 +519,29 @@
         "3": { "text": "Decline.", "text_es": "Declinar.", "effect": {}, "requires": null, "result": "He shrugs. \"Mecca will come around.\"", "result_es": "Se encoge de hombros. \"La Meca acabará entrando en razón.\"" }
       },
       "pool": "special_events"
+    },
+    {
+      "id": "mistaken_identity",
+      "when": { "location": ["Kedah", "Patani"], "once": true, "once_scope": "game" },
+      "hostage": true,
+      "description": "Before your boat touches sand, men pull {hostage} out of it. The headman stands at the tree line with a hundred men behind him, and he speaks slowly so your crew will understand. A month ago a trader came here, killed his sister's son over a debt, and sailed away. \"Your kind don't come here often,\" he says. \"You are {nation}. So was the man who did this. We don't know why you came back. Why should we believe you? Prove it.\"",
+      "description_es": "Antes de que vuestro bote toque la arena, unos hombres sacan a {hostage} de él a rastras. El jefe se planta en el límite del bosque con un centenar de hombres detrás, y habla despacio para que vuestra tripulación entienda. Hace un mes llegó un mercader, mató al hijo de su hermana por una deuda, y se marchó navegando. «Los de vuestra clase no vienen aquí a menudo», dice. «Sois {nation}. También lo era el hombre que hizo esto. No sabemos por qué habéis vuelto. ¿Por qué deberíamos creeros? Demostradlo.»",
+      "options": {
+        "1": { "text": "Pay the blood-price in silver and cloth. (1500 gold)", "text_es": "Pagar el precio de sangre en plata y tela. (1500 oro)", "requires": { "gold": 1500 }, "effect": { "gold": -1500, "morale": -3 }, "result": "The headman has the price counted in front of the whole village, so everyone sees it paid. {hostage} walks back to the boat. No one apologizes, least of all you.", "result_es": "El jefe hace contar el precio delante de toda la aldea, para que todos vean que se paga. {hostage} vuelve caminando al bote. Nadie se disculpa, y menos que nadie vos." },
+        "2": { "text": "Submit to the ordeal of the water.", "text_es": "Someteos a la prueba del agua.", "requires": null, "effect": {}, "roll": {
+          "base": 0.5, "per_trait": { "strong_swimmer": 0.2 }, "max": 0.9,
+          "success": { "effect": { "morale": 8 }, "result": "At the headman's word, your champion and theirs go under the river together. The village counts aloud. Their man breaks the surface first, gasping, and the crowd goes silent. The river has spoken, and the river does not lie. {hostage} is free before you reach the bank.", "result_es": "A la palabra del jefe, vuestro campeón y el suyo se sumergen juntos en el río. La aldea cuenta en voz alta. Su hombre rompe la superficie primero, jadeando, y la multitud enmudece. El río ha hablado, y el río no miente. {hostage} queda libre antes de que lleguéis a la orilla." },
+          "failure": { "effect": { "lose_hostage": true, "morale": -10 }, "result": "Your champion breaks the surface first, choking. The crowd roars. The river has spoken. {hostage} will stay and work off the debt of a man you never met.", "result_es": "Vuestro campeón rompe la superficie primero, ahogándose. La multitud ruge. El río ha hablado. {hostage} se quedará a pagar con trabajo la deuda de un hombre que nunca conocisteis." }
+        } },
+        "3": { "text": "Find the real culprit.", "text_es": "Encontrar al verdadero culpable.", "requires": { "crew_language": "Malay" }, "effect": { "morale": 10, "provisions": 10 }, "result": "Your interpreter spends a day on the riverbank asking questions no one else thought to ask. The killer's ship flew a different flag and sailed north with the last moon. The headman hears it out, says nothing for a long time, then sends {hostage} back to you with a basket of fruit, which here is as close to an apology as anyone gets.", "result_es": "Vuestro intérprete pasa un día en la ribera haciendo preguntas que a nadie más se le habían ocurrido. El barco del asesino llevaba otra bandera y zarpó hacia el norte con la última luna. El jefe lo escucha, guarda silencio largo rato, y luego os devuelve a {hostage} con una cesta de fruta, que aquí es lo más parecido a una disculpa que nadie ofrece." },
+        "4": { "text": "Take {hostage} back by force.", "text_es": "Recuperar a {hostage} por la fuerza.", "requires": null, "effect": {}, "roll": {
+          "base": 0.25, "per_trait": { "brave": 0.1, "strong": 0.1 }, "max": 0.6,
+          "success": { "effect": { "morale": -5 }, "result": "You go in hard at dusk. Your men come back with {hostage} and with wounds, and this village will remember your flag for a generation.", "result_es": "Atacáis con dureza al anochecer. Vuestros hombres vuelven con {hostage} y con heridas, y esta aldea recordará vuestra bandera durante una generación." },
+          "failure": { "effect": { "lose_hostage": true, "kill_random_crew": 1, "morale": -15 }, "result": "A whole village of men contests you on their own ground. You're driven back to the boats. {hostage} doesn't come with you, and neither does one other.", "result_es": "Toda una aldea de hombres os enfrenta en su propio terreno. Os veis forzados a retirarse a los botes. {hostage} no vuelve con vosotros, y tampoco lo hace otro más." }
+        } },
+        "5": { "text": "Leave {hostage} behind.", "text_es": "Dejar a {hostage} atrás.", "requires": null, "effect": { "lose_hostage": true, "morale": -15 }, "result": "You row away. {hostage} doesn't shout after you, which is worse. The crew rows in silence.", "result_es": "Remáis alejándoos. {hostage} no grita tras vosotros, lo cual es peor. La tripulación rema en silencio." }
+      },
+      "pool": "special_events"
     }
   ],
   "lore_fragments": [
