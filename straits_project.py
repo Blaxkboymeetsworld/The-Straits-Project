@@ -226,6 +226,7 @@ class GameState:
         self.rutter: Rutter = Rutter.for_role(role)
         self.leads_given: List[str] = []          # one-off lead ids already delivered
         self.dream: Optional[Dict[str, Any]] = None  # {"target", "deadline", "name"} from a dream lead
+        self.marriage: Optional[Dict[str, Any]] = None  # {"name", "home", "announced_day", "leaves_next_port"}
         self._lead_sources_used: set = set()       # lead sources used this port visit
 
         # Crew
@@ -357,6 +358,7 @@ class GameState:
             "rutter": self.rutter.to_dict(),
             "leads_given": self.leads_given,
             "dream": self.dream,
+            "marriage": self.marriage,
         }
 
     @classmethod
@@ -406,6 +408,11 @@ class GameState:
         obj.lost_at_sea_dest = None
         obj.leads_given = list(d.get("leads_given", []))
         obj.dream = d.get("dream")
+        obj.marriage = d.get("marriage")
+        # Recruits from older saves have no hire day; count from loading.
+        for m in obj.crew.members:
+            if getattr(m, "archetype", None) and getattr(m, "joined_day", None) is None:
+                m.joined_day = obj.time.day
         obj._lead_sources_used = set()
         # Discovery: saves from before the system know every location.
         if "rutter" in d:
@@ -3309,6 +3316,90 @@ def _ask_wider_world(state: GameState, here: str, major_port: bool, clear_fn, pr
 
 
 # ─────────────────────────────────────────
+# Marriage: a Malay or Javanese sailor with a woman ashore
+# ─────────────────────────────────────────
+
+MARRIAGE_HOMES: Dict[str, str] = {"patani_sailor": "Patani", "malay_sailor": "Patani", "javanese_sailor": "Gresik"}
+MARRIAGE_DAYS_ABOARD = 60
+# The bride's people: (ethnicity, native tongue, names)
+_BRIDES: Dict[str, Tuple[str, str, List[str]]] = {
+    "Patani": ("Malay (Patani)", "Malay", ["Siti Aisyah", "Wan Jamilah", "Dang Anum"]),
+    "Gresik": ("Javanese", "Javanese", ["Ratna", "Sri Wahyuni", "Nyai Kenanga"]),
+}
+
+
+def _crew_member_named(state: GameState, name: str):
+    return next((m for m in state.crew.alive_members() if m.name == name), None)
+
+
+def _marriage_on_arrival(state: GameState, crew_data: Dict[str, Any]):
+    """Run on every arrival at a port or village: the refused groom leaves,
+    the wedding happens at his home, or (once per game) he speaks up."""
+    here = state.current_location
+    m = getattr(state, "marriage", None)
+    if m and m.get("leaves_next_port"):
+        groom = _crew_member_named(state, m["name"])
+        if groom:
+            state.crew.remove(groom)
+            print(f"\n  {t('marriage_groom_left').format(name=m['name'])}")
+            press_enter()
+        state.marriage = None
+        return
+    if m and not m.get("done"):
+        groom = _crew_member_named(state, m["name"])
+        if groom is None:
+            state.marriage = None          # he died or left; the wedding is off
+        elif here == m["home"] and state.day > m["announced_day"]:
+            _wedding_event(state, groom, crew_data)
+        return
+    if "marriage_announced" in state.once_flags:
+        return
+    for c in state.crew.alive_members():
+        home = MARRIAGE_HOMES.get(getattr(c, "archetype", None) or "")
+        joined = getattr(c, "joined_day", None)
+        if home and joined is not None and state.day - joined >= MARRIAGE_DAYS_ABOARD:
+            state.once_flags.append("marriage_announced")
+            state.marriage = {"name": c.name, "home": home, "announced_day": state.day}
+            print(f"\n  {t('marriage_announce').format(name=c.name, home=home)}")
+            if state.rutter.status(home) == UNKNOWN:
+                state.rutter.learn(home, RUMORED, (f"{c.name}, who has a woman there",
+                                                   f"{c.name}, que tiene allí a una mujer"))
+            press_enter()
+            return
+
+
+def _wedding_event(state: GameState, groom, crew_data: Dict[str, Any]):
+    home = state.marriage["home"]
+    clear()
+    print(f"\n  ── {t('wedding_title')} ──\n")
+    print(f"  {t('wedding_description').format(name=groom.name)}\n")
+    print(f"  1) {t('wedding_opt_stay')}")
+    print(f"  2) {t('wedding_opt_bride')}")
+    print(f"  3) {t('wedding_opt_refuse')}\n")
+    choice = get_menu_choice(["1", "2", "3"])
+    if choice == "1":
+        state.crew.remove(groom)
+        state.apply_effect({"morale": 8, "cargo": {"batik": 3}})
+        print(f"\n  {t('wedding_result_stay')}")
+        state.marriage["done"] = True
+    elif choice == "2":
+        ethnicity, tongue, names = _BRIDES[home]
+        wife = _make_crew_member(random.choice(names), ethnicity, tongue, "cook", [], "Islam",
+                                 "Southeast Asia", [], [], 30, crew_data)
+        wife.joined_day = state.day
+        state.crew.add(wife)
+        state.apply_effect({"morale": 6})
+        print(f"\n  {t('wedding_result_bride')}")
+        print(f"  {t('wedding_wife_joins').format(wife=wife.name)}")
+        state.marriage["done"] = True
+    else:
+        state.apply_effect({"morale": -8})
+        print(f"\n  {t('wedding_result_refuse')}")
+        state.marriage["leaves_next_port"] = True
+    press_enter()
+
+
+# ─────────────────────────────────────────
 # Handle Landfall
 # ─────────────────────────────────────────
 
@@ -3339,6 +3430,7 @@ def handle_landfall(
     if state.current_location_type in ("major_port", "village"):
         state.morale = min(100, state.morale + 12)
         print(f"\n  {t('shore_leave_morale')}")
+        _marriage_on_arrival(state, crew_data)
 
     # First-time port flag
     if state.current_location_type in ("major_port", "village"):

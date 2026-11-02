@@ -144,6 +144,7 @@ class CrewMember:
         self.successful_hunts = 0
         self.successful_catches = 0
         self.archetype: Optional[str] = None   # recruitable_archetypes key, for recruits
+        self.joined_day: Optional[int] = None  # game day hired (None for the starting crew)
 
     @property
     def all_languages(self) -> List[str]:
@@ -190,6 +191,7 @@ class CrewMember:
             "successful_hunts": self.successful_hunts,
             "successful_catches": self.successful_catches,
             "archetype": self.archetype,
+            "joined_day": self.joined_day,
         }
 
     @classmethod
@@ -211,6 +213,7 @@ class CrewMember:
         obj.alive = d.get("alive", True)
         obj.successful_hunts = d.get("successful_hunts", 0)
         obj.archetype = d.get("archetype")
+        obj.joined_day = d.get("joined_day")
         obj.successful_catches = d.get("successful_catches", 0)
         return obj
 
@@ -572,6 +575,7 @@ def recruitment_menu(
                 recruit = recruits[idx]
                 if state.gold >= recruit.wage:
                     state.gold -= recruit.wage
+                    recruit.joined_day = getattr(state, "day", None)
                     crew_manager.add(recruit)
                     recruits.pop(idx)
                     print(f"\n  {recruit.name} joins your crew. ({recruit.occupation.replace('_',' ').title()})")

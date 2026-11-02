@@ -204,5 +204,16 @@
   "rutter_goods": "Goods: {goods}",
   "rutter_source": "Source: {source}",
   "voyage_pause_rutter": "Open your rutter",
-  "dream_fulfilled": "{name}'s dream was right, or close enough. The crew is quietly pleased with itself. (+6 morale)"
+  "dream_fulfilled": "{name}'s dream was right, or close enough. The crew is quietly pleased with itself. (+6 morale)",
+  "marriage_announce": "{name} has a woman in {home}. He'd like to marry her, if we ever pass that way.",
+  "wedding_title": "A WEDDING",
+  "wedding_description": "{name} is off the boat before it touches the jetty. By evening there is a wedding feast, and somehow you're paying for half of it. The bride's family wants to know what kind of man their daughter is marrying. They also want to know what kind of captain you are.",
+  "wedding_opt_stay": "Let him stay.",
+  "wedding_opt_bride": "Bring her aboard.",
+  "wedding_opt_refuse": "Refuse. You need every hand.",
+  "wedding_result_stay": "He stays. Her family loads your boat with cloth and food and tells you to come back. The crew is sentimental for days.",
+  "wedding_result_bride": "She comes aboard with a cooking pot and opinions. Within a week the food is better and nobody dares complain about it.",
+  "wedding_result_refuse": "You order him back aboard. He comes. He doesn't speak to you again, and at the next port, he's gone.",
+  "wedding_wife_joins": "{wife} joins your crew as cook.",
+  "marriage_groom_left": "{name} went ashore in the night and didn't come back. Nobody saw him go, and nobody looks surprised."
 }

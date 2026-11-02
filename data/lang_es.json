@@ -204,5 +204,16 @@
   "rutter_goods": "Mercancías: {goods}",
   "rutter_source": "Fuente: {source}",
   "voyage_pause_rutter": "Abrir vuestro derrotero",
-  "dream_fulfilled": "El sueño de {name} era cierto, o casi. La tripulación está discretamente satisfecha de sí misma. (+6 moral)"
+  "dream_fulfilled": "El sueño de {name} era cierto, o casi. La tripulación está discretamente satisfecha de sí misma. (+6 moral)",
+  "marriage_announce": "{name} tiene una mujer en {home}. Le gustaría casarse con ella, si alguna vez pasamos por allí.",
+  "wedding_title": "UNA BODA",
+  "wedding_description": "{name} salta del barco antes de que toque el embarcadero. Al anochecer hay un banquete de bodas, y de algún modo os toca pagar la mitad. La familia de la novia quiere saber qué clase de hombre se casa con su hija. También quiere saber qué clase de capitán sois.",
+  "wedding_opt_stay": "Dejar que se quede.",
+  "wedding_opt_bride": "Subirla a bordo.",
+  "wedding_opt_refuse": "Negarse. Necesitáis cada mano.",
+  "wedding_result_stay": "Se queda. La familia de ella os carga el barco de tela y comida y os dice que volváis. La tripulación anda sentimental durante días.",
+  "wedding_result_bride": "Sube a bordo con una olla y opiniones propias. En una semana la comida ha mejorado y nadie se atreve a quejarse.",
+  "wedding_result_refuse": "Le ordenáis volver a bordo. Vuelve. No os vuelve a dirigir la palabra, y en el siguiente puerto ya no está.",
+  "wedding_wife_joins": "{wife} se une a vuestra tripulación como cocinera.",
+  "marriage_groom_left": "{name} bajó a tierra por la noche y no volvió. Nadie lo vio marcharse, y a nadie le sorprende."
 }
