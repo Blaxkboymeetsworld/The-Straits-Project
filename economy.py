@@ -43,7 +43,7 @@ GOODS_CATALOG: Dict[str, Dict[str, Any]] = {
     "frankincense": {"name": "Frankincense",       "unit": "pouches", "bulky": False,
                      "desc": "Arabian resin burned in temples, mosques, and churches across the ocean."},
     "coffee":       {"name": "Coffee (beans)",     "unit": "sacks",   "bulky": True,
-                     "desc": "A bitter Yemeni bean. Sufis drink it to stay awake at prayer; almost no one else has heard of it."},
+                     "desc": "A bitter bean from the Yemeni highlands. Yemen and its Sufis drink it; almost no one beyond the Red Sea has heard of it."},
     "deer_hide":    {"name": "Deer Hide",          "unit": "bales",   "bulky": True,
                      "desc": "Hides for leather and armor. Chinese buyers take them."},
     "sulphur":      {"name": "Sulphur",            "unit": "barrels", "bulky": True,
