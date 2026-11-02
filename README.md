@@ -107,7 +107,7 @@ Pulau Tioman, Patani, Ternate, Cham Coast, Gresik, Kedah, Tidore, Makassar, Bali
 | Old Liang | Crew | — | Chinese anchor |
 | Ibu Malam | Recurring NPC | All ports | Non-interactive, appears at significant moments |
 | Dom Afonso de Albuquerque | NPC | Goa | Active Years 1–4, dies Year 5 |
-| Tun Mutahir | NPC | Malacca | Bendahara; disposition 50 |
+| Encik Lela | NPC | Malacca | Steward of the late Bendahara's household; disposition 50 |
 
 Full character bibles in `docs/character_bibles/`.
 

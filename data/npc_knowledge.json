@@ -11,8 +11,8 @@
         {
           "topic": "tun mutahir",
           "aliases": ["bendahara", "mutahir", "the bendahara"],
-          "response": "He lowers his voice. 'The Bendahara is careful these days. Since the Portuguese arrived, every word is weighed twice. He still runs the port — in practice, if not in name.'",
-          "response_es": "Baja la voz. 'El Bendahara anda con cuidado en estos tiempos. Desde que llegaron los portugueses, cada palabra se pesa dos veces. Sigue manejando el puerto — en la práctica, aunque no de nombre.'",
+          "response": "He lowers his voice. 'Tun Mutahir? The sultan had him killed last year, him and every grown man of his house. Some say he plotted against the throne. Some say the sultan wanted his daughter, Tun Fatimah, and the Bendahara married her off to someone else first. The sultan married her after the funerals. You may draw your own conclusions. Quietly.'",
+          "response_es": "Baja la voz. '¿Tun Mutahir? El sultán lo mandó matar el año pasado, a él y a todos los hombres adultos de su casa. Unos dicen que conspiraba contra el trono. Otros dicen que el sultán quería a su hija, Tun Fatimah, y que el Bendahara la casó antes con otro. El sultán se casó con ella después de los funerales. Saca tus propias conclusiones. En voz baja.'",
           "min_disposition": 0
         },
         {
