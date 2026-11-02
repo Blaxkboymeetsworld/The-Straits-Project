@@ -2779,7 +2779,7 @@ def run_game(
                 state.current_location_type = dest_type
                 handle_landfall(state, engine, crew_data, all_quests)
                 # After leaving port, go back to sea
-                state.current_location = "At Sea"
+                state.current_location = dest
                 state.current_location_type = "sea"
             else:
                 print("\n  You remain where you are.")
