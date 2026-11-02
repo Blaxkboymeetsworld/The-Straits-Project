@@ -7,7 +7,7 @@
       "language": "Malay",
       "religion": "Islam",
       "faction_presence": ["malacca_sultanate", "hadrami_silsila"],
-      "ruler": { "name": "Tun Mutahir", "title": "Bendahara", "faction": "Malacca Sultanate", "disposition": 50 },
+      "ruler": { "name": "Sultan Mahmud Shah", "title": "Sultan", "faction": "Malacca Sultanate", "disposition": 50 },
       "merchant_guild": "Malay-Gujarat Consortium",
       "religious_figure": { "name": "Maulana Yusuf", "title": "Kadi", "religion": "Islam" },
       "harbor_master": { "name": "Hang Kassim", "fees": 120 },

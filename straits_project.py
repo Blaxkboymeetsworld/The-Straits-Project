@@ -3085,10 +3085,12 @@ def handle_landfall(
     if is_first_port:
         _check_ibu_malam(state, "ibu_malam_first_port")
 
-    # Ibu Malam — Malacca (if world event fired and player arrives here)
+    # Ibu Malam — Malacca: the burning-city vision only once the city has
+    # actually fallen (the fleet-news events open the window earlier).
     if (
         state.current_location == "Malacca Harbor"
         and "ibu_malam_malacca_available" in state.once_flags
+        and "world_event_malacca_fallen" in state.once_flags
     ):
         _check_ibu_malam(state, "ibu_malam_malacca_fall")
 
