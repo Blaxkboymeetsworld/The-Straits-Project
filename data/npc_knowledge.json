@@ -512,11 +512,11 @@
     },
     {
       "id": "tun_mutahir_malacca",
-      "name": "Tun Mutahir",
+      "name": "Encik Lela",
       "port": "Malacca Harbor",
-      "role": "Bendahara",
-      "fallback": "Tun Mutahir regards you steadily. 'That is not something I have information about.'",
-      "fallback_es": "Tun Mutahir te observa con calma. 'Eso no es algo sobre lo que tenga información.'",
+      "role": "Steward of the late Bendahara's household",
+      "fallback": "Encik Lela looks up from his ledger. 'That is not in any account I keep.'",
+      "fallback_es": "Encik Lela levanta la vista de su libro de cuentas. 'Eso no figura en ninguna de las cuentas que llevo.'",
       "knowledge": [
         {
           "topic": "sultan mahmud",
