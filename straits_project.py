@@ -34,6 +34,7 @@ from time_system import (TimeSystem, START_DATE, get_waterway,
                          calculate_voyage,
                          _ROUTE_DISTANCES_NM, is_open_ocean)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
+from discovery import Rutter, UNKNOWN, RUMORED, CHARTED
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
 # ─────────────────────────────────────────
@@ -220,6 +221,9 @@ class GameState:
         # Set when the player sails an uncharted crossing (ends the game).
         self.lost_at_sea_dest: Optional[str] = None
 
+        # What this captain knows of the map (UNKNOWN / RUMORED / CHARTED)
+        self.rutter: Rutter = Rutter.for_role(role)
+
         # Crew
         self.crew = CrewManager()
 
@@ -345,6 +349,8 @@ class GameState:
             "fall_of_malacca_witnessed": self.fall_of_malacca_witnessed,
             "fall_of_malacca_heard": self.fall_of_malacca_heard,
             "malacca_price_disruption_end": self.malacca_price_disruption_end,
+            # discovery system
+            "rutter": self.rutter.to_dict(),
         }
 
     @classmethod
@@ -391,6 +397,13 @@ class GameState:
         obj.fall_of_malacca_witnessed = bool(d.get("fall_of_malacca_witnessed", False))
         obj.fall_of_malacca_heard = bool(d.get("fall_of_malacca_heard", False))
         obj.malacca_price_disruption_end = int(d.get("malacca_price_disruption_end", 0))
+        obj.lost_at_sea_dest = None
+        # Discovery: saves from before the system know every location.
+        if "rutter" in d:
+            obj.rutter = Rutter.from_dict(d["rutter"])
+        else:
+            obj.rutter = Rutter.all_charted(
+                [p["name"] for p in world.get("major_ports", []) + world.get("villages", [])])
         return obj
 
     def apply_effect(self, effect: Dict[str, Any]):
@@ -3102,6 +3115,10 @@ def handle_landfall(
     port_data = find_port(state.current_location, state.world)
     is_first_port = not state.has_visited_port
 
+    # Arriving anywhere charts it.
+    if port_data:
+        state.rutter.chart_on_arrival(state.current_location)
+
     # Shore leave: a flat morale bump on every arrival at a port or village.
     if state.current_location_type in ("major_port", "village"):
         state.morale = min(100, state.morale + 12)
@@ -3946,6 +3963,9 @@ def start_new_game(
         press_enter()
         state.current_location = "Quanzhou"
         state.current_location_type = "sea"
+
+    # The starting location is always charted.
+    state.rutter.chart_on_arrival(state.current_location)
 
     run_game(state, engine, crew_data, all_quests)
 
