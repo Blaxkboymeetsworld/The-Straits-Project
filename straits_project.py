@@ -588,6 +588,9 @@ class EventEngine:
         roles = when.get("role")
         if roles and state.role not in roles:
             return False, None
+        excludes_flag = when.get("excludes_flag")
+        if excludes_flag and excludes_flag in state.once_flags:
+            return False, None
         once = bool(when.get("once", False))
         once_key = None
         if once:
@@ -914,9 +917,9 @@ class EventEngine:
             eligible = [e for e in pool
                         if not e.get("regions") or waterway in e.get("regions", [])]
             pool = eligible if eligible else pool
-        # village_events honor an optional "when": {"location": [...]};
-        # events without "when" stay available everywhere.
-        if pool_name == "village_events":
+        # village_events and harbor_events honor an optional "when":
+        # {"location": [...]}; events without "when" stay available everywhere.
+        if pool_name in ("village_events", "harbor_events"):
             loc = state.current_location
             eligible = [e for e in pool
                         if not e.get("when") or loc in e.get("when", {}).get("location", [])]
