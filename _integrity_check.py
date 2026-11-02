@@ -124,16 +124,24 @@ for p in wd["major_ports"]:
 ok(f"{len(wd['major_ports'])} major ports: keys, weapons, archetypes, harbor_master checked")
 ok(f"{len(wd['villages'])} villages checked")
 
-# TRAVEL_TIMES in time_system.py — ports in that table should exist in world.json
-# (we can't import time_system here safely, but we can grep)
+# route_distances in nautical_data.json is the live voyage table
+# (calculate_voyage()). Every endpoint must be a real port, and every pair
+# must have an ocean system in straits_project.py's _ROUTE_OCEAN_SYSTEM,
+# or it silently defaults to the Indian Ocean monsoon calendar.
+# (The old TRAVEL_TIMES table in time_system.py is LEGACY and not checked.)
 import re, pathlib
-ts_text = pathlib.Path("time_system.py").read_text(encoding="utf-8")
-travel_port_refs = re.findall(r'"([\w\s]+)":\s*\{', ts_text)
-for ref in travel_port_refs:
-    ref = ref.strip()
-    if ref and ref not in all_port_names and ref not in ("At Sea",) and "_" not in ref:
-        warn(f"time_system.py TRAVEL_TIMES key '{ref}' not found in world.json")
-ok("time_system.py TRAVEL_TIMES keys cross-referenced against world.json")
+with open("data/nautical_data.json", encoding="utf-8") as f:
+    route_distances = json.load(f).get("route_distances", [])
+sp_text = pathlib.Path("straits_project.py").read_text(encoding="utf-8")
+_ocean_block = sp_text[sp_text.index("_ROUTE_OCEAN_SYSTEM: Dict"):sp_text.index("def _peek_crew_at_sea")]
+ocean_pairs = {frozenset(p) for p in re.findall(r'\("([^"]+)", "([^"]+)"\)', _ocean_block)}
+for rd in route_distances:
+    for end in (rd["from"], rd["to"]):
+        if end not in all_port_names:
+            fail(f"nautical_data.json route {rd['from']} <-> {rd['to']}: '{end}' not found in world.json")
+    if frozenset((rd["from"], rd["to"])) not in ocean_pairs:
+        warn(f"route {rd['from']} <-> {rd['to']} has no _ROUTE_OCEAN_SYSTEM entry (defaults to indian_ocean)")
+ok(f"{len(route_distances)} nautical_data.json route_distances cross-referenced against world.json and _ROUTE_OCEAN_SYSTEM")
 
 # PORT_HARBOR_MASTERS in straits_project.py
 PORT_HARBOR_MASTERS = {

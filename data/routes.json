@@ -1,5 +1,5 @@
 {
-  "_comment": "Base travel days between port pairs. Reverse routes are symmetric. Seasonal modifiers (monsoon) can be added in a future pass.",
+  "_comment": "Waterway and at-sea flavor text per port pair (reverse routes are symmetric). LIVE fields: waterway, at_sea. The 'days' field is LEGACY and NOT USED: voyage length comes from route_distances in nautical_data.json via calculate_voyage().",
   "routes": [
     {"from": "Malacca Harbor", "to": "Bantam",           "days": 3,  "waterway": "malacca_strait",  "at_sea": "Strait of Malacca, south toward Sunda"},
     {"from": "Malacca Harbor", "to": "Goa Harbor",       "days": 8,  "waterway": "indian_ocean",    "at_sea": "Indian Ocean, west of the Malabar coast"},

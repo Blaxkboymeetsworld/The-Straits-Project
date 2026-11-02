@@ -18,9 +18,22 @@ _ROOT = os.path.dirname(os.path.abspath(__file__))
 _ROUTES_PATH = os.path.join(_ROOT, "data", "routes.json")
 _NAUTICAL_DATA_PATH = os.path.join(_ROOT, "data", "nautical_data.json")
 
+# ══ LEGACY TRAVEL SYSTEM — kept for reference, NOT USED ═══════════════════
+# Everything prefixed LEGACY_ below (LEGACY_TRAVEL_TIMES,
+# LEGACY_DEFAULT_TRAVEL_TIME, LEGACY_WATERWAY_MONSOON) and
+# TimeSystem.legacy_travel() is the pre-July-2026 travel model: fixed day
+# counts per port pair, scaled by a per-waterway monsoon multiplier.
+#
+# It was replaced by calculate_voyage() (commit bdb16a0), which computes
+# days from data/nautical_data.json (route_distances + ship_speed_profiles
+# + monsoon_calendar). Voyage length must come from calculate_voyage() only.
+# Do not read these tables for new code. TimeSystem.travel() now raises to
+# stop anything from silently falling back to them.
+# ══════════════════════════════════════════════════════════════════════════
+
 # Rough travel times between ports in days (one-way)
 # Reflects the actual geography of the Indian Ocean / Southeast Asia
-TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
+LEGACY_TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
     # Malacca as hub
     ("Malacca Harbor", "Bantam"):       3,
     ("Malacca Harbor", "Goa Harbor"):   8,
@@ -86,15 +99,18 @@ TRAVEL_TIMES: Dict[Tuple[str, str], int] = {
 
 # Fill in reverse directions automatically (roughly symmetric)
 _FILLED: Dict[Tuple[str, str], int] = {}
-for (a, b), days in TRAVEL_TIMES.items():
+for (a, b), days in LEGACY_TRAVEL_TIMES.items():
     _FILLED[(a, b)] = days
     _FILLED[(b, a)] = days
-TRAVEL_TIMES = _FILLED
+LEGACY_TRAVEL_TIMES = _FILLED
 
-DEFAULT_TRAVEL_TIME = 6  # fallback if route not in table
+LEGACY_DEFAULT_TRAVEL_TIME = 6  # fallback if route not in table
+# ══ end LEGACY day-count table ═════════════════════════════════════════════
 
 # ── Route waypoints (loaded from routes.json) ────────────────────────────────
 # Maps (origin, dest) → {waterway: str, at_sea: str}
+# LIVE: waterway (encounter filtering) and at_sea (flavor text) are still used.
+# The "days" field in routes.json is LEGACY and is deliberately not loaded.
 ROUTE_WAYPOINTS: Dict[Tuple[str, str], Dict[str, str]] = {}
 
 try:
@@ -110,8 +126,8 @@ except (FileNotFoundError, KeyError):
 
 # ── Nautical data (monsoon calendar, ship speed profiles, route distances) ──
 # Loaded from data/nautical_data.json. Powers calculate_voyage() below.
-# NOTE: calculate_voyage() is standalone and not called from anywhere else
-# yet — see the __main__ test block at the bottom of this file.
+# LIVE: this is the only source of voyage length. run_game() and the
+# destination menu in straits_project.py call calculate_voyage().
 try:
     with open(_NAUTICAL_DATA_PATH, encoding="utf-8") as _f:
         _NAUTICAL_DATA = json.load(_f)
@@ -254,9 +270,11 @@ def next_favorable_month(ocean_system: str, origin_port: str, dest_port: str, cu
     return None
 
 
+# LEGACY — NOT USED. Only read by TimeSystem.legacy_travel(). The live
+# monsoon model is monsoon_calendar in data/nautical_data.json.
 # Monsoon multipliers by waterway and month (0=January, 11=December)
 # Favorable: 0.7x | Adverse: 1.4x | Dangerous: 1.6x | Transition: 1.3x
-WATERWAY_MONSOON: Dict[str, Dict[int, float]] = {
+LEGACY_WATERWAY_MONSOON: Dict[str, Dict[int, float]] = {
     "malacca_strait": {
         0: 1.4,  # January — NE monsoon adverse
         1: 1.4,  # February
@@ -425,24 +443,34 @@ class TimeSystem:
             hours_to_dawn = (DAWN_HOUR + HOURS_PER_DAY - self.hour) % HOURS_PER_DAY
             self.advance_hours(hours_to_dawn)
 
-    def travel(
+    def travel(self, *args: Any, **kwargs: Any) -> int:
+        """Removed. Voyage length comes from calculate_voyage() only."""
+        raise RuntimeError(
+            "TimeSystem.travel() is the legacy travel model and is no longer used. "
+            "Use calculate_voyage() with data/nautical_data.json instead."
+        )
+
+    def legacy_travel(
         self,
         origin: str,
         destination: str,
         crew_speed_bonus: int = 0
     ) -> int:
         """
+        LEGACY — NOT USED. Kept as an artifact of the pre-calculate_voyage()
+        travel model. Nothing in the game calls this.
+
         Simulate travel between two locations.
         Returns the number of days elapsed.
         Storm/weather chance en route adds days.
         """
-        base_days = TRAVEL_TIMES.get((origin, destination), DEFAULT_TRAVEL_TIME)
+        base_days = LEGACY_TRAVEL_TIMES.get((origin, destination), LEGACY_DEFAULT_TRAVEL_TIME)
         actual_days = max(1, base_days - crew_speed_bonus)
 
         # Apply monsoon seasonal multiplier
         waterway = get_waterway(origin, destination)
         month = ((self.day - 1) % 365) // 30
-        monsoon_mult = WATERWAY_MONSOON.get(waterway, WATERWAY_MONSOON["open_ocean"]).get(month, 1.0)
+        monsoon_mult = LEGACY_WATERWAY_MONSOON.get(waterway, LEGACY_WATERWAY_MONSOON["open_ocean"]).get(month, 1.0)
         actual_days = max(1, round(actual_days * monsoon_mult))
 
         # Random weather delay (15% chance of +1–3 day delay)
