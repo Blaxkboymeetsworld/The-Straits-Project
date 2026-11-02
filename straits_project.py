@@ -146,6 +146,17 @@ def load_world(path: str) -> Dict[str, Any]:
     data.setdefault("villages", [])
     return data
 
+def current_ruler(port_data: Dict[str, Any], state: Any) -> Dict[str, Any]:
+    """The port's ruler as of now. A ruler with an "after_fall" entry (Malacca)
+    is replaced by it once the Fall world event has fired; disposition and
+    any other fields not overridden carry over."""
+    ruler = port_data.get("ruler", {}) or {}
+    after = ruler.get("after_fall")
+    if after and "world_event_malacca_fallen" in getattr(state, "once_flags", []):
+        return {**{k: v for k, v in ruler.items() if k != "after_fall"}, **after}
+    return ruler
+
+
 def find_port(name: str, world: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     for p in world["major_ports"] + world["villages"]:
         if p["name"] == name:
@@ -2192,7 +2203,7 @@ def port_action_menu(
     failed = state.quests.check_expirations(state.day)
     if failed:
         for fq in failed:
-            print(f"\n  ✗ Quest expired: '{fq.title}'. {port_data.get('ruler',{}).get('name','The ruler')} is displeased.")
+            print(f"\n  ✗ Quest expired: '{fq.title}'. {current_ruler(port_data, state).get('name','The ruler')} is displeased.")
         press_enter()
 
     bonus_paid_this_visit = False
@@ -2206,7 +2217,7 @@ def port_action_menu(
         print(f"  ⚓ {port_data['name'].upper()}")
         disp_label = state.quests.disposition_label(port_data["name"])
         disp_val   = state.quests.get_disposition(port_data["name"])
-        ruler      = port_data.get("ruler", {})
+        ruler      = current_ruler(port_data, state)
         print(f"  Ruler: {ruler.get('name','Unknown')}, {ruler.get('title','')}  |  Disposition: {disp_label} ({disp_val})")
         print(f"  Culture: {port_data.get('culture','')}  |  Language: {port_data.get('language','')}")
         print(f"  Religion: {port_data.get('religion','')}")
@@ -2540,7 +2551,7 @@ def tavern_menu(state: GameState, port_data: Dict[str, Any], engine: EventEngine
         loc = input("\n  Which port do you ask about? ").strip()
         p = find_port(loc, state.world)
         if p:
-            ruler = p.get("ruler", {})
+            ruler = current_ruler(p, state)
             disp = state.quests.disposition_label(p["name"])
             print(f"\n  {p['name']} ({p['culture']}, {p['religion']})")
             print(f"  Ruler: {ruler.get('name','Unknown')}, {ruler.get('title','')}")
