@@ -998,7 +998,7 @@ def _restock_provisions(state: GameState, port_data: Dict[str, Any], clear_fn, p
 
     # Remoteness proxy: use travel time from Malacca as a distance indicator
     remote_ports = {"Ternate", "Cham Coast"}
-    cost_per_unit = 30 if port_data["name"] in remote_ports else 20
+    cost_per_unit = 15 if port_data["name"] in remote_ports else 10
 
     max_fill = 100 - state.provisions
     print(f"\n  Current provisions: {state.provisions}/100")
