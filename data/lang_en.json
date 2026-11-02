@@ -133,5 +133,12 @@
   "voyage_flavor_5": "A dead calm at noon. The sails hang like laundry.",
   "voyage_flavor_6": "Rats in the biscuit again. The ship's cat has given up.",
   "voyage_flavor_7": "At night the wake glows green. The men argue over whether it's spirits.",
-  "voyage_flavor_8": "A sailor's tooth comes out in his bread. He keeps it for luck."
+  "voyage_flavor_8": "A sailor's tooth comes out in his bread. He keeps it for luck.",
+  "waterway_arabian_sea": "ARABIAN SEA",
+  "waterway_banda_sea": "BANDA SEA",
+  "waterway_indian_ocean": "INDIAN OCEAN",
+  "waterway_malabar_coast": "MALABAR COAST",
+  "waterway_malacca_strait": "MALACCA STRAIT",
+  "waterway_south_china_sea": "SOUTH CHINA SEA",
+  "waterway_open_ocean": "OPEN OCEAN"
 }

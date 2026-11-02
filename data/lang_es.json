@@ -133,5 +133,12 @@
   "voyage_flavor_5": "Calma chicha al mediodía. Las velas cuelgan como ropa tendida.",
   "voyage_flavor_6": "Otra vez ratas en la galleta. El gato del barco se ha rendido.",
   "voyage_flavor_7": "De noche, la estela brilla verde. Los hombres discuten si son espíritus.",
-  "voyage_flavor_8": "A un marinero se le cae un diente en el pan. Se lo guarda para la suerte."
+  "voyage_flavor_8": "A un marinero se le cae un diente en el pan. Se lo guarda para la suerte.",
+  "waterway_arabian_sea": "MAR ARÁBIGO",
+  "waterway_banda_sea": "MAR DE BANDA",
+  "waterway_indian_ocean": "OCÉANO ÍNDICO",
+  "waterway_malabar_coast": "COSTA DEL MALABAR",
+  "waterway_malacca_strait": "ESTRECHO DE MALACA",
+  "waterway_south_china_sea": "MAR DE LA CHINA MERIDIONAL",
+  "waterway_open_ocean": "MAR ABIERTO"
 }

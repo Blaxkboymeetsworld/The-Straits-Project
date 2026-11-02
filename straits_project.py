@@ -32,7 +32,7 @@ from faction import FactionManager, port_to_faction
 from quests import QuestManager, load_quests
 from time_system import (TimeSystem, START_DATE, get_waterway,
                          calculate_voyage, next_favorable_month,
-                         _ROUTE_DISTANCES_NM, _COASTAL_HOPS)
+                         _ROUTE_DISTANCES_NM)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
@@ -2815,6 +2815,14 @@ _VOYAGE_BOOK_BY_ROLE = {"portuguese": "book_of_hours", "ottoman": "quran", "chin
 _VOYAGE_BOOK_RELIGION_BY_ROLE = {"portuguese": "Catholic", "ottoman": "Islam", "chinese": "Buddhism"}
 _VOYAGE_FLAVOR_KEYS = [f"voyage_flavor_{i}" for i in range(1, 9)]
 
+# Open-ocean crossings with no shore to hunt on (either direction).
+_NO_HUNT_CROSSINGS = {
+    frozenset(pair) for pair in [
+        ("Aden Harbor", "Calicut"), ("Aden Harbor", "Goa Harbor"), ("Aden Harbor", "Aceh"),
+        ("Hormuz", "Calicut"), ("Calicut", "Aceh"), ("Calicut", "Malacca Harbor"),
+    ]
+}
+
 
 def _voyage_pause_days(total_days: int) -> set:
     """Days (1-based) on which the voyage pauses: none under 10 days, otherwise
@@ -2826,7 +2834,7 @@ def _voyage_pause_days(total_days: int) -> set:
 
 
 def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[str, Any],
-                        day_number: int, total_days: int, coastal: bool = False):
+                        day_number: int, total_days: int, can_hunt: bool = True):
     """Mid-voyage stop: sail on, or spend it reading, fishing, hunting, or hearing a story."""
     protagonist = state.protagonist
     book_id = _VOYAGE_BOOK_BY_ROLE.get(protagonist)
@@ -2837,7 +2845,10 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
     used_read = used_fish = used_hunt = used_story = False
 
     waterway = getattr(state, "_current_waterway", None)
-    waterway_label = waterway.replace("_", " ").upper() if waterway else t('voyage_pause_at_sea')
+    if waterway:
+        waterway_label = LOCALE.get(f"waterway_{waterway}", waterway.replace("_", " ").upper())
+    else:
+        waterway_label = t('voyage_pause_at_sea')
     # One flavor line per pause, never repeated within the same voyage
     used_flavor = getattr(state, "_voyage_flavor_used", set())
     fresh = [k for k in _VOYAGE_FLAVOR_KEYS if k not in used_flavor]
@@ -2863,7 +2874,7 @@ def _voyage_pause_menu(state: GameState, engine: "EventEngine", crew_data: Dict[
             opt("2", t('voyage_pause_read'))
         if not used_fish:
             opt("3", t('voyage_pause_fish'))
-        if coastal and not used_hunt:
+        if can_hunt and not used_hunt:
             opt("4", t('voyage_pause_hunt'))
         if storyteller and not used_story:
             opt("5", t('voyage_pause_story').format(name=storyteller.name))
@@ -3213,7 +3224,7 @@ def run_game(
                 event_count = 0
                 max_events = max(4, total_days // 8)
                 pause_days = _voyage_pause_days(total_days)
-                coastal_hop = (origin_port, dest) in _COASTAL_HOPS
+                can_hunt = frozenset((origin_port, dest)) not in _NO_HUNT_CROSSINGS
                 state._voyage_flavor_used = set()
                 for day_idx in range(total_days):
                     # Frame transit location: "just outside <origin>" for the first
@@ -3253,7 +3264,7 @@ def run_game(
                     day_number = day_idx + 1
                     if day_number in pause_days:
                         _voyage_pause_menu(state, engine, crew_data, day_number, total_days,
-                                           coastal=coastal_hop)
+                                           can_hunt=can_hunt)
                         if state.pending_failure() and state.is_game_over():
                             press_enter()
                             return
