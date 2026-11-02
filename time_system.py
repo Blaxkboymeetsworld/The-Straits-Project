@@ -242,14 +242,17 @@ def calculate_voyage(
     route_type = "open_ocean" if is_open_ocean(origin_port, dest_port) else "coastal"
     base_knots = profile["open_ocean_knots"] if route_type == "open_ocean" else profile["coastal_knots"]
 
-    if monsoon_state == "unfavorable":
-        effective_knots = base_knots * profile["upwind_penalty_multiplier"]
-        blocked = True
+    # Speed modifiers per role from ship_speed_profiles: favorable monsoon +30%,
+    # transition months none, against the monsoon a role- and route-type-
+    # specific penalty (e.g. -0.40 = 40% slower).
+    if monsoon_state == "favorable":
+        modifier = profile["favorable_speed_modifier"]
+    elif monsoon_state == "transition":
+        modifier = profile.get("transition_speed_modifier", 0.0)
     else:
-        # "favorable" and "transition" both sail at full favorable speed;
-        # transition just flags elevated storm weighting downstream.
-        effective_knots = base_knots
-        blocked = False
+        modifier = profile[f"against_{route_type}_speed_modifier"]
+    effective_knots = base_knots * (1 + modifier)
+    blocked = monsoon_state == "unfavorable"
 
     days = max(1, round(distance_nm / (effective_knots * HOURS_PER_DAY)))
 

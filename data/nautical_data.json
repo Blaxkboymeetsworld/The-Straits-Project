@@ -32,17 +32,26 @@
     "Portuguese Conquistador": {
       "open_ocean_knots": 4.0,
       "coastal_knots": 3.0,
-      "upwind_penalty_multiplier": 0.4
+      "favorable_speed_modifier": 0.30,
+      "transition_speed_modifier": 0.0,
+      "against_coastal_speed_modifier": -0.30,
+      "against_open_ocean_speed_modifier": -0.40
     },
     "Ottoman Trader": {
       "open_ocean_knots": 3.8,
       "coastal_knots": 3.8,
-      "upwind_penalty_multiplier": 0.7
+      "favorable_speed_modifier": 0.30,
+      "transition_speed_modifier": 0.0,
+      "against_coastal_speed_modifier": -0.10,
+      "against_open_ocean_speed_modifier": -0.30
     },
     "Chinese Trader": {
       "open_ocean_knots": 3.3,
       "coastal_knots": 4.0,
-      "upwind_penalty_multiplier": 0.5
+      "favorable_speed_modifier": 0.30,
+      "transition_speed_modifier": 0.0,
+      "against_coastal_speed_modifier": -0.20,
+      "against_open_ocean_speed_modifier": -0.40
     }
   },
 
