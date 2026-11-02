@@ -122,5 +122,7 @@
   "voyage_hunt_failure": "The hunting party comes back muddy, bitten, and empty-handed.",
   "voyage_hunt_new_hunter": "{name} is now a Hunter.",
   "voyage_fish_new_fisher": "{name} is now Fisher-folk (Coastal).",
-  "effect_lose_hostage": "{hostage} is no longer with your crew."
+  "effect_lose_hostage": "{hostage} is no longer with your crew.",
+  "shore_leave_morale": "Shore leave. The crew comes back from town louder than they left. (+10 morale)",
+  "crew_bonus_paid": "You pay out a bonus on deck. The crew counts it twice and decides you're not so bad. (+{n} morale)"
 }

@@ -122,5 +122,7 @@
   "voyage_hunt_failure": "La partida de caza vuelve embarrada, picada por los insectos, y con las manos vacías.",
   "voyage_hunt_new_hunter": "{name} ya es Cazador.",
   "voyage_fish_new_fisher": "{name} ya es Pueblo Pescador (Costero).",
-  "effect_lose_hostage": "{hostage} ya no está con vuestra tripulación."
+  "effect_lose_hostage": "{hostage} ya no está con vuestra tripulación.",
+  "shore_leave_morale": "Permiso en tierra. La tripulación vuelve del pueblo más ruidosa de como se fue. (+10 moral)",
+  "crew_bonus_paid": "Repartís una paga extra en cubierta. La tripulación la cuenta dos veces y decide que no sois tan malo. (+{n} moral)"
 }
