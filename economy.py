@@ -142,6 +142,123 @@ MAX_CARGO = 50  # max cargo units per hold
 
 
 # ─────────────────────────────────────────
+# Trade zones and regional demand (gap-fill sell prices)
+# ─────────────────────────────────────────
+
+# Every world.json location belongs to one trade zone.
+TRADE_ZONES: Dict[str, str] = {
+    "Aden Harbor": "West",          "Hormuz": "West",
+    "Goa Harbor": "West India",     "Calicut": "West India",
+    "Pegu": "Bengal",
+    "Malacca Harbor": "Straits",    "Aceh": "Straits",    "Kedah": "Straits",
+    "Patani": "Straits",            "Pulau Tioman": "Straits",
+    "Bantam": "Archipelago",        "Gresik": "Archipelago", "Bali": "Archipelago",
+    "Makassar": "Archipelago",      "Ternate": "Archipelago", "Tidore": "Archipelago",
+    "Ayutthaya": "Siam",            "Cham Coast": "Siam",
+    "Quanzhou": "China",
+}
+
+# Undirected links between zones. Zone distance = fewest links between two zones.
+ZONE_LINKS: List[Tuple[str, str]] = [
+    ("West", "West India"), ("West India", "Bengal"), ("Bengal", "Straits"),
+    ("Straits", "Archipelago"), ("Straits", "Siam"), ("Siam", "China"),
+]
+
+_ALL_ZONES: List[str] = ["West", "West India", "Bengal", "Straits", "Archipelago", "Siam", "China"]
+
+
+def _zone_distance(zone_a: str, zone_b: str) -> int:
+    """Fewest ZONE_LINKS hops between two zones (0 if same; 0 if either is unknown)."""
+    if zone_a == zone_b or zone_a not in _ALL_ZONES or zone_b not in _ALL_ZONES:
+        return 0
+    neighbors: Dict[str, List[str]] = {z: [] for z in _ALL_ZONES}
+    for a, b in ZONE_LINKS:
+        neighbors[a].append(b)
+        neighbors[b].append(a)
+    frontier, seen, dist = [zone_a], {zone_a}, 0
+    while frontier:
+        dist += 1
+        nxt = []
+        for z in frontier:
+            for n in neighbors[z]:
+                if n == zone_b:
+                    return dist
+                if n not in seen:
+                    seen.add(n)
+                    nxt.append(n)
+        frontier = nxt
+    return 0
+
+
+def _all_zones_except(*keep: str) -> List[str]:
+    return [z for z in _ALL_ZONES if z not in keep]
+
+
+# Where a good fetches a premium ("prized", x1.5) or has no buyers at all
+# ("no_market", sells at 30% of origin price) when the port doesn't list it.
+GOOD_DEMAND: Dict[str, Dict[str, List[str]]] = {
+    "pepper":           {"prized": ["West", "China"],               "no_market": []},
+    "cloves":           {"prized": ["West", "West India", "China"], "no_market": []},
+    "nutmeg":           {"prized": ["West", "West India", "China"], "no_market": []},
+    "mace":             {"prized": ["West", "West India", "China"], "no_market": []},
+    "camphor":          {"prized": ["West", "China"],               "no_market": []},
+    "benzoin":          {"prized": ["West", "China"],               "no_market": []},
+    "aloes_wood":       {"prized": ["West", "China"],               "no_market": []},
+    "frankincense":     {"prized": ["China", "West India"],         "no_market": []},
+    "sapanwood":        {"prized": ["China"],                       "no_market": []},
+    "silk":             {"prized": ["West", "West India"],          "no_market": []},
+    "porcelain":        {"prized": ["West", "West India"],          "no_market": []},
+    "cotton":           {"prized": ["Straits", "Archipelago"],      "no_market": []},
+    "rubies":           {"prized": ["West", "West India"],          "no_market": []},
+    "musk":             {"prized": ["West"],                        "no_market": []},
+    "lac_dye":          {"prized": ["West"],                        "no_market": []},
+    "bird_of_paradise": {"prized": ["West"],                        "no_market": []},
+    "tin":              {"prized": ["West India", "West"],          "no_market": []},
+    "turtle_shell":     {"prized": ["China"],                       "no_market": []},
+    "ivory":            {"prized": ["China"],                       "no_market": []},
+    "deer_hide":        {"prized": ["China"],                       "no_market": []},
+    "horses":           {"prized": ["West India"],                  "no_market": ["China"]},
+    "elephant":         {"prized": ["West India"],                  "no_market": ["West", "China"]},
+    "war_elephant":     {"prized": ["West India"],                  "no_market": ["West", "China"]},
+    "white_elephant":   {"prized": ["West India"],                  "no_market": ["West", "China"]},
+    "coffee":           {"prized": [],                              "no_market": _all_zones_except("West")},
+    "fighting_cock":    {"prized": [],                              "no_market": _all_zones_except("Archipelago")},
+    "lontar":           {"prized": [],                              "no_market": _all_zones_except("Archipelago")},
+    "ritual_cloth":     {"prized": [],                              "no_market": _all_zones_except("Archipelago")},
+    "gamelan_bronze":   {"prized": [],                              "no_market": _all_zones_except("Archipelago")},
+}
+
+# good -> {"price": lowest positive base_price anywhere, "location": ..., "zone": ...}
+# Built lazily from data/world.json on first use.
+_GOOD_ORIGINS: Optional[Dict[str, Dict[str, Any]]] = None
+
+
+def _good_origins() -> Dict[str, Dict[str, Any]]:
+    """Load data/world.json once and record each good's cheapest source.
+    (straits_project.load_world() can't be imported here without a circular
+    import, so this reads the file directly, like load_crew_data_fn().)"""
+    global _GOOD_ORIGINS
+    if _GOOD_ORIGINS is None:
+        import json, os
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "world.json")
+        with open(path, "r", encoding="utf-8") as f:
+            world = json.load(f)
+        origins: Dict[str, Dict[str, Any]] = {}
+        for loc in world.get("major_ports", []) + world.get("villages", []):
+            for good, price in loc.get("base_prices", {}).items():
+                if price > 0 and (good not in origins or price < origins[good]["price"]):
+                    origins[good] = {"price": price, "location": loc["name"],
+                                     "zone": TRADE_ZONES.get(loc["name"])}
+        _GOOD_ORIGINS = origins
+    return _GOOD_ORIGINS
+
+
+def _random_noise() -> float:
+    """Per-good market noise, shared by live prices and gap-fill sell prices."""
+    return random.uniform(0.88, 1.12)
+
+
+# ─────────────────────────────────────────
 # Haggling system
 # ─────────────────────────────────────────
 
@@ -407,13 +524,43 @@ class Economy:
         self.slave_market: bool = port_data.get("slave_market", False)
         self.slave_notes: Optional[str] = port_data.get("slave_notes")
         self._generate_live_prices()
+        # Sell-only prices for goods this port doesn't list. Fixed for the
+        # visit; kept out of live_prices so the buy menu never shows them.
+        self.gap_sell_prices: Dict[str, int] = {}
+        self._generate_gap_sell_prices()
+
+    def _generate_gap_sell_prices(self):
+        """Price unlisted goods from their origin price, zone distance and
+        regional demand, with the same noise and market-event modifier as
+        _generate_live_prices()."""
+        origins = _good_origins()
+        here = TRADE_ZONES.get(self.port_name)
+        affected = self.active_event["goods"]
+        mod = self.active_event["mod"]
+        for good in GOODS_CATALOG:
+            if good == "slaves" or self.live_prices.get(good, 0) > 0:
+                continue
+            origin = origins.get(good)
+            if origin is None:
+                continue  # effective_sell_price falls back to 1, as before
+            demand = GOOD_DEMAND.get(good, {})
+            if here in demand.get("no_market", []):
+                raw = round(origin["price"] * 0.3)
+            else:
+                raw = origin["price"] * (1 + 0.25 * _zone_distance(origin["zone"], here))
+                if here in demand.get("prized", []):
+                    raw *= 1.5
+            multiplier = _random_noise()
+            if good in affected:
+                multiplier *= mod
+            self.gap_sell_prices[good] = max(1, round(raw * multiplier))
 
     def _generate_live_prices(self):
         """Apply a random market event to generate live prices."""
         self.active_event = random.choice(MARKET_EVENTS)
         affected = self.active_event["goods"]
         mod = self.active_event["mod"]
-        random_noise = lambda: random.uniform(0.88, 1.12)
+        random_noise = _random_noise
 
         for good, base in self.base_prices.items():
             if base == 0:
@@ -433,6 +580,8 @@ class Economy:
     def effective_sell_price(self, good: str, crew_sell_bonus: float) -> int:
         """Price player receives when selling (higher is better). Crew bonus increases revenue."""
         base = self.live_prices.get(good, 0)
+        if not base and good != "slaves":
+            base = self.gap_sell_prices.get(good, 0)
         boosted = base * (1 + crew_sell_bonus)
         return max(1, round(boosted))
 
@@ -540,6 +689,9 @@ class Economy:
                     print("\n  Your hold is full.")
                     press_enter_fn()
                     return
+                desc = GOODS_CATALOG.get(good, {}).get("desc")
+                if desc:
+                    print(f"\n  {desc}")
                 qty_str = input(f"  How many {GOODS_CATALOG[good]['name']}? (max {min(space, state.gold // price)}): ").strip()
                 if qty_str.isdigit():
                     qty = int(qty_str)
