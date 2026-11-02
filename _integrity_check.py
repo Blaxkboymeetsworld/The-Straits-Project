@@ -208,7 +208,7 @@ for i, frag in enumerate(ed.get("lore_fragments", [])):
         fail(f"lore_fragments[{i}] is not a string")
 ok(f"{len(ed.get('lore_fragments',[]))} lore fragments, all strings")
 
-VALID_EFFECT_KEYS = {"gold","spices","ship_health","morale","provisions"}
+VALID_EFFECT_KEYS = {"gold","spices","ship_health","morale","provisions","cargo"}
 for pool_name in ("sea_events","harbor_events","village_events","special_events"):
     for ev in ed.get(pool_name, []):
         ev_id = ev.get("id","?")
