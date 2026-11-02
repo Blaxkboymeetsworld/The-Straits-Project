@@ -2810,6 +2810,49 @@ def _maybe_port_encounter(state: GameState, engine: "EventEngine"):
         engine.trigger_random("harbor_events", state)
 
 
+def _village_menu(state: GameState, village_data: Dict[str, Any], clear_fn, press_enter_fn):
+    """Simple village interaction hub: market (if any), provisions, rest, set sail."""
+    has_market = bool(village_data.get("base_prices"))
+    econ = Economy(village_data) if has_market else None
+
+    while True:
+        clear_fn()
+        print("═" * 52)
+        print(f"  {village_data['name'].upper()}")
+        print("═" * 52)
+        print(state.status_text())
+        print()
+
+        option_keys = []
+        if has_market:
+            print("  [1] Market (buy/sell goods)")
+            option_keys.append("1")
+        print("  [2] Restock provisions")
+        option_keys.append("2")
+        print("  [3] Rest for several hours (+8 hrs, +5 morale)")
+        option_keys.append("3")
+        print("  [S] Set sail")
+        option_keys.append("S")
+
+        print()
+        choice = get_menu_choice(option_keys)
+
+        if choice == "1":
+            econ.trade_menu(state, state.crew, clear_fn, press_enter_fn)
+        elif choice == "2":
+            _restock_provisions(state, village_data, clear_fn, press_enter_fn)
+        elif choice == "3":
+            clear_fn()
+            print("\n  The crew stands down for several hours. The ship rocks gently at anchor.")
+            state.time.advance_hours(8)
+            state.morale = min(100, state.morale + 5)
+            print(f"\n  Time passes. {MONTH_NAMES[state.month]} {state.calendar_year} (Year {state.year})  •  {state.time.display}")
+            print(f"  Morale +5. Current morale: {state.morale}")
+            press_enter_fn()
+        elif choice == "S":
+            break
+
+
 # ─────────────────────────────────────────
 # Handle Landfall
 # ─────────────────────────────────────────
@@ -2862,6 +2905,9 @@ def handle_landfall(
         else:
             # Village: simpler interaction
             engine.trigger_random("village_events", state)
+            if state.pending_failure():
+                return
+            _village_menu(state, port_data, clear, press_enter)
     else:
         engine.trigger_random("harbor_events", state)
 
