@@ -3054,7 +3054,7 @@ def handle_landfall(
 
     # Shore leave: a flat morale bump on every arrival at a port or village.
     if state.current_location_type in ("major_port", "village"):
-        state.morale = min(100, state.morale + 10)
+        state.morale = min(100, state.morale + 12)
         print(f"\n  {t('shore_leave_morale')}")
 
     # First-time port flag
