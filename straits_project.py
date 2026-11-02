@@ -34,7 +34,7 @@ from time_system import (TimeSystem, START_DATE, get_waterway,
                          calculate_voyage,
                          _ROUTE_DISTANCES_NM, is_open_ocean)
 from systems import get_ibu_malam_appearance, maybe_trigger_lore, roll_check
-from discovery import Rutter, UNKNOWN, RUMORED, CHARTED
+from discovery import Rutter, UNKNOWN, RUMORED, CHARTED, SOURCE_COMMON
 from combat import naval_combat, personal_combat, bodyguard_intercept
 
 # ─────────────────────────────────────────
@@ -3275,15 +3275,17 @@ def _rutter_screen(state: GameState, clear_fn, press_enter_fn):
     print("═" * 52)
     print(f"  {t('rutter_title')}")
     print("═" * 52)
-    for level in (CHARTED, RUMORED):
+    for level in (RUMORED, CHARTED):          # rumored first, each group alphabetical
         for name in sorted(n for n, e in state.rutter.entries.items() if e["status"] == level):
             entry = state.rutter.entries[name]
             print(f"\n  {name} — {t('rutter_status_' + level)}")
             if entry["goods"]:
                 goods = ", ".join(GOODS_CATALOG.get(g, {}).get("name", g) for g in entry["goods"])
-                print(f"     {t('rutter_goods').format(goods=goods)}")
-            src = entry.get("source_es") if getattr(state, "lang", "en") == "es" else entry.get("source")
-            print(f"     {t('rutter_source').format(source=src)}")
+                key = 'rutter_said_to_sell' if level == RUMORED else 'rutter_goods'
+                print(f"     {t(key).format(goods=goods)}")
+            if entry.get("source") != SOURCE_COMMON[0]:   # common knowledge needs no source
+                src = entry.get("source_es") if getattr(state, "lang", "en") == "es" else entry.get("source")
+                print(f"     {t('rutter_source').format(source=src)}")
     print()
     press_enter_fn()
 

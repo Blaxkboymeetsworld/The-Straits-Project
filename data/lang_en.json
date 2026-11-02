@@ -215,5 +215,6 @@
   "wedding_result_bride": "She comes aboard with a cooking pot and opinions. Within a week the food is better and nobody dares complain about it.",
   "wedding_result_refuse": "You order him back aboard. He comes. He doesn't speak to you again, and at the next port, he's gone.",
   "wedding_wife_joins": "{wife} joins your crew as cook.",
-  "marriage_groom_left": "{name} went ashore in the night and didn't come back. Nobody saw him go, and nobody looks surprised."
+  "marriage_groom_left": "{name} went ashore in the night and didn't come back. Nobody saw him go, and nobody looks surprised.",
+  "rutter_said_to_sell": "Said to sell: {goods}"
 }

@@ -215,5 +215,6 @@
   "wedding_result_bride": "Sube a bordo con una olla y opiniones propias. En una semana la comida ha mejorado y nadie se atreve a quejarse.",
   "wedding_result_refuse": "Le ordenáis volver a bordo. Vuelve. No os vuelve a dirigir la palabra, y en el siguiente puerto ya no está.",
   "wedding_wife_joins": "{wife} se une a vuestra tripulación como cocinera.",
-  "marriage_groom_left": "{name} bajó a tierra por la noche y no volvió. Nadie lo vio marcharse, y a nadie le sorprende."
+  "marriage_groom_left": "{name} bajó a tierra por la noche y no volvió. Nadie lo vio marcharse, y a nadie le sorprende.",
+  "rutter_said_to_sell": "Dicen que vende: {goods}"
 }
