@@ -519,6 +519,31 @@
   ],
   "special_events": [
     {
+      "id": "malacca_shahbandar",
+      "when": { "location": ["Malacca Harbor"], "once": true, "excludes_flag": "malacca_under_portuguese" },
+      "description": "Malacca keeps four harbor masters, one for each great family of merchants. Yours is the shahbandar of the Gujaratis, who handles every ship from the west. He reads your papers with interest: a Rumi this far east is news. Your duty is {harbor_fee} gold, assessed on your cargo.",
+      "description_es": "Malaca mantiene cuatro capitanes de puerto, uno por cada gran familia de mercaderes. El vuestro es el shahbandar de los gujaratíes, que se encarga de todos los barcos procedentes de occidente. Lee vuestros papeles con interés: un rumi tan al este es una novedad. Vuestro derecho de aduana es de {harbor_fee} oro, calculado sobre vuestra carga.",
+      "variants": {
+        "Portuguese Conquistador": {
+          "description": "Malacca keeps four harbor masters, one for each great family of merchants. No one is quite sure whose problem a Feringgi is, so you end up before the shahbandar of the Gujaratis, who is not pleased to see you. Two years ago your countrymen came here, and the Gujaratis worked hard to see them in chains. He sets your duty at {harbor_fee} gold.",
+          "description_es": "Malaca mantiene cuatro capitanes de puerto, uno por cada gran familia de mercaderes. Nadie está muy seguro de quién debe ocuparse de un feringgi, así que termináis ante el shahbandar de los gujaratíes, que no se alegra de veros. Hace dos años vuestros compatriotas vinieron aquí, y los gujaratíes se esforzaron por verlos encadenados. Fija vuestro derecho de aduana en {harbor_fee} oro."
+        },
+        "Chinese Trader": {
+          "description": "Malacca keeps four harbor masters, one for each great family of merchants. Yours handles the junks from China, Champa, and the Ryukyus, and he receives you as an old acquaintance of your house. Ships from the east pay no duty here. Custom asks only for presents: to the sultan, the bendahara, and the shahbandar himself.",
+          "description_es": "Malaca mantiene cuatro capitanes de puerto, uno por cada gran familia de mercaderes. El vuestro se encarga de los juncos de China, Champa y las Ryukyu, y os recibe como a un viejo conocido de vuestra casa. Los barcos de oriente no pagan derecho de aduana aquí. La costumbre solo pide regalos: para el sultán, el bendahara, y el propio shahbandar.",
+          "options": {
+            "1": { "text": "Present silk from your hold.", "text_es": "Presentar seda de vuestra bodega.", "requires": { "cargo": { "silk": 1 } }, "effect": { "cargo": { "silk": -1 }, "morale": 4 }, "result": "He unrolls the bolt in the light, nods, and passes it to a servant without a word. That nod will open more doors in Malacca than gold would.", "result_es": "Desenrolla la pieza a la luz, asiente, y la pasa a un sirviente sin decir palabra. Ese gesto os abrirá más puertas en Malaca que el oro." },
+            "2": { "text": "Buy suitable presents in the market. ({harbor_fee} gold)", "text_es": "Comprar regalos adecuados en el mercado. ({harbor_fee} oro)", "requires": null, "effect": { "harbor_fee": 1.0 }, "result": "You buy porcelain and fine cloth and present them properly. He accepts them graciously and notes, you suspect, that you came unprepared.", "result_es": "Compráis porcelana y telas finas y los presentáis como es debido. Los acepta con gracia y anota, sospecháis, que llegasteis sin preparación." }
+          }
+        }
+      },
+      "options": {
+        "1": { "text": "Pay the duty. ({harbor_fee} gold)", "text_es": "Pagar el derecho de aduana. ({harbor_fee} oro)", "requires": null, "effect": { "harbor_fee": 1.0 }, "result": "He takes the duty, assigns you a warehouse, and sends a man to show you the way. In Malacca, even paying your taxes comes with a guide.", "result_es": "Toma el derecho de aduana, os asigna un almacén, y envía a un hombre para mostraros el camino. En Malaca, hasta pagar los impuestos viene con un guía." },
+        "2": { "text": "Argue the assessment.", "text_es": "Discutir la tasación.", "requires": null, "effect": { "harbor_fee": 0.75 }, "result": "He listens, agrees to a lower figure, and writes something in the margin. In Malacca, every discount gets recorded.", "result_es": "Escucha, acepta una cifra menor, y escribe algo al margen. En Malaca, cada descuento queda registrado." }
+      },
+      "pool": "special_events"
+    },
+    {
       "id": "harbormaster_intro_special",
       "description": "You have arrived at {current_port} for the first time. {harbormaster_name} receives you in a small stone office overlooking the anchorage. He sets your harbor fee at {harbor_fee} gold and says little else — but his eyes are measuring you carefully.",
       "description_es": "Habéis llegado a {current_port} por primera vez. {harbormaster_name} os recibe en una pequeña oficina de piedra con vistas al fondeadero. Fija vuestra tasa portuaria en {harbor_fee} oro y dice poco más — pero sus ojos os miden con cuidado.",
@@ -534,7 +559,12 @@
         },
         "Chinese Trader": {
           "description": "You have arrived at {current_port}. {harbormaster_name} has dealt with Chinese merchants for years. The fee is {harbor_fee} gold. He assumes you carry silk or porcelain and his manner is professional, if transactional.",
-          "description_es": "Habéis llegado a {current_port}. {harbormaster_name} lleva años tratando con comerciantes chinos. La tasa es de {harbor_fee} oro. Asume que lleváis seda o porcelana y su trato es profesional, aunque transaccional."
+          "description_es": "Habéis llegado a {current_port}. {harbormaster_name} lleva años tratando con comerciantes chinos. La tasa es de {harbor_fee} oro. Asume que lleváis seda o porcelana y su trato es profesional, aunque transaccional.",
+          "options": {
+            "1": { "text": "Offer a bolt of silk from your hold.", "text_es": "Ofrecer una pieza de seda de vuestra bodega.", "requires": { "cargo": { "silk": 1 } }, "effect": { "cargo": { "silk": -1 } }, "result": "He accepts the silk with both hands. Your fee, he says, is a matter already settled.", "result_es": "Acepta la seda con ambas manos. Vuestra tasa, dice, es un asunto ya resuelto." },
+            "2": { "text": "Offer porcelain from your hold.", "text_es": "Ofrecer porcelana de vuestra bodega.", "requires": { "cargo": { "porcelain": 1 } }, "effect": { "cargo": { "porcelain": -1 } }, "result": "He turns the bowl in the light and sets it on his shelf beside others like it. Your welcome here is assured.", "result_es": "Da vueltas al cuenco a la luz y lo coloca en su estante junto a otros parecidos. Vuestra bienvenida aquí está asegurada." },
+            "3": { "text": "Buy a suitable present. ({harbor_fee} gold)", "text_es": "Comprar un regalo adecuado. ({harbor_fee} oro)", "requires": null, "effect": { "harbor_fee": 1.0 }, "result": "You buy something appropriate in the market. He accepts it politely. A present bought that morning is still a present.", "result_es": "Compráis algo apropiado en el mercado. Lo acepta cortésmente. Un regalo comprado esa misma mañana sigue siendo un regalo." }
+          }
         }
       },
       "options": {
