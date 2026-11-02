@@ -100,6 +100,8 @@ def get_menu_choice(valid_keys):
         choice = input("  > ").strip().upper()
         if choice in valid_keys:
             return choice
+        # LOCALE is empty on the language-select screen, so fall back to English.
+        print(LOCALE.get("invalid_input", "  Invalid input."))
 
 def ensure_dirs():
     os.makedirs(DATA_DIR, exist_ok=True)

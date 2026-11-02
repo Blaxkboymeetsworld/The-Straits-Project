@@ -87,5 +87,6 @@
   "access_warning_ruler_audience": "The palace is not receiving visitors at this hour.",
   "access_warning_recruitment": "The docks are quiet. Recruits will be here in the morning.",
   "access_warning_quest_board": "Officials are not available until morning.",
-  "access_warning_ship_repair": "The shipwrights are not working at this hour."
+  "access_warning_ship_repair": "The shipwrights are not working at this hour.",
+  "invalid_input": "  Invalid input."
 }

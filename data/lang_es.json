@@ -87,5 +87,6 @@
   "access_warning_ruler_audience": "El palacio no recibe visitantes a esta hora.",
   "access_warning_recruitment": "Los muelles están tranquilos. Los reclutas estarán aquí por la mañana.",
   "access_warning_quest_board": "Los funcionarios no están disponibles hasta la mañana.",
-  "access_warning_ship_repair": "Los carpinteros de ribera no trabajan a esta hora."
+  "access_warning_ship_repair": "Los carpinteros de ribera no trabajan a esta hora.",
+  "invalid_input": "  Entrada no válida."
 }
