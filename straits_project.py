@@ -2852,10 +2852,7 @@ for _a, _b in [
     ("Goa Harbor", "Calicut"), ("Calicut", "Hormuz"), ("Calicut", "Aden Harbor"),
     ("Goa Harbor", "Hormuz"), ("Goa Harbor", "Aden Harbor"), ("Calicut", "Malacca Harbor"),
     ("Kedah", "Aceh"), ("Kedah", "Pegu"), ("Kedah", "Calicut"),
-    ("Aden Harbor", "Bantam"), ("Aden Harbor", "Malacca Harbor"), ("Aden Harbor", "Quanzhou"),
-    ("Bantam", "Calicut"), ("Bantam", "Goa Harbor"), ("Bantam", "Hormuz"),
-    ("Calicut", "Quanzhou"), ("Goa Harbor", "Malacca Harbor"), ("Goa Harbor", "Quanzhou"),
-    ("Goa Harbor", "Ternate"), ("Hormuz", "Malacca Harbor"), ("Hormuz", "Quanzhou"),
+    ("Goa Harbor", "Malacca Harbor"),
 ]:
     _ROUTE_OCEAN_SYSTEM[(_a, _b)] = "indian_ocean"
     _ROUTE_OCEAN_SYSTEM[(_b, _a)] = "indian_ocean"

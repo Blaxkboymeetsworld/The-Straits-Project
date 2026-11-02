@@ -140,13 +140,14 @@ for _rd in _NAUTICAL_DATA.get("route_distances", []):
     _ROUTE_DISTANCES_NM[(_rd_a, _rd_b)] = _rd_nm
     _ROUTE_DISTANCES_NM[(_rd_b, _rd_a)] = _rd_nm
 
-# Route types. These six crossings (either direction) are OPEN OCEAN: no
+# Route types. These crossings (either direction) are OPEN OCEAN: no
 # coast to shelter under. Every other route is COASTAL. This is the single
 # source for route type; calculate_voyage(), blocking, and the voyage-pause
 # hunting rule all read it through is_open_ocean().
 OPEN_OCEAN_ROUTES = frozenset(frozenset(pair) for pair in [
     ("Aden Harbor", "Calicut"), ("Aden Harbor", "Goa Harbor"), ("Aden Harbor", "Aceh"),
     ("Hormuz", "Calicut"), ("Calicut", "Aceh"), ("Calicut", "Malacca Harbor"),
+    ("Goa Harbor", "Malacca Harbor"), ("Calicut", "Kedah"),
 ])
 
 
