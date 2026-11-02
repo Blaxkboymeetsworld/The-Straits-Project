@@ -6,6 +6,52 @@ Changes: Added / Changed / Fixed / Flagged (future)
 
 ---
 
+## [v0.3.4] — Travel & Discovery — 2026-11-02
+
+### Added
+- Discovery system (`discovery.py`): every location is UNKNOWN, RUMORED or
+  CHARTED per game, with role-specific starting knowledge; arriving charts a
+  place. Saved with the game; older saves load fully charted.
+- The rutter: known places, rumored goods ("Said to sell"), and who told you.
+  `[W] Ask about the wider world` in ports and villages (harbor master,
+  tavern, crew), `[R]` at sea.
+- `data/leads.json`: 28 leads (tavern, locals, harbor masters, crew), with a
+  dream lead that pays off if you reach the island within a year
+- The sailor's marriage: a once-per-game wedding with three outcomes
+- Pulau Bayang, the Shadow Island: a rare sea event after a monsoon shift
+- Destination menu: rumored places show "?" and a guessed range of days
+- Per-role ships: nau (hold 50), dhow (40), junk (60), shown at role select
+- Wind tags in the destination menu and a departure line for each wind
+- Voyage pause header with the waterway name and a line of ship life
+- Integrity check validates `leads.json` and starting knowledge
+
+### Changed
+- Routes are OPEN OCEAN (8 crossings) or COASTAL; speed uses per-role
+  monsoon modifiers in `nautical_data.json` (favorable +30%, against -10%
+  to -40%) instead of a single upwind multiplier
+- Coastal routes never block; open-ocean routes against the monsoon offer
+  sail anyway, wait (up to 90 days, with wages and harbor events), or choose
+  another destination
+- 11 long direct legs removed (57 -> 46); cargo relays through Calicut and
+  Malacca
+- Voyage pauses: 1-4 evenly spaced on voyages of 10+ days; sea-event cap
+  scales with voyage length; hunting at every pause except open ocean
+- Sea events don't repeat within a voyage; harbor and village events rest
+  for three arrivals
+- Travel quests' time limits raised so the slowest ship can make the trip
+- Provisions cost halved (10 gold, 15 at remote ports); shore leave +12 morale
+- Role, destination and departure screens translated into Spanish
+
+### Fixed
+- Historical rulers for 1511: Sultan Mahmud Shah at Malacca (Rui de Brito
+  Patalim after the Fall), Sri Baduga Maharaja at Bantam
+- Tun Mutahir, executed in 1510, replaced as a living NPC by Encik Lela,
+  steward of his household; Hang Kassim now speaks of the execution
+- The Ibu Malam burning-city vision no longer appears before the Fall
+- Four quests that could not be completed in time now can
+
+---
+
 ## [v0.2.0] — The Bones Update — 2026-04-01
 
 ### Fixed
