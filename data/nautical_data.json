@@ -78,6 +78,9 @@
     { "from": "Patani",         "to": "Quanzhou",      "nautical_miles": 1470 },
     { "from": "Pulau Tioman",   "to": "Patani",        "nautical_miles": 300 },
     { "from": "Bantam",         "to": "Pulau Tioman",  "nautical_miles": 546 },
-    { "from": "Quanzhou",       "to": "Malacca Harbor","nautical_miles": 1658 }
+    { "from": "Quanzhou",       "to": "Malacca Harbor","nautical_miles": 1658 },
+    { "from": "Kedah",          "to": "Aceh",          "nautical_miles": 299 },
+    { "from": "Kedah",          "to": "Pegu",          "nautical_miles": 680 },
+    { "from": "Kedah",          "to": "Calicut",       "nautical_miles": 1488 }
   ]
 }
